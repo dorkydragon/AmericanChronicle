@@ -1,58 +1,58 @@
-// MARK: -
-// MARK: DelayedSearchInterface protocol
+// mark: -
+// mark: DelayedSearchInterface protocol
 
 protocol DelayedSearchInterface {
     var parameters: SearchParameters { get }
     init(parameters: SearchParameters,
          dataManager: SearchDataManagerInterface,
          runLoop: RunLoopInterface,
-         completionHandler: ((SearchResults?, ErrorType?) -> ()))
+         completionHandler: @escaping ((SearchResults?, Error?) -> ()))
     func cancel()
     func isSearchInProgress() -> Bool
 }
 
-// MARK: -
-// MARK: DelayedSearch class
+// mark: -
+// mark: DelayedSearch class
 
 final class DelayedSearch: NSObject, DelayedSearchInterface {
 
-    // MARK: Properties
+    // mark: Properties
 
     let parameters: SearchParameters
-    private let dataManager: SearchDataManagerInterface
-    private let completionHandler: (SearchResults?, ErrorType?) -> ()
-    private var timer: NSTimer!
+    fileprivate let dataManager: SearchDataManagerInterface
+    fileprivate let completionHandler: (SearchResults?, Error?) -> ()
+    fileprivate var timer: Timer!
 
-    // MARK: Init methods
+    // mark: Init methods
 
-    required init(parameters: SearchParameters,
+    internal init(parameters: SearchParameters,
                   dataManager: SearchDataManagerInterface,
-                  runLoop: RunLoopInterface = NSRunLoop.currentRunLoop(),
-                  completionHandler: ((SearchResults?, ErrorType?) -> ())) {
+                  runLoop: RunLoopInterface,
+                  completionHandler: @escaping ((SearchResults?, Error?) -> ())) {
         self.parameters = parameters
         self.dataManager = dataManager
         self.completionHandler = completionHandler
 
         super.init()
 
-        timer = NSTimer(timeInterval: 0.5,
+        timer = Timer(timeInterval: 0.5,
                         target: self,
                         selector: #selector(timerDidFire(_:)),
                         userInfo: nil,
                         repeats: false)
-        runLoop.addTimer(timer!, forMode: NSDefaultRunLoopMode)
+        runLoop.add(timer!, forMode: RunLoopMode.defaultRunLoopMode)
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func timerDidFire(sender: NSTimer) {
+    func timerDidFire(_ sender: Timer) {
         dataManager.fetchMoreResults(parameters, completionHandler: completionHandler)
     }
 
-    // MARK: DelayedSearchInterface methods
+    // mark: DelayedSearchInterface methods
 
     func cancel() {
-        if timer.valid { // Request hasn't started yet
+        if timer.isValid { // Request hasn't started yet
             timer.invalidate()
             let error = NSError(domain: "", code: -999, userInfo: nil)
             completionHandler(nil, error)
@@ -65,7 +65,7 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
         Returns the correct value by the time the completion handler is called.
     */
     func isSearchInProgress() -> Bool {
-        if timer.valid {
+        if timer.isValid {
             return true
         }
         return dataManager.isFetchInProgress(parameters)

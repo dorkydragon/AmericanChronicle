@@ -5,13 +5,13 @@ class FakeUSStatePickerPresenter: USStatePickerPresenterInterface {
 
     var didCallConfigureWithUserInterface: USStatePickerUserInterface?
     var didCallConfigureWithSelectedStateNames: [String]?
-    func configureUserInterfaceForPresentation(userInterface: USStatePickerUserInterface,
+    func configureUserInterfaceForPresentation(_ userInterface: USStatePickerUserInterface,
                                                withSelectedStateNames selectedStateNames: [String]) {
         didCallConfigureWithUserInterface = userInterface
         didCallConfigureWithSelectedStateNames = selectedStateNames
     }
 
-    func userDidTapSave(selectedStateNames: [String]) {
+    func userDidTapSave(_ selectedStateNames: [String]) {
 
     }
 

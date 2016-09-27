@@ -1,31 +1,31 @@
-// MARK: -
-// MARK: USStatePickerUserInterface protocol
+// mark: -
+// mark: USStatePickerUserInterface protocol
 
 protocol USStatePickerUserInterface {
     var delegate: USStatePickerUserInterfaceDelegate? { get set }
     var stateNames: [String] { get set }
-    func setSelectedStateNames(selectedStates: [String])
+    func setSelectedStateNames(_ selectedStates: [String])
 }
 
-// MARK: -
-// MARK: USStatePickerUserInterfaceDelegate protocol
+// mark: -
+// mark: USStatePickerUserInterfaceDelegate protocol
 
 protocol USStatePickerUserInterfaceDelegate: class {
-    func userDidTapSave(selectedStateNames: [String])
+    func userDidTapSave(_ selectedStateNames: [String])
     func userDidTapCancel()
 }
 
-// MARK: -
-// MARK: USStatePickerViewController class
+// mark: -
+// mark: USStatePickerViewController class
 
 final class USStatePickerViewController: UICollectionViewController, USStatePickerUserInterface {
 
-    // MARK: Properties
+    // mark: Properties
 
     weak var delegate: USStatePickerUserInterfaceDelegate?
     var stateNames: [String] = []
 
-    // MARK: Init methods
+    // mark: Init methods
 
     func commonInit() {
         navigationItem.title = "U.S. States"
@@ -47,35 +47,35 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         commonInit()
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func setSelectedStateNames(selectedStates: [String]) {
+    func setSelectedStateNames(_ selectedStates: [String]) {
         for selectedState in selectedStates {
-            if let idx = stateNames.indexOf(selectedState) {
-                collectionView?.selectItemAtIndexPath(
-                    NSIndexPath(forItem: idx, inSection: 0),
+            if let idx = stateNames.index(of: selectedState) {
+                collectionView?.selectItem(
+                    at: IndexPath(item: idx, section: 0),
                     animated: false,
-                    scrollPosition: UICollectionViewScrollPosition.None)
+                    scrollPosition: UICollectionViewScrollPosition())
             }
 
         }
     }
 
-    func didTapCancelButton(sender: UIButton) {
+    func didTapCancelButton(_ sender: UIButton) {
         delegate?.userDidTapCancel()
     }
 
-    func didTapSaveButton(sender: UIButton) {
-        let selectedIndexPaths = collectionView?.indexPathsForSelectedItems() ?? []
-        let selectedStateNames = selectedIndexPaths.map { self.stateNames[$0.item] }
+    func didTapSaveButton(_ sender: UIButton) {
+        let selectedIndexPaths = collectionView?.indexPathsForSelectedItems ?? []
+        let selectedStateNames = selectedIndexPaths.map { self.stateNames[($0 as NSIndexPath).item] }
         delegate?.userDidTapSave(selectedStateNames)
     }
 
-    // MARK: UICollectionViewDelegateFlowLayout methods
+    // mark: UICollectionViewDelegateFlowLayout methods
 
-    func collectionView(collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                               sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+                               sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
 
         let columnCount = 1
 
@@ -88,29 +88,29 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         return CGSize(width: columnWidth, height: Measurements.buttonHeight)
     }
 
-    // MARK: UICollectionViewController overrides
+    // mark: UICollectionViewController overrides
 
-    override func collectionView(collectionView: UICollectionView,
+    override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
         return stateNames.count
     }
 
-    override func collectionView(collectionView: UICollectionView,
-                                 cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: USStateCell = collectionView.dequeueCellForItemAtIndexPath(indexPath)
-        cell.label.text = stateNames[indexPath.row]
+        cell.label.text = stateNames[(indexPath as NSIndexPath).row]
         return cell
     }
 
-    // MARK: UIViewController overrides
+    // mark: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView?.registerClass(USStateCell.self,
+        collectionView?.register(USStateCell.self,
                                       forCellWithReuseIdentifier: NSStringFromClass(USStateCell.self))
         collectionView?.allowsMultipleSelection = true
-        collectionView?.backgroundColor = Colors.lightBackground.colorWithAlphaComponent(0.8)
+        collectionView?.backgroundColor = Colors.lightBackground.withAlphaComponent(0.8)
         let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionInset = UIEdgeInsets(top: Measurements.verticalMargin,
                                             left: Measurements.horizontalMargin,

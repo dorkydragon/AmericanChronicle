@@ -1,22 +1,22 @@
-// MARK: -
-// MARK: PageWireframeDelegate protocol
+// mark: -
+// mark: PageWireframeDelegate protocol
 
 protocol PageWireframeDelegate: class {
-    func pageWireframeDidFinish(wireframe: PageWireframe)
+    func pageWireframeDidFinish(_ wireframe: PageWireframe)
 }
 
-// MARK: -
-// MARK: PageWireframe class
+// mark: -
+// mark: PageWireframe class
 
 class PageWireframe {
 
-    // MARK: Properties
+    // mark: Properties
 
-    private let presenter: PagePresenterInterface
-    private var presentedViewController: UIViewController?
-    private weak var delegate: PageWireframeDelegate?
+    fileprivate let presenter: PagePresenterInterface
+    fileprivate var presentedViewController: UIViewController?
+    fileprivate weak var delegate: PageWireframeDelegate?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface = PagePresenter()) {
         self.delegate = delegate
@@ -24,11 +24,11 @@ class PageWireframe {
         presenter.wireframe = self
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func presentFromViewController(presentingViewController: UIViewController?,
+    func presentFromViewController(_ presentingViewController: UIViewController?,
                                    withSearchTerm searchTerm: String?,
-                                                  remoteURL: NSURL,
+                                                  remoteURL: URL,
                                                   id: String) {
         let sb = UIStoryboard(name: "Page", bundle: nil)
         let vc = sb.instantiateInitialViewController() as! PageViewController
@@ -37,21 +37,21 @@ class PageWireframe {
                                                         withSearchTerm: searchTerm,
                                                         remoteDownloadURL: remoteURL,
                                                         id: id)
-        presentingViewController?.presentViewController(vc, animated: true, completion: nil)
+        presentingViewController?.present(vc, animated: true, completion: nil)
 
         presentedViewController = vc
 
     }
 
-    func showShareScreenWithImage(image: UIImage?) {
+    func showShareScreenWithImage(_ image: UIImage?) {
         if let image = image {
             let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
-            presentedViewController?.presentViewController(vc, animated: true, completion: nil)
+            presentedViewController?.present(vc, animated: true, completion: nil)
         }
     }
 
     func dismissPageScreen() {
-        presentedViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: {
+        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: {
             self.delegate?.pageWireframeDidFinish(self)
         })
     }

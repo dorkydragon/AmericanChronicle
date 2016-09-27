@@ -1,14 +1,14 @@
 protocol CachedPageServiceInterface {
-    func fileURLForRemoteURL(remoteURL: NSURL) -> NSURL?
-    func cacheFileURL(fileURL: NSURL, forRemoteURL remoteURL: NSURL)
+    func fileURLForRemoteURL(_ remoteURL: URL) -> URL?
+    func cacheFileURL(_ fileURL: URL, forRemoteURL remoteURL: URL)
 }
 
 final class CachedPageService: CachedPageServiceInterface {
-    private var completedDownloads: [NSURL: NSURL] = [:]
-    func fileURLForRemoteURL(remoteURL: NSURL) -> NSURL? {
+    fileprivate var completedDownloads: [URL: URL] = [:]
+    func fileURLForRemoteURL(_ remoteURL: URL) -> URL? {
         return completedDownloads[remoteURL]
     }
-    func cacheFileURL(fileURL: NSURL, forRemoteURL remoteURL: NSURL) {
+    func cacheFileURL(_ fileURL: URL, forRemoteURL remoteURL: URL) {
         completedDownloads[remoteURL] = fileURL
     }
 }

@@ -1,49 +1,49 @@
-// MARK: -
-// MARK: SearchInteractorInterface
+// mark: -
+// mark: SearchInteractorInterface
 
 protocol SearchInteractorInterface {
     var delegate: SearchInteractorDelegate? { get set }
 
-    func fetchNextPageOfResults(parameters: SearchParameters)
+    func fetchNextPageOfResults(_ parameters: SearchParameters)
     func isSearchInProgress() -> Bool
     func cancelLastSearch()
 }
 
-// MARK: -
-// MARK: SearchInteractorDelegate
+// mark: -
+// mark: SearchInteractorDelegate
 
 protocol SearchInteractorDelegate: class {
-    func search(parameters: SearchParameters, didFinishWithResults: SearchResults?, error: NSError?)
+    func search(_ parameters: SearchParameters, didFinishWithResults: SearchResults?, error: NSError?)
 }
 
-// MARK: -
-// MARK: SearchInteractor class
+// mark: -
+// mark: SearchInteractor class
 
 // Responsibilities:
 //  * Ensures that only one request is ongoing at a time.
 final class SearchInteractor: SearchInteractorInterface {
 
-    // MARK: Properties
+    // mark: Properties
 
     weak var delegate: SearchInteractorDelegate?
 
-    private let searchFactory: DelayedSearchFactoryInterface
-    private var activeSearch: DelayedSearchInterface?
+    fileprivate let searchFactory: DelayedSearchFactoryInterface
+    fileprivate var activeSearch: DelayedSearchInterface?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(searchFactory: DelayedSearchFactoryInterface = DelayedSearchFactory()) {
         self.searchFactory = searchFactory
     }
 
-    // MARK: SearchInteractorInterface methods
+    // mark: SearchInteractorInterface methods
 
-    func fetchNextPageOfResults(parameters: SearchParameters) {
+    func fetchNextPageOfResults(_ parameters: SearchParameters) {
         if parameters == activeSearch?.parameters {
             if isSearchInProgress() {
                 // There is already a search in progress for these parameters.
                 let msg = "Tried to start a search that is already ongoing. Taking no action."
-                let error = NSError(code: .DuplicateRequest,
+                let error = NSError(code: .duplicateRequest,
                                     message: msg)
                 self.delegate?.search(parameters, didFinishWithResults: nil, error: error)
                 return

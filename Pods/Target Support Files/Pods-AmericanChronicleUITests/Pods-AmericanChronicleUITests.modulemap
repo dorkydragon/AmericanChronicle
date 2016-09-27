@@ -1,0 +1,6 @@
+framework module Pods_AmericanChronicleUITests {
+  umbrella header "Pods-AmericanChronicleUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -2,10 +2,10 @@ final class HideUSStatePickerTransitionController: NSObject, UIViewControllerAni
 
     let duration = 0.1
 
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        if let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey) {
-            UIView.animateWithDuration(duration, animations: {
+        if let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) {
+            UIView.animate(withDuration: duration, animations: {
                 fromView.alpha = 0
                 }, completion: { _ in
                     fromView.removeFromSuperview()
@@ -14,7 +14,7 @@ final class HideUSStatePickerTransitionController: NSObject, UIViewControllerAni
         }
     }
 
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
 }

@@ -2,14 +2,14 @@ import MessageUI
 
 final class InfoViewController: UIViewController {
 
-    // MARK: Properties
+    // mark: Properties
 
     var dismissHandler: ((Void) -> Void)?
 
-    private let bodyLabel: UILabel = {
+    fileprivate let bodyLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.darkGray
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.numberOfLines = 0
         label.font = Fonts.mediumBody
         var text = "American Chronicle gets its data from the 'Chronicling America' website.\n"
@@ -18,27 +18,27 @@ final class InfoViewController: UIViewController {
         label.text = text
         return label
     }()
-    private let websiteButton = TitleButton(title: "Visit chroniclingamerica.gov.loc")
-    private let separator = UIImageView(image: UIImage.imageWithFillColor(Colors.lightBlueBright))
-    private let suggestionsLabel: UILabel = {
+    fileprivate let websiteButton = TitleButton(title: "Visit chroniclingamerica.gov.loc")
+    fileprivate let separator = UIImageView(image: UIImage.imageWithFillColor(Colors.lightBlueBright))
+    fileprivate let suggestionsLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.darkGray
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.numberOfLines = 0
         label.font = Fonts.mediumBody
         label.text = "Do you have a question, suggestion or complaint about the app?"
         return label
     }()
-    private let suggestionsButton = TitleButton(title: "Send us a message")
+    fileprivate let suggestionsButton = TitleButton(title: "Send us a message")
 
-    // MARK: Init methods
+    // mark: Init methods
 
     func commonInit() {
         navigationItem.title = "About this app"
         navigationItem.setLeftButtonTitle("Dismiss", target: self, action: #selector(didTapDismissButton(_:)))
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         commonInit()
     }
@@ -48,32 +48,32 @@ final class InfoViewController: UIViewController {
         commonInit()
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func didTapDismissButton(sender: UIBarButtonItem) {
+    func didTapDismissButton(_ sender: UIBarButtonItem) {
         dismissHandler?()
     }
 
-    func didTapSuggestionsButton(sender: UIButton) {
+    func didTapSuggestionsButton(_ sender: UIButton) {
         let vc = MFMailComposeViewController()
         vc.setSubject("American Chronicle")
-        guard let supportEmail = NSProcessInfo.processInfo().environment["SUPPORT_EMAIL"] else { return }
+        guard let supportEmail = ProcessInfo.processInfo.environment["SUPPORT_EMAIL"] else { return }
         vc.setToRecipients([supportEmail])
-        let body = "Version \(NSBundle.mainBundle().versionNumber), Build \(NSBundle.mainBundle().buildNumber)"
+        let body = "Version \(Bundle.main.versionNumber), Build \(Bundle.main.buildNumber)"
         vc.setMessageBody(body, isHTML: false)
-        presentViewController(vc, animated: true, completion: nil)
+        present(vc, animated: true, completion: nil)
     }
 
-    func didTapWebsiteButton(sender: UIBarButtonItem) {
+    func didTapWebsiteButton(_ sender: UIBarButtonItem) {
         let vc = ChroniclingAmericaWebsiteViewController()
         vc.dismissHandler = {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         let nvc = UINavigationController(rootViewController: vc)
-        presentViewController(nvc, animated: true, completion: nil)
+        present(nvc, animated: true, completion: nil)
     }
 
-    // MARK: UIViewController overrides
+    // mark: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +81,7 @@ final class InfoViewController: UIViewController {
         view.backgroundColor = Colors.lightBackground
 
         view.addSubview(bodyLabel)
-        bodyLabel.snp_makeConstraints { make in
+        bodyLabel.snp.makeConstraints { make in
             make.top.equalTo(Measurements.verticalMargin)
             make.leading.equalTo(Measurements.horizontalMargin)
             make.trailing.equalTo(-Measurements.horizontalMargin)
@@ -89,36 +89,36 @@ final class InfoViewController: UIViewController {
 
         websiteButton.addTarget(self,
                                 action: #selector(didTapWebsiteButton(_:)),
-                                forControlEvents: .TouchUpInside)
+                                for: .touchUpInside)
         view.addSubview(websiteButton)
-        websiteButton.snp_makeConstraints { make in
-            make.top.equalTo(bodyLabel.snp_bottom).offset(Measurements.verticalSiblingSpacing * 2)
+        websiteButton.snp.makeConstraints { make in
+            make.top.equalTo(bodyLabel.snp.bottom).offset(Measurements.verticalSiblingSpacing * 2)
             make.leading.equalTo(Measurements.horizontalMargin)
             make.trailing.equalTo(-Measurements.horizontalMargin)
             make.height.equalTo(Measurements.buttonHeight)
         }
 
         view.addSubview(separator)
-        separator.snp_makeConstraints { make in
-            make.top.equalTo(websiteButton.snp_bottom).offset(Measurements.verticalMargin * 2)
+        separator.snp.makeConstraints { make in
+            make.top.equalTo(websiteButton.snp.bottom).offset(Measurements.verticalMargin * 2)
             make.leading.equalTo(Measurements.horizontalMargin * 2)
             make.trailing.equalTo(-Measurements.horizontalMargin * 2)
-            make.height.equalTo(1.0/UIScreen.mainScreen().nativeScale)
+            make.height.equalTo(1.0/UIScreen.main.nativeScale)
         }
 
         view.addSubview(suggestionsLabel)
-        suggestionsLabel.snp_makeConstraints { make in
-            make.top.equalTo(separator.snp_bottom).offset(Measurements.verticalMargin)
+        suggestionsLabel.snp.makeConstraints { make in
+            make.top.equalTo(separator.snp.bottom).offset(Measurements.verticalMargin)
             make.leading.equalTo(Measurements.horizontalMargin)
             make.trailing.equalTo(-Measurements.horizontalMargin)
         }
 
         suggestionsButton.addTarget(self,
                                     action: #selector(didTapSuggestionsButton(_:)),
-                                    forControlEvents: .TouchUpInside)
+                                    for: .touchUpInside)
         view.addSubview(suggestionsButton)
-        suggestionsButton.snp_makeConstraints { make in
-            make.top.equalTo(suggestionsLabel.snp_bottom)
+        suggestionsButton.snp.makeConstraints { make in
+            make.top.equalTo(suggestionsLabel.snp.bottom)
                 .offset(Measurements.verticalSiblingSpacing * 2)
             make.leading.equalTo(Measurements.horizontalMargin)
             make.trailing.equalTo(-Measurements.horizontalMargin)

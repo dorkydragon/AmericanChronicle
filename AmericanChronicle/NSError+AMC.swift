@@ -1,46 +1,46 @@
 extension NSError {
-    private static var appDomain: String {
+    fileprivate static var appDomain: String {
         return "com.ryanipete.AmericanChronicle"
     }
 
     enum Code: Int {
-        case InvalidParameter
-        case DuplicateRequest
-        case MissingBundleFile
-        case AllItemsLoaded
+        case invalidParameter
+        case duplicateRequest
+        case missingBundleFile
+        case allItemsLoaded
     }
 
     convenience init(code: Code, message: String?) {
         var userInfo: [String: AnyObject] = [:]
         switch code {
-        case .InvalidParameter:
-            userInfo[NSLocalizedDescriptionKey] = "InvalidParameter"
-        case .DuplicateRequest:
-            userInfo[NSLocalizedDescriptionKey] = "DuplicateRequest"
-        case .MissingBundleFile:
-            userInfo[NSLocalizedDescriptionKey] = "MissingBundleFile"
-        case .AllItemsLoaded:
-            userInfo[NSLocalizedDescriptionKey] = "AllItemsLoaded"
+        case .invalidParameter:
+            userInfo[NSLocalizedDescriptionKey] = "InvalidParameter" as AnyObject?
+        case .duplicateRequest:
+            userInfo[NSLocalizedDescriptionKey] = "DuplicateRequest" as AnyObject?
+        case .missingBundleFile:
+            userInfo[NSLocalizedDescriptionKey] = "MissingBundleFile" as AnyObject?
+        case .allItemsLoaded:
+            userInfo[NSLocalizedDescriptionKey] = "AllItemsLoaded" as AnyObject?
         }
-        userInfo[NSLocalizedRecoverySuggestionErrorKey] = message
+        userInfo[NSLocalizedRecoverySuggestionErrorKey] = message as AnyObject?
         self.init(domain: NSError.appDomain, code: code.rawValue, userInfo: userInfo)
     }
 
     func isInvalidParameterError() -> Bool {
-        return (Code(rawValue: code) == .InvalidParameter)
+        return (Code(rawValue: code) == .invalidParameter)
             && (domain == NSError.appDomain)
     }
 
     func isDuplicateRequestError() -> Bool {
-        return (Code(rawValue: code) == .DuplicateRequest) && (domain == NSError.appDomain)
+        return (Code(rawValue: code) == .duplicateRequest) && (domain == NSError.appDomain)
     }
 
     func isMissingBundleFileError() -> Bool {
-        return (Code(rawValue: code) == .MissingBundleFile) && (domain == NSError.appDomain)
+        return (Code(rawValue: code) == .missingBundleFile) && (domain == NSError.appDomain)
     }
 
     func isAllItemsLoadedError() -> Bool {
-        return (Code(rawValue: code) == .AllItemsLoaded) && (domain == NSError.appDomain)
+        return (Code(rawValue: code) == .allItemsLoaded) && (domain == NSError.appDomain)
     }
 
     func isCancelledRequestError() -> Bool {

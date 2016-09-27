@@ -3,13 +3,13 @@ final class USStateCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = Colors.lightBlueBright
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.font = Fonts.largeBody
         label.frame = self.bounds
-        label.highlightedTextColor = UIColor.whiteColor()
+        label.highlightedTextColor = UIColor.white
         contentView.addSubview(label)
     }
 

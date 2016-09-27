@@ -1,36 +1,36 @@
-// MARK: -
-// MARK: USStatePickerWireframeInterface protocol
+// mark: -
+// mark: USStatePickerWireframeInterface protocol
 
 protocol USStatePickerWireframeInterface: class {
-    func presentFromViewController(presentingViewController: UIViewController?,
+    func presentFromViewController(_ presentingViewController: UIViewController?,
                                    withSelectedStateNames: [String])
-    func userDidTapSave(selectedItems: [String])
+    func userDidTapSave(_ selectedItems: [String])
     func userDidTapCancel()
 }
 
-// MARK: -
-// MARK: USStatePickerWireframeDelegate protocol
+// mark: -
+// mark: USStatePickerWireframeDelegate protocol
 
 protocol USStatePickerWireframeDelegate: class {
-    func usStatePickerWireframe(wireframe: USStatePickerWireframe,
+    func usStatePickerWireframe(_ wireframe: USStatePickerWireframe,
                                 didSaveFilteredUSStateNames: [String])
-    func usStatePickerWireframeDidFinish(wireframe: USStatePickerWireframe)
+    func usStatePickerWireframeDidFinish(_ wireframe: USStatePickerWireframe)
 }
 
-// MARK: -
-// MARK: USStatePickerWireframe class
+// mark: -
+// mark: USStatePickerWireframe class
 
 final class USStatePickerWireframe: NSObject,
     USStatePickerWireframeInterface,
     UIViewControllerTransitioningDelegate {
 
-    // MARK: Properties
+    // mark: Properties
 
-    private let presenter: USStatePickerPresenterInterface
-    private(set) var presentedViewController: UIViewController?
-    private weak var delegate: USStatePickerWireframeDelegate?
+    fileprivate let presenter: USStatePickerPresenterInterface
+    fileprivate(set) var presentedViewController: UIViewController?
+    fileprivate weak var delegate: USStatePickerWireframeDelegate?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(delegate: USStatePickerWireframeDelegate,
          presenter: USStatePickerPresenterInterface = USStatePickerPresenter()) {
@@ -42,48 +42,48 @@ final class USStatePickerWireframe: NSObject,
         self.presenter.wireframe = self
     }
 
-    // MARK: USStatePickerWireframeInterface methods
+    // mark: USStatePickerWireframeInterface methods
 
-    func presentFromViewController(presentingViewController: UIViewController?,
+    func presentFromViewController(_ presentingViewController: UIViewController?,
                                    withSelectedStateNames selectedStateNames: [String]) {
         let vc = USStatePickerViewController()
         vc.delegate = presenter
         presenter.configureUserInterfaceForPresentation(vc, withSelectedStateNames: selectedStateNames)
 
         let nvc = UINavigationController(rootViewController: vc)
-        nvc.modalPresentationStyle = .Custom
+        nvc.modalPresentationStyle = .custom
         nvc.transitioningDelegate = self
 
-        presentingViewController?.presentViewController(nvc, animated: true, completion: nil)
+        presentingViewController?.present(nvc, animated: true, completion: nil)
 
         presentedViewController = nvc
 
     }
 
-    func userDidTapSave(selectedItems: [String]) {
+    func userDidTapSave(_ selectedItems: [String]) {
         delegate?.usStatePickerWireframe(self, didSaveFilteredUSStateNames: selectedItems)
-        presentedViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: {
+        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: {
             self.delegate?.usStatePickerWireframeDidFinish(self)
         })
     }
 
     func userDidTapCancel() {
-        presentedViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: {
+        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: {
             self.delegate?.usStatePickerWireframeDidFinish(self)
         })
     }
 
-    // MARK: UIViewControllerTransitioningDelegate methods
+    // mark: UIViewControllerTransitioningDelegate methods
 
-    func animationControllerForPresentedController(
-        presented: UIViewController,
-        presentingController presenting: UIViewController,
-                             sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ShowUSStatePickerTransitionController()
     }
 
-    func animationControllerForDismissedController(
-        dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(
+        forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return HideUSStatePickerTransitionController()
     }
 }

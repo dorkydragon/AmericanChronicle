@@ -2,15 +2,15 @@ final class ShowUSStatePickerTransitionController: NSObject, UIViewControllerAni
 
     let duration = 0.1
 
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        let fromNVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? UINavigationController
+        let fromNVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? UINavigationController
 
         if let _ = fromNVC?.topViewController as? SearchViewController {
-            if let toView = transitionContext.viewForKey(UITransitionContextToViewKey) {
+            if let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) {
                 toView.alpha = 0
-                transitionContext.containerView()!.addSubview(toView)
-                UIView.animateWithDuration(duration, animations: {
+                transitionContext.containerView.addSubview(toView)
+                UIView.animate(withDuration: duration, animations: {
                     toView.alpha = 1.0
                     }, completion: { _ in
                         transitionContext.completeTransition(true)
@@ -19,7 +19,7 @@ final class ShowUSStatePickerTransitionController: NSObject, UIViewControllerAni
         }
     }
 
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
 }

@@ -121,7 +121,7 @@ class SearchDataManagerTests: XCTestCase {
             earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
-        subject.isFetchInProgress(params)
+        _ = subject.isFetchInProgress(params)
         XCTAssertEqual(webService.isSearchInProgress_wasCalled_withParameters, params)
     }
 
@@ -133,7 +133,7 @@ class SearchDataManagerTests: XCTestCase {
             earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
-        subject.isFetchInProgress(params)
+        _ = subject.isFetchInProgress(params)
         XCTAssertEqual(webService.isSearchInProgress_wasCalled_withPage, 1)
     }
 
@@ -145,7 +145,7 @@ class SearchDataManagerTests: XCTestCase {
             earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
-        subject.isFetchInProgress(params)
+        _ = subject.isFetchInProgress(params)
         XCTAssertEqual(webService.isSearchInProgress_wasCalled_withPage, 3)
     }
 
@@ -194,7 +194,7 @@ class SearchDataManagerTests: XCTestCase {
 
     // Helpers
 
-    func searchResultsWithItemCount(itemCount: Int, totalItemCount: Int) -> SearchResults {
+    func searchResultsWithItemCount(_ itemCount: Int, totalItemCount: Int) -> SearchResults {
         let results = SearchResults()
         results.totalItems = totalItemCount
         results.itemsPerPage = 20

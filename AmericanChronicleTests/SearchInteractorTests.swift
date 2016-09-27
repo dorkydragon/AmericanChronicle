@@ -129,7 +129,7 @@ class SearchInteractorTests: XCTestCase {
         )
 
         subject.fetchNextPageOfResults(params)
-        let error = NSError(code: .InvalidParameter, message: "")
+        let error = NSError(code: .invalidParameter, message: nil)
         searchFactory.newSearchForTerm_lastReturnedSearch?.finishRequestWithSearchResults(nil, error: error)
 
         XCTAssertEqual(delegate.searchForTerm_didFinish_wasCalled_withError, error)
@@ -144,7 +144,7 @@ class SearchInteractorTests: XCTestCase {
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject.fetchNextPageOfResults(params)
         let search = searchFactory.newSearchForTerm_lastReturnedSearch
-        subject.isSearchInProgress()
+        _ = subject.isSearchInProgress()
         XCTAssert(search?.isSearchInProgress_wasCalled ?? false)
     }
 

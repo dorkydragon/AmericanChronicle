@@ -1,36 +1,36 @@
 import UIKit
 
-class TestURLProtocol: NSURLProtocol {
+class TestURLProtocol: URLProtocol {
 
     static var instancesLoading: [String: TestURLProtocol] = [:]
     static var didStartLoadingCallbacks: [String: ((Void) -> ())] = [:]
 
-    override init(request: NSURLRequest, cachedResponse: NSCachedURLResponse?, client: NSURLProtocolClient?) {
+    override init(request: URLRequest, cachedResponse: CachedURLResponse?, client: URLProtocolClient?) {
         super.init(request: request, cachedResponse: cachedResponse, client: client)
     }
 
-    class func finishLoading(URL: String) {
+    class func finishLoading(_ URL: String) {
         if let instance = instancesLoading[URL] {
-            instance.client?.URLProtocolDidFinishLoading(instance)
+            instance.client?.urlProtocolDidFinishLoading(instance)
         }
     }
 
-    override class func canInitWithRequest(request: NSURLRequest) -> Bool {
+    override class func canInit(with request: URLRequest) -> Bool {
         return true
     }
 
     override func startLoading() {
-        if let callback = TestURLProtocol.didStartLoadingCallbacks[request.URL?.absoluteString ?? ""] {
+        if let callback = TestURLProtocol.didStartLoadingCallbacks[request.url?.absoluteString ?? ""] {
             callback()
         }
-        TestURLProtocol.instancesLoading[request.URL?.absoluteString ?? ""] = self
+        TestURLProtocol.instancesLoading[request.url?.absoluteString ?? ""] = self
     }
 
     override func stopLoading() {
-        TestURLProtocol.instancesLoading[request.URL?.absoluteString ?? ""] = nil
+        TestURLProtocol.instancesLoading[request.url?.absoluteString ?? ""] = nil
     }
 
-    override class func canonicalRequestForRequest(request: NSURLRequest) -> NSURLRequest {
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         return request
     }
 

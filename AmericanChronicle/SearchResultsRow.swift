@@ -1,25 +1,25 @@
 final class SearchResultsRow: CustomStringConvertible {
 
-    // MARK: Properties
+    // mark: Properties
 
     let id: String?
-    let date: NSDate?
+    let date: Date?
     let cityState: String
     let publicationTitle: String
-    let thumbnailURL: NSURL?
-    let pdfURL: NSURL?
+    let thumbnailURL: URL?
+    let pdfURL: URL?
     let lccn: String?
     let edition: Int?
     let sequence: Int?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(id: String?,
-         date: NSDate?,
+         date: Date?,
          cityState: String,
          publicationTitle: String,
-         thumbnailURL: NSURL?,
-         pdfURL: NSURL?,
+         thumbnailURL: URL?,
+         pdfURL: URL?,
          lccn: String?,
          edition: Int?,
          sequence: Int?) {
@@ -34,7 +34,7 @@ final class SearchResultsRow: CustomStringConvertible {
         self.sequence = sequence
     }
 
-    // MARK: CustomStringConvertible methods
+    // mark: CustomStringConvertible methods
 
     var description: String {
         var desc = "<SearchResultsRow: "

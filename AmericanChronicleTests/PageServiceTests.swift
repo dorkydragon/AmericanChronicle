@@ -24,14 +24,14 @@ class PageServiceTests: XCTestCase {
         manager.download_wasCalled_handler = {
             expectation.fulfill()
         }
-        subject.downloadPage(NSURL(string: "http://notarealurl.com")!, contextID: "") { _, _ in }
+        subject.downloadPage(URL(string: "http://notarealurl.com")!, contextID: "") { _, _ in }
         waitForExpectationsWithTimeout(0.2, handler: nil)
         XCTAssertEqual(manager.download_wasCalled_withURLString?.URLString, "http://notarealurl.com")
     }
 
     func testThat_whenAnOngoingDownloadIsRequested_itDoesNotStartTheDownload() {
 
-        let URL = NSURL(string: "http://notarealurl.com")!
+        let URL = URL(string: "http://notarealurl.com")!
 
         // Make the first request, which *does* start a download.
         let contextA = "contextA"
@@ -62,7 +62,7 @@ class PageServiceTests: XCTestCase {
     }
 
     func testThat_whenAnOngoingDownloadIsRequested_andTheProvidedContextIDIsAlreadyRecorded_itReturnsAnError() {
-        let URL = NSURL(string: "http://notarealurl.com")!
+        let URL = URL(string: "http://notarealurl.com")!
 
         // Make the first request.
         let contextA = "contextA"
@@ -86,11 +86,11 @@ class PageServiceTests: XCTestCase {
     func testThat_whenAnOngoingDownloadIsRequested_andTheProvidedContextIDIsNotAlreadyRecorded_itDoesNotReturnAnError() {
         let URLString = "http://notarealurl.com"
         let contextID = "abcd-efgh"
-        subject.downloadPage(NSURL(string: URLString)!, contextID: contextID) { _, _ in }
+        subject.downloadPage(URL(string: URLString)!, contextID: contextID) { _, _ in }
 
         let expectation = expectationWithDescription("completionHandler_wasCalled")
         var error: NSError? = nil
-        subject.downloadPage(NSURL(string: URLString)!, contextID: contextID) { _, err in
+        subject.downloadPage(URL(string: URLString)!, contextID: contextID) { _, err in
             error = err as? NSError
             expectation.fulfill()
         }
@@ -101,18 +101,18 @@ class PageServiceTests: XCTestCase {
     func testThat_whenADownloadSucceeds_itTriggersTheHandlersThatRequestedTheDownload() {
         let URLString = "http://notarealurl.com"
 
-        var URLOne: NSURL?
-        subject.downloadPage(NSURL(string: URLString)!, contextID: "abcd-efgh") { results, _ in
+        var URLOne: URL?
+        subject.downloadPage(URL(string: URLString)!, contextID: "abcd-efgh") { results, _ in
             URLOne = results
         }
 
-        var URLTwo: NSURL?
-        subject.downloadPage(NSURL(string: URLString)!, contextID: "efgh-ijkl") { results, _ in
+        var URLTwo: URL?
+        subject.downloadPage(URL(string: URLString)!, contextID: "efgh-ijkl") { results, _ in
             URLTwo = results
         }
 
-        var URLThree: NSURL?
-        subject.downloadPage(NSURL(string: URLString)!, contextID: "ijkl-mnop") { results, _ in
+        var URLThree: URL?
+        subject.downloadPage(URL(string: URLString)!, contextID: "ijkl-mnop") { results, _ in
             URLThree = results
         }
 
@@ -132,17 +132,17 @@ class PageServiceTests: XCTestCase {
         let URLString = "http://notarealurl.com"
 
         var errorOne: NSError?
-        subject.downloadPage(NSURL(string: URLString)!, contextID: "abcd-efgh") { _, err in
+        subject.downloadPage(URL(string: URLString)!, contextID: "abcd-efgh") { _, err in
             errorOne = err as? NSError
         }
 
         var errorTwo: NSError?
-        subject.downloadPage(NSURL(string: URLString)!, contextID: "efgh-ijkl") { _, err in
+        subject.downloadPage(URL(string: URLString)!, contextID: "efgh-ijkl") { _, err in
             errorTwo = err as? NSError
         }
 
         var errorThree: NSError?
-        subject.downloadPage(NSURL(string: URLString)!, contextID: "ijkl-mnop") { _, err in
+        subject.downloadPage(URL(string: URLString)!, contextID: "ijkl-mnop") { _, err in
             errorThree = err as? NSError
         }
 

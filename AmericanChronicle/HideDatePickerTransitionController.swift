@@ -2,10 +2,10 @@ final class HideDatePickerTransitionController: NSObject, UIViewControllerAnimat
 
     let duration = 0.1
 
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        if let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey) {
-            UIView.animateWithDuration(duration, animations: {
+        if let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) {
+            UIView.animate(withDuration: duration, animations: {
                 fromView.alpha = 0
                 }, completion: { _ in
                     fromView.removeFromSuperview()
@@ -15,7 +15,7 @@ final class HideDatePickerTransitionController: NSObject, UIViewControllerAnimat
     }
 
     func transitionDuration(
-        transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
 }

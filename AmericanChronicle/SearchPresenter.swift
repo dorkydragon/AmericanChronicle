@@ -1,98 +1,98 @@
-// MARK: -
-// MARK: SearchPresenterInterface protocol
+// mark: -
+// mark: SearchPresenterInterface protocol
 
 protocol SearchPresenterInterface: SearchUserInterfaceDelegate, SearchInteractorDelegate {
     var wireframe: SearchWireframeInterface? { get set }
 
-    func configureUserInterfaceForPresentation(userInterface: SearchUserInterface)
-    func userDidSaveFilteredUSStateNames(stateNames: [String])
-    func userDidSaveDayMonthYear(dayMonthYear: DayMonthYear)
+    func configureUserInterfaceForPresentation(_ userInterface: SearchUserInterface)
+    func userDidSaveFilteredUSStateNames(_ stateNames: [String])
+    func userDidSaveDayMonthYear(_ dayMonthYear: DayMonthYear)
 }
 
-// MARK: -
-// MARK: SearchPresenter class
+// mark: -
+// mark: SearchPresenter class
 
 final class SearchPresenter: NSObject, SearchPresenterInterface {
 
-    // MARK: Types
+    // mark: Types
 
-    private enum DateType {
-        case Earliest
-        case Latest
-        case None
+    fileprivate enum DateType {
+        case earliest
+        case latest
+        case none
     }
 
-    // MARK: Properties
+    // mark: Properties
 
     weak var wireframe: SearchWireframeInterface?
 
-    private let interactor: SearchInteractorInterface
-    private let dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
+    fileprivate let interactor: SearchInteractorInterface
+    fileprivate let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "MMM dd, yyyy"
         return formatter
     }()
-    private var userInterface: SearchUserInterface?
-    private var term: String?
-    private var usStateNames: [String] = []
-    private var earliestDayMonthYear = Search.earliestPossibleDayMonthYear
-    private var latestDayMonthYear = Search.latestPossibleDayMonthYear
-    private var typeBeingEdited = DateType.None
+    fileprivate var userInterface: SearchUserInterface?
+    fileprivate var term: String?
+    fileprivate var usStateNames: [String] = []
+    fileprivate var earliestDayMonthYear = Search.earliestPossibleDayMonthYear
+    fileprivate var latestDayMonthYear = Search.latestPossibleDayMonthYear
+    fileprivate var typeBeingEdited = DateType.none
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(interactor: SearchInteractorInterface = SearchInteractor()) {
         self.interactor = interactor
         super.init()
         self.interactor.delegate = self
-        KeyboardService.sharedInstance.addFrameChangeHandler("\(unsafeAddressOf(self))") {
+        KeyboardService.sharedInstance.addFrameChangeHandler("\(Unmanaged.passUnretained(self).toOpaque())") {
             [weak self] rect in
             self?.updateViewForKeyboardFrame(rect)
         }
     }
 
-    // MARK: SearchPresenterInterface methods
+    // mark: SearchPresenterInterface methods
 
-    func configureUserInterfaceForPresentation(userInterface: SearchUserInterface) {
+    func configureUserInterfaceForPresentation(_ userInterface: SearchUserInterface) {
         self.userInterface = userInterface
         updateViewForKeyboardFrame(KeyboardService.sharedInstance.keyboardFrame)
         userInterface.earliestDate = earliestDayMonthYear.userVisibleString
         userInterface.latestDate = latestDayMonthYear.userVisibleString
     }
 
-    func userDidSaveFilteredUSStateNames(stateNames: [String]) {
-        usStateNames = stateNames.sort()
+    func userDidSaveFilteredUSStateNames(_ stateNames: [String]) {
+        usStateNames = stateNames.sorted()
         let str: String
         if usStateNames.isEmpty {
             str = "All US states"
         } else if usStateNames.count <= 3 {
-            str = usStateNames.joinWithSeparator(", ")
+            str = usStateNames.joined(separator: ", ")
         } else {
-            str = "\(usStateNames[0..<3].joinWithSeparator(", ")) (and \(usStateNames.count - 3) more)"
+            str = "\(usStateNames[0..<3].joined(separator: ", ")) (and \(usStateNames.count - 3) more)"
         }
         userInterface?.usStateNames = str
         searchIfReady()
     }
 
-    func userDidSaveDayMonthYear(dayMonthYear: DayMonthYear) {
+    func userDidSaveDayMonthYear(_ dayMonthYear: DayMonthYear) {
         switch typeBeingEdited {
-        case .Earliest:
+        case .earliest:
             earliestDayMonthYear = dayMonthYear
             userInterface?.earliestDate = earliestDayMonthYear.userVisibleString
             searchIfReady()
-        case .Latest:
+        case .latest:
             latestDayMonthYear = dayMonthYear
             userInterface?.latestDate = latestDayMonthYear.userVisibleString
             searchIfReady()
-        case .None:
+        case .none:
             break
         }
     }
 
-    // MARK: SearchUserInterfaceDelegate methods
+    // mark: SearchUserInterfaceDelegate methods
 
     func userDidTapReturn() {
-        userInterface?.resignFirstResponder()
+        _ = userInterface?.resignFirstResponder()
     }
 
     func userDidTapUSStates() {
@@ -100,33 +100,33 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
     }
 
     func userDidTapEarliestDateButton() {
-        typeBeingEdited = .Earliest
+        typeBeingEdited = .earliest
         wireframe?.showDayMonthYearPickerWithCurrentDayMonthYear(earliestDayMonthYear,
                                                                  title: "Earliest Date")
     }
 
     func userDidTapLatestDateButton() {
-        typeBeingEdited = .Latest
+        typeBeingEdited = .latest
         wireframe?.showDayMonthYearPickerWithCurrentDayMonthYear(latestDayMonthYear,
                                                                  title: "Latest Date")
     }
 
-    func userDidChangeSearchToTerm(term: String?) {
+    func userDidChangeSearchToTerm(_ term: String?) {
         self.term = term
         if term?.characters.count == 0 {
-            userInterface?.setViewState(.EmptySearchField)
+            userInterface?.setViewState(.emptySearchField)
             interactor.cancelLastSearch()
             return
         }
         searchIfReady()
     }
 
-    func userIsApproachingLastRow(term: String?, inCollection collection: [SearchResultsRow]) {
-        guard term?.characters.count > 0 else { return }
-        searchIfReady(.LoadingMoreRows)
+    func userIsApproachingLastRow(_ term: String?, inCollection collection: [SearchResultsRow]) {
+        guard (term?.characters.count)! > 0 else { return }
+        searchIfReady(.loadingMoreRows)
     }
 
-    func userDidSelectSearchResult(row: SearchResultsRow) {
+    func userDidSelectSearchResult(_ row: SearchResultsRow) {
         wireframe?.showSearchResult(row, forTerm: userInterface?.searchTerm ?? "")
     }
 
@@ -134,37 +134,37 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         updateViewForKeyboardFrame(KeyboardService.sharedInstance.keyboardFrame)
     }
 
-    // MARK: SearchInteractorDelegate methods
+    // mark: SearchInteractorDelegate methods
 
-    func search(parameters: SearchParameters,
+    func search(_ parameters: SearchParameters,
                 didFinishWithResults results: SearchResults?,
                 error: NSError?) {
-        if let results = results, items = results.items {
+        if let results = results, let items = results.items {
             let rows = rowsForSearchResultItems(items)
             if rows.count > 0 {
                 let title = "\(results.totalItems ?? 0) matches"
-                userInterface?.setViewState(.Ideal(title: title, rows: rows))
+                userInterface?.setViewState(.ideal(title: title, rows: rows))
             } else {
-                userInterface?.setViewState(.EmptyResults)
+                userInterface?.setViewState(.emptyResults)
             }
         } else if let err = error {
             guard !err.isCancelledRequestError() else { return }
             guard !err.isDuplicateRequestError() else { return }
             guard !err.isAllItemsLoadedError() else { return }
-            userInterface?.setViewState(.Error(title: err.localizedDescription,
+            userInterface?.setViewState(.error(title: err.localizedDescription,
                                                message: err.localizedRecoverySuggestion))
         } else {
-            userInterface?.setViewState(.EmptyResults)
+            userInterface?.setViewState(.emptyResults)
         }
     }
 
-    // MARK: Private methods
+    // mark: Private methods
 
-    private func updateViewForKeyboardFrame(rect: CGRect?) {
+    fileprivate func updateViewForKeyboardFrame(_ rect: CGRect?) {
         userInterface?.setBottomContentInset(rect?.size.height ?? 0)
     }
 
-    private func rowsForSearchResultItems(items: [SearchResult]) -> [SearchResultsRow] {
+    fileprivate func rowsForSearchResultItems(_ items: [SearchResult]) -> [SearchResultsRow] {
         var rows: [SearchResultsRow] = []
 
         for result in items {
@@ -179,12 +179,12 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
             }
 
             var pubTitle = result.titleNormal ?? ""
-            pubTitle = pubTitle.capitalizedString
-            pubTitle = pubTitle.stringByReplacingOccurrencesOfString(".", withString: "")
+            pubTitle = pubTitle.capitalized
+            pubTitle = pubTitle.replacingOccurrences(of: ".", with: "")
             let row = SearchResultsRow(
                 id: result.id,
                 date: date,
-                cityState: cityStateComponents.joinWithSeparator(", "),
+                cityState: cityStateComponents.joined(separator: ", "),
                 publicationTitle: pubTitle,
                 thumbnailURL: result.thumbnailURL,
                 pdfURL: result.pdfURL,
@@ -197,7 +197,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         return rows
     }
 
-    private func searchIfReady(loadingViewState: SearchViewState = .LoadingNewParamaters) {
+    fileprivate func searchIfReady(_ loadingViewState: SearchViewState = .loadingNewParamaters) {
         if let term = term {
             userInterface?.setViewState(loadingViewState)
             let params = SearchParameters(term: term,
@@ -208,9 +208,9 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         }
     }
 
-    // MARK: Deinit method
+    // mark: Deinit method
 
     deinit {
-        KeyboardService.sharedInstance.removeFrameChangeHandler("\(unsafeAddressOf(self))")
+        KeyboardService.sharedInstance.removeFrameChangeHandler("\(Unmanaged.passUnretained(self).toOpaque())")
     }
 }

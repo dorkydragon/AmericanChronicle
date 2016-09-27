@@ -56,7 +56,13 @@ class SearchPagesServiceTests: XCTestCase {
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject.startSearch(params, page: 4, contextID: "context") { _, _ in }
-        XCTAssert(manager.request_wasCalled_withURLString?.URLString.containsString("proxtext=tsunami+wave") ?? false)
+        var resultString: String? = nil
+        do {
+            resultString = try manager.request_wasCalled_withURL?.asURL().absoluteString
+        } catch {
+            XCTFail("Error: \(error)")
+        }
+        XCTAssert(resultString?.contains("proxtext=tsunami+wave") ?? false)
     }
 
     func testThat_whenStartSearchIsCalled_withValidParameters_itStartsARequest_withTheCorrectStates() {
@@ -65,7 +71,13 @@ class SearchPagesServiceTests: XCTestCase {
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject.startSearch(params, page: 4, contextID: "context") { _, _ in }
-        XCTAssert(manager.request_wasCalled_withURLString?.URLString.hasSuffix("state=New+York&state=Colorado") ?? false)
+        var resultString: String? = nil
+        do {
+            resultString = try manager.request_wasCalled_withURL?.asURL().absoluteString
+        } catch {
+            XCTFail("Error: \(error)")
+        }
+        XCTAssert(resultString?.hasSuffix("state=New+York&state=Colorado") ?? false)
     }
 
     func testThat_whenStartSearchIsCalled_withValidParameters_itStartsARequest_withTheCorrectPage() {
@@ -87,9 +99,9 @@ class SearchPagesServiceTests: XCTestCase {
             returnedResults = results
         }
         let expectedResults = SearchResults()
-        let result: Result<SearchResults, NSError> = .Success(expectedResults)
-        let response = Response(request: nil, response: nil, data: nil, result: result)
-        manager.stubbedReturnValue.finishWithResponseObject(response)
+        let result: Result<SearchResults> = .success(expectedResults)
+        let response = DataResponse(request: nil, response: nil, data: nil, result: result)
+        manager.stubbedReturnDataRequest.finishWithResponseObject(response)
         XCTAssertEqual(returnedResults, expectedResults)
     }
 
@@ -99,31 +111,31 @@ class SearchPagesServiceTests: XCTestCase {
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         var returnedError: NSError?
-        let request = FakeRequest()
-        manager.stubbedReturnValue = request
+        let request = FakeDataRequest()
+        manager.stubbedReturnDataRequest = request
         subject.startSearch(params, page: 2, contextID: "context") { _, error in
             returnedError = error as? NSError
         }
-        let expectedError = NSError(code: .InvalidParameter, message: "")
-        let result: Result<SearchResults, NSError> = .Failure(expectedError)
-        let response = Response(request: nil, response: nil, data: nil, result: result)
+        let expectedError = NSError(code: .invalidParameter, message: nil)
+        let result: Result<SearchResults> = .failure(expectedError)
+        let response = DataResponse(request: nil, response: nil, data: nil, result: result)
         request.finishWithResponseObject(response)
         XCTAssertEqual(returnedError, expectedError)
     }
 
     func testThat_byTheTimeTheCompletionHandlerIsCalled_theRequestIsNotInProgress() {
         var isInProgress = true
-        let request = FakeRequest()
+        let request = FakeDataRequest()
         let params = SearchParameters(term: "Jibberish",
                                       states: ["Alabama", "Colorado"],
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
-        manager.stubbedReturnValue = request
+        manager.stubbedReturnDataRequest = request
         subject.startSearch(params, page: 2, contextID: "context") { _, error in
             isInProgress = self.subject.isSearchInProgress(params, page: 2, contextID: "context")
         }
-        let result: Result<SearchResults, NSError> = .Failure(NSError(code: .DuplicateRequest, message: nil))
-        let response = Response(request: nil, response: nil, data: nil, result: result)
+        let result: Result<SearchResults> = .failure(NSError(code: .duplicateRequest, message: nil))
+        let response = DataResponse(request: nil, response: nil, data: nil, result: result)
         request.finishWithResponseObject(response)
         XCTAssertFalse(isInProgress)
     }
@@ -135,7 +147,7 @@ class SearchPagesServiceTests: XCTestCase {
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject.startSearch(params, page: 2, contextID: "context") { _, _ in }
         subject.cancelSearch(params, page: 2, contextID: "context")
-        XCTAssert(manager.stubbedReturnValue.cancel_wasCalled)
+        XCTAssert(manager.stubbedReturnDataRequest.cancel_wasCalled)
     }
 
     func testThat_whenCancelSearchIsCalled_withParametersThatDoNotMatchAnActiveRequest_itDoesNotCancelsTheActiveRequest() {
@@ -149,7 +161,7 @@ class SearchPagesServiceTests: XCTestCase {
                                               earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                               latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject.cancelSearch(inactiveParams, page: 2, contextID: "context")
-        XCTAssertFalse(manager.stubbedReturnValue.cancel_wasCalled)
+        XCTAssertFalse(manager.stubbedReturnDataRequest.cancel_wasCalled)
     }
 
     func testThat_whenTheSpecifiedSearchIsActive_isSearchInProgress_returnsTrue() {

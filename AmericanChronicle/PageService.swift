@@ -1,42 +1,42 @@
 import Alamofire
 
 protocol PageServiceInterface {
-    func downloadPage(remoteURL: NSURL,
+    func downloadPage(_ remoteURL: URL,
                       contextID: String,
-                      completionHandler: (NSURL?, ErrorType?) -> Void)
-    func cancelDownload(remoteURL: NSURL, contextID: String)
-    func isDownloadInProgress(remoteURL: NSURL) -> Bool
+                      completionHandler: @escaping (URL?, Error?) -> Void)
+    func cancelDownload(_ remoteURL: URL, contextID: String)
+    func isDownloadInProgress(_ remoteURL: URL) -> Bool
 }
 
 typealias ContextID = String
 
 struct ActivePageDownload {
-    let request: RequestProtocol
+    let request: DownloadRequestProtocol
     var requesters: [ContextID: PageDownloadRequester]
 
 }
 
 struct PageDownloadRequester {
     let contextID: ContextID
-    let completionHandler: (NSURL?, ErrorType?) -> Void
+    let completionHandler: (URL?, Error?) -> Void
 }
 
 /// Doesn't allow more than one instance of any download, but keeps track of the completion blocks
 /// when there are duplicates.
 final class PageService: PageServiceInterface {
 
-    // MARK: Properties
+    // mark: Properties
 
-    let group = dispatch_group_create()
-    var activeDownloads: [NSURL: ActivePageDownload] = [:]
-    private let manager: ManagerProtocol
-    private let queue = dispatch_queue_create("com.ryanipete.AmericanChronicle.PageService",
-                                              DISPATCH_QUEUE_SERIAL)
+    let group = DispatchGroup()
+    var activeDownloads: [URL: ActivePageDownload] = [:]
+    fileprivate let manager: ManagerProtocol
+    fileprivate let queue = DispatchQueue(label: "com.ryanipete.AmericanChronicle.PageService",
+                                          attributes: [])
 
-    private func finishRequestWithRemoteURL(remoteURL: NSURL, fileURL: NSURL?, error: NSError?) {
-        dispatch_group_async(group, queue) {
+    fileprivate func finishRequestWithRemoteURL(_ remoteURL: URL, fileURL: URL?, error: NSError?) {
+        queue.async(group: group) {
             if let activeDownload = self.activeDownloads[remoteURL] {
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     for (_, requester) in activeDownload.requesters {
                         requester.completionHandler(fileURL, nil)
                     }
@@ -46,44 +46,43 @@ final class PageService: PageServiceInterface {
         }
     }
 
-    // MARK: Init methods
+    // mark: Init methods
 
-    init(manager: ManagerProtocol = Manager()) {
+    init(manager: ManagerProtocol = SessionManager()) {
         self.manager = manager
     }
 
-    // MARK: PageServiceInterface methods
+    // mark: PageServiceInterface methods
 
-    func downloadPage(remoteURL: NSURL,
-                      contextID: String,
-                      completionHandler: (NSURL?, ErrorType?) -> Void) {
+    internal func downloadPage(_ remoteURL: URL, contextID: String, completionHandler: @escaping (URL?, Error?) -> Void) {
         // Note: Resumes are not currently supported by chroniclingamerica.loc.gov.
         // Note: Estimated filesize isn't currently supported by chroniclingamerica.loc.gov
 
-        var fileURL: NSURL?
-        let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = { (temporaryURL, response) in
-            let documentsDirectoryURL = NSFileManager.defaultDocumentDirectoryURL
-            let remotePath = remoteURL.path ?? ""
-            fileURL = documentsDirectoryURL?.URLByAppendingPathComponent(remotePath)
-                        .URLByStandardizingPath
+        var fileURL: URL?
+        let destination: (URL, HTTPURLResponse) -> (URL, DownloadRequest.DownloadOptions) = { (temporaryURL, response) in
+
+            let documentsDirectoryURL = FileManager.defaultDocumentDirectoryURL
+            let remotePath = remoteURL.path
+            fileURL = (documentsDirectoryURL as URL?)?.appendingPathComponent(remotePath).standardizedFileURL
             do {
-                if let fileDirectoryURL = fileURL?.URLByDeletingLastPathComponent {
-                    let manager = NSFileManager.defaultManager()
-                    try manager.createDirectoryAtURL(fileDirectoryURL,
-                                                     withIntermediateDirectories: true,
-                                                     attributes: nil)
+                if let fileDirectoryURL = fileURL?.deletingLastPathComponent() {
+                    let manager = FileManager.default
+                    try manager.createDirectory(at: fileDirectoryURL,
+                                                withIntermediateDirectories: true,
+                                                attributes: nil)
                 }
             } catch let error {
                 print("ERROR: \(error)")
             }
 
-            return fileURL ?? temporaryURL
+            return (fileURL ?? temporaryURL, .createIntermediateDirectories)
         }
-        dispatch_group_async(group, queue) {
+        queue.async(group: group) {
+
             if var activeDownload = self.activeDownloads[remoteURL] {
                 if activeDownload.requesters[contextID] != nil {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        let error = NSError(code: .DuplicateRequest,
+                    DispatchQueue.main.async {
+                        let error = NSError(code: .duplicateRequest,
                                             message: "Tried to send a duplicate request.")
                         completionHandler(nil, error)
                     }
@@ -96,54 +95,44 @@ final class PageService: PageServiceInterface {
                 let requester = PageDownloadRequester(contextID: contextID,
                                                       completionHandler: completionHandler)
                 let request = self.manager
-                    .download(.GET,
-                        URLString: remoteURL.absoluteString,
-                        parameters: nil,
-                        destination: destination)?
-                    .response(queue: nil) { [weak self] request, response, data, error in
-                    if let error = error where error.code == NSFileWriteFileExistsError {
-                        // Not a real error, the file was found on disk.
-                        self?.finishRequestWithRemoteURL(remoteURL,
-                                                         fileURL: fileURL,
-                                                         error: nil)
-                    } else {
-                        self?.finishRequestWithRemoteURL(remoteURL,
-                                                         fileURL: fileURL,
-                                                         error: error)
+                    .download(remoteURL.absoluteString, to: destination)
+                    .response(queue: nil) { [weak self] (response: DefaultDownloadResponse) in
+                        if let error = response.error as? NSError {
+                            if error.code == NSFileWriteFileExistsError {
+                                // Not a real error, the file was found on disk.
+                                self?.finishRequestWithRemoteURL(remoteURL, fileURL: fileURL, error: nil)
+
+                            } else {
+                                self?.finishRequestWithRemoteURL(remoteURL, fileURL: fileURL, error: error)
+                            }
+                        }
                     }
-                }
-                if let request = request {
-                    let download = ActivePageDownload(request: request,
-                                                      requesters: [contextID: requester])
-                    self.activeDownloads[remoteURL] = download
-                } else {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        let error = NSError(code: .InvalidParameter,
-                                            message: "Couldn't create the request.")
-                        completionHandler(nil, error)
-                    }
-                }
+
+
+                let download = ActivePageDownload(request: request,
+                                                  requesters: [contextID: requester])
+                self.activeDownloads[remoteURL] = download
             }
         }
     }
 
-    func isDownloadInProgress(remoteURL: NSURL) -> Bool {
+    func isDownloadInProgress(_ remoteURL: URL) -> Bool {
         var isInProgress = false
-        dispatch_sync(queue) {
+        queue.sync {
             isInProgress = self.activeDownloads[remoteURL] != nil
         }
         return isInProgress
     }
 
-    func cancelDownload(remoteURL: NSURL, contextID: String) {
-        dispatch_group_async(group, queue) {
+    func cancelDownload(_ remoteURL: URL, contextID: String) {
+        queue.async(group: group) {
             var activeDownload = self.activeDownloads[remoteURL]
             let requester = activeDownload?.requesters[contextID]
-            if let requesters = activeDownload?.requesters where requesters.isEmpty {
+            if let requesters = activeDownload?.requesters, requesters.isEmpty {
                 activeDownload?.request.cancel()
             } else {
                 requester?.completionHandler(nil, NSError(domain: "", code: -999, userInfo: nil))
-                activeDownload?.requesters.removeValueForKey(contextID)
+                _ = activeDownload?.requesters.removeValue(forKey: contextID)
                 self.activeDownloads[remoteURL] = activeDownload
             }
         }

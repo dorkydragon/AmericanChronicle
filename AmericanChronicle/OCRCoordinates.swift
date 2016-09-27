@@ -2,25 +2,25 @@ import ObjectMapper
 
 final class OCRCoordinates: NSObject, Mappable {
 
-    // MARK: Properties
+    // mark: Properties
 
     var width: CGFloat?
     var height: CGFloat?
     var wordCoordinates: [String: [CGRect]]?
 
-    // MARK: Mappable methods
+    // mark: Mappable methods
 
-    required init?(_ map: Map) {
+    required init?(map: Map) {
         super.init()
     }
 
-    static func newInstance(map: Map) -> Mappable? {
-        return OCRCoordinates(map)
+    static func newInstance(_ map: Map) -> Mappable? {
+        return OCRCoordinates(map: map)
     }
 
     func mapping(map: Map) {
         let floatTransform = TransformOf<CGFloat, String>(fromJSON: { (val: String?) in
-            return CGFloat((val ?? "" as NSString).doubleValue)
+            return CGFloat(Float(val ?? "") ?? 0.0)
         }, toJSON: { (val: CGFloat?) in
             return nil
         })
@@ -48,11 +48,11 @@ final class OCRCoordinates: NSObject, Mappable {
         wordCoordinates <- (map["coords"], transform)
     }
 
-    // MARK: NSObject overrides
+    // mark: NSObject overrides
 
     override var description: String {
         let empty = "(nil)"
-        var str = "<\(self.dynamicType) \(unsafeAddressOf(self)):"
+        var str = "<\(type(of: self)) \(Unmanaged.passUnretained(self).toOpaque()):"
         str += " width=\(width?.description ?? empty)"
         str += ", height=\(height?.description ?? empty)"
         str += ", wordCoordinates=\(wordCoordinates?.description ?? empty)"

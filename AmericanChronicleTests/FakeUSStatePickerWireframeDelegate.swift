@@ -1,12 +1,12 @@
 @testable import AmericanChronicle
 
 class FakeUSStatePickerWireframeDelegate: USStatePickerWireframeDelegate {
-    func usStatePickerWireframe(wireframe: USStatePickerWireframe,
+    func usStatePickerWireframe(_ wireframe: USStatePickerWireframe,
                                 didSaveFilteredUSStateNames stateNames: [String]) {
 
     }
 
-    func usStatePickerWireframeDidFinish(wireframe: USStatePickerWireframe) {
+    func usStatePickerWireframeDidFinish(_ wireframe: USStatePickerWireframe) {
 
     }
 }

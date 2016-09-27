@@ -2,7 +2,7 @@ import ObjectMapper
 
 final class SearchResult: NSObject, Mappable {
 
-    // MARK: Properties
+    // mark: Properties
 
     var sequence: Int?
     var county: [String]?
@@ -11,7 +11,7 @@ final class SearchResult: NSObject, Mappable {
     var id: String?
     var subject: [String]?
     var city: [String]?
-    var date: NSDate?
+    var date: Date?
     var title: String?
     var endYear: Int?
     var note: [String]?
@@ -32,27 +32,27 @@ final class SearchResult: NSObject, Mappable {
     var url: String?
     var place: [String]?
     var page: String?
-    var thumbnailURL: NSURL?
-    var pdfURL: NSURL?
+    var thumbnailURL: URL?
+    var pdfURL: URL?
     var estimatedPDFSize: Int {
         return (ocrEng?.characters.count ?? 0) * 30
     }
 
-    // MARK: Init methods
+    // mark: Init methods
 
-    static func newInstance(map: Map) -> Mappable? {
-        return SearchResult(map)
+    static func newInstance(_ map: Map) -> Mappable? {
+        return SearchResult(map: map)
     }
 
     override init() {
         super.init()
     }
 
-    required init?(_ map: Map) {
+    required init?(map: Map) {
         super.init()
     }
 
-    // MARK: Mapping methods
+    // mark: Mapping methods
 
     func mapping(map: Map) {
         sequence <- map["sequence"]
@@ -63,13 +63,13 @@ final class SearchResult: NSObject, Mappable {
         subject <- map["subject"]
         city <- map["city"]
 
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"
-        let dateTransform = TransformOf<NSDate, String>(fromJSON: { (value: String?) -> NSDate? in
-            return formatter.dateFromString(value ?? "")
-            }, toJSON: { (value: NSDate?) -> String? in
+        let dateTransform = TransformOf<Date, String>(fromJSON: { (value: String?) -> Date? in
+            return formatter.date(from: value ?? "")
+            }, toJSON: { (value: Date?) -> String? in
                 if let date = value {
-                    return formatter.stringFromDate(date)
+                    return formatter.string(from: date)
                 }
                 return nil
         })
@@ -95,19 +95,15 @@ final class SearchResult: NSObject, Mappable {
         url <- map["url"]
         place <- map["place"]
         page <- map["page"]
-        thumbnailURL = NSURL(string: url ?? "")?
-                        .URLByDeletingPathExtension?
-                        .URLByAppendingPathComponent("thumbnail.jpg")
-        pdfURL = NSURL(string: url ?? "")?
-                        .URLByDeletingPathExtension?
-                        .URLByAppendingPathExtension("pdf")
+        thumbnailURL = URL(string: url ?? "")?.deletingPathExtension().appendingPathComponent("thumbnail.jpg")
+        pdfURL = URL(string: url ?? "")?.deletingPathExtension().appendingPathExtension("pdf")
     }
 
-    // MARK: NSObject overrides
+    // mark: NSObject overrides
 
     override var description: String {
         let empty = ""
-        var str = "<\(self.dynamicType) \(unsafeAddressOf(self)):"
+        var str = "<\(type(of: self)) \(Unmanaged.passUnretained(self).toOpaque()):"
         str += " sequence=\(sequence?.description ?? empty)"
         str += ", county=\(county?.description ?? empty)"
         str += ", edition=\(edition?.description ?? empty)"
@@ -136,8 +132,8 @@ final class SearchResult: NSObject, Mappable {
         str += ", url=\(url?.description ?? empty)"
         str += ", place=\(place?.description ?? empty)"
         str += ", page=\(page?.description ?? nil)"
-        str += ", thumbnailURL=\(thumbnailURL ?? empty)"
-        str += ", pdfURL=\(pdfURL ?? empty)"
+        str += ", thumbnailURL=\(thumbnailURL?.absoluteString ?? empty)"
+        str += ", pdfURL=\(pdfURL?.absoluteString ?? empty)"
         str += ">"
         return str
     }

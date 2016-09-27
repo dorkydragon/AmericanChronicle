@@ -4,19 +4,19 @@ import XCTest
 
 class KeyboardServiceTests: XCTestCase {
     var subject: KeyboardService!
-    var notificationCenter: NSNotificationCenter!
+    var notificationCenter: NotificationCenter!
 
     override func setUp() {
         super.setUp()
-        notificationCenter = NSNotificationCenter()
+        notificationCenter = NotificationCenter()
         subject = KeyboardService(notificationCenter: notificationCenter)
         subject.applicationDidFinishLaunching()
     }
 
-    private func postKeyboardWillShowNotification(endRect: CGRect) {
-        let rectVal = NSValue(CGRect: endRect)
+    fileprivate func postKeyboardWillShowNotification(_ endRect: CGRect) {
+        let rectVal = NSValue(cgRect: endRect)
         let userInfo = [UIKeyboardFrameEndUserInfoKey: rectVal]
-        notificationCenter.postNotificationName(UIKeyboardWillShowNotification, object: nil, userInfo: userInfo)
+        notificationCenter.post(name: NSNotification.Name.UIKeyboardWillShow, object: nil, userInfo: userInfo)
     }
 
     func testThat_whenAKeyboardShows_itUpdatesTheKeyboardFrame() {

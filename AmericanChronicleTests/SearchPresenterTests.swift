@@ -22,7 +22,7 @@ class SearchPresenterTests: XCTestCase {
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsNotEmpty_itAsksTheViewToShowItsLoadingIndicator() {
         subject.userDidChangeSearchToTerm("Blah")
-        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.LoadingNewParamaters)
+        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.loadingNewParamaters)
     }
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsNotEmpty_itStartsANewSearch_withTheCorrectTerm() {
@@ -37,7 +37,7 @@ class SearchPresenterTests: XCTestCase {
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsEmpty_itAsksTheViewToShowEmptySearchField() {
         subject.userDidChangeSearchToTerm("")
-        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.EmptySearchField)
+        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.emptySearchField)
     }
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsEmpty_itCancelsTheActiveSearch() {
@@ -53,7 +53,7 @@ class SearchPresenterTests: XCTestCase {
             latestDayMonthYear: Search.latestPossibleDayMonthYear),
                        didFinishWithResults: nil,
                        error: nil)
-        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.EmptyResults)
+        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.emptyResults)
     }
 
     func testThat_whenASearchSucceeds_andThereIsAtLeastOneResult_itAsksTheViewToShowTheResults() {
@@ -77,7 +77,7 @@ class SearchPresenterTests: XCTestCase {
                                    edition: 1,
                                    sequence: 18)
 
-        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.Ideal(title: "0 matches", rows: [row]))
+        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.ideal(title: "0 matches", rows: [row]))
     }
 
     func testThat_whenASearchSucceeds_andThereAreNoResults_itAsksTheViewToShowItsEmptyResultsMessage() {
@@ -88,7 +88,7 @@ class SearchPresenterTests: XCTestCase {
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject.search(params, didFinishWithResults: results, error: nil)
-        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.EmptyResults)
+        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.emptyResults)
     }
 
     func testThat_whenASearchFails_itAsksTheViewToShowAnErrorMessage() {
@@ -98,7 +98,7 @@ class SearchPresenterTests: XCTestCase {
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject.search(params, didFinishWithResults: nil, error: error)
-        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.Error(title: "", message: nil))
+        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.error(title: "", message: nil))
     }
 
 }

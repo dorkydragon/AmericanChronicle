@@ -1,11 +1,11 @@
 final class SearchField: UIView, UITextFieldDelegate {
 
-    // MARK: Properties
+    // mark: Properties
 
     var shouldBeginEditingHandler: ((Void) -> Bool)?
-    var shouldChangeCharactersHandler: ((text: String,
-                                         range: NSRange,
-                                         replacementString: String) -> Bool)?
+    var shouldChangeCharactersHandler: ((_ text: String,
+                                         _ range: NSRange,
+                                         _ replacementString: String) -> Bool)?
     var shouldClearHandler: ((Void) -> Bool)?
     var shouldReturnHandler: ((Void) -> Bool)?
     var placeholder: String? {
@@ -17,7 +17,7 @@ final class SearchField: UIView, UITextFieldDelegate {
         set { textField.text = newValue }
     }
 
-    private let textField: UITextField
+    fileprivate let textField: UITextField
 
     // Init methods
 
@@ -28,20 +28,20 @@ final class SearchField: UIView, UITextFieldDelegate {
         textField.delegate = self
 
         let searchIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        searchIcon.image = UIImage(named: "apd_toolbar_search")?.imageWithRenderingMode(.AlwaysTemplate)
+        searchIcon.image = UIImage(named: "apd_toolbar_search")?.withRenderingMode(.alwaysTemplate)
         searchIcon.tintColor = Colors.lightGray
-        searchIcon.contentMode = .Center
+        searchIcon.contentMode = .center
         textField.leftView = searchIcon
-        textField.leftViewMode = .Always
+        textField.leftViewMode = .always
         textField.placeholder = "Search all Newspapers"
         textField.font = Fonts.largeBody
-        textField.autocapitalizationType = .None
-        textField.clearButtonMode = .WhileEditing
-        textField.autocorrectionType = .No
-        textField.returnKeyType = .Search
+        textField.autocapitalizationType = .none
+        textField.clearButtonMode = .whileEditing
+        textField.autocorrectionType = .no
+        textField.returnKeyType = .search
         textField.tintColor = Colors.lightBlueBright
         textField.textColor = Colors.darkGray
-        textField.snp_makeConstraints { make in
+        textField.snp.makeConstraints { make in
             make.leading.equalTo(12.0)
             make.top.equalTo(10.0)
             make.trailing.equalTo(-17.0)
@@ -51,7 +51,7 @@ final class SearchField: UIView, UITextFieldDelegate {
         let bottomBorder = UIView()
         bottomBorder.backgroundColor = Colors.offWhite
         addSubview(bottomBorder)
-        bottomBorder.snp_makeConstraints { make in
+        bottomBorder.snp.makeConstraints { make in
             make.bottom.equalTo(0)
             make.leading.equalTo(0)
             make.trailing.equalTo(0)
@@ -71,13 +71,13 @@ final class SearchField: UIView, UITextFieldDelegate {
         self.commonInit()
     }
 
-    // MARK: UIView overrides
+    // mark: UIView overrides
 
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 64)
     }
 
-    // MARK: UIResponder overrides
+    // mark: UIResponder overrides
 
     override func becomeFirstResponder() -> Bool {
         return textField.becomeFirstResponder()
@@ -87,25 +87,25 @@ final class SearchField: UIView, UITextFieldDelegate {
         return textField.resignFirstResponder()
     }
 
-    // MARK: UITextFieldDelegate methods
+    // mark: UITextFieldDelegate methods
 
-    func textFieldShouldClear(textField: UITextField) -> Bool {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return shouldClearHandler?() ?? true
     }
 
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return shouldBeginEditingHandler?() ?? true
     }
 
-    func textField(textField: UITextField,
-                   shouldChangeCharactersInRange range: NSRange,
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        return shouldChangeCharactersHandler?(text: textField.text!,
-                                              range: range,
-                                              replacementString: string) ?? true
+        return shouldChangeCharactersHandler?(textField.text!,
+                                              range,
+                                              string) ?? true
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return shouldReturnHandler?() ?? true
     }
 }

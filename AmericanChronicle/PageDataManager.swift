@@ -1,21 +1,21 @@
-// MARK: -
-// MARK: PageDataManagerInterface protocol
+// mark: -
+// mark: PageDataManagerInterface protocol
 
 /**
  Conforming types can be used as the Page module's data manager.
  */
 protocol PageDataManagerInterface {
-    func downloadPage(remoteURL: NSURL, completionHandler: (NSURL, NSURL?, NSError?) -> Void)
-    func cancelDownload(remoteURL: NSURL)
-    func isDownloadInProgress(remoteURL: NSURL) -> Bool
-    func startOCRCoordinatesRequest(id: String,
-                                    completionHandler: (OCRCoordinates?, NSError?) -> Void)
-    func cancelOCRCoordinatesRequest(id: String)
-    func isOCRCoordinatesRequestInProgress(id: String) -> Bool
+    func downloadPage(_ remoteURL: URL, completionHandler: @escaping (URL, URL?, NSError?) -> Void)
+    func cancelDownload(_ remoteURL: URL)
+    func isDownloadInProgress(_ remoteURL: URL) -> Bool
+    func startOCRCoordinatesRequest(_ id: String,
+                                    completionHandler: @escaping (OCRCoordinates?, NSError?) -> Void)
+    func cancelOCRCoordinatesRequest(_ id: String)
+    func isOCRCoordinatesRequestInProgress(_ id: String) -> Bool
 }
 
-// MARK: -
-// MARK: PageDataManager class
+// mark: -
+// mark: PageDataManager class
 
 /**
  Responsibilities:
@@ -23,14 +23,15 @@ protocol PageDataManagerInterface {
  */
 final class PageDataManager: PageDataManagerInterface {
 
-    // MARK: Properties
 
-    private let pageService: PageServiceInterface
-    private let cachedPageService: CachedPageServiceInterface
-    private let coordinatesService: OCRCoordinatesServiceInterface
-    private var contextID: String { return "\(unsafeAddressOf(self))" }
+    // mark: Properties
 
-    // MARK: Init methods
+    fileprivate let pageService: PageServiceInterface
+    fileprivate let cachedPageService: CachedPageServiceInterface
+    fileprivate let coordinatesService: OCRCoordinatesServiceInterface
+    fileprivate var contextID: String { return "\(Unmanaged.passUnretained(self).toOpaque())" }
+
+    // mark: Init methods
 
     /**
         - Parameters:
@@ -45,32 +46,31 @@ final class PageDataManager: PageDataManagerInterface {
         self.coordinatesService = coordinatesService
     }
 
-    // MARK: PageDataManagerInterface methods
+    // mark: PageDataManagerInterface methods
 
-    func downloadPage(remoteURL: NSURL, completionHandler: (NSURL, NSURL?, NSError?) -> Void) {
+    internal func downloadPage(_ remoteURL: URL, completionHandler: @escaping (URL, URL?, NSError?) -> Void) {
         if let fileURL = cachedPageService.fileURLForRemoteURL(remoteURL) {
             completionHandler(remoteURL, fileURL, nil)
             return
         }
 
         pageService.downloadPage(remoteURL, contextID: contextID) { fileURL, error in
-            if let fileURL = fileURL where error == nil {
+            if let fileURL = fileURL, error == nil {
                 self.cachedPageService.cacheFileURL(fileURL, forRemoteURL: remoteURL)
             }
             completionHandler(remoteURL, fileURL, error as? NSError)
         }
     }
 
-    func cancelDownload(remoteURL: NSURL) {
+    func cancelDownload(_ remoteURL: URL) {
         pageService.cancelDownload(remoteURL, contextID: contextID)
     }
 
-    func isDownloadInProgress(remoteURL: NSURL) -> Bool {
+    func isDownloadInProgress(_ remoteURL: URL) -> Bool {
         return pageService.isDownloadInProgress(remoteURL)
     }
 
-    func startOCRCoordinatesRequest(id: String,
-                                    completionHandler: (OCRCoordinates?, NSError?) -> Void) {
+    internal func startOCRCoordinatesRequest(_ id: String, completionHandler: @escaping (OCRCoordinates?, NSError?) -> Void) {
         coordinatesService.startRequest(id,
                                         contextID: contextID,
                                         completionHandler: { coordinates, err in
@@ -78,11 +78,11 @@ final class PageDataManager: PageDataManagerInterface {
         })
     }
 
-    func cancelOCRCoordinatesRequest(id: String) {
+    func cancelOCRCoordinatesRequest(_ id: String) {
         coordinatesService.cancelRequest(id, contextID: contextID)
     }
 
-    func isOCRCoordinatesRequestInProgress(id: String) -> Bool {
+    func isOCRCoordinatesRequestInProgress(_ id: String) -> Bool {
         return coordinatesService.isRequestInProgress(id, contextID: contextID)
     }
 }

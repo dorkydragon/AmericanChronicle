@@ -3,12 +3,11 @@
 class FakeOCRCoordinatesService: OCRCoordinatesServiceInterface {
     var startRequest_wasCalled_withID: String?
     var startRequest_wasCalled_withContextID: String?
-    var startRequest_wasCalled_withCompletionHandler: ((OCRCoordinates?, ErrorType?) -> Void)?
+    var startRequest_wasCalled_withCompletionHandler: ((OCRCoordinates?, Error?) -> Void)?
 
-    func startRequest(
-        id: String,
-        contextID: String,
-        completionHandler: ((OCRCoordinates?, ErrorType?) -> Void)) {
+    func startRequest(_ id: String,
+                      contextID: String,
+                      completionHandler: @escaping ((OCRCoordinates?, Error?) -> Void)) {
         startRequest_wasCalled_withID = id
         startRequest_wasCalled_withContextID = contextID
         startRequest_wasCalled_withCompletionHandler = completionHandler
@@ -16,17 +15,13 @@ class FakeOCRCoordinatesService: OCRCoordinatesServiceInterface {
 
     var cancelRequest_wasCalled_withID: String?
     var cancelRequest_wasCalled_withContextID: String?
-    func cancelRequest(
-        id: String,
-        contextID: String) {
+    func cancelRequest(_ id: String, contextID: String) {
         cancelRequest_wasCalled_withID = id
         cancelRequest_wasCalled_withContextID = contextID
     }
 
     var stubbed_isRequestInProgress = false
-    func isRequestInProgress(
-        id: String,
-        contextID: String) -> Bool {
+    func isRequestInProgress(_ id: String, contextID: String) -> Bool {
         return stubbed_isRequestInProgress
     }
 }

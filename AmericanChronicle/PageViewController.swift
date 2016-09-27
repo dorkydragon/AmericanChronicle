@@ -1,32 +1,32 @@
-// MARK: -
-// MARK: PageUserInterfaceDelegate protocol
+// mark: -
+// mark: PageUserInterfaceDelegate protocol
 
 protocol PageUserInterfaceDelegate: class {
     func userDidTapDone()
     func userDidTapCancel()
-    func userDidTapShare(image: UIImage)
+    func userDidTapShare(_ image: UIImage)
 }
 
-// MARK: -
-// MARK: PageUserInterface protocol
+// mark: -
+// mark: PageUserInterface protocol
 
 protocol PageUserInterface {
-    var pdfPage: CGPDFPageRef? { get set }
+    var pdfPage: CGPDFPage? { get set }
     var highlights: OCRCoordinates? { get set }
     var delegate: PageUserInterfaceDelegate? { get set }
 
     func showLoadingIndicator()
     func hideLoadingIndicator()
-    func setDownloadProgress(progress: Float)
-    func showErrorWithTitle(title: String?, message: String?)
+    func setDownloadProgress(_ progress: Float)
+    func showErrorWithTitle(_ title: String?, message: String?)
 }
 
-// MARK: -
-// MARK: PageViewController class
+// mark: -
+// mark: PageViewController class
 
 final class PageViewController: UIViewController, PageUserInterface, UIScrollViewDelegate {
 
-    // MARK: Properties
+    // mark: Properties
 
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var doneButton: UIButton!
@@ -44,16 +44,16 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
 
     lazy var pageView: PDFPageView = PDFPageView()
 
-    private let toastButton = UIButton()
-    private var presentingViewNavBar: UIView?
-    private var presentingView: UIView?
-    private var hidesStatusBar: Bool = true
+    fileprivate let toastButton = UIButton()
+    fileprivate var presentingViewNavBar: UIView?
+    fileprivate var presentingView: UIView?
+    fileprivate var hidesStatusBar: Bool = true
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    @IBAction func shareButtonTapped(sender: AnyObject) {
+    @IBAction func shareButtonTapped(_ sender: AnyObject) {
 
-        let pdfRect = CGPDFPageGetBoxRect(pageView.pdfPage, .MediaBox)
+        guard let pdfRect = pageView.pdfPage?.getBoxRect(.mediaBox) else { return }
         UIGraphicsBeginImageContext(pdfRect.size)
         if let ctx = UIGraphicsGetCurrentContext() {
             pageView.pdfPage?.drawInContext(ctx,
@@ -63,24 +63,24 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        delegate?.userDidTapShare(image)
+        delegate?.userDidTapShare(image!)
     }
 
-    @IBAction func doneButtonTapped(sender: AnyObject) {
+    @IBAction func doneButtonTapped(_ sender: AnyObject) {
         delegate?.userDidTapDone()
     }
 
-    @IBAction func didTapCancelButton(sender: AnyObject) {
+    @IBAction func didTapCancelButton(_ sender: AnyObject) {
         delegate?.userDidTapCancel()
     }
 
-    @IBAction func didRecognizeTap(sender: AnyObject) {
-        bottomBarBG.hidden = !bottomBarBG.hidden
+    @IBAction func didRecognizeTap(_ sender: AnyObject) {
+        bottomBarBG.isHidden = !bottomBarBG.isHidden
     }
 
-    // MARK: PageUserInterface methods
+    // mark: PageUserInterface methods
 
-    var pdfPage: CGPDFPageRef? {
+    var pdfPage: CGPDFPage? {
         get {
             return pageView.pdfPage
         }
@@ -102,7 +102,7 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
     }
 
     func showLoadingIndicator() {
-        if isViewLoaded() {
+        if isViewLoaded {
             loadingView.alpha = 1.0
             activityIndicator.startAnimating()
         }
@@ -113,34 +113,34 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         activityIndicator.stopAnimating()
     }
 
-    func setDownloadProgress(progress: Float) {
+    func setDownloadProgress(_ progress: Float) {
         progressView.progress = progress
     }
 
-    func showErrorWithTitle(title: String?, message: String?) {
+    func showErrorWithTitle(_ title: String?, message: String?) {
         errorTitleLabel.text = title
         errorMessageLabel.text = message
-        errorView.hidden = false
+        errorView.isHidden = false
     }
 
     func hideError() {
-        errorView.hidden = true
+        errorView.isHidden = true
     }
 
-    @IBAction func errorOKButtonTapped(sender: AnyObject) {
+    @IBAction func errorOKButtonTapped(_ sender: AnyObject) {
         delegate?.userDidTapDone()
     }
 
-    // MARK: UIScrollViewDelegate protocol
+    // mark: UIScrollViewDelegate protocol
 
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return pageView
     }
 
-    // MARK: UIViewController overrides
+    // mark: UIViewController overrides
 
     override var modalPresentationStyle: UIModalPresentationStyle {
-        get { return .OverCurrentContext }
+        get { return .overCurrentContext }
         set { }
     }
 
@@ -149,24 +149,24 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
 
         scrollView.addSubview(pageView)
 
-        doneButton.setBackgroundImage(nil, forState: .Normal)
-        doneButton.setTitleColor(UIColor.lightTextColor(), forState: .Normal)
-        doneButton.setTitle(nil, forState: .Normal)
-        doneButton.tintColor = UIColor.whiteColor()
+        doneButton.setBackgroundImage(nil, for: UIControlState())
+        doneButton.setTitleColor(UIColor.lightText, for: UIControlState())
+        doneButton.setTitle(nil, for: UIControlState())
+        doneButton.tintColor = UIColor.white
         let doneImage = UIImage(named: "UIAccessoryButtonX")
-        doneButton.setImage(doneImage?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        doneButton.setImage(doneImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
 
-        shareButton.setBackgroundImage(nil, forState: .Normal)
-        shareButton.setTitleColor(UIColor.lightTextColor(), forState: .Normal)
-        shareButton.setTitle(nil, forState: .Normal)
-        shareButton.tintColor = UIColor.whiteColor()
+        shareButton.setBackgroundImage(nil, for: UIControlState())
+        shareButton.setTitleColor(UIColor.lightText, for: UIControlState())
+        shareButton.setTitle(nil, for: UIControlState())
+        shareButton.tintColor = UIColor.white
         let actionImage = UIImage(named: "UIButtonBarAction")
-        shareButton.setImage(actionImage?.imageWithRenderingMode(.AlwaysTemplate),
-                             forState: .Normal)
+        shareButton.setImage(actionImage?.withRenderingMode(.alwaysTemplate),
+                             for: UIControlState())
 
         toastButton.backgroundColor = UIColor(white: 1.0, alpha: 0.8)
-        toastButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        toastButton.layer.shadowColor = UIColor.blackColor().CGColor
+        toastButton.setTitleColor(UIColor.darkGray, for: UIControlState())
+        toastButton.layer.shadowColor = UIColor.black.cgColor
         toastButton.layer.shadowOffset = CGSize(width: 0, height: 0)
         toastButton.layer.shadowRadius = 1.0
         toastButton.layer.shadowOpacity = 1.0
@@ -177,14 +177,14 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         showLoadingIndicator()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBarHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
 
     override func viewDidLayoutSubviews() {
         let scrollViewWidthOverPageWidth: CGFloat
-        if let pageWidth = pageView.pdfPage?.mediaBoxRect.size.width where pageWidth > 0 {
+        if let pageWidth = pageView.pdfPage?.mediaBoxRect.size.width, pageWidth > 0 {
             scrollViewWidthOverPageWidth = scrollView.bounds.size.width/pageWidth
         } else {
             scrollViewWidthOverPageWidth = 1.0
@@ -193,7 +193,7 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         scrollView.zoomScale = scrollView.minimumZoomScale
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 }

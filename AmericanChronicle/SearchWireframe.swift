@@ -1,38 +1,38 @@
-// MARK: -
-// MARK: SearchWireframeInterface protocol
+// mark: -
+// mark: SearchWireframeInterface protocol
 
 protocol SearchWireframeInterface: class {
-    func showSearchResult(row: SearchResultsRow, forTerm: String)
-    func showUSStatesPicker(activeStates: [String])
-    func showDayMonthYearPickerWithCurrentDayMonthYear(dayMonthYear: DayMonthYear?, title: String?)
+    func showSearchResult(_ row: SearchResultsRow, forTerm: String)
+    func showUSStatesPicker(_ activeStates: [String])
+    func showDayMonthYearPickerWithCurrentDayMonthYear(_ dayMonthYear: DayMonthYear?, title: String?)
 }
 
-// MARK: -
-// MARK: SearchWireframe class
+// mark: -
+// mark: SearchWireframe class
 
 final class SearchWireframe: SearchWireframeInterface,
     DatePickerWireframeDelegate,
     USStatePickerWireframeDelegate,
     PageWireframeDelegate {
 
-    // MARK: Properties
+    // mark: Properties
 
-    private let presenter: SearchPresenterInterface
-    private var presentedViewController: UIViewController?
-    private var statePickerWireframe: USStatePickerWireframe?
-    private var datePickerWireframe: DatePickerWireframe?
-    private var pageWireframe: PageWireframe?
+    fileprivate let presenter: SearchPresenterInterface
+    fileprivate var presentedViewController: UIViewController?
+    fileprivate var statePickerWireframe: USStatePickerWireframe?
+    fileprivate var datePickerWireframe: DatePickerWireframe?
+    fileprivate var pageWireframe: PageWireframe?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(presenter: SearchPresenterInterface = SearchPresenter()) {
         self.presenter = presenter
         self.presenter.wireframe = self
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func beginAsRootFromWindow(window: UIWindow?) {
+    func beginAsRootFromWindow(_ window: UIWindow?) {
         let vc = SearchViewController()
         vc.delegate = presenter
         presenter.configureUserInterfaceForPresentation(vc)
@@ -43,10 +43,10 @@ final class SearchWireframe: SearchWireframeInterface,
         presentedViewController = nvc
     }
 
-    // MARK: SearchWireframeInterface methods
+    // mark: SearchWireframeInterface methods
 
-    func showSearchResult(row: SearchResultsRow, forTerm term: String) {
-        if let remoteURL = row.pdfURL, id = row.id {
+    func showSearchResult(_ row: SearchResultsRow, forTerm term: String) {
+        if let remoteURL = row.pdfURL, let id = row.id {
             pageWireframe = PageWireframe(delegate: self)
             pageWireframe?.presentFromViewController(presentedViewController,
                                                      withSearchTerm: term,
@@ -55,13 +55,13 @@ final class SearchWireframe: SearchWireframeInterface,
         }
     }
 
-    func showUSStatesPicker(selectedStates: [String]) {
+    func showUSStatesPicker(_ selectedStates: [String]) {
         statePickerWireframe = USStatePickerWireframe(delegate: self)
         statePickerWireframe?.presentFromViewController(presentedViewController,
                                                         withSelectedStateNames: selectedStates)
     }
 
-    func showDayMonthYearPickerWithCurrentDayMonthYear(dayMonthYear: DayMonthYear?,
+    func showDayMonthYearPickerWithCurrentDayMonthYear(_ dayMonthYear: DayMonthYear?,
                                                        title: String?) {
         datePickerWireframe = DatePickerWireframe(delegate: self)
         datePickerWireframe?.presentFromViewController(presentedViewController,
@@ -69,31 +69,31 @@ final class SearchWireframe: SearchWireframeInterface,
                                                        title: title)
     }
 
-    // MARK: DatePickerWireframeDelegate methods
+    // mark: DatePickerWireframeDelegate methods
 
-    func datePickerWireframe(wireframe: DatePickerWireframe,
+    func datePickerWireframe(_ wireframe: DatePickerWireframe,
                              didSaveWithDayMonthYear dayMonthYear: DayMonthYear) {
         presenter.userDidSaveDayMonthYear(dayMonthYear)
     }
 
-    func datePickerWireframeDidFinish(wireframe: DatePickerWireframe) {
+    func datePickerWireframeDidFinish(_ wireframe: DatePickerWireframe) {
         datePickerWireframe = nil
     }
 
-    // MARK: USStatePickerWireframeDelegate methods
+    // mark: USStatePickerWireframeDelegate methods
 
-    func usStatePickerWireframe(wireframe: USStatePickerWireframe,
+    func usStatePickerWireframe(_ wireframe: USStatePickerWireframe,
                                 didSaveFilteredUSStateNames stateNames: [String]) {
         presenter.userDidSaveFilteredUSStateNames(stateNames)
     }
 
-    func usStatePickerWireframeDidFinish(wireframe: USStatePickerWireframe) {
+    func usStatePickerWireframeDidFinish(_ wireframe: USStatePickerWireframe) {
         statePickerWireframe = nil
     }
 
-    // MARK: PageWireframeDelegate methods
+    // mark: PageWireframeDelegate methods
 
-    func pageWireframeDidFinish(wireframe: PageWireframe) {
+    func pageWireframeDidFinish(_ wireframe: PageWireframe) {
         pageWireframe = nil
     }
 }

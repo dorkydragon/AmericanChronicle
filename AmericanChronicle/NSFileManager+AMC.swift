@@ -1,32 +1,32 @@
-extension NSFileManager {
-    class var defaultDocumentDirectoryURL: NSURL? {
-        return NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory,
-                                                               inDomains: .UserDomainMask).first
+extension FileManager {
+    class var defaultDocumentDirectoryURL: URL? {
+        return FileManager.default.urls(for: .documentDirectory,
+                                                               in: .userDomainMask).first
     }
 
-    class var defaultApplicationDirectoryURL: NSURL? {
-        return NSFileManager.defaultManager().URLsForDirectory(.ApplicationDirectory,
-                                                               inDomains: .UserDomainMask).first
+    class var defaultApplicationDirectoryURL: URL? {
+        return FileManager.default.urls(for: .applicationDirectory,
+                                                               in: .userDomainMask).first
     }
 
-    class var defaultLibraryDirectoryURL: NSURL? {
-        return NSFileManager.defaultManager().URLsForDirectory(.LibraryDirectory,
-                                                               inDomains: .UserDomainMask).first
+    class var defaultLibraryDirectoryURL: URL? {
+        return FileManager.default.urls(for: .libraryDirectory,
+                                                               in: .userDomainMask).first
     }
 
-    class var defaultCachesDirectoryURL: NSURL? {
-        return NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory,
-                                                               inDomains: .UserDomainMask).first
+    class var defaultCachesDirectoryURL: URL? {
+        return FileManager.default.urls(for: .cachesDirectory,
+                                                               in: .userDomainMask).first
     }
 
-    class var defaultDownloadsDirectoryURL: NSURL? {
-        return NSFileManager.defaultManager().URLsForDirectory(.DownloadsDirectory,
-                                                               inDomains: .UserDomainMask).first
+    class var defaultDownloadsDirectoryURL: URL? {
+        return FileManager.default.urls(for: .downloadsDirectory,
+                                                               in: .userDomainMask).first
     }
 
-    class var defaultItemReplacementDirectoryURL: NSURL? {
-        return NSFileManager.defaultManager().URLsForDirectory(.ItemReplacementDirectory,
-                                                               inDomains: .UserDomainMask).first
+    class var defaultItemReplacementDirectoryURL: URL? {
+        return FileManager.default.urls(for: .itemReplacementDirectory,
+                                                               in: .userDomainMask).first
     }
 
     class func printAllDirectoryURLs() {
@@ -41,7 +41,7 @@ extension NSFileManager {
     class var contentsOfTemporaryDirectory: [String] {
         let tempDirURL = NSTemporaryDirectory()
         do {
-            let contents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(tempDirURL)
+            let contents = try FileManager.default.contentsOfDirectory(atPath: tempDirURL)
             print("contents: \(contents)")
             return contents
         } catch let error {
@@ -50,23 +50,9 @@ extension NSFileManager {
         return []
     }
 
-    class func fullURLForTemporaryFileWithName(name: String) -> NSURL? {
-        let tempDirURL = NSURL(fileURLWithPath: NSTemporaryDirectory())
-        let fullURL = tempDirURL.URLByAppendingPathComponent(name)
+    class func fullURLForTemporaryFileWithName(_ name: String) -> URL? {
+        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let fullURL = tempDirURL.appendingPathComponent(name)
         return fullURL
-    }
-
-    class func attributesForTemporaryFileWithName(name: String) -> [String: AnyObject] {
-        let fullURL = fullURLForTemporaryFileWithName(name)
-        if let fullURLString = fullURL?.absoluteString {
-            do {
-                let attributes = try NSFileManager.defaultManager()
-                                        .attributesOfItemAtPath(fullURLString)
-                return attributes
-            } catch let error {
-                print("error: \(error)")
-            }
-        }
-        return [:]
     }
 }

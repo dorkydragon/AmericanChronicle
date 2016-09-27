@@ -1,57 +1,57 @@
-extension CGPDFPageRef {
+extension CGPDFPage {
     var mediaBoxRect: CGRect {
-        return CGPDFPageGetBoxRect(self, .MediaBox)
+        return self.getBoxRect(.mediaBox)
     }
 
-    func drawInContext(ctx: CGContextRef,
+    func drawInContext(_ ctx: CGContext,
                        boundingRect: CGRect,
                        withHighlights highlights: OCRCoordinates?) {
 
-        CGContextSaveGState(ctx)
+        ctx.saveGState()
 
         // Flip the context so that the PDF page is rendered right side up.
-        CGContextTranslateCTM(ctx, 0.0, boundingRect.size.height)
-        CGContextScaleCTM(ctx, 1.0, -1.0)
+        ctx.translateBy(x: 0.0, y: boundingRect.size.height)
+        ctx.scaleBy(x: 1.0, y: -1.0)
 
         // Scale the context so that the PDF page is drawn to fill the view exactly.
-        let pdfSize = CGPDFPageGetBoxRect(self, .MediaBox).size
+        let pdfSize = self.getBoxRect(.mediaBox).size
         let widthScale = boundingRect.size.width/pdfSize.width
         let heightScale = boundingRect.size.height/pdfSize.height
         let smallerScale = fmin(widthScale, heightScale)
-        CGContextScaleCTM(ctx, smallerScale, smallerScale)
+        ctx.scaleBy(x: smallerScale, y: smallerScale)
 
         let scaledPDFWidth = (pdfSize.width * smallerScale)
         let scaledPDFHeight = (pdfSize.height * smallerScale)
         let xTranslate = (boundingRect.size.width - scaledPDFWidth) / 2.0
         let yTranslate = (boundingRect.size.height - scaledPDFHeight) / 2.0
-        CGContextTranslateCTM(ctx, xTranslate, yTranslate)
+        ctx.translateBy(x: xTranslate, y: yTranslate)
 
-        CGContextDrawPDFPage(ctx, self)
+        ctx.drawPDFPage(self)
 
-        CGContextRestoreGState(ctx)
+        ctx.restoreGState()
 
         // --- Draw highlights (if they exist) --- //
 
-        if let highlightsWidth = highlights?.width, highlightsHeight = highlights?.height {
-            CGContextSaveGState(ctx)
+        if let highlightsWidth = highlights?.width, let highlightsHeight = highlights?.height {
+            ctx.saveGState()
             let widthScale = scaledPDFWidth/highlightsWidth
             let heightScale = scaledPDFHeight/highlightsHeight
-            CGContextScaleCTM(ctx, widthScale, heightScale)
+            ctx.scaleBy(x: widthScale, y: heightScale)
 
             let scaledHighlightsWidth = (highlightsWidth * widthScale)
             let scaledHighlightsHeight = (highlightsHeight * heightScale)
             let xTranslate = (boundingRect.size.width - scaledHighlightsWidth) / 2.0
             let yTranslate = (boundingRect.size.height - scaledHighlightsHeight) / 2.0
-            CGContextTranslateCTM(ctx, xTranslate, yTranslate)
+            ctx.translateBy(x: xTranslate, y: yTranslate)
 
-            CGContextSetRGBFillColor(ctx, 0, 1.0, 0, 0.4)
+            ctx.setFillColor(red: 0, green: 1.0, blue: 0, alpha: 0.4)
 
             for (_, rects) in highlights?.wordCoordinates ?? [:] {
                 for rect in rects {
-                    CGContextFillRect(ctx, rect)
+                    ctx.fill(rect)
                 }
             }
-            CGContextRestoreGState(ctx)
+            ctx.restoreGState()
         }
     }
 }

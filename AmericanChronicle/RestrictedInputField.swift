@@ -10,60 +10,60 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
         set { textField.inputView = newValue }
     }
 
-    private let titleLabel: UILabel = {
+    fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.smallBody
         label.textColor = Colors.darkGray
-        label.textAlignment = .Center
+        label.textAlignment = .center
         return label
     }()
-    private let textField: UITextField = {
+    fileprivate let textField: UITextField = {
         let field = UITextField()
-        field.tintColor = UIColor.clearColor() // Hide the cursor
+        field.tintColor = UIColor.clear // Hide the cursor
         field.font = Fonts.largeBody
-        field.borderStyle = .None
+        field.borderStyle = .none
         field.textColor = Colors.darkGray
-        field.textAlignment = .Center
+        field.textAlignment = .center
         return field
     }()
-    private let tapButton: UIButton = {
+    fileprivate let tapButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(nil, forState: .Normal)
-        button.setBackgroundImage(nil, forState: .Highlighted)
-        button.setBackgroundImage(nil, forState: .Selected)
+        button.setBackgroundImage(nil, for: UIControlState())
+        button.setBackgroundImage(nil, for: .highlighted)
+        button.setBackgroundImage(nil, for: .selected)
         return button
     }()
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(title: String) {
         super.init(frame: .zero)
 
         titleLabel.text = title
         addSubview(titleLabel)
-        titleLabel.snp_makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(0)
             make.top.equalTo(0)
             make.height.equalTo(12)
-            make.width.equalTo(self.snp_width)
+            make.width.equalTo(self.snp.width)
         }
 
         textField.inputView = inputView
         textField.inputAccessoryView = inputAccessoryView
         textField.delegate = self
         addSubview(textField)
-        textField.snp_makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp_leading)
-            make.top.equalTo(titleLabel.snp_bottom)
+        textField.snp.makeConstraints { make in
+            make.leading.equalTo(titleLabel.snp.leading)
+            make.top.equalTo(titleLabel.snp.bottom)
             make.bottom.equalTo(0)
-            make.trailing.equalTo(titleLabel.snp_trailing)
+            make.trailing.equalTo(titleLabel.snp.trailing)
         }
 
         tapButton.addTarget(self,
                             action: #selector(didTapButton(_:)),
-                            forControlEvents: .TouchUpInside)
+                            for: .touchUpInside)
         addSubview(tapButton)
-        tapButton.snp_makeConstraints { make in
+        tapButton.snp.makeConstraints { make in
             make.edges.equalTo(textField)
         }
 
@@ -78,15 +78,15 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func didTapButton(sender: UIButton) {
+    func didTapButton(_ sender: UIButton) {
         textField.becomeFirstResponder()
     }
 
-    // MARK: UITextFieldDelegate methods
+    // mark: UITextFieldDelegate methods
 
-    @objc func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    @objc func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.didBecomeActiveHandler?()
         return true
     }
@@ -95,7 +95,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
         return textField.becomeFirstResponder()
     }
 
-    override func isFirstResponder() -> Bool {
-        return textField.isFirstResponder()
+    override var isFirstResponder: Bool {
+        return textField.isFirstResponder
     }
 }

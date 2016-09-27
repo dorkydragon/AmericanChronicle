@@ -1,29 +1,29 @@
 // http://scotthurff.com/posts/why-your-user-interface-is-awkward-youre-ignoring-the-ui-stack
 enum SearchViewState: Equatable, CustomStringConvertible {
-    case EmptySearchField // Blank (A)
-    case EmptyResults // Blank (B)
-    case LoadingNewParamaters
-    case LoadingMoreRows
-    case Partial(title: String, rows: [SearchResultsRow])
-    case Ideal(title: String, rows: [SearchResultsRow])
-    case Error(title: String?, message: String?)
+    case emptySearchField // Blank (A)
+    case emptyResults // Blank (B)
+    case loadingNewParamaters
+    case loadingMoreRows
+    case partial(title: String, rows: [SearchResultsRow])
+    case ideal(title: String, rows: [SearchResultsRow])
+    case error(title: String?, message: String?)
 
     var description: String {
         var desc = "<ViewState: "
         switch self {
-        case .EmptySearchField: desc += "EmptySearchField"
-        case .EmptyResults: desc += "EmptyResults"
-        case .LoadingNewParamaters: desc += "LoadingNewParamaters"
-        case .LoadingMoreRows: desc += "LoadingMoreRows"
-        case let .Partial(title, rows):
+        case .emptySearchField: desc += "EmptySearchField"
+        case .emptyResults: desc += "EmptyResults"
+        case .loadingNewParamaters: desc += "LoadingNewParamaters"
+        case .loadingMoreRows: desc += "LoadingMoreRows"
+        case let .partial(title, rows):
             desc += "Partial, title=\(title), rows=["
-            desc += rows.map({"\($0.description)" }).joinWithSeparator(", ")
+            desc += rows.map({"\($0.description)" }).joined(separator: ", ")
             desc += "]"
-        case let .Ideal(title, rows):
+        case let .ideal(title, rows):
             desc += "Ideal, title=\(title), rows=["
-            desc += rows.map({"\($0.description)" }).joinWithSeparator(", ")
+            desc += rows.map({"\($0.description)" }).joined(separator: ", ")
             desc += "]"
-        case let .Error(title, message):
+        case let .error(title, message):
             desc += "Error, title=\(title), message=\(message)"
         }
         desc += ">"
@@ -33,15 +33,15 @@ enum SearchViewState: Equatable, CustomStringConvertible {
 
 func == (viewA: SearchViewState, viewB: SearchViewState) -> Bool {
     switch (viewA, viewB) {
-    case (.EmptySearchField, .EmptySearchField): return true
-    case (.EmptyResults, .EmptyResults): return true
-    case (.LoadingNewParamaters, .LoadingNewParamaters): return true
-    case (.LoadingMoreRows, .LoadingMoreRows): return true
-    case (let .Partial(titleA, rowsA), let .Partial(titleB, rowsB)):
+    case (.emptySearchField, .emptySearchField): return true
+    case (.emptyResults, .emptyResults): return true
+    case (.loadingNewParamaters, .loadingNewParamaters): return true
+    case (.loadingMoreRows, .loadingMoreRows): return true
+    case (let .partial(titleA, rowsA), let .partial(titleB, rowsB)):
         return (titleA == titleB) && (rowsA == rowsB)
-    case (let .Ideal(titleA, rowsA), let .Ideal(titleB, rowsB)):
+    case (let .ideal(titleA, rowsA), let .ideal(titleB, rowsB)):
         return (titleA == titleB) && (rowsA == rowsB)
-    case (let .Error(titleA, messageA), let .Error(titleB, messageB)):
+    case (let .error(titleA, messageA), let .error(titleB, messageB)):
         return (titleA == titleB) && (messageA == messageB)
     default: return false
     }

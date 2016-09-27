@@ -1,20 +1,20 @@
 final class PDFPageView: UIView {
 
-    // MARK: Properties
+    // mark: Properties
 
-    var pdfPage: CGPDFPageRef? {
+    var pdfPage: CGPDFPage? {
         didSet { layer.setNeedsDisplay() }
     }
     var highlights: OCRCoordinates? {
         didSet { layer.setNeedsDisplay() }
     }
 
-    // MARK: Init methods
+    // mark: Init methods
 
     func commonInit() {
-        layer.borderColor = UIColor.blackColor().CGColor
+        layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1.0
-        autoresizingMask = .None
+        autoresizingMask = UIViewAutoresizing()
     }
 
     override init(frame: CGRect) {
@@ -27,13 +27,13 @@ final class PDFPageView: UIView {
         self.commonInit()
     }
 
-    // MARK: UIView overrides
+    // mark: UIView overrides
 
-    override func drawLayer(layer: CALayer, inContext ctx: CGContext) {
+    override func draw(_ layer: CALayer, in ctx: CGContext) {
 
         // Draw a blank white background (in case pdfPage is empty).
-        CGContextSetRGBFillColor(ctx, 1.0, 1.0, 1.0, 1.0)
-        CGContextFillRect(ctx, bounds)
+        ctx.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        ctx.fill(bounds)
 
         pdfPage?.drawInContext(ctx, boundingRect: bounds, withHighlights: highlights)
     }

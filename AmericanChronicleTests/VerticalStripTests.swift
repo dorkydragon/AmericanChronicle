@@ -3,7 +3,7 @@ import XCTest
 
 class VerticalStripTests: XCTestCase {
 
-    private var subject: VerticalStrip!
+    fileprivate var subject: VerticalStrip!
 
     override func setUp() {
         super.setUp()

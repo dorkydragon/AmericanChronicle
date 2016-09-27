@@ -1,10 +1,10 @@
 protocol DateTextFieldDelegate: class {
-    func selectedDayMonthYearDidChange(selectedDayMonthYear: DayMonthYear?)
+    func selectedDayMonthYearDidChange(_ selectedDayMonthYear: DayMonthYear?)
 }
 
 final class DateTextField: UIView, UITextFieldDelegate {
 
-    // MARK: Properties
+    // mark: Properties
 
     weak var delegate: DateTextFieldDelegate?
     var selectedDayMonthYear: DayMonthYear? {
@@ -21,30 +21,30 @@ final class DateTextField: UIView, UITextFieldDelegate {
         }
     }
 
-    private let pagedKeyboard: PagedKeyboard
-    private let monthKeyboard = MonthKeyboard()
-    private let dayKeyboard = DayKeyboard()
-    private let yearPicker = ByDecadeYearPicker()
+    fileprivate let pagedKeyboard: PagedKeyboard
+    fileprivate let monthKeyboard = MonthKeyboard()
+    fileprivate let dayKeyboard = DayKeyboard()
+    fileprivate let yearPicker = ByDecadeYearPicker()
 
-    private let monthField = RestrictedInputField(title: "Month")
-    private let dayField = RestrictedInputField(title: "Day")
-    private let yearField = RestrictedInputField(title: "Year")
+    fileprivate let monthField = RestrictedInputField(title: "Month")
+    fileprivate let dayField = RestrictedInputField(title: "Day")
+    fileprivate let yearField = RestrictedInputField(title: "Year")
 
-    private let normalUnderline: UIImageView = {
+    fileprivate let normalUnderline: UIImageView = {
         let view = UIImageView(image: UIImage.imageWithFillColor(Colors.lightBlueBrightTransparent))
         return view
     }()
 
-    private let highlightUnderline: UIImageView = {
+    fileprivate let highlightUnderline: UIImageView = {
         let view = UIImageView(image: UIImage.imageWithFillColor(Colors.lightBlueBright))
         return view
     }()
 
-    // MARK: Init methods
+    // mark: Init methods
 
     func commonInit() {
 
-        monthKeyboard.autoresizingMask = .FlexibleHeight
+        monthKeyboard.autoresizingMask = .flexibleHeight
         monthKeyboard.monthTapHandler = monthValueChanged
 
         monthField.inputView = pagedKeyboard
@@ -52,12 +52,12 @@ final class DateTextField: UIView, UITextFieldDelegate {
             self.highlightField(self.monthField)
         }
         addSubview(monthField)
-        monthField.snp_makeConstraints { make in
+        monthField.snp.makeConstraints { make in
             make.leading.equalTo(0)
             make.top.equalTo(0)
         }
 
-        dayKeyboard.autoresizingMask = .FlexibleHeight
+        dayKeyboard.autoresizingMask = .flexibleHeight
         dayKeyboard.dayTapHandler = dayValueChanged
 
         dayField.inputView = pagedKeyboard
@@ -65,16 +65,16 @@ final class DateTextField: UIView, UITextFieldDelegate {
             self.highlightField(self.dayField)
         }
         addSubview(dayField)
-        dayField.snp_makeConstraints { make in
-            make.leading.equalTo(monthField.snp_trailing)
+        dayField.snp.makeConstraints { make in
+            make.leading.equalTo(monthField.snp.trailing)
                 .offset(Measurements.horizontalSiblingSpacing)
             make.top.equalTo(0)
-            make.width.equalTo(self.monthField.snp_width)
+            make.width.equalTo(self.monthField.snp.width)
         }
 
         yearPicker.earliestYear = Search.earliestPossibleDayMonthYear.year
         yearPicker.latestYear = Search.latestPossibleDayMonthYear.year
-        yearPicker.autoresizingMask = .FlexibleHeight
+        yearPicker.autoresizingMask = .flexibleHeight
         yearPicker.yearTapHandler = yearValueChanged
 
         yearField.inputView = pagedKeyboard
@@ -82,27 +82,27 @@ final class DateTextField: UIView, UITextFieldDelegate {
             self.highlightField(self.yearField)
         }
         addSubview(yearField)
-        yearField.snp_makeConstraints { make in
-            make.leading.equalTo(dayField.snp_trailing).offset(Measurements.horizontalSiblingSpacing)
+        yearField.snp.makeConstraints { make in
+            make.leading.equalTo(dayField.snp.trailing).offset(Measurements.horizontalSiblingSpacing)
             make.top.equalTo(0)
-            make.width.equalTo(dayField.snp_width)
+            make.width.equalTo(dayField.snp.width)
             make.trailing.equalTo(0)
         }
 
         addSubview(normalUnderline)
-        normalUnderline.snp_makeConstraints { make in
-            make.top.equalTo(monthField.snp_bottom)
-            make.leading.equalTo(monthField.snp_leading)
-            make.trailing.equalTo(yearField.snp_trailing)
+        normalUnderline.snp.makeConstraints { make in
+            make.top.equalTo(monthField.snp.bottom)
+            make.leading.equalTo(monthField.snp.leading)
+            make.trailing.equalTo(yearField.snp.trailing)
             make.height.equalTo(2.0)
         }
 
         addSubview(highlightUnderline)
-        highlightUnderline.snp_makeConstraints { make in
-            make.top.equalTo(monthField.snp_bottom)
+        highlightUnderline.snp.makeConstraints { make in
+            make.top.equalTo(monthField.snp.bottom)
             make.height.equalTo(2.0)
-            make.leading.equalTo(monthField.snp_leading)
-            make.width.equalTo(monthField.snp_width)
+            make.leading.equalTo(monthField.snp.leading)
+            make.width.equalTo(monthField.snp.width)
         }
     }
 
@@ -118,40 +118,40 @@ final class DateTextField: UIView, UITextFieldDelegate {
         self.commonInit()
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func monthValueChanged(value: Int) {
+    func monthValueChanged(_ value: Int) {
         selectedDayMonthYear = selectedDayMonthYear?.copyWithMonth(value)
         delegate?.selectedDayMonthYearDidChange(selectedDayMonthYear)
     }
 
-    func dayValueChanged(value: String) {
+    func dayValueChanged(_ value: String) {
         selectedDayMonthYear = selectedDayMonthYear?.copyWithDay(Int(value) ?? 0)
         delegate?.selectedDayMonthYearDidChange(selectedDayMonthYear)
     }
 
-    func yearValueChanged(value: String) {
+    func yearValueChanged(_ value: String) {
         selectedDayMonthYear = selectedDayMonthYear?.copyWithYear(Int(value) ?? 0)
         delegate?.selectedDayMonthYearDidChange(selectedDayMonthYear)
     }
 
-    // MARK: Private methods
+    // mark: Private methods
 
-    private func highlightField(field: RestrictedInputField) {
-        highlightUnderline.snp_remakeConstraints { make in
+    fileprivate func highlightField(_ field: RestrictedInputField) {
+        highlightUnderline.snp.remakeConstraints { make in
             make.height.equalTo(2.0)
-            make.top.equalTo(field.snp_bottom)
-            make.leading.equalTo(field.snp_leading)
-            make.width.equalTo(field.snp_width)
+            make.top.equalTo(field.snp.bottom)
+            make.leading.equalTo(field.snp.leading)
+            make.width.equalTo(field.snp.width)
         }
-        let pageIndex = [self.monthField, self.dayField, self.yearField].indexOf(field)!
-        UIView.animateWithDuration(0.1) {
+        let pageIndex = [self.monthField, self.dayField, self.yearField].index(of: field)!
+        UIView.animate(withDuration: 0.1, animations: {
             self.layoutIfNeeded()
             self.pagedKeyboard.setVisiblePage(pageIndex, animated: false)
-        }
+        })
     }
 
-    // MARK: UIResponder overrides
+    // mark: UIResponder overrides
 
     override func becomeFirstResponder() -> Bool {
         return monthField.becomeFirstResponder()

@@ -9,11 +9,11 @@ class FakeSearchView: SearchUserInterface {
     var usStateNames: String?
 
     var setViewState_wasCalled_withState: SearchViewState?
-    func setViewState(state: SearchViewState) {
+    func setViewState(_ state: SearchViewState) {
         setViewState_wasCalled_withState = state
     }
 
-    func setBottomContentInset(bottom: CGFloat) {
+    func setBottomContentInset(_ bottom: CGFloat) {
 
     }
 

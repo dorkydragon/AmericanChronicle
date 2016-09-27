@@ -17,7 +17,7 @@ class PagePresenterTests: XCTestCase {
     func testThat_whenConfigureIsCalled_itTellsTheViewToShowItsLoadingIndicator() {
         subject.configureUserInterfaceForPresentation(view,
                                                       withSearchTerm: "",
-                                                      remoteDownloadURL: NSURL(string: "google.com")!,
+                                                      remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
         XCTAssertTrue(view.showLoadingIndicator_wasCalled)
     }
@@ -25,7 +25,7 @@ class PagePresenterTests: XCTestCase {
     func testThat_whenConfigureIsCalled_itTellsTheInteractor() {
         subject.configureUserInterfaceForPresentation(view,
                                                       withSearchTerm: "",
-                                                      remoteDownloadURL: NSURL(string: "google.com")!,
+                                                      remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
         XCTAssert(interactor.startDownload_wasCalled)
     }
@@ -33,22 +33,22 @@ class PagePresenterTests: XCTestCase {
     func testThat_whenADownloadFinishes_itTellsTheViewToHideItsLoadingIndicator() {
         subject.configureUserInterfaceForPresentation(view,
                                                       withSearchTerm: "",
-                                                      remoteDownloadURL: NSURL(string: "google.com")!,
+                                                      remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
-        subject.download(NSURL(string: "http://google.com")!, didFinishWithFileURL: nil, error: nil)
+        subject.download(URL(string: "http://google.com")!, didFinishWithFileURL: nil, error: nil)
         XCTAssertTrue(view.hideLoadingIndicator_wasCalled)
     }
 
     func testThat_whenADownloadFinishesWithoutAnError_itPassesThePDFToTheView() {
-        let requestURL = NSURL(string: "")!
-        let currentBundle = NSBundle(forClass: PagePresenterTests.self)
-        let returnedFilePathString = currentBundle.pathForResource("seq-1", ofType: "pdf")
-        let returnedFileURL = NSURL(fileURLWithPath: returnedFilePathString ?? "")
+        let requestURL = URL(string: "http://www.blah.spat")!
+        let currentBundle = Bundle(for: PagePresenterTests.self)
+        let returnedFilePathString = currentBundle.path(forResource: "seq-1", ofType: "pdf")
+        let returnedFileURL = URL(fileURLWithPath: returnedFilePathString ?? "")
         XCTAssertNotNil(returnedFileURL)
 
         subject.configureUserInterfaceForPresentation(view,
                                                       withSearchTerm: "",
-                                                      remoteDownloadURL: NSURL(string: "google.com")!,
+                                                      remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
 
         subject.download(requestURL, didFinishWithFileURL: returnedFileURL, error: nil)
@@ -56,11 +56,11 @@ class PagePresenterTests: XCTestCase {
     }
 
     func testThat_whenADownloadFinishesWithAnError_itTellsTheViewToShowTheErrorMessage() {
-        let requestURL = NSURL(string: "")!
+        let requestURL = URL(string: "http://www.blah.spat")!
         let returnedError = NSError(domain: "", code: 0, userInfo: nil)
         subject.configureUserInterfaceForPresentation(view,
                                                       withSearchTerm: "",
-                                                      remoteDownloadURL: NSURL(string: "google.com")!,
+                                                      remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
         subject.download(requestURL, didFinishWithFileURL: nil, error: returnedError)
         XCTAssertNotNil(view.showError_wasCalled_withTitle)
@@ -69,7 +69,7 @@ class PagePresenterTests: XCTestCase {
     func testThat_whenTheUserTapsCancel_itTellsTheInteractorToCancel() {
         subject.configureUserInterfaceForPresentation(view,
                                                       withSearchTerm: "",
-                                                      remoteDownloadURL: NSURL(string: "google.com")!,
+                                                      remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
         subject.userDidTapCancel()
         XCTAssert(interactor.cancelDownload_wasCalled)

@@ -17,23 +17,23 @@ class PageDataManagerTests: XCTestCase {
     }
 
     func testThat_whenDownloadPageIsCalled_andThePageIsNotCached_itStartsAPageServiceRequest() {
-        let URL = NSURL(string: "http://notrealurl.com")!
+        let URL = Foundation.URL(string: "http://notrealurl.com")!
         subject.downloadPage(URL, completionHandler: { _, _, _ in })
         XCTAssertEqual(pageService.downloadPage_wasCalled_withURL, URL)
     }
 
     func testThat_whenDownloadPageIsCalled_andThePageIsCached_itDoesNotStartAPageServiceRequest() {
-        let remoteURL = NSURL(string: "http://notrealurl.com")!
-        cacheService.stubbed_fileURL = NSURL(string: "file://doesnotexist")
+        let remoteURL = URL(string: "http://notrealurl.com")!
+        cacheService.stubbed_fileURL = URL(string: "file://doesnotexist")
         subject.downloadPage(remoteURL, completionHandler: { _, _, _ in })
 
         XCTAssertNil(pageService.downloadPage_wasCalled_withURL)
     }
 
     func testThat_whenDownloadPageIsCalled_andThePageIsCached_itReturnsAFileURLImmediately() {
-        let remoteURL = NSURL(string: "http://notrealurl.com")!
-        var returnedFileURL: NSURL?
-        cacheService.stubbed_fileURL = NSURL(string: "file://doesnotexist")
+        let remoteURL = URL(string: "http://notrealurl.com")!
+        var returnedFileURL: URL?
+        cacheService.stubbed_fileURL = URL(string: "file://doesnotexist")
         subject.downloadPage(remoteURL, completionHandler: { _, fileURL, _ in
             returnedFileURL = fileURL
         })
@@ -42,19 +42,19 @@ class PageDataManagerTests: XCTestCase {
     }
 
     func testThat_whenAPageServiceRequestSucceeds_itReturnsAFileURL() {
-        let remoteURL = NSURL(string: "http://notrealurl.com")!
-        var returnedFileURL: NSURL?
+        let remoteURL = URL(string: "http://notrealurl.com")!
+        var returnedFileURL: URL?
         subject.downloadPage(remoteURL, completionHandler: { _, fileURL, _ in
             returnedFileURL = fileURL
         })
-        let stubbedFileURL = NSURL(string: "file://somewhere")
+        let stubbedFileURL = URL(string: "file://somewhere")
         pageService.downloadPage_wasCalled_withCompletionHandler?(stubbedFileURL, nil)
 
         XCTAssertEqual(returnedFileURL, stubbedFileURL)
     }
 
     func testThat_whenAPageServiceRequestFails_itReturnsAnError() {
-        let remoteURL = NSURL(string: "http://notrealurl.com")!
+        let remoteURL = URL(string: "http://notrealurl.com")!
         var returnedError: NSError?
         subject.downloadPage(remoteURL, completionHandler: { _, _, error in
             returnedError = error
@@ -68,7 +68,7 @@ class PageDataManagerTests: XCTestCase {
 
 
     func testThat_whenAPageServiceRequestIsCancelled_itPassesTheMessageAlongToThePageService() {
-        let remoteURL = NSURL(string: "http://notrealurl.com")!
+        let remoteURL = URL(string: "http://notrealurl.com")!
         subject.cancelDownload(remoteURL)
         XCTAssertEqual(pageService.cancelDownload_wasCalled_withURL, remoteURL)
     }
@@ -77,7 +77,7 @@ class PageDataManagerTests: XCTestCase {
 
     func testThat_whenAskedWhetherADownloadIsInProgress_itReturnsTheStatusReportedByThePageService() {
         pageService.stubbed_isDownloadInProgress = true
-        XCTAssert(subject.isDownloadInProgress(NSURL(string: "http://notrealurl.com")!))
+        XCTAssert(subject.isDownloadInProgress(URL(string: "http://notrealurl.com")!))
     }
 
     func testThat_whenStartOCRCoordinatesRequestIsCalled_itStartsAnOCRCoordinatesServiceRequest_withTheSameLCCN() {
@@ -91,7 +91,7 @@ class PageDataManagerTests: XCTestCase {
             returnedCoordinates = coordinates
         }
 
-        let expectedCoordinates = OCRCoordinates(Map(mappingType: .FromJSON, JSONDictionary: [:]))
+        let expectedCoordinates = OCRCoordinates(map: Map(mappingType: .fromJSON, JSON: [:]))
         coordinatesService.startRequest_wasCalled_withCompletionHandler?(expectedCoordinates, nil)
 
         XCTAssertEqual(returnedCoordinates, expectedCoordinates)
@@ -103,7 +103,7 @@ class PageDataManagerTests: XCTestCase {
             returnedError = err
         }
 
-        let expectedError = NSError(code: .DuplicateRequest, message: "")
+        let expectedError = NSError(code: .duplicateRequest, message: nil)
         coordinatesService.startRequest_wasCalled_withCompletionHandler?(nil, expectedError)
 
         XCTAssertEqual(returnedError, expectedError)

@@ -1,6 +1,6 @@
 final class TitleValueButton: UIControl {
 
-    // MARK: Properties
+    // mark: Properties
 
     var title: String? {
         get { return titleLabel.text }
@@ -11,49 +11,49 @@ final class TitleValueButton: UIControl {
         set { valueLabel.text = newValue }
     }
 
-    private let titleLabel: UILabel = {
+    fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.darkGray
-        label.highlightedTextColor = UIColor.whiteColor()
-        label.textAlignment = .Center
+        label.highlightedTextColor = UIColor.white
+        label.textAlignment = .center
         label.font = Fonts.smallBody
         return label
     }()
-    private let valueLabel: UILabel = {
+    fileprivate let valueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.lightBlueBright
-        label.highlightedTextColor = UIColor.whiteColor()
+        label.highlightedTextColor = UIColor.white
         label.font = Fonts.mediumBody
-        label.textAlignment = .Center
+        label.textAlignment = .center
         return label
     }()
-    private let button: UIButton = {
+    fileprivate let button: UIButton = {
         let b = UIButton()
-        b.setBackgroundImage(UIImage.imageWithFillColor(UIColor.whiteColor(), cornerRadius: 1.0), forState: .Normal)
-        b.setBackgroundImage(UIImage.imageWithFillColor(Colors.lightBlueBright, cornerRadius: 1.0), forState: .Highlighted)
+        b.setBackgroundImage(UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0), for: UIControlState())
+        b.setBackgroundImage(UIImage.imageWithFillColor(Colors.lightBlueBright, cornerRadius: 1.0), for: .highlighted)
         return b
     }()
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(title: String, initialValue: String = "--") {
         super.init(frame: .zero)
 
-        layer.shadowColor = Colors.darkGray.CGColor
+        layer.shadowColor = Colors.darkGray.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = 0.5
         layer.shadowOpacity = 0.4
 
-        button.addTarget(self, action: #selector(didTapButton(_:)), forControlEvents: .TouchUpInside)
-        button.addObserver(self, forKeyPath: "highlighted", options: NSKeyValueObservingOptions.Initial, context: nil)
+        button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
+        button.addObserver(self, forKeyPath: "highlighted", options: NSKeyValueObservingOptions.initial, context: nil)
         addSubview(button)
-        button.snp_makeConstraints { make in
+        button.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }
 
         titleLabel.text = title
         addSubview(titleLabel)
-        titleLabel.snp_makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(5)
             make.leading.equalTo(8)
             make.trailing.equalTo(-8)
@@ -61,8 +61,8 @@ final class TitleValueButton: UIControl {
 
         valueLabel.text = initialValue
         addSubview(valueLabel)
-        valueLabel.snp_makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp_bottom).offset(2)
+        valueLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(2)
             make.leading.equalTo(8)
             make.trailing.equalTo(-8)
         }
@@ -83,33 +83,33 @@ final class TitleValueButton: UIControl {
         fatalError("init() has not been implemented")
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func didTapButton(sender: UIButton) {
-        sendActionsForControlEvents(.TouchUpInside)
+    func didTapButton(_ sender: UIButton) {
+        sendActions(for: .touchUpInside)
     }
 
-    // MARK: NSKeyValueObserving methods
+    // mark: NSKeyValueObserving methods
 
-    override func observeValueForKeyPath(keyPath: String?,
-                                         ofObject object: AnyObject?,
-                                                  change: [String : AnyObject]?,
-                                                  context: UnsafeMutablePointer<Void>) {
-        highlighted = button.highlighted
+    override func observeValue(forKeyPath keyPath: String?,
+                                         of object: Any?,
+                                                  change: [NSKeyValueChangeKey : Any]?,
+                                                  context: UnsafeMutableRawPointer?) {
+        isHighlighted = button.isHighlighted
     }
 
-    // MARK: UIControl overrides
+    // mark: UIControl overrides
 
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
-            titleLabel.highlighted = highlighted
-            valueLabel.highlighted = highlighted
+            titleLabel.isHighlighted = isHighlighted
+            valueLabel.isHighlighted = isHighlighted
         }
     }
 
-    // MARK: UIView overrides
+    // mark: UIView overrides
 
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: Measurements.buttonHeight)
     }
 }

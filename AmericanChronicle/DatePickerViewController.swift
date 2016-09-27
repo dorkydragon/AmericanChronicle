@@ -1,5 +1,5 @@
-// MARK: -
-// MARK: DatePickerUserInterface
+// mark: -
+// mark: DatePickerUserInterface
 
 protocol DatePickerUserInterface {
     var delegate: DatePickerUserInterfaceDelegate? { get set }
@@ -7,35 +7,35 @@ protocol DatePickerUserInterface {
     var title: String? { get set }
 }
 
-// MARK: -
-// MARK: DatePickerUserInterfaceDelegate
+// mark: -
+// mark: DatePickerUserInterfaceDelegate
 
 protocol DatePickerUserInterfaceDelegate: class {
-    func userDidSave(dayMonthYear: DayMonthYear)
+    func userDidSave(_ dayMonthYear: DayMonthYear)
     func userDidCancel()
 }
 
-// MARK: -
-// MARK: DatePickerViewController
+// mark: -
+// mark: DatePickerViewController
 
 final class DatePickerViewController: UIViewController, DatePickerUserInterface, DateTextFieldDelegate {
 
-    // MARK: Properties
+    // mark: Properties
 
     weak var delegate: DatePickerUserInterfaceDelegate?
     var selectedDayMonthYear: DayMonthYear
 
-    private let foregroundPanel: UIView = {
+    fileprivate let foregroundPanel: UIView = {
         let v = UIView()
-        v.backgroundColor = UIColor.whiteColor()
+        v.backgroundColor = UIColor.white
         return v
     }()
-    private let earliestPossibleDayMonthYear: DayMonthYear
-    private let latestPossibleDayMonthYear: DayMonthYear
-    private let dateField = DateTextField()
-    private let navigationBar = UINavigationBar()
+    fileprivate let earliestPossibleDayMonthYear: DayMonthYear
+    fileprivate let latestPossibleDayMonthYear: DayMonthYear
+    fileprivate let dateField = DateTextField()
+    fileprivate let navigationBar = UINavigationBar()
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(earliestPossibleDayMonthYear: DayMonthYear = Search.earliestPossibleDayMonthYear,
          latestPossibleDayMonthYear: DayMonthYear = Search.latestPossibleDayMonthYear) {
@@ -54,7 +54,7 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
     }
 
     @available(*, unavailable)
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         fatalError("init(nibName:bundle) not supported. Use designated initializer instead")
     }
 
@@ -68,41 +68,41 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         fatalError("init not supported. Use designated initializer instead")
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func didTapSaveButton(sender: UIBarButtonItem) {
+    func didTapSaveButton(_ sender: UIBarButtonItem) {
         delegate?.userDidSave(selectedDayMonthYear)
     }
 
-    func didTapCancelButton(sender: UIBarButtonItem) {
+    func didTapCancelButton(_ sender: UIBarButtonItem) {
         delegate?.userDidCancel()
     }
 
-    func didRecognizeTap(sender: UITapGestureRecognizer) {
+    func didRecognizeTap(_ sender: UITapGestureRecognizer) {
         delegate?.userDidCancel()
     }
 
-    // MARK: DateTextFieldDelegate methods
+    // mark: DateTextFieldDelegate methods
 
-    func selectedDayMonthYearDidChange(dayMonthYear: DayMonthYear?) {
+    func selectedDayMonthYearDidChange(_ dayMonthYear: DayMonthYear?) {
         if let dayMonthYear = dayMonthYear {
             selectedDayMonthYear = dayMonthYear
         }
     }
 
-    // MARK: UIViewController overrides
+    // mark: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         let tapAction = #selector(didRecognizeTap(_:))
         let tap = UITapGestureRecognizer(target: self,
                                          action: tapAction)
         view.addGestureRecognizer(tap)
 
         view.addSubview(foregroundPanel)
-        foregroundPanel.snp_makeConstraints { make in
+        foregroundPanel.snp.makeConstraints { make in
             make.bottom.equalTo(0)
             make.leading.equalTo(0)
             make.trailing.equalTo(0)
@@ -111,26 +111,26 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
 
 
         foregroundPanel.addSubview(navigationBar)
-        navigationBar.snp_makeConstraints { make in
+        navigationBar.snp.makeConstraints { make in
             make.top.equalTo(0)
             make.leading.equalTo(0)
             make.trailing.equalTo(0)
         }
-        navigationBar.pushNavigationItem(navigationItem, animated: false)
+        navigationBar.pushItem(navigationItem, animated: false)
 
         dateField.delegate = self
         dateField.selectedDayMonthYear = selectedDayMonthYear
         foregroundPanel.addSubview(dateField)
-        dateField.snp_makeConstraints { make in
-            make.top.equalTo(navigationBar.snp_bottom).offset(20.0)
+        dateField.snp.makeConstraints { make in
+            make.top.equalTo(navigationBar.snp.bottom).offset(20.0)
             make.leading.equalTo(Measurements.horizontalMargin)
             make.trailing.equalTo(-Measurements.horizontalMargin)
             make.height.equalTo(66)
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dateField.becomeFirstResponder()
+        _ = dateField.becomeFirstResponder()
     }
 }
