@@ -46,9 +46,6 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
             make.top.equalTo(4)
             make.bottom.equalTo(-4)
             make.leading.equalTo(4)
-            //make.trailing.equalTo(0)
-            //make.height.equalTo(0)
-            //make.width.equalTo(0)
         }
 
         contentView.addSubview(textContainer)
@@ -83,20 +80,6 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
             make.top.equalTo(1.0)
             make.trailing.equalTo(-2)
         }
-        /*
-        let bottomShadowOverlay = UIView()
-        bottomShadowOverlay.backgroundColor = UIColor.white
-        bottomShadowOverlay.layer.shadowColor = Colors.darkGray.cgColor
-        bottomShadowOverlay.layer.shadowOffset = CGSize(width: 0, height: 0)
-        bottomShadowOverlay.layer.shadowRadius = 1
-        bottomShadowOverlay.layer.shadowOpacity = 0
-        contentView.addSubview(bottomShadowOverlay)
-        bottomShadowOverlay.snp.makeConstraints { make in
-            make.bottom.equalTo(bottomShadowHeight)
-            make.leading.equalTo(0)
-            make.trailing.equalTo(0)
-            make.height.equalTo(bottomShadowHeight)
-        }*/
     }
 
     override init(reuseIdentifier: String?) {
