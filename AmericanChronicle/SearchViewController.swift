@@ -285,7 +285,7 @@ final class SearchViewController: UIViewController,
                                 forCellReuseIdentifier: String(describing: SearchResultsPageCell.self))
         tableView.register(TableSectionHeaderView.self,
                                 forHeaderFooterViewReuseIdentifier: String(describing: TableSectionHeaderView.self))
-        tableView.sectionHeaderHeight = 24.0
+        tableView.sectionHeaderHeight = 34.0
         tableView.separatorColor = Colors.lightGray
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.rowHeight = 120.0
