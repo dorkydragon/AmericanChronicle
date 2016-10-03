@@ -23,8 +23,6 @@ final class SearchResultsPageCell: UITableViewCell {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.backgroundColor = UIColor.white
-        view.layer.borderColor = UIColor.white.cgColor
-        view.layer.borderWidth = 2.0
         view.clipsToBounds = true
         return view
     }()
@@ -56,41 +54,61 @@ final class SearchResultsPageCell: UITableViewCell {
 
         contentView.backgroundColor = UIColor.white
 
-        addSubview(thumbnailImageView)
-        thumbnailImageView.snp.makeConstraints { make in
-            make.top.equalTo(Measurements.verticalMargin)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.bottom.equalTo(-Measurements.verticalMargin)
+        let thumbnailShadowView = UIView()
+        thumbnailShadowView.layer.shadowOpacity = 1.0
+        thumbnailShadowView.layer.shadowColor = Colors.darkGray.cgColor
+        thumbnailShadowView.layer.shadowRadius = 2
+        thumbnailShadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        thumbnailShadowView.backgroundColor = UIColor.white
+        contentView.addSubview(thumbnailShadowView)
+
+        thumbnailShadowView.snp.makeConstraints { make in
+            make.top.equalTo(12)
+            make.bottom.equalTo(-12)
+            make.leading.equalTo(12)
             make.width.equalTo(snp.height).multipliedBy(0.6)
         }
 
-        addSubview(dateLabel)
+        contentView.addSubview(thumbnailImageView)
+        thumbnailImageView.snp.makeConstraints { make in
+            make.top.equalTo(thumbnailShadowView.snp.top)
+            make.leading.equalTo(thumbnailShadowView.snp.leading)
+            make.bottom.equalTo(thumbnailShadowView.snp.bottom)
+            make.trailing.equalTo(thumbnailShadowView.snp.trailing)
+
+        }
+
+        let textContainer = UIView()
+        contentView.addSubview(textContainer)
+        textContainer.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.top.greaterThanOrEqualTo(Measurements.verticalMargin)
+            make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
+            make.bottom.lessThanOrEqualTo(-Measurements.verticalMargin)
+            make.trailing.equalTo(-Measurements.horizontalMargin)
+        }
+
+        textContainer.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(Measurements.verticalMargin)
-            make.leading.equalTo(thumbnailImageView.snp.trailing)
-                        .offset(Measurements.horizontalSiblingSpacing)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.top.equalTo(0)
+            make.leading.equalTo(0)
+            make.trailing.equalTo(0)
         }
 
-        addSubview(cityStateLabel)
-        cityStateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(thumbnailImageView.snp.trailing)
-                .offset(Measurements.horizontalSiblingSpacing)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
-            make.bottom.equalTo(-Measurements.verticalMargin)
-        }
-
-        addSubview(publicationTitleLabel)
+        textContainer.addSubview(publicationTitleLabel)
         publicationTitleLabel.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(dateLabel.snp.bottom)
-                        .offset(Measurements.verticalSiblingSpacing)
-            make.leading.equalTo(thumbnailImageView.snp.trailing)
-                        .offset(Measurements.horizontalSiblingSpacing)
-            make.bottom.equalTo(cityStateLabel.snp.top)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.top.equalTo(dateLabel.snp.bottom)
+            make.leading.equalTo(0)
+            make.trailing.equalTo(0)
         }
 
-
+        textContainer.addSubview(cityStateLabel)
+        cityStateLabel.snp.makeConstraints { make in
+            make.top.equalTo(publicationTitleLabel.snp.bottom)
+            make.leading.equalTo(0)
+            make.trailing.equalTo(0)
+            make.bottom.equalTo(0)
+        }
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

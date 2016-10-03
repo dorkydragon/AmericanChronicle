@@ -28,7 +28,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
 
     func commonInit() {
 
-        contentView.backgroundColor = UIColor.white
+        contentView.backgroundColor = Colors.lightBackground
         contentView.clipsToBounds = true
 
         contentView.addSubview(boldTextLabel)
@@ -53,10 +53,10 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
 
         let bottomShadowOverlay = UIView()
         bottomShadowOverlay.backgroundColor = UIColor.white
-        bottomShadowOverlay.layer.shadowColor = UIColor.black.cgColor
-        bottomShadowOverlay.layer.shadowOffset = CGSize(width: 0, height: -bottomShadowHeight)
+        bottomShadowOverlay.layer.shadowColor = Colors.darkGray.cgColor
+        bottomShadowOverlay.layer.shadowOffset = CGSize(width: 0, height: 0)
         bottomShadowOverlay.layer.shadowRadius = 1
-        bottomShadowOverlay.layer.shadowOpacity = 0.2
+        bottomShadowOverlay.layer.shadowOpacity = 0.4
         contentView.addSubview(bottomShadowOverlay)
         bottomShadowOverlay.snp.makeConstraints { make in
             make.bottom.equalTo(bottomShadowHeight)

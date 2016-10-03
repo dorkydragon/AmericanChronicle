@@ -69,7 +69,7 @@ final class SearchViewController: UIViewController,
     fileprivate let tableFooterView = UIView()
     fileprivate let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd, yyyy"
+        formatter.dateFormat = "MMMM dd, yyyy"
         return formatter
     }()
 
@@ -286,9 +286,9 @@ final class SearchViewController: UIViewController,
         tableView.register(TableSectionHeaderView.self,
                                 forHeaderFooterViewReuseIdentifier: String(describing: TableSectionHeaderView.self))
         tableView.sectionHeaderHeight = 24.0
-        tableView.separatorColor = Colors.darkGray
+        tableView.separatorColor = Colors.lightGray
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.rowHeight = 160.0
+        tableView.rowHeight = 120.0
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalTo(0)
