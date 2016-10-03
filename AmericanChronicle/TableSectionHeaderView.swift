@@ -1,4 +1,4 @@
-final class TableHeaderView: UITableViewHeaderFooterView {
+final class TableSectionHeaderView: UITableViewHeaderFooterView {
     var boldText: String? {
         get {
             return boldTextLabel.text

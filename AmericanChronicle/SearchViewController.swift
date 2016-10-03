@@ -189,8 +189,8 @@ final class SearchViewController: UIViewController,
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if rows.count == 0 { return nil }
 
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TableHeaderView.self))
-                                        as? TableHeaderView
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TableSectionHeaderView.self))
+                                        as? TableSectionHeaderView
         headerView?.boldText = "\(totalRowCount)"
         headerView?.regularText = "results"
         return headerView
@@ -283,8 +283,8 @@ final class SearchViewController: UIViewController,
         tableView.dataSource = self
         tableView.register(SearchResultsPageCell.self,
                                 forCellReuseIdentifier: String(describing: SearchResultsPageCell.self))
-        tableView.register(TableHeaderView.self,
-                                forHeaderFooterViewReuseIdentifier: String(describing: TableHeaderView.self))
+        tableView.register(TableSectionHeaderView.self,
+                                forHeaderFooterViewReuseIdentifier: String(describing: TableSectionHeaderView.self))
         tableView.sectionHeaderHeight = 24.0
         tableView.separatorColor = Colors.lightGray
         tableView.rowHeight = 160.0
