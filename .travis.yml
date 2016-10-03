@@ -1,0 +1,4 @@
+language: swift
+xcode_workspace: AmericanChronicle.xcworkspace
+xcode_scheme: AmericanChronicle
+osx_image: xcode8
