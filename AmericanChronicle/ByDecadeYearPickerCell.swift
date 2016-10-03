@@ -1,44 +1,44 @@
 final class ByDecadeYearPickerCell: UICollectionViewCell {
 
-    // MARK: Properties
+    // mark: Properties
 
     var text: String? {
         get { return label.text }
         set { label.text = newValue }
     }
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet { updateFormat() }
     }
-    override var selected: Bool {
+    override var isSelected: Bool {
         didSet { updateFormat() }
     }
 
-    private let label: UILabel = {
+    fileprivate let label: UILabel = {
         let label = UILabel()
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.font = Fonts.largeBody
         label.textColor = Colors.darkGray
         return label
     }()
-    private let insetBackgroundView: UIImageView = {
-        let image = UIImage.imageWithFillColor(UIColor.whiteColor(), cornerRadius: 1.0)
+    fileprivate let insetBackgroundView: UIImageView = {
+        let image = UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0)
         return UIImageView(image: image)
     }()
 
     func commonInit() {
 
         contentView.addSubview(insetBackgroundView)
-        insetBackgroundView.snp_makeConstraints { make in
-            make.edges.equalTo(contentView.snp_edges).inset(1.0)
+        insetBackgroundView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView.snp.edges).inset(1.0)
         }
 
-        insetBackgroundView.layer.shadowColor = Colors.darkGray.CGColor
+        insetBackgroundView.layer.shadowColor = Colors.darkGray.cgColor
         insetBackgroundView.layer.shadowOpacity = 0.3
         insetBackgroundView.layer.shadowRadius = 0.5
         insetBackgroundView.layer.shadowOffset = .zero
 
         contentView.addSubview(label)
-        label.snp_makeConstraints { make in
+        label.snp.makeConstraints { make in
             make.edges.equalTo(0)
         }
 
@@ -55,17 +55,17 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
         self.commonInit()
     }
 
-    private func updateFormat() {
-        if self.highlighted {
+    fileprivate func updateFormat() {
+        if self.isHighlighted {
             insetBackgroundView.image = UIImage.imageWithFillColor(Colors.lightBlueBright,
                                                                    cornerRadius: 1.0)
-            self.label.textColor = UIColor.whiteColor()
-        } else if self.selected {
+            self.label.textColor = UIColor.white
+        } else if self.isSelected {
             insetBackgroundView.image = UIImage.imageWithFillColor(Colors.lightBlueBright,
                                                                    cornerRadius: 1.0)
-            self.label.textColor = UIColor.whiteColor()
+            self.label.textColor = UIColor.white
         } else {
-            insetBackgroundView.image = UIImage.imageWithFillColor(UIColor.whiteColor(),
+            insetBackgroundView.image = UIImage.imageWithFillColor(UIColor.white,
                                                                    cornerRadius: 1.0)
             self.label.textColor = Colors.darkBlue
         }

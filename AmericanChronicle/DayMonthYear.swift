@@ -1,14 +1,14 @@
 struct DayMonthYear: CustomStringConvertible {
 
-    private static let timeZone = NSTimeZone(forSecondsFromGMT: 0)
-    private static let calendar: NSCalendar = {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        calendar.timeZone = DayMonthYear.timeZone
+    fileprivate static let timeZone = TimeZone(secondsFromGMT: 0)
+    fileprivate static let calendar: Calendar = {
+        var calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        calendar.timeZone = DayMonthYear.timeZone!
         return calendar
     }()
 
-    private static let dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
+    fileprivate static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
         formatter.calendar = DayMonthYear.calendar
         // Reminder - Setting the formatter's calendar doesn't
         //  change the formatter's timeZone to match.
@@ -26,10 +26,10 @@ struct DayMonthYear: CustomStringConvertible {
 
     var userVisibleString: String {
         guard let date = dateComponents().date else { return "" }
-        return DayMonthYear.dateFormatter.stringFromDate(date)
+        return DayMonthYear.dateFormatter.string(from: date)
     }
 
-    static func symbolForMonth(month: Int) -> String? {
+    static func symbolForMonth(_ month: Int) -> String? {
         let zeroBasedMonth = month - 1
         let monthStrings = allMonthSymbols()
         guard zeroBasedMonth < monthStrings.count else { return nil }
@@ -46,7 +46,7 @@ struct DayMonthYear: CustomStringConvertible {
         self.year = year
 
         // Guard against invalid day
-        let components = NSDateComponents()
+        var components = DateComponents()
         components.calendar = DayMonthYear.calendar
         // Reminder - Setting the components calendar doesn't
         //  change the components timeZone to match.
@@ -55,9 +55,9 @@ struct DayMonthYear: CustomStringConvertible {
         components.year = year
         components.day = 1
         if let date = components.date {
-            let daysInMonth = components.calendar?.rangeOfUnit(.Day,
-                                                               inUnit: .Month,
-                                                               forDate: date).length ?? 1
+            let daysInMonth = (components.calendar as NSCalendar?)?.range(of: .day,
+                                                               in: .month,
+                                                               for: date).length ?? 1
             if day < 1 {
                 self.day = 1
             } else if day > daysInMonth {
@@ -70,38 +70,38 @@ struct DayMonthYear: CustomStringConvertible {
         }
     }
 
-    func copyWithDay(dayToUse: Int) -> DayMonthYear {
+    func copyWithDay(_ dayToUse: Int) -> DayMonthYear {
         return DayMonthYear(day: dayToUse, month: month, year: year)
     }
 
-    func copyWithMonth(monthToUse: Int) -> DayMonthYear {
+    func copyWithMonth(_ monthToUse: Int) -> DayMonthYear {
         return DayMonthYear(day: day, month: monthToUse, year: year)
     }
 
-    func copyWithYear(yearToUse: Int) -> DayMonthYear {
+    func copyWithYear(_ yearToUse: Int) -> DayMonthYear {
         return DayMonthYear(day: day, month: month, year: yearToUse)
     }
 
     func rangeOfDaysInMonth() -> NSRange? {
         let components = dateComponents()
         guard let date = components.date else { return nil }
-        return DayMonthYear.calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: date)
+        return (DayMonthYear.calendar as NSCalendar).range(of: .day, in: .month, for: date)
     }
 
     var weekday: Int? {
         let components = dateComponents()
         guard let date = components.date else { return nil }
-        return DayMonthYear.calendar.component(.Weekday, fromDate: date)
+        return (DayMonthYear.calendar as NSCalendar).component(.weekday, from: date)
     }
 
     var weekOfMonth: Int? {
         let components = dateComponents()
         guard let date = components.date else { return nil }
-        return DayMonthYear.calendar.component(.WeekOfMonth, fromDate: date)
+        return (DayMonthYear.calendar as NSCalendar).component(.weekOfMonth, from: date)
     }
 
-    private func dateComponents() -> NSDateComponents {
-        let components = NSDateComponents()
+    fileprivate func dateComponents() -> DateComponents {
+        var components = DateComponents()
         components.calendar = DayMonthYear.calendar
         // Reminder - Setting the components calendar doesn't
         //  change the components timeZone to match.

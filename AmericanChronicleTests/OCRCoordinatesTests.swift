@@ -7,10 +7,10 @@ class OCRCoordinatesTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        let path = NSBundle(forClass: OCRCoordinatesTests.self).pathForResource("ocr_coordinates-response", ofType: "json")
-        let data = NSData(contentsOfFile: path!)
-        let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
-        subject = Mapper<OCRCoordinates>().map(str!)
+        let path = Bundle(for: OCRCoordinatesTests.self).path(forResource: "ocr_coordinates-response", ofType: "json")
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
+        let str = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        subject = Mapper<OCRCoordinates>().map(JSONString: str as! String)
     }
 
     func testThat_pageWidthIsSetCorrectly() {

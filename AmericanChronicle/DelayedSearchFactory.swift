@@ -1,13 +1,13 @@
-// MARK: -
-// MARK: DelayedSearchFactoryInterface protocol
+// mark: -
+// mark: DelayedSearchFactoryInterface protocol
 
 protocol DelayedSearchFactoryInterface {
-    func fetchMoreResults(parameters: SearchParameters,
-                          callback: ((SearchResults?, ErrorType?) -> ())) -> DelayedSearchInterface?
+    func fetchMoreResults(_ parameters: SearchParameters,
+                          callback: @escaping ((SearchResults?, Error?) -> ())) -> DelayedSearchInterface?
 }
 
-// MARK: -
-// MARK: DelayedSearchFactory class
+// mark: -
+// mark: DelayedSearchFactory class
 
 struct DelayedSearchFactory: DelayedSearchFactoryInterface {
 
@@ -16,11 +16,12 @@ struct DelayedSearchFactory: DelayedSearchFactoryInterface {
         self.dataManager = dataManager
     }
 
-    func fetchMoreResults(parameters: SearchParameters,
-                          callback: ((SearchResults?, ErrorType?) -> ()))
+    func fetchMoreResults(_ parameters: SearchParameters,
+                          callback: @escaping ((SearchResults?, Error?) -> ()))
         -> DelayedSearchInterface? {
             return DelayedSearch(parameters: parameters,
                                  dataManager: dataManager,
+                                 runLoop: RunLoop.main,
                                  completionHandler: callback)
     }
 }

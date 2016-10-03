@@ -1,49 +1,49 @@
-// MARK: -
-// MARK: PagePresenterInterface protocol
+// mark: -
+// mark: PagePresenterInterface protocol
 
 protocol PagePresenterInterface: PageUserInterfaceDelegate, PageInteractorDelegate {
     var wireframe: PageWireframe? { get set }
-    func configureUserInterfaceForPresentation(userInterface: PageUserInterface,
+    func configureUserInterfaceForPresentation(_ userInterface: PageUserInterface,
                                                withSearchTerm searchTerm: String?,
-                                                              remoteDownloadURL: NSURL,
+                                                              remoteDownloadURL: URL,
                                                               id: String)
 }
 
-// MARK: -
-// MARK: PagePresenter class
+// mark: -
+// mark: PagePresenter class
 
 final class PagePresenter: PagePresenterInterface {
 
-    // MARK: Properties
+    // mark: Properties
 
     weak var wireframe: PageWireframe?
 
-    private let interactor: PageInteractorInterface
-    private var searchTerm: String?
-    private var remoteDownloadURL: NSURL?
-    private var userInterface: PageUserInterface?
+    fileprivate let interactor: PageInteractorInterface
+    fileprivate var searchTerm: String?
+    fileprivate var remoteDownloadURL: URL?
+    fileprivate var userInterface: PageUserInterface?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(interactor: PageInteractorInterface = PageInteractor()) {
         self.interactor = interactor
         interactor.delegate = self
     }
 
-    // MARK: Private methods
+    // mark: Private methods
 
-    private func cancelDownloadAndFinish() {
+    fileprivate func cancelDownloadAndFinish() {
         if let url = remoteDownloadURL {
             interactor.cancelDownloadWithRemoteURL(url)
         }
         wireframe?.dismissPageScreen()
     }
 
-    // MARK: PagePresenterInterface methods
+    // mark: PagePresenterInterface methods
 
-    func configureUserInterfaceForPresentation(userInterface: PageUserInterface,
+    func configureUserInterfaceForPresentation(_ userInterface: PageUserInterface,
                                                withSearchTerm searchTerm: String?,
-                                                              remoteDownloadURL: NSURL,
+                                                              remoteDownloadURL: URL,
                                                               id: String) {
         self.userInterface = userInterface
         self.userInterface?.showLoadingIndicator()
@@ -55,7 +55,7 @@ final class PagePresenter: PagePresenterInterface {
         interactor.startOCRCoordinatesRequestWithID(id)
     }
 
-    // MARK: PageUserInterfaceDelegate methods
+    // mark: PageUserInterfaceDelegate methods
 
     func userDidTapDone() {
         cancelDownloadAndFinish()
@@ -65,31 +65,33 @@ final class PagePresenter: PagePresenterInterface {
         cancelDownloadAndFinish()
     }
 
-    func userDidTapShare(image: UIImage) {
+    func userDidTapShare(_ image: UIImage) {
         wireframe?.showShareScreenWithImage(image)
     }
 
-    // MARK: PageInteractorDelegate methods
+    // mark: PageInteractorDelegate methods
 
-    func download(remoteURL: NSURL, didFinishWithFileURL fileURL: NSURL?, error: NSError?) {
+    func download(_ remoteURL: URL, didFinishWithFileURL fileURL: URL?, error: NSError?) {
         if let error = error {
             userInterface?.showErrorWithTitle("Trouble Downloading PDF", message: error.localizedDescription)
         } else {
-            userInterface?.pdfPage = CGPDFDocumentGetPage(CGPDFDocumentCreateWithURL(fileURL), 1)
+            if let fileURL = fileURL {
+                userInterface?.pdfPage = CGPDFDocument(fileURL as CFURL)?.page(at: 1)
+            }
         }
         userInterface?.hideLoadingIndicator()
     }
 
-    func requestDidFinishWithOCRCoordinates(coordinates: OCRCoordinates?, error: NSError?) {
+    func requestDidFinishWithOCRCoordinates(_ coordinates: OCRCoordinates?, error: NSError?) {
         guard let searchTerm = searchTerm else { return }
         var terms = [searchTerm]
-        terms.appendContentsOf(searchTerm.componentsSeparatedByString(" "))
+        terms.append(contentsOf: searchTerm.components(separatedBy: " "))
 
         var matchingCoordinates: [String: [CGRect]] = [:]
         if let wordsWithCoordinates = coordinates?.wordCoordinates?.keys {
             for word in wordsWithCoordinates {
                 for term in terms {
-                    if word.lowercaseString == term.lowercaseString {
+                    if word.lowercased() == term.lowercased() {
                         matchingCoordinates[word] = coordinates?.wordCoordinates?[word]
                         continue
                     }

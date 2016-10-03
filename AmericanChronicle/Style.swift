@@ -1,11 +1,11 @@
 import DynamicColor
 
 struct Fonts {
-    private static let bodyFontName = "AvenirNext-Regular"
-    private static let bodyBoldFontName = "AvenirNext-Medium"
-    private static let largeFontSize = CGFloat(20.0)
-    private static let mediumFontSize = CGFloat(16.0)
-    private static let smallFontSize = CGFloat(12.0)
+    fileprivate static let bodyFontName = "AvenirNext-Regular"
+    fileprivate static let bodyBoldFontName = "AvenirNext-Medium"
+    fileprivate static let largeFontSize = CGFloat(20.0)
+    fileprivate static let mediumFontSize = CGFloat(16.0)
+    fileprivate static let smallFontSize = CGFloat(12.0)
     static let largeBody = UIFont(name: bodyFontName, size: largeFontSize)
     static let largeBodyBold = UIFont(name: bodyBoldFontName, size: largeFontSize)
     static let mediumBody = UIFont(name: bodyFontName, size: mediumFontSize)
@@ -16,7 +16,7 @@ struct Fonts {
 struct Colors {
     static let darkGray = UIColor(hex: 0x3e3f42)
     static let lightBlueBright = UIColor(hex: 0x2ba9e1)
-    static let lightBlueBrightTransparent = lightBlueBright.colorWithAlphaComponent(0.2)
+    static let lightBlueBrightTransparent = lightBlueBright.withAlphaComponent(0.2)
     static let lightGray = UIColor(hex: 0xe4e4e4)
     static let darkBlue = UIColor(hex: 0x5484a0)
     static let offWhite = UIColor(hex: 0xd5d8dc)
@@ -35,8 +35,8 @@ struct Measurements {
 
 extension UINavigationBar {
     class func applyAppearance() {
-        let img = UIImage.imageWithFillColor(UIColor.whiteColor())
-        appearance().setBackgroundImage(img, forBarPosition: .Any, barMetrics: .Default)
+        let img = UIImage.imageWithFillColor(UIColor.white)
+        appearance().setBackgroundImage(img, for: .any, barMetrics: .default)
         var attributes: [String: AnyObject] = [:]
         attributes[NSForegroundColorAttributeName] = Colors.darkGray
         attributes[NSFontAttributeName] = Fonts.largeBodyBold
@@ -50,11 +50,11 @@ extension UIBarButtonItem {
         var attributes: [String: AnyObject] = [:]
         attributes[NSForegroundColorAttributeName] = Colors.lightBlueBright
         attributes[NSFontAttributeName] = Fonts.mediumBody
-        appearance().setTitleTextAttributes(attributes, forState: .Normal)
+        appearance().setTitleTextAttributes(attributes, for: UIControlState())
 
         attributes[NSForegroundColorAttributeName] = Colors.lightBlueDull
         attributes[NSFontAttributeName] = Fonts.mediumBody
-        appearance().setTitleTextAttributes(attributes, forState: .Highlighted)
+        appearance().setTitleTextAttributes(attributes, for: .highlighted)
     }
 }
 

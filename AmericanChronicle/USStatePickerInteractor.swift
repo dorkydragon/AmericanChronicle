@@ -1,15 +1,15 @@
 protocol USStatePickerInteractorInterface {
-    func loadStateNames(completionHandler: (([String]?, ErrorType?) -> Void))
+    func loadStateNames(_ completionHandler: (([String]?, Error?) -> Void))
 }
 
 final class USStatePickerInteractor: NSObject, USStatePickerInteractorInterface {
-    private let dataManager: USStatePickerDataManagerInterface
+    fileprivate let dataManager: USStatePickerDataManagerInterface
 
     init(dataManager: USStatePickerDataManagerInterface = USStatePickerDataManager()) {
         self.dataManager = dataManager
     }
 
-    func loadStateNames(completionHandler: (([String]?, ErrorType?) -> Void)) {
+    func loadStateNames(_ completionHandler: (([String]?, Error?) -> Void)) {
         dataManager.loadStateNames(completionHandler)
     }
 }

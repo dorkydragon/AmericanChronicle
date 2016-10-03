@@ -1,5 +1,5 @@
 protocol RunLoopInterface {
-    func addTimer(timer: NSTimer, forMode mode: String)
+    func add(_ timer: Timer, forMode mode: RunLoopMode)
 }
 
-extension NSRunLoop: RunLoopInterface {}
+extension RunLoop: RunLoopInterface {}

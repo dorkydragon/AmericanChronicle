@@ -1,35 +1,21 @@
 import Alamofire
 
 protocol ManagerProtocol {
-    func request(
-        method: Alamofire.Method,
-        URLString: URLStringConvertible,
-        parameters: [String: AnyObject]?) -> RequestProtocol?
-    func download(
-        method: Alamofire.Method,
-        URLString: URLStringConvertible,
-        parameters: [String: AnyObject]?,
-        destination: Request.DownloadFileDestination) -> RequestProtocol?
+    func request(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?) -> DataRequestProtocol
+    func download(_ url: URLConvertible, to destination: DownloadRequest.DownloadFileDestination?) -> DownloadRequestProtocol
 }
 
-extension Manager: ManagerProtocol {
-    func request(
-        method: Alamofire.Method,
-        URLString: URLStringConvertible,
-        parameters: [String: AnyObject]?) -> RequestProtocol? {
-            return request(method, URLString, parameters: parameters, encoding: .URL, headers: nil)
+extension SessionManager: ManagerProtocol {
+    func request(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?) -> DataRequestProtocol {
+        return self.request(url, method: method, parameters: parameters, encoding: URLEncoding.default, headers: nil)
     }
 
-    func download(
-        method: Alamofire.Method,
-        URLString: URLStringConvertible,
-        parameters: [String: AnyObject]?,
-        destination: Request.DownloadFileDestination) -> RequestProtocol? {
-            return download(method,
-                            URLString,
-                            parameters: parameters,
-                            encoding: .URL,
-                            headers: nil,
-                            destination: destination)
+    func download(_ url: URLConvertible, to destination: DownloadRequest.DownloadFileDestination?) -> DownloadRequestProtocol {
+            return self.download(url,
+                                 method: .get,
+                                 parameters: nil,
+                                 encoding: URLEncoding.default,
+                                 headers: nil,
+                                 to: destination)
     }
 }

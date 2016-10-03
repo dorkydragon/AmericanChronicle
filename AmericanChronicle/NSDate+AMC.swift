@@ -1,11 +1,11 @@
-extension NSDate {
+extension Date {
     var year: Int {
-        let calendar = NSCalendar.autoupdatingCurrentCalendar()
-        return calendar.component(NSCalendarUnit.Year, fromDate: self)
+        let calendar = Calendar.autoupdatingCurrent
+        return (calendar as NSCalendar).component(NSCalendar.Unit.year, from: self)
     }
 
     var month: Int {
-        let calendar = NSCalendar.autoupdatingCurrentCalendar()
-        return calendar.component(NSCalendarUnit.Month, fromDate: self)
+        let calendar = Calendar.autoupdatingCurrent
+        return (calendar as NSCalendar).component(NSCalendar.Unit.month, from: self)
     }
 }

@@ -1,10 +1,10 @@
 class KeyboardService: NSObject {
 
-    private var frameChangeHandlers: [String: (CGRect?) -> Void] = [:]
+    fileprivate var frameChangeHandlers: [String: (CGRect?) -> Void] = [:]
 
     static let sharedInstance = KeyboardService()
-    private let notificationCenter: NSNotificationCenter
-    private(set) var keyboardFrame: CGRect? {
+    fileprivate let notificationCenter: NotificationCenter
+    fileprivate(set) var keyboardFrame: CGRect? {
         didSet {
             if keyboardFrame != oldValue {
                 for (_, handler) in frameChangeHandlers {
@@ -14,7 +14,7 @@ class KeyboardService: NSObject {
         }
     }
 
-    init(notificationCenter: NSNotificationCenter = NSNotificationCenter.defaultCenter()) {
+    init(notificationCenter: NotificationCenter = NotificationCenter.default) {
         self.notificationCenter = notificationCenter
         super.init()
     }
@@ -22,26 +22,26 @@ class KeyboardService: NSObject {
     func applicationDidFinishLaunching() {
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardWillShow(_:)),
-                                       name: UIKeyboardWillShowNotification, object: nil)
+                                       name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardWillHide(_:)),
-                                       name: UIKeyboardWillHideNotification, object: nil)
+                                       name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
-    func keyboardWillShow(notification: NSNotification) {
-        let keyboardFrameEnd = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
-        keyboardFrame = keyboardFrameEnd?.CGRectValue()
+    func keyboardWillShow(_ notification: Notification) {
+        let keyboardFrameEnd = (notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        keyboardFrame = keyboardFrameEnd?.cgRectValue
     }
 
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardWillHide(_ notification: Notification) {
         keyboardFrame = nil
     }
 
-    func addFrameChangeHandler(identifier: String, handler: (CGRect?) -> Void) {
+    func addFrameChangeHandler(_ identifier: String, handler: @escaping (CGRect?) -> Void) {
         frameChangeHandlers[identifier] = handler
     }
 
-    func removeFrameChangeHandler(identifier: String) {
+    func removeFrameChangeHandler(_ identifier: String) {
         frameChangeHandlers[identifier] = nil
     }
 

@@ -1,5 +1,5 @@
 @testable import AmericanChronicle
 
 class FakePageWireframeDelegate: PageWireframeDelegate {
-    func pageWireframeDidFinish(wireframe: PageWireframe) {}
+    func pageWireframeDidFinish(_ wireframe: PageWireframe) {}
 }

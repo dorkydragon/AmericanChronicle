@@ -11,16 +11,16 @@ final class EmptyResultsView: UIView {
 
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.numberOfLines = 0
         return label
     }()
 
-    // MARK: Init methods
+    // mark: Init methods
 
     func commonInit() {
         addSubview(titleLabel)
-        titleLabel.snp_makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(Measurements.verticalMargin)
             make.leading.equalTo(Measurements.horizontalMargin)
             make.bottom.equalTo(-Measurements.verticalMargin)

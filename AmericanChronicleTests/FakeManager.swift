@@ -2,26 +2,22 @@
 import Alamofire
 
 class FakeManager: ManagerProtocol {
-    var request_wasCalled_withURLString: URLStringConvertible?
-    var request_wasCalled_withParameters: [String: AnyObject]?
-    var stubbedReturnValue = FakeRequest()
-    func request(
-        method: Alamofire.Method,
-        URLString: URLStringConvertible,
-        parameters: [String: AnyObject]?) -> RequestProtocol? {
-            request_wasCalled_withURLString = URLString
+
+    var request_wasCalled_withURL: URLConvertible?
+    var request_wasCalled_withParameters: Parameters?
+    var stubbedReturnDataRequest = FakeDataRequest()
+    func request(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?) -> DataRequestProtocol {
+            request_wasCalled_withURL = url
             request_wasCalled_withParameters = parameters
-            return stubbedReturnValue
+            return stubbedReturnDataRequest
     }
-    var download_wasCalled_withURLString: URLStringConvertible?
+    var download_wasCalled_withURL: URLConvertible?
     var download_wasCalled_withParameters: [String: AnyObject]?
     var download_wasCalled_handler: (() -> Void)?
-    func download(
-        method: Alamofire.Method,
-        URLString: URLStringConvertible,
-        parameters: [String: AnyObject]?, destination: Request.DownloadFileDestination) -> RequestProtocol? {
-            download_wasCalled_withURLString = URLString
+    var stubbedReturnDownloadRequest = FakeDownloadRequest()
+    func download(_ url: URLConvertible, to destination: DownloadRequest.DownloadFileDestination?) -> DownloadRequestProtocol {
+            download_wasCalled_withURL = url
             download_wasCalled_handler?()
-            return stubbedReturnValue
+            return stubbedReturnDownloadRequest
     }
 }

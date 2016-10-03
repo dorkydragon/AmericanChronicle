@@ -1,43 +1,44 @@
 import Alamofire
 
-// MARK: -
-// MARK: OCRCoordinatesServiceInterface
+// mark: -
+// mark: OCRCoordinatesServiceInterface
 
 protocol OCRCoordinatesServiceInterface {
-    func startRequest(id: String,
+    func startRequest(_ id: String,
                       contextID: String,
-                      completionHandler: ((OCRCoordinates?, ErrorType?) -> Void))
-    func isRequestInProgress(id: String, contextID: String) -> Bool
-    func cancelRequest(id: String, contextID: String)
+                      completionHandler: @escaping ((OCRCoordinates?, Error?) -> Void))
+    func isRequestInProgress(_ id: String, contextID: String) -> Bool
+    func cancelRequest(_ id: String, contextID: String)
 }
 
-// MARK: -
-// MARK: OCRCoordinatesService class
+// mark: -
+// mark: OCRCoordinatesService class
 
 final class OCRCoordinatesService: OCRCoordinatesServiceInterface {
 
-    private let manager: ManagerProtocol
-    private var activeRequests: [String: RequestProtocol] = [:]
-    private let queue = dispatch_queue_create(
-                            "com.ryanipete.AmericanChronicle.OCRCoordinatesService",
-                            DISPATCH_QUEUE_SERIAL)
 
-    init(manager: ManagerProtocol = Manager()) {
+    fileprivate let manager: ManagerProtocol
+    fileprivate var activeRequests: [String: DataRequestProtocol] = [:]
+    fileprivate let queue = DispatchQueue(
+                            label: "com.ryanipete.AmericanChronicle.OCRCoordinatesService",
+                            attributes: [])
+
+    init(manager: ManagerProtocol = SessionManager()) {
         self.manager = manager
     }
 
-    func startRequest(id: String,
-                      contextID: String,
-                      completionHandler: ((OCRCoordinates?, ErrorType?) -> Void)) {
+    internal func startRequest(_ id: String,
+                               contextID: String,
+                               completionHandler: @escaping ((OCRCoordinates?, Error?) -> Void)) {
         if id.characters.isEmpty {
-            let error = NSError(code: .InvalidParameter,
+            let error = NSError(code: .invalidParameter,
                                 message: "Tried to fetch OCR info using an empty lccn.")
             completionHandler(nil, error)
             return
         }
 
         if isRequestInProgress(id, contextID: contextID) {
-            let error = NSError(code: .DuplicateRequest,
+            let error = NSError(code: .duplicateRequest,
                                 message: "Message tried to send a duplicate request.")
             completionHandler(nil, error)
             return
@@ -45,30 +46,28 @@ final class OCRCoordinatesService: OCRCoordinatesServiceInterface {
 
         let URLString = URLStringForID(id)
 
-        let request = self.manager.request(.GET, URLString: URLString, parameters: nil)?
-            .responseObject(queue: nil,
-                            keyPath: nil,
-                            mapToObject: nil) { (response: Response<OCRCoordinates, NSError>) in
-            dispatch_sync(self.queue) {
+        let request = self.manager.request(URLString, method: .get, parameters: nil).responseObj {
+            (response: Alamofire.DataResponse<OCRCoordinates>) in
+            self.queue.sync() {
                 self.activeRequests[URLString] = nil
             }
             completionHandler(response.result.value, response.result.error)
         }
 
-        dispatch_sync(queue) {
+        (queue).sync {
             self.activeRequests[URLString] = request
         }
     }
 
-    private func URLStringForID(id: String) -> String {
+    fileprivate func URLStringForID(_ id: String) -> String {
         return "\(ChroniclingAmericaEndpoint.baseURLString)\(id)coordinates"
     }
 
-    func isRequestInProgress(id: String, contextID: String) -> Bool {
+    func isRequestInProgress(_ id: String, contextID: String) -> Bool {
         return activeRequests[URLStringForID(id)] != nil
     }
 
-    func cancelRequest(id: String, contextID: String) {
+    func cancelRequest(_ id: String, contextID: String) {
 
     }
 }

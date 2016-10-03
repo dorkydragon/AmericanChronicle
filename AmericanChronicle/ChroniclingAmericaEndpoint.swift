@@ -5,5 +5,5 @@ enum ChroniclingAmericaEndpoint: String {
     var fullURLString: String? {
         return "\(ChroniclingAmericaEndpoint.baseURLString)\(self.rawValue)"
     }
-    var fullURL: NSURL? { return NSURL(string: fullURLString ?? "") }
+    var fullURL: URL? { return URL(string: fullURLString ?? "") }
 }

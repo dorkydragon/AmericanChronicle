@@ -11,12 +11,12 @@ struct Reporter {
         updateReportedLocale()
     }
 
-    func logMessage(formattedString: String, arguments: [CVarArgType] = []) {
+    func logMessage(_ formattedString: String, arguments: [CVarArg] = []) {
         CLSLogv(formattedString, getVaList(arguments))
     }
 
-    private func updateReportedLocale() {
-        let locale = NSLocale.currentLocale().localeIdentifier
+    fileprivate func updateReportedLocale() {
+        let locale = Locale.current.identifier
         Crashlytics.sharedInstance().setObjectValue(locale, forKey: "locale")
     }
 }

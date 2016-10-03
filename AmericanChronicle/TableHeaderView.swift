@@ -9,16 +9,16 @@ final class TableHeaderView: UITableViewHeaderFooterView {
             setNeedsLayout()
         }
     }
-    private let label = UILabel()
+    fileprivate let label = UILabel()
     func commonInit() {
 
-        contentView.backgroundColor = UIColor.whiteColor()
+        contentView.backgroundColor = UIColor.white
 
         contentView.addSubview(label)
         label.font = Fonts.smallBody
         label.textColor = Colors.darkGray
         label.numberOfLines = 1
-        label.snp_makeConstraints { make in
+        label.snp.makeConstraints { make in
             make.leading.equalTo(Measurements.horizontalMargin)
             make.trailing.equalTo(-Measurements.horizontalMargin)
             make.bottom.equalTo(-1.0)

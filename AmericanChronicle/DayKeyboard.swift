@@ -7,10 +7,10 @@ final class DayKeyboard: UIView {
         didSet { updateCalendar() }
     }
 
-    // MARK: Init methods
+    // mark: Init methods
 
     func commonInit() {
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
     }
 
     override init(frame: CGRect) {
@@ -23,17 +23,17 @@ final class DayKeyboard: UIView {
         self.commonInit()
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func didTapButton(button: UIButton) {
-        if let title = button.titleForState(.Normal) {
+    func didTapButton(_ button: UIButton) {
+        if let title = button.title(for: UIControlState()) {
             dayTapHandler?(title)
         }
     }
 
-    // MARK: Private methods
+    // mark: Private methods
 
-    private func updateCalendar() {
+    fileprivate func updateCalendar() {
         for subview in subviews {
             subview.removeFromSuperview()
         }
@@ -48,7 +48,7 @@ final class DayKeyboard: UIView {
             guard let weeknumber = dayMonthYear.weekOfMonth else { continue }
             let zeroBasedWeekNumber = weeknumber - 1
             if weeks.count == zeroBasedWeekNumber {
-                weeks.append([Int?](count: 7, repeatedValue: nil))
+                weeks.append([Int?](repeating: nil, count: 7))
             }
             weeks[zeroBasedWeekNumber][(weekday - 1)] = day
         }
@@ -58,77 +58,77 @@ final class DayKeyboard: UIView {
             prevRow = addRowWithTitles(dayStrings, prevRow: prevRow)
 
         }
-        prevRow?.snp_makeConstraints { make in
-            make.bottom.equalTo(self.snp_bottom).offset(-1.0)
+        prevRow?.snp.makeConstraints { make in
+            make.bottom.equalTo(self.snp.bottom).offset(-1.0)
         }
 
         for subview in subviews {
             if let button = subview as? UIButton,
-                title = button.titleForState(.Normal),
-                day = Int(title) {
-                button.selected = (day == selectedDayMonthYear.day)
+                let title = button.title(for: UIControlState()),
+                let day = Int(title) {
+                button.isSelected = (day == selectedDayMonthYear.day)
             }
         }
     }
 
-    private func addRowWithTitles(titles: [String], prevRow: UIButton? = nil) -> UIButton? {
+    fileprivate func addRowWithTitles(_ titles: [String], prevRow: UIButton? = nil) -> UIButton? {
         let selectedBgColor = Colors.lightBlueBright
-        let normalImage = UIImage.imageWithFillColor(UIColor.whiteColor(), cornerRadius: 1.0)
+        let normalImage = UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0)
         let highlightedImage = UIImage.imageWithFillColor(selectedBgColor, cornerRadius: 1.0)
 
         var prevColumn: UIButton? = nil
         for title in titles {
             let button = UIButton()
-            button.setTitle(title, forState: .Normal)
+            button.setTitle(title, for: UIControlState())
             button.titleLabel?.font = Fonts.largeBody
-            button.enabled = (title != "")
-            button.layer.shadowColor = Colors.darkGray.CGColor
+            button.isEnabled = (title != "")
+            button.layer.shadowColor = Colors.darkGray.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 0)
             button.layer.shadowRadius = 0.5
             button.layer.shadowOpacity = 0.4
 
-            button.setBackgroundImage(normalImage, forState: .Normal)
-            button.setBackgroundImage(highlightedImage, forState: .Selected)
-            button.setBackgroundImage(highlightedImage, forState: .Highlighted)
+            button.setBackgroundImage(normalImage, for: UIControlState())
+            button.setBackgroundImage(highlightedImage, for: .selected)
+            button.setBackgroundImage(highlightedImage, for: .highlighted)
 
-            button.setTitleColor(Colors.blueGray, forState: .Normal)
-            button.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
-            button.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+            button.setTitleColor(Colors.blueGray, for: .normal)
+            button.setTitleColor(UIColor.white, for: .highlighted)
+            button.setTitleColor(UIColor.white, for: .selected)
 
             button.addTarget(self,
                              action: #selector(didTapButton(_:)),
-                             forControlEvents: .TouchUpInside)
+                             for: .touchUpInside)
             addSubview(button)
 
             let leading: ConstraintItem
             if let prevColumn = prevColumn {
-                leading = prevColumn.snp_trailing
+                leading = prevColumn.snp.trailing
             } else {
-                leading = self.snp_leading
+                leading = self.snp.leading
             }
             let top: ConstraintItem
             if let prevRow = prevRow {
-                top = prevRow.snp_bottom
+                top = prevRow.snp.bottom
             } else {
-                top = self.snp_top
+                top = self.snp.top
             }
-            button.snp_makeConstraints { make in
+            button.snp.makeConstraints { make in
                 make.leading.equalTo(leading).offset(2.0)
                 make.top.equalTo(top).offset(2.0)
-                if let width = prevColumn?.snp_width {
+                if let width = prevColumn?.snp.width {
                     make.width.equalTo(width)
                 }
-                if let height = prevRow?.snp_height {
+                if let height = prevRow?.snp.height {
                     make.height.equalTo(height)
-                } else if let height = prevColumn?.snp_height {
+                } else if let height = prevColumn?.snp.height {
                     make.height.equalTo(height)
                 }
             }
             prevColumn = button
         }
 
-        prevColumn?.snp_makeConstraints { make in
-            make.trailing.equalTo(self.snp_trailing).offset(-2.0)
+        prevColumn?.snp.makeConstraints { make in
+            make.trailing.equalTo(self.snp.trailing).offset(-2.0)
         }
         return prevColumn
     }

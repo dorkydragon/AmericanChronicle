@@ -1,15 +1,15 @@
 protocol USStatePickerDataManagerInterface {
-    func loadStateNames(completionHandler: (([String]?, ErrorType?) -> Void))
+    func loadStateNames(_ completionHandler: (([String]?, Error?) -> Void))
 }
 
 final class USStatePickerDataManager: USStatePickerDataManagerInterface {
-    private let service: USStatesServiceInterface
+    fileprivate let service: USStatesServiceInterface
 
     init(service: USStatesServiceInterface = USStatesService()) {
         self.service = service
     }
 
-    func loadStateNames(completionHandler: (([String]?, ErrorType?) -> Void)) {
+    func loadStateNames(_ completionHandler: (([String]?, Error?) -> Void)) {
         service.loadStateNames(completionHandler)
     }
 }

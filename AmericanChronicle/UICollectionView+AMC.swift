@@ -2,11 +2,11 @@ import Foundation
 
 extension UICollectionView {
 
-    var headerPaths: [NSIndexPath] {
-        return indexPathsForVisibleSupplementaryElementsOfKind(UICollectionElementKindSectionHeader)
+    var headerPaths: [IndexPath] {
+        return indexPathsForVisibleSupplementaryElements(ofKind: UICollectionElementKindSectionHeader)
     }
 
-    var lastVisibleHeaderPath: NSIndexPath? {
+    var lastVisibleHeaderPath: IndexPath? {
         return headerPaths.last
     }
 
@@ -16,20 +16,20 @@ extension UICollectionView {
         return header.frame.origin.y - self.contentOffset.y
     }
 
-    func headerAtIndexPath(indexPath: NSIndexPath) -> UICollectionReusableView {
-        return supplementaryViewForElementKind(UICollectionElementKindSectionHeader,
-                                               atIndexPath: indexPath)
+    func headerAtIndexPath(_ indexPath: IndexPath) -> UICollectionReusableView {
+        return supplementaryView(forElementKind: UICollectionElementKindSectionHeader,
+                                               at: indexPath)!
     }
 
-    func dequeueCellForItemAtIndexPath<T: UICollectionViewCell>(indexPath: NSIndexPath) -> T {
+    func dequeueCellForItemAtIndexPath<T: UICollectionViewCell>(_ indexPath: IndexPath) -> T {
         let identifier = NSStringFromClass(T.self)
-        let cell = dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath)
+        let cell = dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         return cell as! T
     }
 
-    func dequeueHeaderForIndexPath(indexPath: NSIndexPath) -> UICollectionReusableView {
-        return dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+    func dequeueHeaderForIndexPath(_ indexPath: IndexPath) -> UICollectionReusableView {
+        return dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
                                                       withReuseIdentifier: "Header",
-                                                      forIndexPath: indexPath)
+                                                      for: indexPath)
     }
 }

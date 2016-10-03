@@ -1,33 +1,33 @@
-// MARK: -
-// MARK: USStatePickerPresenterInterface protocol
+// mark: -
+// mark: USStatePickerPresenterInterface protocol
 
 protocol USStatePickerPresenterInterface: USStatePickerUserInterfaceDelegate {
     var wireframe: USStatePickerWireframeInterface? { get set }
 
-    func configureUserInterfaceForPresentation(userInterface: USStatePickerUserInterface,
+    func configureUserInterfaceForPresentation(_ userInterface: USStatePickerUserInterface,
                                                withSelectedStateNames selectedStateNames: [String])
 }
 
-// MARK: -
-// MARK: USStatePickerPresenter class
+// mark: -
+// mark: USStatePickerPresenter class
 
 final class USStatePickerPresenter: USStatePickerPresenterInterface {
 
-    // MARK: Properties
+    // mark: Properties
 
     weak var wireframe: USStatePickerWireframeInterface?
-    private let interactor: USStatePickerInteractorInterface
-    private var userInterface: USStatePickerUserInterface?
+    fileprivate let interactor: USStatePickerInteractorInterface
+    fileprivate var userInterface: USStatePickerUserInterface?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(interactor: USStatePickerInteractorInterface = USStatePickerInteractor()) {
         self.interactor = interactor
     }
 
-    // MARK: USStatePickerPresenterInterface methods
+    // mark: USStatePickerPresenterInterface methods
 
-    func configureUserInterfaceForPresentation(userInterface: USStatePickerUserInterface,
+    func configureUserInterfaceForPresentation(_ userInterface: USStatePickerUserInterface,
                                                withSelectedStateNames selectedStateNames: [String]) {
         self.userInterface = userInterface
         interactor.loadStateNames { [weak self] names, error in
@@ -38,9 +38,9 @@ final class USStatePickerPresenter: USStatePickerPresenterInterface {
         }
     }
 
-    // MARK: USStatePickerUserInterfaceDelegate methods
+    // mark: USStatePickerUserInterfaceDelegate methods
 
-    func userDidTapSave(selectedStateNames: [String]) {
+    func userDidTapSave(_ selectedStateNames: [String]) {
         self.wireframe?.userDidTapSave(selectedStateNames)
     }
 

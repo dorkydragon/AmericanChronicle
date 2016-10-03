@@ -2,17 +2,27 @@ import Alamofire
 import ObjectMapper
 import AlamofireObjectMapper
 
-protocol RequestProtocol {
-    var task: NSURLSessionTask { get }
-    func responseObject<T: Mappable>(
-                        queue queue: dispatch_queue_t?,
-                        keyPath: String?,
-                        mapToObject object: T?,
-                        completionHandler: Alamofire.Response<T, NSError> -> Void) -> Self
-    func response(queue queue: dispatch_queue_t?,
-                completionHandler: (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?) -> Void)
-                -> Self
+protocol DataRequestProtocol {
+    var task: URLSessionTask? { get }
+    func responseObj<T: BaseMappable>(completionHandler: @escaping (DataResponse<T>) -> Void) -> Self
+    func response(queue: DispatchQueue?, completionHandler: @escaping (DefaultDataResponse) -> Void) -> Self
     func cancel()
 }
 
-extension Request: RequestProtocol {}
+extension DataRequest: DataRequestProtocol {
+    func responseObj<T: BaseMappable>(completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+        return responseObject(queue: nil,
+                              keyPath: nil,
+                              mapToObject: nil,
+                              context: nil,
+                              completionHandler: completionHandler)
+    }
+}
+
+protocol DownloadRequestProtocol {
+    func response(queue: DispatchQueue?, completionHandler: @escaping (DefaultDownloadResponse) -> Void) -> Self
+    func cancel()
+}
+
+extension DownloadRequest: DownloadRequestProtocol {
+}

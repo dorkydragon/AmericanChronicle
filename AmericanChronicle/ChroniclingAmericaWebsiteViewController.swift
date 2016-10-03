@@ -2,18 +2,18 @@ import WebKit
 
 final class ChroniclingAmericaWebsiteViewController: UIViewController {
 
-    // MARK: Properties
+    // mark: Properties
 
     var dismissHandler: ((Void) -> Void)?
-    private let webView = WKWebView()
+    fileprivate let webView = WKWebView()
 
-    // MARK: Init methods
+    // mark: Init methods
 
     func commonInit() {
         navigationItem.setLeftButtonTitle("Dismiss", target: self, action: #selector(didTapDismissButton(_:)))
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         commonInit()
     }
@@ -23,25 +23,25 @@ final class ChroniclingAmericaWebsiteViewController: UIViewController {
         commonInit()
     }
 
-    // MARK: Internal methods
+    // mark: Internal methods
 
-    func didTapDismissButton(sender: UIBarButtonItem) {
+    func didTapDismissButton(_ sender: UIBarButtonItem) {
         dismissHandler?()
     }
 
-    // MARK: UIViewController overrides
+    // mark: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
 
         view.addSubview(webView)
-        webView.snp_makeConstraints { make in
+        webView.snp.makeConstraints { make in
             make.edges.equalTo(0)
         }
 
-        let request = NSURLRequest(URL: NSURL(string: "http://chroniclingamerica.loc.gov/")!)
-        webView.loadRequest(request)
+        let request = URLRequest(url: URL(string: "http://chroniclingamerica.loc.gov/")!)
+        webView.load(request)
     }
 }

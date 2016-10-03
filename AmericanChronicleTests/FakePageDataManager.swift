@@ -2,31 +2,32 @@
 
 class FakePageDataManager: PageDataManagerInterface {
 
-    var downloadPage_wasCalled_withRemoteURL: NSURL?
-    var downloadPage_wasCalled_withCompletionHandler: ((NSURL, NSURL?, NSError?) -> Void)?
-    func downloadPage(remoteURL: NSURL, completionHandler: (NSURL, NSURL?, NSError?) -> Void) {
+    var downloadPage_wasCalled_withRemoteURL: URL?
+    var downloadPage_wasCalled_withCompletionHandler: ((URL, URL?, NSError?) -> Void)?
+    func downloadPage(_ remoteURL: URL, completionHandler: @escaping (URL, URL?, NSError?) -> Void) {
         downloadPage_wasCalled_withRemoteURL = remoteURL
         downloadPage_wasCalled_withCompletionHandler = completionHandler
     }
 
-    var cancelDownload_wasCalled_withRemoteURL: NSURL?
-    func cancelDownload(remoteURL: NSURL) {
+    var cancelDownload_wasCalled_withRemoteURL: URL?
+    func cancelDownload(_ remoteURL: URL) {
         cancelDownload_wasCalled_withRemoteURL = remoteURL
     }
 
-    func isDownloadInProgress(remoteURL: NSURL) -> Bool {
+    func isDownloadInProgress(_ remoteURL: URL) -> Bool {
         return false
     }
 
-    func startOCRCoordinatesRequest(id: String, completionHandler: (OCRCoordinates?, NSError?) -> Void) {
+    func startOCRCoordinatesRequest(_ id: String,
+                                    completionHandler: @escaping (OCRCoordinates?, NSError?) -> Void) {
 
     }
 
-    func cancelOCRCoordinatesRequest(id: String) {
+    func cancelOCRCoordinatesRequest(_ id: String) {
 
     }
 
-    func isOCRCoordinatesRequestInProgress(id: String) -> Bool {
+    func isOCRCoordinatesRequestInProgress(_ id: String) -> Bool {
         return false
     }
 }

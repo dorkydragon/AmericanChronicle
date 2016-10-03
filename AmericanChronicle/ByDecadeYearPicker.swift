@@ -1,9 +1,9 @@
 final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    // MARK: Properties
+    // mark: Properties
 
-    private static let decadeTransitionScrollArea: CGFloat = 100.0
-    private static let headerReuseIdentifier = "Header"
+    fileprivate static let decadeTransitionScrollArea: CGFloat = 100.0
+    fileprivate static let headerReuseIdentifier = "Header"
 
     var earliestYear: Int? {
         didSet { updateYearsAndDecades() }
@@ -15,81 +15,81 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         didSet {
             if let year = selectedYear {
                 let decadeString = "\(year/10)0s"
-                if let section = decades.indexOf(decadeString),
-                    item = yearsByDecade[decadeString]?.indexOf("\(year)") {
-                    let path = NSIndexPath(forItem: item, inSection: section)
-                    yearCollectionView.selectItemAtIndexPath(path,
+                if let section = decades.index(of: decadeString),
+                    let item = yearsByDecade[decadeString]?.index(of: "\(year)") {
+                    let path = IndexPath(item: item, section: section)
+                    yearCollectionView.selectItem(at: path,
                                                              animated: true,
-                                                             scrollPosition: .None)
+                                                             scrollPosition: UICollectionViewScrollPosition())
                     return
                 }
             }
-            yearCollectionView.selectItemAtIndexPath(nil, animated: false, scrollPosition: .Top)
+            yearCollectionView.selectItem(at: nil, animated: false, scrollPosition: .top)
         }
     }
     var yearTapHandler: ((String) -> Void)?
 
-    private let decadeStrip: VerticalStrip
-    private let yearCollectionView: UICollectionView = {
+    fileprivate let decadeStrip: VerticalStrip
+    fileprivate let yearCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .Vertical
+        layout.scrollDirection = .vertical
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = UIColor.whiteColor()//Colors.lightBlueBrightTransparent
+        view.backgroundColor = UIColor.white//Colors.lightBlueBrightTransparent
         view.bounces = false
-        view.registerClass(ByDecadeYearPickerCell.self,
+        view.register(ByDecadeYearPickerCell.self,
                           forCellWithReuseIdentifier: NSStringFromClass(ByDecadeYearPickerCell.self))
-        view.registerClass(UICollectionReusableView.self,
+        view.register(UICollectionReusableView.self,
                            forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                            withReuseIdentifier: "Header")
         return view
     }()
-    private var yearsByDecade: [String: [String]] = [:]
-    private var decades: [String] = []
-    private var previousContentOffset: CGPoint = .zero
-    private var shouldIgnoreOffsetChangesUntilNextRest = false
-    private var currentDecadeTransitionMinY: CGFloat?
-    private var currentDecadeTransitionMaxY: CGFloat?
+    fileprivate var yearsByDecade: [String: [String]] = [:]
+    fileprivate var decades: [String] = []
+    fileprivate var previousContentOffset: CGPoint = .zero
+    fileprivate var shouldIgnoreOffsetChangesUntilNextRest = false
+    fileprivate var currentDecadeTransitionMinY: CGFloat?
+    fileprivate var currentDecadeTransitionMaxY: CGFloat?
 
-    // MARK: Init methods
+    // mark: Init methods
 
     init(decadeStrip: VerticalStrip = VerticalStrip()) {
         self.decadeStrip = decadeStrip
         super.init(frame: .zero)
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
 
         decadeStrip.userDidChangeValueHandler = { [weak self] index in
             self?.shouldIgnoreOffsetChangesUntilNextRest = true
-            let indexPath = NSIndexPath(forItem: 0, inSection: index)
-            self?.yearCollectionView.scrollToItemAtIndexPath(indexPath,
-                                                             atScrollPosition: .Top,
+            let indexPath = IndexPath(item: 0, section: index)
+            self?.yearCollectionView.scrollToItem(at: indexPath,
+                                                             at: .top,
                                                              animated: true)
         }
         addSubview(decadeStrip)
-        decadeStrip.snp_makeConstraints { make in
+        decadeStrip.snp.makeConstraints { make in
             make.top.equalTo(1.0)
             make.leading.equalTo(1.0)
             make.bottom.equalTo(-1.0)
-            make.width.equalTo(self.snp_width).multipliedBy(0.33)
+            make.width.equalTo(self.snp.width).multipliedBy(0.33)
         }
 
-        let verticalBorder = UIImageView(image: UIImage.imageWithFillColor(UIColor.whiteColor()))
+        let verticalBorder = UIImageView(image: UIImage.imageWithFillColor(UIColor.white))
         addSubview(verticalBorder)
-        verticalBorder.snp_makeConstraints { make in
+        verticalBorder.snp.makeConstraints { make in
             make.top.equalTo(0)
             make.bottom.equalTo(0)
-            make.leading.equalTo(decadeStrip.snp_trailing)
-            make.width.equalTo(1.0/UIScreen.mainScreen().scale)
+            make.leading.equalTo(decadeStrip.snp.trailing)
+            make.width.equalTo(1.0/UIScreen.main.scale)
         }
 
         yearCollectionView.delegate = self
         yearCollectionView.dataSource = self
         yearCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         addSubview(yearCollectionView)
-        yearCollectionView.snp_makeConstraints { make in
+        yearCollectionView.snp.makeConstraints { make in
             make.top.equalTo(1.0)
             make.bottom.equalTo(-1.0)
-            make.leading.equalTo(verticalBorder.snp_trailing).offset(1.0)
+            make.leading.equalTo(verticalBorder.snp.trailing).offset(1.0)
             make.trailing.equalTo(-1.0)
         }
     }
@@ -109,13 +109,12 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         fatalError("init() has not been implemented")
     }
 
-    // MARK: Private methods
+    // mark: Private methods
 
-    private func updateYearsAndDecades() {
+    fileprivate func updateYearsAndDecades() {
         yearsByDecade = [:]
         decades = []
-        if let earliestYear = earliestYear, latestYear = latestYear
-            where earliestYear < latestYear {
+        if let earliestYear = earliestYear, let latestYear = latestYear, earliestYear < latestYear {
             let earliestDecade = Int(Float(earliestYear) / 10.0) * 10
             let latestDecade = Int(Float(latestYear) / 10.0) * 10
             var decade = earliestDecade
@@ -132,7 +131,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         yearCollectionView.reloadData()
     }
 
-    private func settle() {
+    fileprivate func settle() {
         guard !shouldIgnoreOffsetChangesUntilNextRest else { return }
 
         guard let visibleHeaderPath = yearCollectionView.lastVisibleHeaderPath else { return }
@@ -140,7 +139,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         let header = yearCollectionView.headerAtIndexPath(visibleHeaderPath)
         let distanceFromTop = header.frame.origin.y - yearCollectionView.contentOffset.y
         let halfwayPoint = yearCollectionView.frame.size.height / 2.0
-        var currentSection = visibleHeaderPath.section
+        var currentSection = (visibleHeaderPath as NSIndexPath).section
         if (distanceFromTop >= halfwayPoint) && (currentSection > 0) {
             currentSection -= 1
         }
@@ -148,7 +147,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         decadeStrip.jumpToItemAtIndex(currentSection)
     }
 
-    private func updateCurrentDecadeTransitionMinY() {
+    fileprivate func updateCurrentDecadeTransitionMinY() {
 
         let topHeaderY = yearCollectionView.minVisibleHeaderY
 
@@ -164,9 +163,9 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         // if the year collectionView is resting at a point where transition
         // between decades should happen, then treat this as the decade's "full"
         // position until the drag ends.
-        if (topHeaderY >= typicalDecadeTransitionMinY) &&
-            (topHeaderY <= typicalDecadeTransitionMaxY) {
-            if topHeaderY > visibleHalfwayY {
+        if (topHeaderY! >= typicalDecadeTransitionMinY) &&
+            (topHeaderY! <= typicalDecadeTransitionMaxY) {
+            if topHeaderY! > visibleHalfwayY {
                 currentDecadeTransitionMinY = (topHeaderY ?? 0) -
                                                 ByDecadeYearPicker.decadeTransitionScrollArea
             } else {
@@ -177,101 +176,101 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         }
     }
 
-    // MARK: UICollectionViewDataSource methods
+    // mark: UICollectionViewDataSource methods
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return decades.count
     }
 
-    func collectionView(collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         let years = yearsByDecade[decades[section]]
         return years?.count ?? 0
     }
 
-    func collectionView(collectionView: UICollectionView,
-                        cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ByDecadeYearPickerCell = collectionView.dequeueCellForItemAtIndexPath(indexPath)
-        let decade = decades[indexPath.section]
-        cell.text = yearsByDecade[decade]?[indexPath.item]
+        let decade = decades[(indexPath as NSIndexPath).section]
+        cell.text = yearsByDecade[decade]?[(indexPath as NSIndexPath).item]
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
-                        atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+                        at indexPath: IndexPath) -> UICollectionReusableView {
         let view = collectionView.dequeueHeaderForIndexPath(indexPath)
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         return view
     }
 
     static let lineSpacing: CGFloat = 1.0
 
-    // MARK: UICollectionViewDelegate methods
+    // mark: UICollectionViewDelegate methods
 
-    func collectionView(collectionView: UICollectionView,
-                        didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         updateCurrentDecadeTransitionMinY()
-        let decade = decades[indexPath.section]
-        if let year = yearsByDecade[decade]?[indexPath.item] {
+        let decade = decades[(indexPath as NSIndexPath).section]
+        if let year = yearsByDecade[decade]?[(indexPath as NSIndexPath).item] {
             yearTapHandler?(year)
         }
     }
 
-    // MARK: UICollectionViewDelegateFlowLayout methods
+    // mark: UICollectionViewDelegateFlowLayout methods
 
     func collectionView(
-        collectionView: UICollectionView,
+        _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.size.width, height: 44)
     }
 
     func collectionView(
-        collectionView: UICollectionView,
+        _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return ByDecadeYearPicker.lineSpacing
     }
 
     func collectionView(
-        collectionView: UICollectionView,
+        _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
     }
 
-    func collectionView(collectionView: UICollectionView,
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 320.0, height: ByDecadeYearPicker.lineSpacing)
     }
 
-    // MARK: UIScrollViewDelegate methods
+    // mark: UIScrollViewDelegate methods
 
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        if scrollView.decelerating {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView.isDecelerating {
             // Ignore
             return
         }
         updateCurrentDecadeTransitionMinY()
     }
 
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !scrollView.decelerating {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !scrollView.isDecelerating {
             shouldIgnoreOffsetChangesUntilNextRest = false
         }
         settle()
     }
 
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        if !scrollView.dragging {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if !scrollView.isDragging {
             shouldIgnoreOffsetChangesUntilNextRest = false
         }
         settle()
     }
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !shouldIgnoreOffsetChangesUntilNextRest else { return }
 
         guard let lowerSectionHeaderPath = yearCollectionView.lastVisibleHeaderPath else {
@@ -294,7 +293,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
 
         // The first visible header marks the beginning of the lower section.
         // VerticalStrip wants the upper section, so subtract 1 (unless 0)
-        let upperSection = max(lowerSectionHeaderPath.section - 1, 0)
+        let upperSection = max((lowerSectionHeaderPath as NSIndexPath).section - 1, 0)
 
         if (perceivedLowerSectionY >= fullLowerSectionYBoundary) &&
             (perceivedLowerSectionY <= fullUpperSectionYBoundary) {
@@ -304,7 +303,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
                                         ByDecadeYearPicker.decadeTransitionScrollArea
             decadeStrip.showItemAtIndex(upperSection, withFractionScrolled: fractionScrolled)
         } else if perceivedLowerSectionY < fullLowerSectionYBoundary {
-            decadeStrip.showItemAtIndex(lowerSectionHeaderPath.section, withFractionScrolled: 0)
+            decadeStrip.showItemAtIndex((lowerSectionHeaderPath as NSIndexPath).section, withFractionScrolled: 0)
         } else if perceivedLowerSectionY > fullUpperSectionYBoundary {
             decadeStrip.showItemAtIndex(upperSection, withFractionScrolled: 0)
         }

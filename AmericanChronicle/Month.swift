@@ -1,77 +1,77 @@
 enum Month: Int {
-    case January
-    case February
-    case March
-    case April
-    case May
-    case June
-    case July
-    case August
-    case September
-    case October
-    case November
-    case December
+    case january
+    case february
+    case march
+    case april
+    case may
+    case june
+    case july
+    case august
+    case september
+    case october
+    case november
+    case december
 
     var shortString: String {
         switch self {
-        case .January:
+        case .january:
             return "Jan"
-        case .February:
+        case .february:
             return "Feb"
-        case .March:
+        case .march:
             return "Mar"
-        case .April:
+        case .april:
             return "Apr"
-        case .May:
+        case .may:
             return "May"
-        case .June:
+        case .june:
             return "Jun"
-        case .July:
+        case .july:
             return "Jul"
-        case .August:
+        case .august:
             return "Aug"
-        case .September:
+        case .september:
             return "Sep"
-        case .October:
+        case .october:
             return "Oct"
-        case .November:
+        case .november:
             return "Nov"
-        case .December:
+        case .december:
             return "Dec"
         }
     }
 
     var longString: String {
         switch self {
-        case .January:
+        case .january:
             return "January"
-        case .February:
+        case .february:
             return "February"
-        case .March:
+        case .march:
             return "March"
-        case .April:
+        case .april:
             return "April"
-        case .May:
+        case .may:
             return "May"
-        case .June:
+        case .june:
             return "June"
-        case .July:
+        case .july:
             return "July"
-        case .August:
+        case .august:
             return "August"
-        case .September:
+        case .september:
             return "September"
-        case .October:
+        case .october:
             return "October"
-        case .November:
+        case .november:
             return "November"
-        case .December:
+        case .december:
             return "December"
         }
     }
 
-    static func stringForRawValue(rawValue: Int) -> String {
-        let month = Month(rawValue: rawValue) ?? .January
+    static func stringForRawValue(_ rawValue: Int) -> String {
+        let month = Month(rawValue: rawValue) ?? .january
         return month.longString
     }
 }

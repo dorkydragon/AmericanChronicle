@@ -26,12 +26,12 @@ class DelayedSearchTests: XCTestCase {
     }
 
     func testThat_itStartsItsTimerImmediately() {
-        XCTAssert(runLoop.addTimer_wasCalled_withTimer?.valid ?? false)
+        XCTAssert(runLoop.addTimer_wasCalled_withTimer?.isValid ?? false)
     }
 
     func testThat_beforeTheTimerHasFired_cancel_invalidatesTheTimer() {
         subject.cancel()
-        XCTAssertFalse(runLoop.addTimer_wasCalled_withTimer?.valid ?? true)
+        XCTAssertFalse(runLoop.addTimer_wasCalled_withTimer?.isValid ?? true)
     }
 
     func testThat_beforeTheTimerHasFired_cancel_triggersTheCompletionHandler_withACancelledError() {

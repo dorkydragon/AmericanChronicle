@@ -2,12 +2,12 @@ final class ShowDatePickerTransitionController: NSObject, UIViewControllerAnimat
 
     let duration = 0.1
 
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        if let toView = transitionContext.viewForKey(UITransitionContextToViewKey) {
+        if let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) {
             toView.alpha = 0
-            transitionContext.containerView()!.addSubview(toView)
-            UIView.animateWithDuration(duration, animations: {
+            transitionContext.containerView.addSubview(toView)
+            UIView.animate(withDuration: duration, animations: {
                 toView.alpha = 1.0
                 }, completion: { _ in
                     transitionContext.completeTransition(true)
@@ -16,7 +16,7 @@ final class ShowDatePickerTransitionController: NSObject, UIViewControllerAnimat
     }
 
     func transitionDuration(
-        transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
 }

@@ -26,7 +26,13 @@ class OCRCoordinatesServiceTests: XCTestCase {
         let id = "lccn/sn83045487/1913-02-20/ed-1/seq-18/"
 
         subject.startRequest(id, contextID: "fake-context") { _, _ in }
-        XCTAssertEqual(manager.request_wasCalled_withURLString?.URLString,
+        var resultString: String? = nil
+        do {
+            resultString = try manager.request_wasCalled_withURL?.asURL().absoluteString
+        } catch {
+            XCTFail("Error: \(error)")
+        }
+        XCTAssertEqual(resultString,
                        "http://chroniclingamerica.loc.gov/lccn/sn83045487/1913-02-20/ed-1/seq-18/coordinates")
     }
 
@@ -45,11 +51,11 @@ class OCRCoordinatesServiceTests: XCTestCase {
         subject.startRequest("lccn/sn83045487/1913-02-20/ed-1/seq-18/", contextID: "fake-context") { coordinates, _ in
             returnedCoordinates = coordinates
         }
-        let expectedCoordinates = OCRCoordinates(Map(mappingType: .FromJSON, JSONDictionary: [:]))
-        let result: Result<OCRCoordinates, NSError> = .Success(expectedCoordinates!)
-        let response = Alamofire.Response(request: nil, response: nil, data: nil, result: result)
-        XCTAssertNotNil(manager.stubbedReturnValue)
-        manager.stubbedReturnValue.finishWithResponseObject(response)
+        let expectedCoordinates = OCRCoordinates(map: Map(mappingType: .fromJSON, JSON: [:]))
+        let result: Result<OCRCoordinates> = .success(expectedCoordinates!)
+        let response = Alamofire.DataResponse(request: nil, response: nil, data: nil, result: result)
+        XCTAssertNotNil(manager.stubbedReturnDataRequest)
+        manager.stubbedReturnDataRequest.finishWithResponseObject(response)
         XCTAssertEqual(returnedCoordinates, expectedCoordinates)
     }
 
@@ -58,22 +64,23 @@ class OCRCoordinatesServiceTests: XCTestCase {
         subject.startRequest("lccn/sn83045487/1913-02-20/ed-1/seq-18/", contextID: "fake-context") { _, err in
             returnedError = err as? NSError
         }
-        let expectedError = NSError(code: .InvalidParameter, message: "")
-        let result: Result<OCRCoordinates, NSError> = .Failure(expectedError)
-        let response = Alamofire.Response(request: nil, response: nil, data: nil, result: result)
-        manager.stubbedReturnValue.finishWithResponseObject(response)
+        let expectedError = NSError(code: .invalidParameter, message: nil)
+        let result: Result<OCRCoordinates> = .failure(expectedError)
+        let response = Alamofire.DataResponse(request: nil, response: nil, data: nil, result: result)
+
+        manager.stubbedReturnDataRequest.finishWithResponseObject(response)
         XCTAssertEqual(returnedError, expectedError)
     }
 
     func testThat_byTheTimeTheCompletionHandlerIsCalled_theRequestIsNotConsideredToBeInProgress() {
         var isInProgress = true
-        let request = FakeRequest()
-        manager.stubbedReturnValue = request
+        let request = FakeDataRequest()
+        manager.stubbedReturnDataRequest = request
         subject.startRequest("", contextID: "") { _, _ in
             isInProgress = self.subject.isRequestInProgress("", contextID: "")
         }
-        let result: Result<OCRCoordinates, NSError> = .Failure(NSError(code: .DuplicateRequest, message: nil))
-        let response = Response(request: nil, response: nil, data: nil, result: result)
+        let result: Result<OCRCoordinates> = .failure(NSError(code: .duplicateRequest, message: nil))
+        let response = DataResponse(request: nil, response: nil, data: nil, result: result)
         request.finishWithResponseObject(response)
         XCTAssertFalse(isInProgress)
     }
