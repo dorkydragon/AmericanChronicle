@@ -4,8 +4,8 @@ enum SearchViewState: Equatable, CustomStringConvertible {
     case emptyResults // Blank (B)
     case loadingNewParamaters
     case loadingMoreRows
-    case partial(title: String, rows: [SearchResultsRow])
-    case ideal(title: String, rows: [SearchResultsRow])
+    case partial(totalCount: Int, rows: [SearchResultsRow])
+    case ideal(totalCount: Int, rows: [SearchResultsRow])
     case error(title: String?, message: String?)
 
     var description: String {

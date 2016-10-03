@@ -142,8 +142,8 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         if let results = results, let items = results.items {
             let rows = rowsForSearchResultItems(items)
             if rows.count > 0 {
-                let title = "\(results.totalItems ?? 0) matches"
-                userInterface?.setViewState(.ideal(title: title, rows: rows))
+                let totalCount = results.totalItems ?? 0
+                userInterface?.setViewState(.ideal(totalCount: totalCount, rows: rows))
             } else {
                 userInterface?.setViewState(.emptyResults)
             }

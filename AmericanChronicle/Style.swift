@@ -11,6 +11,7 @@ struct Fonts {
     static let mediumBody = UIFont(name: bodyFontName, size: mediumFontSize)
     static let mediumBodyBold = UIFont(name: bodyBoldFontName, size: mediumFontSize)
     static let smallBody = UIFont(name: bodyFontName, size: smallFontSize)
+    static let smallBodyBold = UIFont(name: bodyBoldFontName, size: smallFontSize)
 }
 
 struct Colors {

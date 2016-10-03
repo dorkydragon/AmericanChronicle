@@ -73,7 +73,7 @@ final class SearchViewController: UIViewController,
         return formatter
     }()
 
-    fileprivate var sectionTitle = ""
+    fileprivate var totalRowCount = 0
     fileprivate var rows: [SearchResultsRow] = []
 
     // mark: Init methods
@@ -112,7 +112,7 @@ final class SearchViewController: UIViewController,
             setLoadingIndicatorsVisible(false)
             emptyResultsView.alpha = 0
             errorView.alpha = 0
-            sectionTitle = ""
+            totalRowCount = 0
             rows = []
             tableView.reloadData()
             tableFooterView.alpha = 0
@@ -121,7 +121,7 @@ final class SearchViewController: UIViewController,
             emptyResultsView.alpha = 1.0
             emptyResultsView.title = "No results"
             errorView.alpha = 0
-            sectionTitle = ""
+            totalRowCount = 0
             rows = []
             tableView.reloadData()
             tableFooterView.alpha = 0
@@ -129,7 +129,7 @@ final class SearchViewController: UIViewController,
             setLoadingIndicatorsVisible(true)
             emptyResultsView.alpha = 0
             errorView.alpha = 0
-            sectionTitle = ""
+            totalRowCount = 0
             rows = []
             tableView.reloadData()
             tableFooterView.alpha = 0
@@ -138,21 +138,21 @@ final class SearchViewController: UIViewController,
             emptyResultsView.alpha = 0
             errorView.alpha = 0
             tableFooterView.alpha = 1.0
-        case let .partial(title, rows):
+        case let .partial(totalCount, rows):
             setLoadingIndicatorsVisible(false)
             emptyResultsView.alpha = 0
             errorView.alpha = 0
-            sectionTitle = title
+            totalRowCount = totalCount
             if self.rows != rows {
                 self.rows = rows
                 tableView.reloadData()
             }
             tableFooterView.alpha = 0
-        case let .ideal(title, rows):
+        case let .ideal(totalCount, rows):
             setLoadingIndicatorsVisible(false)
             emptyResultsView.alpha = 0
             errorView.alpha = 0
-            sectionTitle = title
+            totalRowCount = totalCount
             if self.rows != rows {
                 self.rows = rows
                 tableView.reloadData()
@@ -162,7 +162,7 @@ final class SearchViewController: UIViewController,
             setLoadingIndicatorsVisible(false)
             emptyResultsView.alpha = 0
             errorView.alpha = 1.0
-            sectionTitle = ""
+            totalRowCount = 0
             rows = []
             tableView.reloadData()
             errorView.title = title
@@ -189,9 +189,10 @@ final class SearchViewController: UIViewController,
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if rows.count == 0 { return nil }
 
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header")
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TableHeaderView.self))
                                         as? TableHeaderView
-        headerView?.text = sectionTitle
+        headerView?.boldText = "\(totalRowCount)"
+        headerView?.regularText = "results"
         return headerView
     }
 
@@ -281,8 +282,9 @@ final class SearchViewController: UIViewController,
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchResultsPageCell.self,
-                                forCellReuseIdentifier:  String(describing: SearchResultsPageCell.self))
-        tableView.register(TableHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
+                                forCellReuseIdentifier: String(describing: SearchResultsPageCell.self))
+        tableView.register(TableHeaderView.self,
+                                forHeaderFooterViewReuseIdentifier: String(describing: TableHeaderView.self))
         tableView.sectionHeaderHeight = 24.0
         tableView.separatorColor = Colors.lightGray
         tableView.rowHeight = 160.0
