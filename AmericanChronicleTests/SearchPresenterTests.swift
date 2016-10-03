@@ -77,7 +77,7 @@ class SearchPresenterTests: XCTestCase {
                                    edition: 1,
                                    sequence: 18)
 
-        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.ideal(title: "0 matches", rows: [row]))
+        XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.ideal(totalCount: 0, rows: [row]))
     }
 
     func testThat_whenASearchSucceeds_andThereAreNoResults_itAsksTheViewToShowItsEmptyResultsMessage() {

@@ -15,12 +15,12 @@ enum SearchViewState: Equatable, CustomStringConvertible {
         case .emptyResults: desc += "EmptyResults"
         case .loadingNewParamaters: desc += "LoadingNewParamaters"
         case .loadingMoreRows: desc += "LoadingMoreRows"
-        case let .partial(title, rows):
-            desc += "Partial, title=\(title), rows=["
+        case let .partial(totalCount, rows):
+            desc += "Partial, totalCount=\(totalCount), rows=["
             desc += rows.map({"\($0.description)" }).joined(separator: ", ")
             desc += "]"
-        case let .ideal(title, rows):
-            desc += "Ideal, title=\(title), rows=["
+        case let .ideal(totalCount, rows):
+            desc += "Ideal, totalCount=\(totalCount), rows=["
             desc += rows.map({"\($0.description)" }).joined(separator: ", ")
             desc += "]"
         case let .error(title, message):
@@ -37,12 +37,12 @@ func == (viewA: SearchViewState, viewB: SearchViewState) -> Bool {
     case (.emptyResults, .emptyResults): return true
     case (.loadingNewParamaters, .loadingNewParamaters): return true
     case (.loadingMoreRows, .loadingMoreRows): return true
-    case (let .partial(titleA, rowsA), let .partial(titleB, rowsB)):
-        return (titleA == titleB) && (rowsA == rowsB)
-    case (let .ideal(titleA, rowsA), let .ideal(titleB, rowsB)):
-        return (titleA == titleB) && (rowsA == rowsB)
-    case (let .error(titleA, messageA), let .error(titleB, messageB)):
-        return (titleA == titleB) && (messageA == messageB)
+    case (let .partial(totalCountA, rowsA), let .partial(totalCountB, rowsB)):
+        return (totalCountA == totalCountB) && (rowsA == rowsB)
+    case (let .ideal(totalCountA, rowsA), let .ideal(totalCountB, rowsB)):
+        return (totalCountA == totalCountB) && (rowsA == rowsB)
+    case (let .error(totalCountA, messageA), let .error(totalCountB, messageB)):
+        return (totalCountA == totalCountB) && (messageA == messageB)
     default: return false
     }
 }
