@@ -32,7 +32,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
         contentView.clipsToBounds = true
 
         contentView.addSubview(boldTextLabel)
-        boldTextLabel.font = Fonts.smallBodyBold
+        boldTextLabel.font = Fonts.verySmallBold
         boldTextLabel.textColor = Colors.darkGray
         boldTextLabel.numberOfLines = 1
         boldTextLabel.snp.makeConstraints { make in
@@ -42,7 +42,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
         }
 
         contentView.addSubview(regularTextLabel)
-        regularTextLabel.font = Fonts.smallBody
+        regularTextLabel.font = Fonts.verySmallRegular
         regularTextLabel.textColor = Colors.darkGray
         regularTextLabel.numberOfLines = 1
         regularTextLabel.snp.makeConstraints { make in

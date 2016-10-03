@@ -16,14 +16,14 @@ final class TitleValueButton: UIControl {
         label.textColor = Colors.darkGray
         label.highlightedTextColor = UIColor.white
         label.textAlignment = .center
-        label.font = Fonts.smallBody
+        label.font = Fonts.verySmallRegular
         return label
     }()
     fileprivate let valueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.lightBlueBright
         label.highlightedTextColor = UIColor.white
-        label.font = Fonts.mediumBody
+        label.font = Fonts.mediumRegular
         label.textAlignment = .center
         return label
     }()

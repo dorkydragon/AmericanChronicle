@@ -32,24 +32,21 @@ final class SearchResultsPageCell: UITableViewCell {
         let label = UILabel()
         label.textColor = Colors.darkGray
         label.numberOfLines = 0
-        label.textAlignment = .right
-        label.font = Fonts.mediumBody
+        label.font = Fonts.smallRegular
         return label
     }()
     fileprivate let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.darkGray
         label.numberOfLines = 0
-        label.textAlignment = .right
-        label.font = Fonts.largeBodyBold
+        label.font = Fonts.largeBold
         return label
     }()
     fileprivate let publicationTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Colors.darkGray
         label.numberOfLines = 0
-        label.textAlignment = .right
-        label.font = Fonts.mediumBody
+        label.font = Fonts.smallBold
         return label
     }()
 
@@ -77,21 +74,23 @@ final class SearchResultsPageCell: UITableViewCell {
 
         addSubview(cityStateLabel)
         cityStateLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(Measurements.verticalSiblingSpacing)
             make.leading.equalTo(thumbnailImageView.snp.trailing)
-                        .offset(Measurements.horizontalSiblingSpacing)
+                .offset(Measurements.horizontalSiblingSpacing)
             make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.bottom.equalTo(-Measurements.verticalMargin)
         }
 
         addSubview(publicationTitleLabel)
         publicationTitleLabel.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(cityStateLabel.snp.bottom)
+            make.top.greaterThanOrEqualTo(dateLabel.snp.bottom)
                         .offset(Measurements.verticalSiblingSpacing)
             make.leading.equalTo(thumbnailImageView.snp.trailing)
                         .offset(Measurements.horizontalSiblingSpacing)
-            make.bottom.equalTo(-Measurements.verticalMargin)
+            make.bottom.equalTo(cityStateLabel.snp.top)
             make.trailing.equalTo(-Measurements.horizontalMargin)
         }
+
+
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

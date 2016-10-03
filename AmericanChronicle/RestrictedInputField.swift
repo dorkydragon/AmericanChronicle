@@ -12,7 +12,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
 
     fileprivate let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.smallBody
+        label.font = Fonts.verySmallRegular
         label.textColor = Colors.darkGray
         label.textAlignment = .center
         return label
@@ -20,7 +20,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
     fileprivate let textField: UITextField = {
         let field = UITextField()
         field.tintColor = UIColor.clear // Hide the cursor
-        field.font = Fonts.largeBody
+        field.font = Fonts.largeRegular
         field.borderStyle = .none
         field.textColor = Colors.darkGray
         field.textAlignment = .center

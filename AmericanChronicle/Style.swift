@@ -5,13 +5,17 @@ struct Fonts {
     fileprivate static let bodyBoldFontName = "AvenirNext-Medium"
     fileprivate static let largeFontSize = CGFloat(20.0)
     fileprivate static let mediumFontSize = CGFloat(16.0)
-    fileprivate static let smallFontSize = CGFloat(12.0)
-    static let largeBody = UIFont(name: bodyFontName, size: largeFontSize)
-    static let largeBodyBold = UIFont(name: bodyBoldFontName, size: largeFontSize)
-    static let mediumBody = UIFont(name: bodyFontName, size: mediumFontSize)
-    static let mediumBodyBold = UIFont(name: bodyBoldFontName, size: mediumFontSize)
-    static let smallBody = UIFont(name: bodyFontName, size: smallFontSize)
-    static let smallBodyBold = UIFont(name: bodyBoldFontName, size: smallFontSize)
+    fileprivate static let smallFontSize = CGFloat(14.0)
+    fileprivate static let verySmallFontSize = CGFloat(12.0)
+
+    static let largeRegular = UIFont(name: bodyFontName, size: largeFontSize)
+    static let largeBold = UIFont(name: bodyBoldFontName, size: largeFontSize)
+    static let mediumRegular = UIFont(name: bodyFontName, size: mediumFontSize)
+    static let mediumBold = UIFont(name: bodyBoldFontName, size: mediumFontSize)
+    static let smallRegular = UIFont(name: bodyFontName, size: smallFontSize)
+    static let smallBold = UIFont(name: bodyBoldFontName, size: smallFontSize)
+    static let verySmallRegular = UIFont(name: bodyFontName, size: verySmallFontSize)
+    static let verySmallBold = UIFont(name: bodyBoldFontName, size: verySmallFontSize)
 }
 
 struct Colors {
@@ -27,7 +31,7 @@ struct Colors {
 }
 
 struct Measurements {
-    static let verticalMargin: CGFloat = 14.0
+    static let verticalMargin: CGFloat = 8.0
     static let horizontalMargin: CGFloat = 12.0
     static let buttonHeight: CGFloat = 50.0
     static let verticalSiblingSpacing: CGFloat = 6.0
@@ -40,7 +44,7 @@ extension UINavigationBar {
         appearance().setBackgroundImage(img, for: .any, barMetrics: .default)
         var attributes: [String: AnyObject] = [:]
         attributes[NSForegroundColorAttributeName] = Colors.darkGray
-        attributes[NSFontAttributeName] = Fonts.largeBodyBold
+        attributes[NSFontAttributeName] = Fonts.largeBold
         appearance().titleTextAttributes = attributes
 
     }
@@ -50,11 +54,11 @@ extension UIBarButtonItem {
     class func applyAppearance() {
         var attributes: [String: AnyObject] = [:]
         attributes[NSForegroundColorAttributeName] = Colors.lightBlueBright
-        attributes[NSFontAttributeName] = Fonts.mediumBody
+        attributes[NSFontAttributeName] = Fonts.mediumRegular
         appearance().setTitleTextAttributes(attributes, for: UIControlState())
 
         attributes[NSForegroundColorAttributeName] = Colors.lightBlueDull
-        attributes[NSFontAttributeName] = Fonts.mediumBody
+        attributes[NSFontAttributeName] = Fonts.mediumRegular
         appearance().setTitleTextAttributes(attributes, for: .highlighted)
     }
 }

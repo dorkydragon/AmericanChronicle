@@ -7,7 +7,7 @@ final class USStateCell: UICollectionViewCell {
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = Colors.lightBlueBright
         label.textAlignment = .center
-        label.font = Fonts.largeBody
+        label.font = Fonts.largeRegular
         label.frame = self.bounds
         label.highlightedTextColor = UIColor.white
         contentView.addSubview(label)
