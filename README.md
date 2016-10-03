@@ -1,5 +1,7 @@
 # American Chronicle #
 
+[![](https://travis-ci.org/ryanipete/AmericanChronicle.svg?branch=master)]()
+
 ## The App ##
 
 American Chronicle provides mobile access to the collection of digitized U.S. newspapers made available by Chronicling America. It uses the project's public API.
