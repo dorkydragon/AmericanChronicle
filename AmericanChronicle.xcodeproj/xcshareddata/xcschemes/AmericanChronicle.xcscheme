@@ -14,10 +14,38 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79E38144A04E2F168981809F29844081"
+               BuildableName = "Pods_AmericanChronicle.framework"
+               BlueprintName = "Pods-AmericanChronicle"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "97BDE10E1B76ED6B00A3E57F"
                BuildableName = "AmericanChronicle.app"
                BlueprintName = "AmericanChronicle"
                ReferencedContainer = "container:AmericanChronicle.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9B1031E00627FBB43189B44942282D9D"
+               BuildableName = "Pods_AmericanChronicleTests.framework"
+               BlueprintName = "Pods-AmericanChronicleTests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,20 +59,6 @@
                BlueprintIdentifier = "97BDE1251B76ED6B00A3E57F"
                BuildableName = "AmericanChronicleTests.xctest"
                BlueprintName = "AmericanChronicleTests"
-               ReferencedContainer = "container:AmericanChronicle.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "NO"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "97757CB61C961A9D006422FC"
-               BuildableName = "AmericanChronicleUITests.xctest"
-               BlueprintName = "AmericanChronicleUITests"
                ReferencedContainer = "container:AmericanChronicle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
