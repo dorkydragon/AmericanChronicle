@@ -8,7 +8,7 @@ protocol PageWireframeDelegate: class {
 // mark: -
 // mark: PageWireframe class
 
-class PageWireframe {
+final class PageWireframe {
 
     // mark: Properties
 

@@ -1,4 +1,4 @@
-class KeyboardService: NSObject {
+final class KeyboardService: NSObject {
 
     fileprivate var frameChangeHandlers: [String: (CGRect?) -> Void] = [:]
 
