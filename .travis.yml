@@ -2,3 +2,6 @@ language: objective-c
 xcode_workspace: AmericanChronicle.xcworkspace
 xcode_scheme: AmericanChronicle
 osx_image: xcode8
+
+script:
+  xctool -scheme AmericanChronicle -workspace AmericanChronicle.xcworkspace
