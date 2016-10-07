@@ -13,7 +13,7 @@ protocol SearchPagesServiceInterface {
 }
 
 // mark: -
-// mark: SearchPagesWebService
+// mark: SearchPagesService
 
 final class SearchPagesService: SearchPagesServiceInterface {
 
@@ -100,14 +100,14 @@ final class SearchPagesService: SearchPagesServiceInterface {
             .responseObj {
                 (response: DataResponse<SearchResults>) in
                 self.queue.sync {
-                    let key = self.keyForParameters(parameters, page: page, contextID: contextID)
+                    let key = self.key(forParameters: parameters, page: page, contextID: contextID)
                     self.activeRequests[key] = nil
                 }
             completionHandler(response.result.value, response.result.error)
         }
 
         queue.sync {
-            let key = self.keyForParameters(parameters, page: page, contextID: contextID)
+            let key = self.key(forParameters: parameters, page: page, contextID: contextID)
             self.activeRequests[key] = request
         }
     }
@@ -115,7 +115,7 @@ final class SearchPagesService: SearchPagesServiceInterface {
     func cancelSearch(_ parameters: SearchParameters, page: Int, contextID: String) {
         var request: DataRequestProtocol? = nil
         queue.sync {
-            let key = self.keyForParameters(parameters, page: page, contextID: contextID)
+            let key = self.key(forParameters: parameters, page: page, contextID: contextID)
             request = self.activeRequests[key]
         }
         request?.cancel()
@@ -124,7 +124,7 @@ final class SearchPagesService: SearchPagesServiceInterface {
     func isSearchInProgress(_ parameters: SearchParameters, page: Int, contextID: String) -> Bool {
         var isInProgress = false
         queue.sync {
-            let key = self.keyForParameters(parameters, page: page, contextID: contextID)
+            let key = self.key(forParameters: parameters, page: page, contextID: contextID)
             isInProgress = self.activeRequests[key] != nil
         }
         return isInProgress
@@ -132,9 +132,9 @@ final class SearchPagesService: SearchPagesServiceInterface {
 
     // mark: Private methods
 
-    fileprivate func keyForParameters(_ parameters: SearchParameters,
-                                  page: Int,
-                                  contextID: String) -> String {
+    fileprivate func key(forParameters parameters: SearchParameters,
+                         page: Int,
+                         contextID: String) -> String {
         var key = parameters.term
         key += "-"
         key += parameters.states.joined(separator: ".")
