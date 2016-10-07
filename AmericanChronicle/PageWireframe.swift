@@ -1,4 +1,7 @@
 protocol PageWireframeProtocol: class {
+
+    init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface)
+
     func present(fromViewController presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,

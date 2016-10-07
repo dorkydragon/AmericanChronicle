@@ -12,6 +12,7 @@ class PagePresenterTests: XCTestCase {
         interactor = FakePageInteractor()
         subject = PagePresenter(interactor: interactor)
         wireframe = FakePageWireframe(delegate: FakePageWireframeDelegate(), presenter: subject)
+        subject.wireframe = wireframe
     }
 
     func testThat_whenConfigureIsCalled_itTellsTheViewToShowItsLoadingIndicator() {
@@ -77,6 +78,6 @@ class PagePresenterTests: XCTestCase {
 
     func testThat_whenTheUserTapsCancel_itTellsTheWireframe() {
         subject.userDidTapCancel()
-        XCTAssert(wireframe.userDidTapDone_wasCalled)
+        XCTAssert(wireframe.dismissPageScreen_wasCalled)
     }
 }

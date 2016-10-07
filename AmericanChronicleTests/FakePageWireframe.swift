@@ -1,7 +1,11 @@
 @testable import AmericanChronicle
 
-class FakePageWireframe: PageWireframeProtocol {
+final class FakePageWireframe: PageWireframeProtocol {
     var dismissPageScreen_wasCalled = false
+
+    init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface = PagePresenter()) {
+
+    }
 
     func present(fromViewController presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,

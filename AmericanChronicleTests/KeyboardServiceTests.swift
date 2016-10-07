@@ -31,14 +31,14 @@ class KeyboardServiceTests: XCTestCase {
         let handlerOne = { rect in
             handlerOne_wasCalled_withRect = rect
         }
-        subject.addFrameChangeHandler(identifier: handlerOneID, handler: handlerOne)
+        subject.addFrameChangeHandler(id: handlerOneID, handler: handlerOne)
 
         var handlerTwo_wasCalled_withRect: CGRect?
         let handlerTwo = { rect in
             handlerTwo_wasCalled_withRect = rect
         }
         let handlerTwoID = "handlerTwo"
-        subject.addFrameChangeHandler(identifier: handlerTwoID, handler: handlerTwo)
+        subject.addFrameChangeHandler(id: handlerTwoID, handler: handlerTwo)
 
         let rect = CGRect(x: 15, y: 15, width: 300, height: 100)
         postKeyboardWillShowNotification(rect)
