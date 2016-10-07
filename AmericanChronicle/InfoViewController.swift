@@ -8,7 +8,7 @@ final class InfoViewController: UIViewController {
 
     fileprivate let bodyLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Colors.darkGray
+        label.textColor = AMCColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = Fonts.mediumRegular
@@ -19,10 +19,10 @@ final class InfoViewController: UIViewController {
         return label
     }()
     fileprivate let websiteButton = TitleButton(title: "Visit chroniclingamerica.gov.loc")
-    fileprivate let separator = UIImageView(image: UIImage.imageWithFillColor(Colors.lightBlueBright))
+    fileprivate let separator = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightBlueBright))
     fileprivate let suggestionsLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Colors.darkGray
+        label.textColor = AMCColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = Fonts.mediumRegular
@@ -78,7 +78,7 @@ final class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Colors.lightBackground
+        view.backgroundColor = AMCColor.lightBackground
 
         view.addSubview(bodyLabel)
         bodyLabel.snp.makeConstraints { make in

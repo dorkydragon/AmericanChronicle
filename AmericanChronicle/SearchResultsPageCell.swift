@@ -28,21 +28,21 @@ final class SearchResultsPageCell: UITableViewCell {
     }()
     fileprivate let cityStateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Colors.darkGray
+        label.textColor = AMCColor.darkGray
         label.numberOfLines = 0
         label.font = Fonts.smallRegular
         return label
     }()
     fileprivate let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Colors.darkGray
+        label.textColor = AMCColor.darkGray
         label.numberOfLines = 0
         label.font = Fonts.largeBold
         return label
     }()
     fileprivate let publicationTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Colors.darkGray
+        label.textColor = AMCColor.darkGray
         label.numberOfLines = 0
         label.font = Fonts.smallBold
         return label
@@ -56,7 +56,7 @@ final class SearchResultsPageCell: UITableViewCell {
 
         let thumbnailShadowView = UIView()
         thumbnailShadowView.layer.shadowOpacity = 1.0
-        thumbnailShadowView.layer.shadowColor = Colors.darkGray.cgColor
+        thumbnailShadowView.layer.shadowColor = AMCColor.darkGray.cgColor
         thumbnailShadowView.layer.shadowRadius = 2
         thumbnailShadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
         thumbnailShadowView.backgroundColor = UIColor.white

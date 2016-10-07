@@ -17,7 +17,7 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.font = Fonts.largeRegular
-        label.textColor = Colors.darkGray
+        label.textColor = AMCColor.darkGray
         return label
     }()
     fileprivate let insetBackgroundView: UIImageView = {
@@ -32,7 +32,7 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
             make.edges.equalTo(contentView.snp.edges).inset(1.0)
         }
 
-        insetBackgroundView.layer.shadowColor = Colors.darkGray.cgColor
+        insetBackgroundView.layer.shadowColor = AMCColor.darkGray.cgColor
         insetBackgroundView.layer.shadowOpacity = 0.3
         insetBackgroundView.layer.shadowRadius = 0.5
         insetBackgroundView.layer.shadowOffset = .zero
@@ -57,17 +57,17 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
 
     fileprivate func updateFormat() {
         if self.isHighlighted {
-            insetBackgroundView.image = UIImage.imageWithFillColor(Colors.lightBlueBright,
+            insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.lightBlueBright,
                                                                    cornerRadius: 1.0)
             self.label.textColor = UIColor.white
         } else if self.isSelected {
-            insetBackgroundView.image = UIImage.imageWithFillColor(Colors.lightBlueBright,
+            insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.lightBlueBright,
                                                                    cornerRadius: 1.0)
             self.label.textColor = UIColor.white
         } else {
             insetBackgroundView.image = UIImage.imageWithFillColor(UIColor.white,
                                                                    cornerRadius: 1.0)
-            self.label.textColor = Colors.darkBlue
+            self.label.textColor = AMCColor.darkBlue
         }
     }
 }

@@ -40,13 +40,13 @@ final class SearchTableHeaderView: UIView {
     fileprivate let earliestDateButton = TitleValueButton(title: "Earliest Date")
     fileprivate let latestDateButton = TitleValueButton(title: "Latest Date")
     fileprivate let usStatesButton = TitleValueButton(title: "U.S. States", initialValue: "(all states)")
-    fileprivate let bottomBorder = UIImageView(image: UIImage.imageWithFillColor(Colors.lightGray))
+    fileprivate let bottomBorder = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightGray))
 
     // mark: Init methods
 
     func commonInit() {
 
-        backgroundColor = Colors.lightBackground
+        backgroundColor = AMCColor.lightBackground
 
         addSubview(searchField)
         searchField.snp.makeConstraints { make in

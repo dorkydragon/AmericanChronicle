@@ -8,7 +8,7 @@ final class VerticalStripCell: UICollectionViewCell {
     fileprivate let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = Colors.darkBlue
+        label.textColor = AMCColor.darkBlue
         label.font = Fonts.largeRegular
         return label
     }()

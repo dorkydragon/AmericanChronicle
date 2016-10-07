@@ -61,18 +61,18 @@ final class MonthKeyboard: UIView {
 
     class func newButtonWithTitle(_ title: String) -> UIButton {
 
-        let selectedBgColor = Colors.lightBlueBright
+        let selectedBgColor = AMCColor.lightBlueBright
         let normalBgColor = UIColor.white
 
         let button = UIButton()
         button.setTitle(title, for: UIControlState())
         button.titleLabel?.font = Fonts.largeRegular
-        button.layer.shadowColor = Colors.darkGray.cgColor
+        button.layer.shadowColor = AMCColor.darkGray.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 0)
         button.layer.shadowRadius = 0.5
         button.layer.shadowOpacity = 0.4
 
-        button.setTitleColor(Colors.darkBlue, for: .normal)
+        button.setTitleColor(AMCColor.darkBlue, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
         button.setTitleColor(UIColor.white, for: .selected)
         if title == "" {

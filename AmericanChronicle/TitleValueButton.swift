@@ -13,7 +13,7 @@ final class TitleValueButton: UIControl {
 
     fileprivate let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Colors.darkGray
+        label.textColor = AMCColor.darkGray
         label.highlightedTextColor = UIColor.white
         label.textAlignment = .center
         label.font = Fonts.verySmallRegular
@@ -21,7 +21,7 @@ final class TitleValueButton: UIControl {
     }()
     fileprivate let valueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Colors.lightBlueBright
+        label.textColor = AMCColor.lightBlueBright
         label.highlightedTextColor = UIColor.white
         label.font = Fonts.mediumRegular
         label.textAlignment = .center
@@ -30,7 +30,7 @@ final class TitleValueButton: UIControl {
     fileprivate let button: UIButton = {
         let b = UIButton()
         b.setBackgroundImage(UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0), for: UIControlState())
-        b.setBackgroundImage(UIImage.imageWithFillColor(Colors.lightBlueBright, cornerRadius: 1.0), for: .highlighted)
+        b.setBackgroundImage(UIImage.imageWithFillColor(AMCColor.lightBlueBright, cornerRadius: 1.0), for: .highlighted)
         return b
     }()
 
@@ -39,7 +39,7 @@ final class TitleValueButton: UIControl {
     init(title: String, initialValue: String = "--") {
         super.init(frame: .zero)
 
-        layer.shadowColor = Colors.darkGray.cgColor
+        layer.shadowColor = AMCColor.darkGray.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 0)
         layer.shadowRadius = 0.5
         layer.shadowOpacity = 0.4

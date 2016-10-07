@@ -71,7 +71,7 @@ final class DayKeyboard: UIView {
     }
 
     fileprivate func addRowWithTitles(_ titles: [String], prevRow: UIButton? = nil) -> UIButton? {
-        let selectedBgColor = Colors.lightBlueBright
+        let selectedBgColor = AMCColor.lightBlueBright
         let normalImage = UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0)
         let highlightedImage = UIImage.imageWithFillColor(selectedBgColor, cornerRadius: 1.0)
 
@@ -81,7 +81,7 @@ final class DayKeyboard: UIView {
             button.setTitle(title, for: UIControlState())
             button.titleLabel?.font = Fonts.largeRegular
             button.isEnabled = (title != "")
-            button.layer.shadowColor = Colors.darkGray.cgColor
+            button.layer.shadowColor = AMCColor.darkGray.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 0)
             button.layer.shadowRadius = 0.5
             button.layer.shadowOpacity = 0.4
@@ -90,7 +90,7 @@ final class DayKeyboard: UIView {
             button.setBackgroundImage(highlightedImage, for: .selected)
             button.setBackgroundImage(highlightedImage, for: .highlighted)
 
-            button.setTitleColor(Colors.blueGray, for: .normal)
+            button.setTitleColor(AMCColor.blueGray, for: .normal)
             button.setTitleColor(UIColor.white, for: .highlighted)
             button.setTitleColor(UIColor.white, for: .selected)
 

@@ -40,7 +40,7 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
     }
 
     fileprivate let upButton: UIButton = {
-        let arrowImage = UIImage.upArrowWithFillColor(Colors.lightBlueBright)
+        let arrowImage = UIImage.upArrowWithFillColor(AMCColor.lightBlueBright)
         let button = VerticalStrip.newButtonWithImage(arrowImage, accessibilityLabel: "Up one page")
         return button
     }()
@@ -53,7 +53,7 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
     }()
 
     fileprivate let downButton: UIButton = {
-        let arrowImage = UIImage.downArrowWithFillColor(Colors.lightBlueBright)
+        let arrowImage = UIImage.downArrowWithFillColor(AMCColor.lightBlueBright)
         let button = VerticalStrip.newButtonWithImage(arrowImage, accessibilityLabel: "Down one page")
         return button
     }()

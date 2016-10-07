@@ -110,7 +110,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         collectionView?.register(USStateCell.self,
                                       forCellWithReuseIdentifier: NSStringFromClass(USStateCell.self))
         collectionView?.allowsMultipleSelection = true
-        collectionView?.backgroundColor = Colors.lightBackground.withAlphaComponent(0.8)
+        collectionView?.backgroundColor = AMCColor.lightBackground.withAlphaComponent(0.8)
         let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionInset = UIEdgeInsets(top: Measurements.verticalMargin,
                                             left: Measurements.horizontalMargin,

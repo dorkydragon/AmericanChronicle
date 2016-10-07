@@ -31,12 +31,12 @@ final class DateTextField: UIView, UITextFieldDelegate {
     fileprivate let yearField = RestrictedInputField(title: "Year")
 
     fileprivate let normalUnderline: UIImageView = {
-        let view = UIImageView(image: UIImage.imageWithFillColor(Colors.lightBlueBrightTransparent))
+        let view = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightBlueBrightTransparent))
         return view
     }()
 
     fileprivate let highlightUnderline: UIImageView = {
-        let view = UIImageView(image: UIImage.imageWithFillColor(Colors.lightBlueBright))
+        let view = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightBlueBright))
         return view
     }()
 

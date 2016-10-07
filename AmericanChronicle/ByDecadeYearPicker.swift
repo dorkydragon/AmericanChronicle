@@ -35,7 +35,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         layout.scrollDirection = .vertical
 
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = UIColor.white//Colors.lightBlueBrightTransparent
+        view.backgroundColor = UIColor.white//AMCColor.lightBlueBrightTransparent
         view.bounces = false
         view.register(ByDecadeYearPickerCell.self,
                           forCellWithReuseIdentifier: NSStringFromClass(ByDecadeYearPickerCell.self))

@@ -29,7 +29,7 @@ final class SearchField: UIView, UITextFieldDelegate {
 
         let searchIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         searchIcon.image = UIImage(named: "apd_toolbar_search")?.withRenderingMode(.alwaysTemplate)
-        searchIcon.tintColor = Colors.lightGray
+        searchIcon.tintColor = AMCColor.lightGray
         searchIcon.contentMode = .center
         textField.leftView = searchIcon
         textField.leftViewMode = .always
@@ -39,8 +39,8 @@ final class SearchField: UIView, UITextFieldDelegate {
         textField.clearButtonMode = .whileEditing
         textField.autocorrectionType = .no
         textField.returnKeyType = .search
-        textField.tintColor = Colors.lightBlueBright
-        textField.textColor = Colors.darkGray
+        textField.tintColor = AMCColor.lightBlueBright
+        textField.textColor = AMCColor.darkGray
         textField.snp.makeConstraints { make in
             make.leading.equalTo(12.0)
             make.top.equalTo(10.0)
@@ -49,7 +49,7 @@ final class SearchField: UIView, UITextFieldDelegate {
         }
 
         let bottomBorder = UIView()
-        bottomBorder.backgroundColor = Colors.offWhite
+        bottomBorder.backgroundColor = AMCColor.offWhite
         addSubview(bottomBorder)
         bottomBorder.snp.makeConstraints { make in
             make.bottom.equalTo(0)

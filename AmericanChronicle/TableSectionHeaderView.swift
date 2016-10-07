@@ -30,17 +30,17 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
     func commonInit() {
 
         backgroundColor = UIColor.clear
-        contentView.backgroundColor = Colors.lightBackground
+        contentView.backgroundColor = AMCColor.lightBackground
         contentView.clipsToBounds = false
         contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        contentView.layer.shadowColor = Colors.darkGray.cgColor
+        contentView.layer.shadowColor = AMCColor.darkGray.cgColor
         contentView.layer.shadowOpacity = 0.4
         contentView.layer.shadowRadius = 1
 
         let textContainerShadow = UIView()
         contentView.addSubview(textContainerShadow)
         textContainerShadow.layer.shadowRadius = 2
-        textContainerShadow.layer.shadowColor = Colors.darkGray.cgColor
+        textContainerShadow.layer.shadowColor = AMCColor.darkGray.cgColor
         textContainerShadow.layer.shadowOffset = CGSize(width: 0, height: 0)
         textContainerShadow.snp.makeConstraints { make in
             make.top.equalTo(4)
@@ -49,7 +49,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
         }
 
         contentView.addSubview(textContainer)
-        textContainer.backgroundColor = Colors.lightBackground
+        textContainer.backgroundColor = AMCColor.lightBackground
         textContainer.clipsToBounds = true
         textContainer.layer.cornerRadius = 4
         textContainer.snp.makeConstraints { make in
@@ -61,7 +61,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
 
         textContainer.addSubview(boldTextLabel)
         boldTextLabel.font = Fonts.verySmallBold
-        boldTextLabel.textColor = Colors.darkGray
+        boldTextLabel.textColor = AMCColor.darkGray
         boldTextLabel.numberOfLines = 1
         boldTextLabel.snp.makeConstraints { make in
             make.leading.equalTo(Measurements.horizontalMargin)
@@ -72,7 +72,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
 
         textContainer.addSubview(regularTextLabel)
         regularTextLabel.font = Fonts.verySmallRegular
-        regularTextLabel.textColor = Colors.darkGray
+        regularTextLabel.textColor = AMCColor.darkGray
         regularTextLabel.numberOfLines = 1
         regularTextLabel.snp.makeConstraints { make in
             make.leading.equalTo(boldTextLabel.snp.trailing).offset(2)
