@@ -34,9 +34,8 @@ final class DayKeyboard: UIView {
     // mark: Private methods
 
     fileprivate func updateCalendar() {
-        for subview in subviews {
-            subview.removeFromSuperview()
-        }
+        subviews.forEach { $0.removeFromSuperview() }
+        
         guard let selectedDayMonthYear = selectedDayMonthYear else { return }
         Reporter.sharedInstance.logMessage("selectedDayMonthYear: %@",
                                            arguments: [selectedDayMonthYear.description])
