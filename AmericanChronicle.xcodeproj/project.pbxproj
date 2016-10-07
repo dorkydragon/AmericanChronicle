@@ -19,7 +19,7 @@
 		9721B5A71D117FC90001A8A2 /* NSBundle+AMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721B5A61D117FC90001A8A2 /* NSBundle+AMC.swift */; };
 		9721B5A91D118B1E0001A8A2 /* UINavigationItem+AMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721B5A81D118B1E0001A8A2 /* UINavigationItem+AMC.swift */; };
 		9721B5AB1D1194CD0001A8A2 /* USStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721B5AA1D1194CD0001A8A2 /* USStateCell.swift */; };
-		9721FDC91B93FF26006798B2 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721FDC81B93FF26006798B2 /* Style.swift */; };
+		9721FDC91B93FF26006798B2 /* AMCAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721FDC81B93FF26006798B2 /* AMCAppearance.swift */; };
 		9721FDCB1B940EE7006798B2 /* TableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721FDCA1B940EE7006798B2 /* TableSectionHeaderView.swift */; };
 		9725E5B21BDC547800E74370 /* CachedPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725E5B11BDC547800E74370 /* CachedPageService.swift */; };
 		9725E5B41BDC571600E74370 /* SearchResultsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725E5B31BDC571600E74370 /* SearchResultsRow.swift */; };
@@ -188,7 +188,7 @@
 		9721B5A61D117FC90001A8A2 /* NSBundle+AMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+AMC.swift"; sourceTree = "<group>"; };
 		9721B5A81D118B1E0001A8A2 /* UINavigationItem+AMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+AMC.swift"; sourceTree = "<group>"; };
 		9721B5AA1D1194CD0001A8A2 /* USStateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USStateCell.swift; sourceTree = "<group>"; };
-		9721FDC81B93FF26006798B2 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		9721FDC81B93FF26006798B2 /* AMCAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMCAppearance.swift; sourceTree = "<group>"; };
 		9721FDCA1B940EE7006798B2 /* TableSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSectionHeaderView.swift; sourceTree = "<group>"; };
 		9725E5B11BDC547800E74370 /* CachedPageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedPageService.swift; sourceTree = "<group>"; };
 		9725E5B31BDC571600E74370 /* SearchResultsRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsRow.swift; sourceTree = "<group>"; };
@@ -667,8 +667,6 @@
 				97BDEB801D06F33F009E480B /* UICollectionView+AMC.swift */,
 				971359321C82281600A58E35 /* UIImage+AMC.swift */,
 				9721B5A81D118B1E0001A8A2 /* UINavigationItem+AMC.swift */,
-				97BA95CE1DA836C5000E08BF /* AMCColor.swift */,
-				97BA95D01DA836CF000E08BF /* AMCFont.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -721,8 +719,8 @@
 				97963F881BCC779000248942 /* Services */,
 				97963F851BCC2B1800248942 /* Extensions */,
 				9721B5AC1D119C480001A8A2 /* Views */,
+				97BA95D21DA838B1000E08BF /* Style */,
 				97BDE1141B76ED6B00A3E57F /* AppDelegate.swift */,
-				9721FDC81B93FF26006798B2 /* Style.swift */,
 				97BDE11F1B76ED6B00A3E57F /* LaunchScreen.xib */,
 				9764976C1B7DA0270035A388 /* Month.swift */,
 				9791B5BA1C8C77EA00A90F39 /* DayMonthYear.swift */,
@@ -751,6 +749,16 @@
 				9736A80A1D092975001E2F4C /* VerticalStripCell.swift */,
 			);
 			name = VerticalStrip;
+			sourceTree = "<group>";
+		};
+		97BA95D21DA838B1000E08BF /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				9721FDC81B93FF26006798B2 /* AMCAppearance.swift */,
+				97BA95CE1DA836C5000E08BF /* AMCColor.swift */,
+				97BA95D01DA836CF000E08BF /* AMCFont.swift */,
+			);
+			name = Style;
 			sourceTree = "<group>";
 		};
 		97BDE1061B76ED6B00A3E57F = {
@@ -1296,7 +1304,7 @@
 				97D3293E1C2773AE0088FF21 /* DatePickerWireframe.swift in Sources */,
 				97BA95D11DA836CF000E08BF /* AMCFont.swift in Sources */,
 				97647C2E1C9D778B002D2B93 /* Reporter.swift in Sources */,
-				9721FDC91B93FF26006798B2 /* Style.swift in Sources */,
+				9721FDC91B93FF26006798B2 /* AMCAppearance.swift in Sources */,
 				9721FDCB1B940EE7006798B2 /* TableSectionHeaderView.swift in Sources */,
 				97FC22591D0AECB500D5B8B9 /* SearchViewState.swift in Sources */,
 				97327D8F1D0EC08C00251D2E /* KeyboardService.swift in Sources */,

@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Reporter.sharedInstance.applicationDidFinishLaunching()
         KeyboardService.sharedInstance.applicationDidFinishLaunching()
-        Appearance.apply()
+        AMCAppearance.apply()
 
         window = UIWindow(frame: UIScreen.main.bounds)
         rootWireframe.beginAsRootFromWindow(window)

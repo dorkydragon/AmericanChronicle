@@ -39,7 +39,7 @@ extension UIActivityIndicatorView {
     }
 }
 
-struct Appearance {
+struct AMCAppearance {
     static func apply() {
         UINavigationBar.applyAppearance()
         UIBarButtonItem.applyAppearance()
