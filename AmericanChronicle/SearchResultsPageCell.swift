@@ -82,10 +82,10 @@ final class SearchResultsPageCell: UITableViewCell {
         contentView.addSubview(textContainer)
         textContainer.snp.makeConstraints { make in
             make.centerY.equalTo(contentView.snp.centerY)
-            make.top.greaterThanOrEqualTo(Measurements.verticalMargin)
+            make.top.greaterThanOrEqualTo(Dimension.verticalMargin)
             make.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
-            make.bottom.lessThanOrEqualTo(-Measurements.verticalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.bottom.lessThanOrEqualTo(-Dimension.verticalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
         }
 
         textContainer.addSubview(dateLabel)

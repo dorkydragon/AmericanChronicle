@@ -64,7 +64,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
         boldTextLabel.textColor = AMCColor.darkGray
         boldTextLabel.numberOfLines = 1
         boldTextLabel.snp.makeConstraints { make in
-            make.leading.equalTo(Measurements.horizontalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
             make.bottom.equalTo(-1.0)
             make.top.equalTo(1.0)
 

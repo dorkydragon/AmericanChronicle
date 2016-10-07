@@ -62,7 +62,7 @@ final class SearchTableHeaderView: UIView {
         addSubview(earliestDateButton)
         earliestDateButton.snp.makeConstraints { make in
             make.top.equalTo(searchField.snp.bottom).offset(8.0)
-            make.leading.equalTo(Measurements.horizontalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
         }
 
         latestDateButton.addTarget(self,
@@ -72,8 +72,8 @@ final class SearchTableHeaderView: UIView {
         latestDateButton.snp.makeConstraints { make in
             make.top.equalTo(searchField.snp.bottom).offset(8.0)
             make.leading.equalTo(earliestDateButton.snp.trailing)
-                        .offset(Measurements.horizontalSiblingSpacing)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+                        .offset(Dimension.horizontalSiblingSpacing)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
             make.width.equalTo(earliestDateButton.snp.width)
         }
 
@@ -83,10 +83,10 @@ final class SearchTableHeaderView: UIView {
         addSubview(usStatesButton)
         usStatesButton.snp.makeConstraints { make in
             make.top.equalTo(earliestDateButton.snp.bottom)
-                    .offset(Measurements.verticalSiblingSpacing)
+                    .offset(Dimension.verticalSiblingSpacing)
             make.bottom.equalTo(-10.0)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
         }
 
         addSubview(bottomBorder)
@@ -127,11 +127,11 @@ final class SearchTableHeaderView: UIView {
     override var intrinsicContentSize: CGSize {
         var size = CGSize(width: UIViewNoIntrinsicMetric, height: 0)
         size.height += searchField.intrinsicContentSize.height
-        size.height += Measurements.verticalMargin
+        size.height += Dimension.verticalMargin
         size.height += earliestDateButton.intrinsicContentSize.height
-        size.height += Measurements.verticalSiblingSpacing
+        size.height += Dimension.verticalSiblingSpacing
         size.height += usStatesButton.intrinsicContentSize.height
-        size.height += Measurements.verticalMargin
+        size.height += Dimension.verticalMargin
         return size
     }
 

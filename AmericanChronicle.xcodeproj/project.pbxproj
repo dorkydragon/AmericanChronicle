@@ -14,6 +14,7 @@
 		9707823C1BC4DD0900D23517 /* seq-1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9707823A1BC4DD0900D23517 /* seq-1.pdf */; };
 		9707823D1BC4DD0900D23517 /* seq-18.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9707823B1BC4DD0900D23517 /* seq-18.pdf */; };
 		970F3D831C957E9300D50106 /* PagedKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970F3D821C957E9300D50106 /* PagedKeyboard.swift */; };
+		971161091DA839D800D5C74D /* Dimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971161081DA839D800D5C74D /* Dimension.swift */; };
 		971359331C82281600A58E35 /* UIImage+AMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971359321C82281600A58E35 /* UIImage+AMC.swift */; };
 		9719CFF81DA210D500909A6A /* FakeDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9719CFF71DA210D500909A6A /* FakeDataRequest.swift */; };
 		9721B5A71D117FC90001A8A2 /* NSBundle+AMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9721B5A61D117FC90001A8A2 /* NSBundle+AMC.swift */; };
@@ -183,6 +184,7 @@
 		9707823B1BC4DD0900D23517 /* seq-18.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "seq-18.pdf"; sourceTree = "<group>"; };
 		970E81221B7DB32D00D795EB /* AmericanChronicle-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AmericanChronicle-Bridging-Header.h"; sourceTree = "<group>"; };
 		970F3D821C957E9300D50106 /* PagedKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagedKeyboard.swift; sourceTree = "<group>"; };
+		971161081DA839D800D5C74D /* Dimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimension.swift; sourceTree = "<group>"; };
 		971359321C82281600A58E35 /* UIImage+AMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AMC.swift"; sourceTree = "<group>"; };
 		9719CFF71DA210D500909A6A /* FakeDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDataRequest.swift; sourceTree = "<group>"; };
 		9721B5A61D117FC90001A8A2 /* NSBundle+AMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+AMC.swift"; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 				9721FDC81B93FF26006798B2 /* AMCAppearance.swift */,
 				97BA95CE1DA836C5000E08BF /* AMCColor.swift */,
 				97BA95D01DA836CF000E08BF /* AMCFont.swift */,
+				971161081DA839D800D5C74D /* Dimension.swift */,
 			);
 			name = Style;
 			sourceTree = "<group>";
@@ -1316,6 +1319,7 @@
 				974EFBF71C1E26AA00E7D4CB /* USStatePickerViewController.swift in Sources */,
 				97963F941BCC7BFE00248942 /* SearchPagesService.swift in Sources */,
 				975E59131D12E1DC006E19CF /* TitleButton.swift in Sources */,
+				971161091DA839D800D5C74D /* Dimension.swift in Sources */,
 				9704921B1BC4D8C4001DA2DE /* CGPDFPageRef+AMC.swift in Sources */,
 				975A8C8C1C50FB2B000792FB /* ChroniclingAmericaWebsiteViewController.swift in Sources */,
 				975914AA1B7A47C40031BD13 /* SearchResultsPageCell.swift in Sources */,

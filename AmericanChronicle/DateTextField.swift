@@ -67,7 +67,7 @@ final class DateTextField: UIView, UITextFieldDelegate {
         addSubview(dayField)
         dayField.snp.makeConstraints { make in
             make.leading.equalTo(monthField.snp.trailing)
-                .offset(Measurements.horizontalSiblingSpacing)
+                .offset(Dimension.horizontalSiblingSpacing)
             make.top.equalTo(0)
             make.width.equalTo(self.monthField.snp.width)
         }
@@ -83,7 +83,7 @@ final class DateTextField: UIView, UITextFieldDelegate {
         }
         addSubview(yearField)
         yearField.snp.makeConstraints { make in
-            make.leading.equalTo(dayField.snp.trailing).offset(Measurements.horizontalSiblingSpacing)
+            make.leading.equalTo(dayField.snp.trailing).offset(Dimension.horizontalSiblingSpacing)
             make.top.equalTo(0)
             make.width.equalTo(dayField.snp.width)
             make.trailing.equalTo(0)

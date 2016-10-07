@@ -85,7 +85,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         let totalInteritemSpacing = (flowLayout?.minimumInteritemSpacing ?? 0) * CGFloat(columnCount - 1)
         let availableWidth = collectionView.bounds.width - (left + totalInteritemSpacing + right)
         let columnWidth = availableWidth/CGFloat(columnCount)
-        return CGSize(width: columnWidth, height: Measurements.buttonHeight)
+        return CGSize(width: columnWidth, height: Dimension.buttonHeight)
     }
 
     // mark: UICollectionViewController overrides
@@ -112,10 +112,10 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         collectionView?.allowsMultipleSelection = true
         collectionView?.backgroundColor = AMCColor.lightBackground.withAlphaComponent(0.8)
         let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
-        layout?.sectionInset = UIEdgeInsets(top: Measurements.verticalMargin,
-                                            left: Measurements.horizontalMargin,
-                                            bottom: Measurements.verticalMargin,
-                                            right: Measurements.horizontalMargin)
+        layout?.sectionInset = UIEdgeInsets(top: Dimension.verticalMargin,
+                                            left: Dimension.horizontalMargin,
+                                            bottom: Dimension.verticalMargin,
+                                            right: Dimension.horizontalMargin)
         layout?.minimumInteritemSpacing = 1.0
         layout?.minimumLineSpacing = 1.0
     }

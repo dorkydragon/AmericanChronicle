@@ -82,9 +82,9 @@ final class InfoViewController: UIViewController {
 
         view.addSubview(bodyLabel)
         bodyLabel.snp.makeConstraints { make in
-            make.top.equalTo(Measurements.verticalMargin)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.top.equalTo(Dimension.verticalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
         }
 
         websiteButton.addTarget(self,
@@ -92,25 +92,25 @@ final class InfoViewController: UIViewController {
                                 for: .touchUpInside)
         view.addSubview(websiteButton)
         websiteButton.snp.makeConstraints { make in
-            make.top.equalTo(bodyLabel.snp.bottom).offset(Measurements.verticalSiblingSpacing * 2)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
-            make.height.equalTo(Measurements.buttonHeight)
+            make.top.equalTo(bodyLabel.snp.bottom).offset(Dimension.verticalSiblingSpacing * 2)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
+            make.height.equalTo(Dimension.buttonHeight)
         }
 
         view.addSubview(separator)
         separator.snp.makeConstraints { make in
-            make.top.equalTo(websiteButton.snp.bottom).offset(Measurements.verticalMargin * 2)
-            make.leading.equalTo(Measurements.horizontalMargin * 2)
-            make.trailing.equalTo(-Measurements.horizontalMargin * 2)
+            make.top.equalTo(websiteButton.snp.bottom).offset(Dimension.verticalMargin * 2)
+            make.leading.equalTo(Dimension.horizontalMargin * 2)
+            make.trailing.equalTo(-Dimension.horizontalMargin * 2)
             make.height.equalTo(1.0/UIScreen.main.nativeScale)
         }
 
         view.addSubview(suggestionsLabel)
         suggestionsLabel.snp.makeConstraints { make in
-            make.top.equalTo(separator.snp.bottom).offset(Measurements.verticalMargin)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.top.equalTo(separator.snp.bottom).offset(Dimension.verticalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
         }
 
         suggestionsButton.addTarget(self,
@@ -119,10 +119,10 @@ final class InfoViewController: UIViewController {
         view.addSubview(suggestionsButton)
         suggestionsButton.snp.makeConstraints { make in
             make.top.equalTo(suggestionsLabel.snp.bottom)
-                .offset(Measurements.verticalSiblingSpacing * 2)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
-            make.height.equalTo(Measurements.buttonHeight)
+                .offset(Dimension.verticalSiblingSpacing * 2)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
+            make.height.equalTo(Dimension.buttonHeight)
         }
     }
 }

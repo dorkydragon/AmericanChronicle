@@ -39,16 +39,16 @@ final class ErrorView: UIView {
     func commonInit() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(Measurements.verticalMargin)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.top.equalTo(Dimension.verticalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
         }
         addSubview(messageLabel)
         messageLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(Measurements.horizontalMargin)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.bottom.equalTo(-Measurements.verticalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(Dimension.horizontalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.bottom.equalTo(-Dimension.verticalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
         }
     }
 

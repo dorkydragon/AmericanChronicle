@@ -110,6 +110,6 @@ final class TitleValueButton: UIControl {
     // mark: UIView overrides
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: Measurements.buttonHeight)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: Dimension.buttonHeight)
     }
 }

@@ -21,10 +21,10 @@ final class EmptyResultsView: UIView {
     func commonInit() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(Measurements.verticalMargin)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.bottom.equalTo(-Measurements.verticalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.top.equalTo(Dimension.verticalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.bottom.equalTo(-Dimension.verticalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
 
         }
     }

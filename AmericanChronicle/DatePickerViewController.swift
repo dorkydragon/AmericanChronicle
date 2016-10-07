@@ -123,8 +123,8 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         foregroundPanel.addSubview(dateField)
         dateField.snp.makeConstraints { make in
             make.top.equalTo(navigationBar.snp.bottom).offset(20.0)
-            make.leading.equalTo(Measurements.horizontalMargin)
-            make.trailing.equalTo(-Measurements.horizontalMargin)
+            make.leading.equalTo(Dimension.horizontalMargin)
+            make.trailing.equalTo(-Dimension.horizontalMargin)
             make.height.equalTo(66)
         }
     }
