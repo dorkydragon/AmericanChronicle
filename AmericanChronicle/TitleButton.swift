@@ -8,7 +8,7 @@ final class TitleButton: UIButton {
         layer.shadowRadius = 0.5
         layer.shadowOpacity = 0.4
 
-        titleLabel?.font = Fonts.mediumRegular
+        titleLabel?.font = AMCFont.mediumRegular
         setTitleColor(AMCColor.lightBlueBright, for: .normal)
         setTitleColor(UIColor.white, for: .highlighted)
         setBackgroundImage(UIImage.imageWithFillColor(UIColor.white), for: UIControlState())

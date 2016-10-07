@@ -16,7 +16,7 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
     fileprivate let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = Fonts.largeRegular
+        label.font = AMCFont.largeRegular
         label.textColor = AMCColor.darkGray
         return label
     }()

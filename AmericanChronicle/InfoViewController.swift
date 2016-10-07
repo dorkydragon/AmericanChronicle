@@ -11,7 +11,7 @@ final class InfoViewController: UIViewController {
         label.textColor = AMCColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = Fonts.mediumRegular
+        label.font = AMCFont.mediumRegular
         var text = "American Chronicle gets its data from the 'Chronicling America' website.\n"
         text += "\n'Chronicling America' is a project funded by the National Endowment"
         text += " for the Humanities and maintained by the Library of Congress."
@@ -25,7 +25,7 @@ final class InfoViewController: UIViewController {
         label.textColor = AMCColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = Fonts.mediumRegular
+        label.font = AMCFont.mediumRegular
         label.text = "Do you have a question, suggestion or complaint about the app?"
         return label
     }()

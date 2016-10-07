@@ -79,7 +79,7 @@ final class DayKeyboard: UIView {
         for title in titles {
             let button = UIButton()
             button.setTitle(title, for: UIControlState())
-            button.titleLabel?.font = Fonts.largeRegular
+            button.titleLabel?.font = AMCFont.largeRegular
             button.isEnabled = (title != "")
             button.layer.shadowColor = AMCColor.darkGray.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 0)

@@ -66,7 +66,7 @@ final class MonthKeyboard: UIView {
 
         let button = UIButton()
         button.setTitle(title, for: UIControlState())
-        button.titleLabel?.font = Fonts.largeRegular
+        button.titleLabel?.font = AMCFont.largeRegular
         button.layer.shadowColor = AMCColor.darkGray.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 0)
         button.layer.shadowRadius = 0.5

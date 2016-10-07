@@ -30,21 +30,21 @@ final class SearchResultsPageCell: UITableViewCell {
         let label = UILabel()
         label.textColor = AMCColor.darkGray
         label.numberOfLines = 0
-        label.font = Fonts.smallRegular
+        label.font = AMCFont.smallRegular
         return label
     }()
     fileprivate let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = AMCColor.darkGray
         label.numberOfLines = 0
-        label.font = Fonts.largeBold
+        label.font = AMCFont.largeBold
         return label
     }()
     fileprivate let publicationTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = AMCColor.darkGray
         label.numberOfLines = 0
-        label.font = Fonts.smallBold
+        label.font = AMCFont.smallBold
         return label
     }()
 

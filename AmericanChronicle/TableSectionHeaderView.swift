@@ -60,7 +60,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
         }
 
         textContainer.addSubview(boldTextLabel)
-        boldTextLabel.font = Fonts.verySmallBold
+        boldTextLabel.font = AMCFont.verySmallBold
         boldTextLabel.textColor = AMCColor.darkGray
         boldTextLabel.numberOfLines = 1
         boldTextLabel.snp.makeConstraints { make in
@@ -71,7 +71,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
         }
 
         textContainer.addSubview(regularTextLabel)
-        regularTextLabel.font = Fonts.verySmallRegular
+        regularTextLabel.font = AMCFont.verySmallRegular
         regularTextLabel.textColor = AMCColor.darkGray
         regularTextLabel.numberOfLines = 1
         regularTextLabel.snp.makeConstraints { make in
