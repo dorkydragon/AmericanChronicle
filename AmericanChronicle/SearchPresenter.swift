@@ -45,7 +45,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         self.interactor = interactor
         super.init()
         self.interactor.delegate = self
-        KeyboardService.sharedInstance.addFrameChangeHandler("\(Unmanaged.passUnretained(self).toOpaque())") {
+        KeyboardService.sharedInstance.addFrameChangeHandler(identifier: "\(Unmanaged.passUnretained(self).toOpaque())") {
             [weak self] rect in
             self?.updateViewForKeyboardFrame(rect)
         }

@@ -1,9 +1,9 @@
 final class KeyboardService: NSObject {
 
-    fileprivate var frameChangeHandlers: [String: (CGRect?) -> Void] = [:]
+    // MARK: Properties
 
     static let sharedInstance = KeyboardService()
-    fileprivate let notificationCenter: NotificationCenter
+
     fileprivate(set) var keyboardFrame: CGRect? {
         didSet {
             if keyboardFrame != oldValue {
@@ -14,10 +14,18 @@ final class KeyboardService: NSObject {
         }
     }
 
+    fileprivate var frameChangeHandlers: [String: (CGRect?) -> Void] = [:]
+    fileprivate let notificationCenter: NotificationCenter
+
+
+    // MARK: Init methods
+
     init(notificationCenter: NotificationCenter = NotificationCenter.default) {
         self.notificationCenter = notificationCenter
         super.init()
     }
+
+    // MARK: Internal methods
 
     func applicationDidFinishLaunching() {
         notificationCenter.addObserver(self,
@@ -37,13 +45,15 @@ final class KeyboardService: NSObject {
         keyboardFrame = nil
     }
 
-    func addFrameChangeHandler(_ identifier: String, handler: @escaping (CGRect?) -> Void) {
+    func addFrameChangeHandler(identifier: String, handler: @escaping (CGRect?) -> Void) {
         frameChangeHandlers[identifier] = handler
     }
 
     func removeFrameChangeHandler(_ identifier: String) {
         frameChangeHandlers[identifier] = nil
     }
+
+    // MARK: Deinit method
 
     deinit {
         notificationCenter.removeObserver(self)

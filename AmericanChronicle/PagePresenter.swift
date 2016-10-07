@@ -2,7 +2,7 @@
 // mark: PagePresenterInterface protocol
 
 protocol PagePresenterInterface: PageUserInterfaceDelegate, PageInteractorDelegate {
-    var wireframe: PageWireframe? { get set }
+    var wireframe: PageWireframeProtocol? { get set }
     func configureUserInterfaceForPresentation(_ userInterface: PageUserInterface,
                                                withSearchTerm searchTerm: String?,
                                                               remoteDownloadURL: URL,
@@ -16,7 +16,7 @@ final class PagePresenter: PagePresenterInterface {
 
     // mark: Properties
 
-    weak var wireframe: PageWireframe?
+    weak var wireframe: PageWireframeProtocol?
 
     fileprivate let interactor: PageInteractorInterface
     fileprivate var searchTerm: String?
@@ -66,7 +66,7 @@ final class PagePresenter: PagePresenterInterface {
     }
 
     func userDidTapShare(_ image: UIImage) {
-        wireframe?.showShareScreenWithImage(image)
+        wireframe?.showShareScreen(withImage: image)
     }
 
     // mark: PageInteractorDelegate methods

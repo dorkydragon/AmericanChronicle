@@ -21,7 +21,7 @@ final class SearchWireframe: SearchWireframeInterface,
     fileprivate var presentedViewController: UIViewController?
     fileprivate var statePickerWireframe: USStatePickerWireframe?
     fileprivate var datePickerWireframe: DatePickerWireframe?
-    fileprivate var pageWireframe: PageWireframe?
+    fileprivate var pageWireframe: PageWireframeProtocol?
 
     // mark: Init methods
 
@@ -48,10 +48,10 @@ final class SearchWireframe: SearchWireframeInterface,
     func showSearchResult(_ row: SearchResultsRow, forTerm term: String) {
         if let remoteURL = row.pdfURL, let id = row.id {
             pageWireframe = PageWireframe(delegate: self)
-            pageWireframe?.presentFromViewController(presentedViewController,
-                                                     withSearchTerm: term,
-                                                     remoteURL: remoteURL,
-                                                     id: id)
+            pageWireframe?.present(fromViewController: presentedViewController,
+                                   withSearchTerm: term,
+                                   remoteURL: remoteURL,
+                                   id: id)
         }
     }
 
@@ -93,7 +93,7 @@ final class SearchWireframe: SearchWireframeInterface,
 
     // mark: PageWireframeDelegate methods
 
-    func pageWireframeDidFinish(_ wireframe: PageWireframe) {
+    func pageWireframeDidFinish(_ wireframe: PageWireframeProtocol) {
         pageWireframe = nil
     }
 }

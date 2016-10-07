@@ -1,14 +1,23 @@
+protocol PageWireframeProtocol: class {
+    func present(fromViewController presentingViewController: UIViewController?,
+                 withSearchTerm searchTerm: String?,
+                 remoteURL: URL,
+                 id: String)
+    func showShareScreen(withImage image: UIImage?)
+    func dismissPageScreen()
+}
+
 // mark: -
 // mark: PageWireframeDelegate protocol
 
 protocol PageWireframeDelegate: class {
-    func pageWireframeDidFinish(_ wireframe: PageWireframe)
+    func pageWireframeDidFinish(_ wireframe: PageWireframeProtocol)
 }
 
 // mark: -
 // mark: PageWireframe class
 
-final class PageWireframe {
+final class PageWireframe: PageWireframeProtocol {
 
     // mark: Properties
 
@@ -26,10 +35,10 @@ final class PageWireframe {
 
     // mark: Internal methods
 
-    func presentFromViewController(_ presentingViewController: UIViewController?,
-                                   withSearchTerm searchTerm: String?,
-                                                  remoteURL: URL,
-                                                  id: String) {
+    func present(fromViewController presentingViewController: UIViewController?,
+                 withSearchTerm searchTerm: String?,
+                 remoteURL: URL,
+                 id: String) {
         let sb = UIStoryboard(name: "Page", bundle: nil)
         let vc = sb.instantiateInitialViewController() as! PageViewController
         vc.delegate = presenter
@@ -43,7 +52,7 @@ final class PageWireframe {
 
     }
 
-    func showShareScreenWithImage(_ image: UIImage?) {
+    func showShareScreen(withImage image: UIImage?) {
         if let image = image {
             let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
             presentedViewController?.present(vc, animated: true, completion: nil)
