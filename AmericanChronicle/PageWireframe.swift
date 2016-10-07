@@ -1,4 +1,4 @@
-protocol PageWireframeProtocol: class {
+protocol PageWireframeInterface: class {
 
     init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface)
 
@@ -14,13 +14,13 @@ protocol PageWireframeProtocol: class {
 // mark: PageWireframeDelegate protocol
 
 protocol PageWireframeDelegate: class {
-    func pageWireframeDidFinish(_ wireframe: PageWireframeProtocol)
+    func pageWireframeDidFinish(_ wireframe: PageWireframeInterface)
 }
 
 // mark: -
 // mark: PageWireframe class
 
-final class PageWireframe: PageWireframeProtocol {
+final class PageWireframe: PageWireframeInterface {
 
     // mark: Properties
 

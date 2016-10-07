@@ -1,6 +1,6 @@
 @testable import AmericanChronicle
 
-final class FakePageWireframe: PageWireframeProtocol {
+final class FakePageWireframe: PageWireframeInterface {
     var dismissPageScreen_wasCalled = false
 
     init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface = PagePresenter()) {

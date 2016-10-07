@@ -21,7 +21,7 @@ final class SearchWireframe: SearchWireframeInterface,
     fileprivate var presentedViewController: UIViewController?
     fileprivate var statePickerWireframe: USStatePickerWireframe?
     fileprivate var datePickerWireframe: DatePickerWireframe?
-    fileprivate var pageWireframe: PageWireframeProtocol?
+    fileprivate var pageWireframe: PageWireframeInterface?
 
     // mark: Init methods
 
@@ -93,7 +93,7 @@ final class SearchWireframe: SearchWireframeInterface,
 
     // mark: PageWireframeDelegate methods
 
-    func pageWireframeDidFinish(_ wireframe: PageWireframeProtocol) {
+    func pageWireframeDidFinish(_ wireframe: PageWireframeInterface) {
         pageWireframe = nil
     }
 }

@@ -2,7 +2,7 @@
 // mark: PagePresenterInterface protocol
 
 protocol PagePresenterInterface: PageUserInterfaceDelegate, PageInteractorDelegate {
-    var wireframe: PageWireframeProtocol? { get set }
+    var wireframe: PageWireframeInterface? { get set }
     func configureUserInterfaceForPresentation(_ userInterface: PageUserInterface,
                                                withSearchTerm searchTerm: String?,
                                                               remoteDownloadURL: URL,
@@ -16,7 +16,7 @@ final class PagePresenter: PagePresenterInterface {
 
     // mark: Properties
 
-    weak var wireframe: PageWireframeProtocol?
+    weak var wireframe: PageWireframeInterface?
 
     fileprivate let interactor: PageInteractorInterface
     fileprivate var searchTerm: String?

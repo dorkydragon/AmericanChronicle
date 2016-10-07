@@ -19,8 +19,8 @@ protocol SearchInteractorDelegate: class {
 // mark: -
 // mark: SearchInteractor class
 
-// Responsibilities:
-//  * Ensures that only one request is ongoing at a time.
+/// Responsibilities:
+///  * Ensures that only one request is ongoing at a time.
 final class SearchInteractor: SearchInteractorInterface {
 
     // mark: Properties
