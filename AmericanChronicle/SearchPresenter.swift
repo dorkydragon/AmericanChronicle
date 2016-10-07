@@ -96,19 +96,19 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
     }
 
     func userDidTapUSStates() {
-        wireframe?.showUSStatesPicker(usStateNames)
+        wireframe?.showUSStatesPicker(withSelectedStates: usStateNames)
     }
 
     func userDidTapEarliestDateButton() {
         typeBeingEdited = .earliest
-        wireframe?.showDayMonthYearPickerWithCurrentDayMonthYear(earliestDayMonthYear,
-                                                                 title: "Earliest Date")
+        wireframe?.showDayMonthYearPicker(withCurrentDayMonthYear: earliestDayMonthYear,
+                                          title: "Earliest Date")
     }
 
     func userDidTapLatestDateButton() {
         typeBeingEdited = .latest
-        wireframe?.showDayMonthYearPickerWithCurrentDayMonthYear(latestDayMonthYear,
-                                                                 title: "Latest Date")
+        wireframe?.showDayMonthYearPicker(withCurrentDayMonthYear: latestDayMonthYear,
+                                          title: "Latest Date")
     }
 
     func userDidChangeSearchToTerm(_ term: String?) {
@@ -127,7 +127,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
     }
 
     func userDidSelectSearchResult(_ row: SearchResultsRow) {
-        wireframe?.showSearchResult(row, forTerm: userInterface?.searchTerm ?? "")
+        wireframe?.showSearchResult(atRow: row, forTerm: userInterface?.searchTerm ?? "")
     }
 
     func viewDidLoad() {

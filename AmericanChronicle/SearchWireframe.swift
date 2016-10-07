@@ -2,9 +2,9 @@
 // mark: SearchWireframeInterface protocol
 
 protocol SearchWireframeInterface: class {
-    func showSearchResult(_ row: SearchResultsRow, forTerm: String)
-    func showUSStatesPicker(_ activeStates: [String])
-    func showDayMonthYearPickerWithCurrentDayMonthYear(_ dayMonthYear: DayMonthYear?, title: String?)
+    func showSearchResult(atRow: SearchResultsRow, forTerm: String)
+    func showUSStatesPicker(withSelectedStates: [String])
+    func showDayMonthYearPicker(withCurrentDayMonthYear: DayMonthYear?, title: String?)
 }
 
 // mark: -
@@ -45,7 +45,7 @@ final class SearchWireframe: SearchWireframeInterface,
 
     // mark: SearchWireframeInterface methods
 
-    func showSearchResult(_ row: SearchResultsRow, forTerm term: String) {
+    func showSearchResult(atRow row: SearchResultsRow, forTerm term: String) {
         if let remoteURL = row.pdfURL, let id = row.id {
             pageWireframe = PageWireframe(delegate: self)
             pageWireframe?.present(fromViewController: presentedViewController,
@@ -55,14 +55,13 @@ final class SearchWireframe: SearchWireframeInterface,
         }
     }
 
-    func showUSStatesPicker(_ selectedStates: [String]) {
+    func showUSStatesPicker(withSelectedStates selectedStates: [String]) {
         statePickerWireframe = USStatePickerWireframe(delegate: self)
         statePickerWireframe?.presentFromViewController(presentedViewController,
                                                         withSelectedStateNames: selectedStates)
     }
 
-    func showDayMonthYearPickerWithCurrentDayMonthYear(_ dayMonthYear: DayMonthYear?,
-                                                       title: String?) {
+    func showDayMonthYearPicker(withCurrentDayMonthYear dayMonthYear: DayMonthYear?, title: String?) {
         datePickerWireframe = DatePickerWireframe(delegate: self)
         datePickerWireframe?.presentFromViewController(presentedViewController,
                                                        withDayMonthYear: dayMonthYear,
