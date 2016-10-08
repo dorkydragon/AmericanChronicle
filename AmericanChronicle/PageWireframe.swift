@@ -1,7 +1,5 @@
 protocol PageWireframeInterface: class {
 
-    init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface)
-
     func present(fromViewController presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,
@@ -28,13 +26,13 @@ final class PageWireframe: PageWireframeInterface {
     fileprivate var presentedViewController: UIViewController?
     fileprivate weak var delegate: PageWireframeDelegate?
 
-    // mark: PageWireframeInterface methods
-
     init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface = PagePresenter()) {
         self.delegate = delegate
         self.presenter = presenter
         presenter.wireframe = self
     }
+
+    // mark: PageWireframeInterface methods
 
     func present(fromViewController presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
