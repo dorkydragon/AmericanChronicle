@@ -36,7 +36,7 @@ class PagePresenterTests: XCTestCase {
                                                       withSearchTerm: "",
                                                       remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
-        subject.download(URL(string: "http://google.com")!, didFinishWithFileURL: nil, error: nil)
+        subject.downloadDidFinish(forRemoteURL: URL(string: "http://google.com")!, withFileURL: nil, error: nil)
         XCTAssertTrue(view.hideLoadingIndicator_wasCalled)
     }
 
@@ -52,7 +52,7 @@ class PagePresenterTests: XCTestCase {
                                                       remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
 
-        subject.download(requestURL, didFinishWithFileURL: returnedFileURL, error: nil)
+        subject.downloadDidFinish(forRemoteURL: requestURL, withFileURL: returnedFileURL, error: nil)
         XCTAssertNotNil(view.pdfPage)
     }
 
@@ -63,7 +63,7 @@ class PagePresenterTests: XCTestCase {
                                                       withSearchTerm: "",
                                                       remoteDownloadURL: URL(string: "google.com")!,
                                                       id: "")
-        subject.download(requestURL, didFinishWithFileURL: nil, error: returnedError)
+        subject.downloadDidFinish(forRemoteURL: requestURL, withFileURL: nil, error: returnedError)
         XCTAssertNotNil(view.showError_wasCalled_withTitle)
     }
 

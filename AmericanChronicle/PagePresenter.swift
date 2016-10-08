@@ -30,15 +30,6 @@ final class PagePresenter: PagePresenterInterface {
         interactor.delegate = self
     }
 
-    // mark: Private methods
-
-    fileprivate func cancelDownloadAndFinish() {
-        if let url = remoteDownloadURL {
-            interactor.cancelDownloadWithRemoteURL(url)
-        }
-        wireframe?.dismissPageScreen()
-    }
-
     // mark: PagePresenterInterface methods
 
     func configureUserInterfaceForPresentation(_ userInterface: PageUserInterface,
@@ -51,8 +42,8 @@ final class PagePresenter: PagePresenterInterface {
         self.searchTerm = searchTerm
         self.remoteDownloadURL = remoteDownloadURL
 
-        interactor.startDownloadWithRemoteURL(remoteDownloadURL)
-        interactor.startOCRCoordinatesRequestWithID(id)
+        interactor.startDownload(withRemoteURL: remoteDownloadURL)
+        interactor.startOCRCoordinatesRequest(withID: id)
     }
 
     // mark: PageUserInterfaceDelegate methods
@@ -71,7 +62,7 @@ final class PagePresenter: PagePresenterInterface {
 
     // mark: PageInteractorDelegate methods
 
-    func download(_ remoteURL: URL, didFinishWithFileURL fileURL: URL?, error: NSError?) {
+    func downloadDidFinish(forRemoteURL: URL, withFileURL fileURL: URL?, error: NSError?) {
         if let error = error {
             userInterface?.showErrorWithTitle("Trouble Downloading PDF", message: error.localizedDescription)
         } else {
@@ -82,24 +73,32 @@ final class PagePresenter: PagePresenterInterface {
         userInterface?.hideLoadingIndicator()
     }
 
-    func requestDidFinishWithOCRCoordinates(_ coordinates: OCRCoordinates?, error: NSError?) {
+
+    func requestDidFinish(withOCRCoordinates coordinates: OCRCoordinates?, error: NSError?) {
         guard let searchTerm = searchTerm else { return }
         var terms = [searchTerm]
         terms.append(contentsOf: searchTerm.components(separatedBy: " "))
 
         var matchingCoordinates: [String: [CGRect]] = [:]
-        if let wordsWithCoordinates = coordinates?.wordCoordinates?.keys {
-            for word in wordsWithCoordinates {
-                for term in terms {
-                    if word.lowercased() == term.lowercased() {
-                        matchingCoordinates[word] = coordinates?.wordCoordinates?[word]
-                        continue
-                    }
+        let wordsWithCoordinates = (coordinates?.wordCoordinates ?? [:]).keys
+        for word in wordsWithCoordinates {
+            for term in terms {
+                if word.lowercased() == term.lowercased() {
+                    matchingCoordinates[word] = coordinates?.wordCoordinates?[word]
                 }
             }
         }
 
         coordinates?.wordCoordinates = matchingCoordinates
         userInterface?.highlights = coordinates
+    }
+
+    // mark: Private methods
+
+    fileprivate func cancelDownloadAndFinish() {
+        if let url = remoteDownloadURL {
+            interactor.cancelDownload(withRemoteURL: url)
+        }
+        wireframe?.dismissPageScreen()
     }
 }
