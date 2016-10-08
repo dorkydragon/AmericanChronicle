@@ -4,4 +4,4 @@ xcode_scheme: AmericanChronicle
 osx_image: xcode8
 
 script:
-  xcodebuild CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= PROVISIONING_PROFILE= -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=latest' -workspace AmericanChronicle.xcworkspace -scheme "AmericanChronicle" test
+  xcodebuild CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= PROVISIONING_PROFILE= -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=latest,name=iPhone 7' -workspace AmericanChronicle.xcworkspace -scheme "AmericanChronicle" test
