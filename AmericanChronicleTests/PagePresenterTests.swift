@@ -16,26 +16,26 @@ class PagePresenterTests: XCTestCase {
     }
 
     func testThat_whenConfigureIsCalled_itTellsTheViewToShowItsLoadingIndicator() {
-        subject.configureUserInterfaceForPresentation(view,
-                                                      withSearchTerm: "",
-                                                      remoteDownloadURL: URL(string: "google.com")!,
-                                                      id: "")
+        subject.configure(userInterface: view,
+                          withSearchTerm: "",
+                          remoteDownloadURL: URL(string: "google.com")!,
+                          id: "")
         XCTAssertTrue(view.showLoadingIndicator_wasCalled)
     }
 
     func testThat_whenConfigureIsCalled_itTellsTheInteractor() {
-        subject.configureUserInterfaceForPresentation(view,
-                                                      withSearchTerm: "",
-                                                      remoteDownloadURL: URL(string: "google.com")!,
-                                                      id: "")
+        subject.configure(userInterface: view,
+                          withSearchTerm: "",
+                          remoteDownloadURL: URL(string: "google.com")!,
+                          id: "")
         XCTAssert(interactor.startDownload_wasCalled)
     }
 
     func testThat_whenADownloadFinishes_itTellsTheViewToHideItsLoadingIndicator() {
-        subject.configureUserInterfaceForPresentation(view,
-                                                      withSearchTerm: "",
-                                                      remoteDownloadURL: URL(string: "google.com")!,
-                                                      id: "")
+        subject.configure(userInterface: view,
+                          withSearchTerm: "",
+                          remoteDownloadURL: URL(string: "google.com")!,
+                          id: "")
         subject.downloadDidFinish(forRemoteURL: URL(string: "http://google.com")!, withFileURL: nil, error: nil)
         XCTAssertTrue(view.hideLoadingIndicator_wasCalled)
     }
@@ -47,10 +47,10 @@ class PagePresenterTests: XCTestCase {
         let returnedFileURL = URL(fileURLWithPath: returnedFilePathString ?? "")
         XCTAssertNotNil(returnedFileURL)
 
-        subject.configureUserInterfaceForPresentation(view,
-                                                      withSearchTerm: "",
-                                                      remoteDownloadURL: URL(string: "google.com")!,
-                                                      id: "")
+        subject.configure(userInterface: view,
+                          withSearchTerm: "",
+                          remoteDownloadURL: URL(string: "google.com")!,
+                          id: "")
 
         subject.downloadDidFinish(forRemoteURL: requestURL, withFileURL: returnedFileURL, error: nil)
         XCTAssertNotNil(view.pdfPage)
@@ -59,19 +59,19 @@ class PagePresenterTests: XCTestCase {
     func testThat_whenADownloadFinishesWithAnError_itTellsTheViewToShowTheErrorMessage() {
         let requestURL = URL(string: "http://www.blah.spat")!
         let returnedError = NSError(domain: "", code: 0, userInfo: nil)
-        subject.configureUserInterfaceForPresentation(view,
-                                                      withSearchTerm: "",
-                                                      remoteDownloadURL: URL(string: "google.com")!,
-                                                      id: "")
+        subject.configure(userInterface: view,
+                          withSearchTerm: "",
+                          remoteDownloadURL: URL(string: "google.com")!,
+                          id: "")
         subject.downloadDidFinish(forRemoteURL: requestURL, withFileURL: nil, error: returnedError)
         XCTAssertNotNil(view.showError_wasCalled_withTitle)
     }
 
     func testThat_whenTheUserTapsCancel_itTellsTheInteractorToCancel() {
-        subject.configureUserInterfaceForPresentation(view,
-                                                      withSearchTerm: "",
-                                                      remoteDownloadURL: URL(string: "google.com")!,
-                                                      id: "")
+        subject.configure(userInterface: view,
+                          withSearchTerm: "",
+                          remoteDownloadURL: URL(string: "google.com")!,
+                          id: "")
         subject.userDidTapCancel()
         XCTAssert(interactor.cancelDownload_wasCalled)
     }

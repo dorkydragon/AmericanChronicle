@@ -3,10 +3,10 @@
 
 protocol PagePresenterInterface: PageUserInterfaceDelegate, PageInteractorDelegate {
     var wireframe: PageWireframeInterface? { get set }
-    func configureUserInterfaceForPresentation(_ userInterface: PageUserInterface,
-                                               withSearchTerm searchTerm: String?,
-                                                              remoteDownloadURL: URL,
-                                                              id: String)
+    func configure(userInterface: PageUserInterface,
+                   withSearchTerm searchTerm: String?,
+                   remoteDownloadURL: URL,
+                   id: String)
 }
 
 // mark: -
@@ -32,10 +32,10 @@ final class PagePresenter: PagePresenterInterface {
 
     // mark: PagePresenterInterface methods
 
-    func configureUserInterfaceForPresentation(_ userInterface: PageUserInterface,
-                                               withSearchTerm searchTerm: String?,
-                                                              remoteDownloadURL: URL,
-                                                              id: String) {
+    func configure(userInterface: PageUserInterface,
+                   withSearchTerm searchTerm: String?,
+                   remoteDownloadURL: URL,
+                   id: String) {
         self.userInterface = userInterface
         self.userInterface?.showLoadingIndicator()
 
