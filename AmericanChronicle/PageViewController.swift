@@ -40,8 +40,6 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
     @IBOutlet weak var errorTitleLabel: UILabel!
     @IBOutlet weak var errorMessageLabel: UILabel!
 
-    weak var delegate: PageUserInterfaceDelegate?
-
     lazy var pageView: PDFPageView = PDFPageView()
 
     fileprivate let toastButton = UIButton()
@@ -78,7 +76,13 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         bottomBarBG.isHidden = !bottomBarBG.isHidden
     }
 
-    // mark: PageUserInterface methods
+    @IBAction func errorOKButtonTapped(_ sender: AnyObject) {
+        delegate?.userDidTapDone()
+    }
+
+    // mark: PageUserInterface conformance
+
+    weak var delegate: PageUserInterfaceDelegate?
 
     var pdfPage: CGPDFPage? {
         get {
@@ -123,15 +127,7 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         errorView.isHidden = false
     }
 
-    func hideError() {
-        errorView.isHidden = true
-    }
-
-    @IBAction func errorOKButtonTapped(_ sender: AnyObject) {
-        delegate?.userDidTapDone()
-    }
-
-    // mark: UIScrollViewDelegate protocol
+    // mark: UIScrollViewDelegate conformance
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return pageView
@@ -195,5 +191,11 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+
+    // mark: Private methods
+
+    fileprivate func hideError() {
+        errorView.isHidden = true
     }
 }

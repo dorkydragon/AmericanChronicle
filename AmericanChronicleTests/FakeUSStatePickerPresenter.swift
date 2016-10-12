@@ -1,21 +1,23 @@
 @testable import AmericanChronicle
 
 class FakeUSStatePickerPresenter: USStatePickerPresenterInterface {
-    var wireframe: USStatePickerWireframeInterface?
+
+    // mark: Test stuff
 
     var didCallConfigureWithUserInterface: USStatePickerUserInterface?
     var didCallConfigureWithSelectedStateNames: [String]?
-    func configureUserInterfaceForPresentation(_ userInterface: USStatePickerUserInterface,
-                                               withSelectedStateNames selectedStateNames: [String]) {
+
+    // mark: USStatePickerPresenterInterface conformance
+
+    var wireframe: USStatePickerWireframeInterface?
+    func configure(userInterface: USStatePickerUserInterface,
+                   withSelectedStateNames selectedStateNames: [String]) {
         didCallConfigureWithUserInterface = userInterface
         didCallConfigureWithSelectedStateNames = selectedStateNames
     }
 
-    func userDidTapSave(_ selectedStateNames: [String]) {
+    // mark: USStatePickerUserInterfaceDelegate conformance
 
-    }
-
-    func userDidTapCancel() {
-
-    }
+    func userDidTapSave(_ selectedStateNames: [String]) {}
+    func userDidTapCancel() {}
 }

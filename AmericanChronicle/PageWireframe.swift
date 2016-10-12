@@ -1,6 +1,9 @@
+// mark: -
+// mark: PageWireframeInterface protocol
+
 protocol PageWireframeInterface: class {
 
-    func present(fromViewController presentingViewController: UIViewController?,
+    func present(from presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,
                  id: String)
@@ -32,9 +35,9 @@ final class PageWireframe: PageWireframeInterface {
         presenter.wireframe = self
     }
 
-    // mark: PageWireframeInterface methods
+    // mark: PageWireframeInterface conformance
 
-    func present(fromViewController presentingViewController: UIViewController?,
+    func present(from presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,
                  id: String) {

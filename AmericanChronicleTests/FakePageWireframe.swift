@@ -10,7 +10,7 @@ final class FakePageWireframe: PageWireframeInterface {
 
     init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface = PagePresenter()) {}
 
-    func present(fromViewController presentingViewController: UIViewController?,
+    func present(from presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,
                  id: String) {

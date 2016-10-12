@@ -8,7 +8,7 @@ final class OCRCoordinates: NSObject, Mappable {
     var height: CGFloat?
     var wordCoordinates: [String: [CGRect]]?
 
-    // mark: Mappable methods
+    // mark: Mappable conformance
 
     required init?(map: Map) {
         super.init()

@@ -2,8 +2,7 @@
 // mark: USStatePickerWireframeInterface protocol
 
 protocol USStatePickerWireframeInterface: class {
-    func presentFromViewController(_ presentingViewController: UIViewController?,
-                                   withSelectedStateNames: [String])
+    func present(from: UIViewController?, withSelectedStateNames: [String])
     func userDidTapSave(_ selectedItems: [String])
     func userDidTapCancel()
 }
@@ -42,13 +41,13 @@ final class USStatePickerWireframe: NSObject,
         self.presenter.wireframe = self
     }
 
-    // mark: USStatePickerWireframeInterface methods
+    // mark: USStatePickerWireframeInterface conformance
 
-    func presentFromViewController(_ presentingViewController: UIViewController?,
-                                   withSelectedStateNames selectedStateNames: [String]) {
+    func present(from presentingViewController: UIViewController?,
+                 withSelectedStateNames selectedStateNames: [String]) {
         let vc = USStatePickerViewController()
         vc.delegate = presenter
-        presenter.configureUserInterfaceForPresentation(vc, withSelectedStateNames: selectedStateNames)
+        presenter.configure(userInterface: vc, withSelectedStateNames: selectedStateNames)
 
         let nvc = UINavigationController(rootViewController: vc)
         nvc.modalPresentationStyle = .custom
@@ -75,15 +74,13 @@ final class USStatePickerWireframe: NSObject,
 
     // mark: UIViewControllerTransitioningDelegate methods
 
-    func animationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController,
+    func animationController(forPresented: UIViewController,
+                             presenting: UIViewController,
                              source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ShowUSStatePickerTransitionController()
     }
 
-    func animationController(
-        forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return HideUSStatePickerTransitionController()
     }
 }

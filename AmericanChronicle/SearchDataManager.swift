@@ -13,7 +13,6 @@ protocol SearchDataManagerInterface {
 
 final class SearchDataManager: SearchDataManagerInterface {
 
-
     // mark: Properties
 
     let webService: SearchPagesServiceInterface

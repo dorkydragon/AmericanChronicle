@@ -51,7 +51,6 @@ class PagePresenterTests: XCTestCase {
                           withSearchTerm: "",
                           remoteDownloadURL: URL(string: "google.com")!,
                           id: "")
-
         subject.downloadDidFinish(forRemoteURL: requestURL, withFileURL: returnedFileURL, error: nil)
         XCTAssertNotNil(view.pdfPage)
     }

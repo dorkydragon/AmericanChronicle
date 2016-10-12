@@ -3,9 +3,9 @@
 
 protocol DatePickerPresenterInterface: DatePickerUserInterfaceDelegate {
     var wireframe: DatePickerWireframeInterface? { get set }
-    func configureUserInterfaceForPresentation(_ userInterface: DatePickerUserInterface,
-                                               withDayMonthYear: DayMonthYear?,
-                                               title: String?)
+    func configure(userInterface: DatePickerUserInterface,
+                   withDayMonthYear dayMonthYear: DayMonthYear?,
+                   title: String?)
 }
 
 // mark: -
@@ -15,22 +15,19 @@ final class DatePickerPresenter: DatePickerPresenterInterface {
 
     // mark: Properties
 
-    weak var wireframe: DatePickerWireframeInterface?
-
-    fileprivate let interactor: DatePickerInteractorInterface
     fileprivate var userInterface: DatePickerUserInterface?
 
     // mark: Init methods
 
-    init(interactor: DatePickerInteractorInterface = DatePickerInteractor()) {
-        self.interactor = interactor
-    }
+    init() {}
 
-    // mark: DatePickerPresenterInterface methods
+    // mark: DatePickerPresenterInterface conformance
 
-    func configureUserInterfaceForPresentation(_ userInterface: DatePickerUserInterface,
-                                               withDayMonthYear dayMonthYear: DayMonthYear?,
-                                               title: String?) {
+    weak var wireframe: DatePickerWireframeInterface?
+
+    func configure(userInterface: DatePickerUserInterface,
+                   withDayMonthYear dayMonthYear: DayMonthYear?,
+                   title: String?) {
         self.userInterface = userInterface
         if let dayMonthYear = dayMonthYear {
             self.userInterface?.title = title
@@ -38,7 +35,7 @@ final class DatePickerPresenter: DatePickerPresenterInterface {
         }
     }
 
-    // mark: DatePickerUserInterfaceDelegate methods
+    // mark: DatePickerUserInterfaceDelegate conformance
 
     func userDidSave(_ dayMonthYear: DayMonthYear) {
         wireframe?.userDidTapSave(dayMonthYear)

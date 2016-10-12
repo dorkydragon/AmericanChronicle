@@ -17,37 +17,37 @@ class SearchPresenterTests: XCTestCase {
 
         subject = SearchPresenter(interactor: interactor)
         subject.wireframe = wireframe
-        subject.configureUserInterfaceForPresentation(userInterface)
+        subject.configure(userInterface: userInterface)
     }
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsNotEmpty_itAsksTheViewToShowItsLoadingIndicator() {
-        subject.userDidChangeSearchToTerm("Blah")
+        subject.userDidChangeSearch(to: "Blah")
         XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.loadingNewParamaters)
     }
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsNotEmpty_itStartsANewSearch_withTheCorrectTerm() {
-        subject.userDidChangeSearchToTerm("Blah")
+        subject.userDidChangeSearch(to: "Blah")
         XCTAssertEqual(interactor.fetchNextPageOfResults_wasCalled_withParameters?.term, "Blah")
     }
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsEmpty_itDoesNotStartASearch() {
-        subject.userDidChangeSearchToTerm("")
+        subject.userDidChangeSearch(to: "")
         XCTAssertNil(interactor.fetchNextPageOfResults_wasCalled_withParameters)
     }
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsEmpty_itAsksTheViewToShowEmptySearchField() {
-        subject.userDidChangeSearchToTerm("")
+        subject.userDidChangeSearch(to: "")
         XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.emptySearchField)
     }
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsEmpty_itCancelsTheActiveSearch() {
-        subject.userDidChangeSearchToTerm("")
+        subject.userDidChangeSearch(to: "")
         XCTAssert(interactor.cancelLastSearch_wasCalled)
     }
 
     func testThat_whenASearchFinishes_andTheInteractorHasNoWork_itAsksTheViewToShowResults() {
         interactor.fake_isSearchInProgress = false
-        subject.search(SearchParameters(term: "",
+        subject.searchFor(SearchParameters(term: "",
             states: [],
             earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
             latestDayMonthYear: Search.latestPossibleDayMonthYear),
@@ -60,7 +60,7 @@ class SearchPresenterTests: XCTestCase {
         let results = SearchResults()
         results.items = [SearchResult()]
 
-        subject.search(SearchParameters(term: "Blah",
+        subject.searchFor(SearchParameters(term: "Blah",
             states: [],
             earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
             latestDayMonthYear: Search.latestPossibleDayMonthYear),
@@ -87,7 +87,7 @@ class SearchPresenterTests: XCTestCase {
                                       states: [],
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
-        subject.search(params, didFinishWithResults: results, error: nil)
+        subject.searchFor(params, didFinishWithResults: results, error: nil)
         XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.emptyResults)
     }
 
@@ -97,7 +97,7 @@ class SearchPresenterTests: XCTestCase {
                                       states: [],
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
-        subject.search(params, didFinishWithResults: nil, error: error)
+        subject.searchFor(params, didFinishWithResults: nil, error: error)
         XCTAssertEqual(userInterface.setViewState_wasCalled_withState, SearchViewState.error(title: "", message: nil))
     }
 

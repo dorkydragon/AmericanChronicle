@@ -4,7 +4,7 @@
 protocol SearchPresenterInterface: SearchUserInterfaceDelegate, SearchInteractorDelegate {
     var wireframe: SearchWireframeInterface? { get set }
 
-    func configureUserInterfaceForPresentation(_ userInterface: SearchUserInterface)
+    func configure(userInterface: SearchUserInterface)
     func userDidSaveFilteredUSStateNames(_ stateNames: [String])
     func userDidSaveDayMonthYear(_ dayMonthYear: DayMonthYear)
 }
@@ -51,9 +51,9 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         }
     }
 
-    // mark: SearchPresenterInterface methods
+    // mark: SearchPresenterInterface conformance
 
-    func configureUserInterfaceForPresentation(_ userInterface: SearchUserInterface) {
+    func configure(userInterface: SearchUserInterface) {
         self.userInterface = userInterface
         updateViewForKeyboardFrame(KeyboardService.sharedInstance.keyboardFrame)
         userInterface.earliestDate = earliestDayMonthYear.userVisibleString
@@ -89,7 +89,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         }
     }
 
-    // mark: SearchUserInterfaceDelegate methods
+    // mark: SearchUserInterfaceDelegate conformance
 
     func userDidTapReturn() {
         _ = userInterface?.resignFirstResponder()
@@ -111,7 +111,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
                                           title: "Latest Date")
     }
 
-    func userDidChangeSearchToTerm(_ term: String?) {
+    func userDidChangeSearch(to term: String?) {
         self.term = term
         if term?.characters.count == 0 {
             userInterface?.setViewState(.emptySearchField)
@@ -121,7 +121,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         searchIfReady()
     }
 
-    func userIsApproachingLastRow(_ term: String?, inCollection collection: [SearchResultsRow]) {
+    func userIsApproachingLastRow(for term: String?, inCollection collection: [SearchResultsRow]) {
         guard (term?.characters.count)! > 0 else { return }
         searchIfReady(.loadingMoreRows)
     }
@@ -134,9 +134,9 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         updateViewForKeyboardFrame(KeyboardService.sharedInstance.keyboardFrame)
     }
 
-    // mark: SearchInteractorDelegate methods
+    // mark: SearchInteractorDelegate conformance
 
-    func search(_ parameters: SearchParameters,
+    func searchFor(_ parameters: SearchParameters,
                 didFinishWithResults results: SearchResults?,
                 error: NSError?) {
         if let results = results, let items = results.items {
