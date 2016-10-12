@@ -22,18 +22,18 @@ class USStatePickerWireframeTests: XCTestCase {
     }
 
     func testThat_onPresent_itSets_presentedViewController() {
-        subject.presentFromViewController(nil, withSelectedStateNames: [])
+        subject.present(from: nil, withSelectedStateNames: [])
         let nvc = subject.presentedViewController as? UINavigationController
         XCTAssert(nvc?.topViewController is USStatePickerViewController)
     }
 
     func testThat_onPresent_itAsksThePresenterToConfigureTheView_withTheCorrectViewType() {
-        subject.presentFromViewController(nil, withSelectedStateNames: [])
+        subject.present(from: nil, withSelectedStateNames: [])
         XCTAssert(presenter.didCallConfigureWithUserInterface is USStatePickerViewController)
     }
 
     func testThat_onPresent_itAsksThePresenterToConfigureTheView_withTheSameSelectedStateNames() {
-        subject.presentFromViewController(nil, withSelectedStateNames: ["One", "Two"])
+        subject.present(from: nil, withSelectedStateNames: ["One", "Two"])
         XCTAssertEqual(presenter.didCallConfigureWithSelectedStateNames!, ["One", "Two"])
     }
 

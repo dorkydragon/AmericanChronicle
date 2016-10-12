@@ -2,9 +2,9 @@
 // mark: DatePickerWireframeInterface class
 
 protocol DatePickerWireframeInterface: class {
-    func presentFromViewController(_ presentingViewController: UIViewController?,
-                                   withDayMonthYear dayMonthYear: DayMonthYear?,
-                                   title: String?)
+    func present(from presentingViewController: UIViewController?,
+                 withDayMonthYear dayMonthYear: DayMonthYear?,
+                 title: String?)
     func userDidTapSave(_ dayMonthYear: DayMonthYear)
     func userDidTapCancel()
 }
@@ -38,16 +38,16 @@ final class DatePickerWireframe: NSObject, DatePickerWireframeInterface, UIViewC
         self.presenter.wireframe = self
     }
 
-    // mark: DatePickerWireframeInterface methods
+    // mark: DatePickerWireframeInterface conformance
 
-    func presentFromViewController(_ presentingViewController: UIViewController?,
-                                   withDayMonthYear dayMonthYear: DayMonthYear?,
-                                   title: String?) {
+    func present(from presentingViewController: UIViewController?,
+                 withDayMonthYear dayMonthYear: DayMonthYear?,
+                 title: String?) {
         let vc = DatePickerViewController()
         vc.delegate = presenter
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = self
-        presenter.configureUserInterfaceForPresentation(vc, withDayMonthYear: dayMonthYear, title: title)
+        presenter.configure(userInterface: vc, withDayMonthYear: dayMonthYear, title: title)
         presentingViewController?.present(vc, animated: true, completion: nil)
         presentedViewController = vc
     }
@@ -65,17 +65,15 @@ final class DatePickerWireframe: NSObject, DatePickerWireframeInterface, UIViewC
         })
     }
 
-    // mark: UIViewControllerTransitioningDelegate methods
+    // mark: UIViewControllerTransitioningDelegate conformance
 
-    func animationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController,
+    func animationController(forPresented: UIViewController,
+                             presenting: UIViewController,
                              source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return ShowDatePickerTransitionController()
     }
 
-    func animationController(
-        forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return HideDatePickerTransitionController()
     }
 }

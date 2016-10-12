@@ -21,8 +21,8 @@ protocol SearchUserInterfaceDelegate: class {
     func userDidTapUSStates()
     func userDidTapEarliestDateButton()
     func userDidTapLatestDateButton()
-    func userDidChangeSearchToTerm(_ term: String?)
-    func userIsApproachingLastRow(_ term: String?, inCollection: [SearchResultsRow])
+    func userDidChangeSearch(to term: String?)
+    func userIsApproachingLastRow(for term: String?, inCollection: [SearchResultsRow])
     func userDidSelectSearchResult(_ row: SearchResultsRow)
     func viewDidLoad()
 }
@@ -104,7 +104,7 @@ final class SearchViewController: UIViewController,
         present(nvc, animated: true, completion: nil)
     }
 
-    // mark: SearchUserInterface methods
+    // mark: SearchUserInterface conformance
 
     func setViewState(_ state: SearchViewState) {
         switch state {
@@ -184,7 +184,7 @@ final class SearchViewController: UIViewController,
         tableView.scrollIndicatorInsets = indicatorInsets
     }
 
-    // mark: UITableViewDelegate & -DataSource methods
+    // mark: UITableViewDelegate & -DataSource conformance
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if rows.count == 0 { return nil }
@@ -233,7 +233,7 @@ final class SearchViewController: UIViewController,
         guard rows.count > 0 else { return }
         guard (rows.count - (indexPath as NSIndexPath).row) < SearchViewController.approachingCount else { return }
 
-        delegate?.userIsApproachingLastRow(tableHeaderView.searchTerm, inCollection: rows)
+        delegate?.userIsApproachingLastRow(for: tableHeaderView.searchTerm, inCollection: rows)
     }
 
     // mark: UIViewController overrides
@@ -309,7 +309,7 @@ final class SearchViewController: UIViewController,
                 text.replaceSubrange(range, with: replacement)
             }
 
-            self?.delegate?.userDidChangeSearchToTerm(text)
+            self?.delegate?.userDidChangeSearch(to: text)
 
             return true
         }
@@ -318,7 +318,7 @@ final class SearchViewController: UIViewController,
             return false
         }
         tableHeaderView.shouldClearHandler = { [weak self] in
-            self?.delegate?.userDidChangeSearchToTerm("")
+            self?.delegate?.userDidChangeSearch(to: "")
             return true
         }
         tableHeaderView.earliestDateButtonTapHandler = { [weak self] _ in

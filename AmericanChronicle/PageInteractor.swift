@@ -4,18 +4,18 @@
 protocol PageInteractorInterface: class {
     var delegate: PageInteractorDelegate? { get set }
 
-    func startDownloadWithRemoteURL(_ remoteURL: URL)
-    func cancelDownloadWithRemoteURL(_ remoteURL: URL)
-    func isDownloadWithRemoteURLInProgress(_ remoteURL: URL) -> Bool
-    func startOCRCoordinatesRequestWithID(_ id: String)
+    func startDownload(withRemoteURL: URL)
+    func cancelDownload(withRemoteURL: URL)
+    func isDownloadInProgress(withRemoteURL: URL) -> Bool
+    func startOCRCoordinatesRequest(withID: String)
 }
 
 // mark: -
 // mark: PageInteractorDelegate protocol
 
 protocol PageInteractorDelegate: class {
-    func download(_ remoteURL: URL, didFinishWithFileURL fileURL: URL?, error: NSError?)
-    func requestDidFinishWithOCRCoordinates(_ coordinates: OCRCoordinates?, error: NSError?)
+    func downloadDidFinish(forRemoteURL: URL, withFileURL: URL?, error: NSError?)
+    func requestDidFinish(withOCRCoordinates: OCRCoordinates?, error: NSError?)
 }
 
 // mark: -
@@ -26,33 +26,49 @@ final class PageInteractor: PageInteractorInterface {
     // mark: Properties
 
     weak var delegate: PageInteractorDelegate?
-    fileprivate let dataManager: PageDataManagerInterface
+    fileprivate let pageService: PageServiceInterface
+    fileprivate let cachedPageService: CachedPageServiceInterface
+    fileprivate let coordinatesService: OCRCoordinatesServiceInterface
+    fileprivate var contextID: String { return "\(Unmanaged.passUnretained(self).toOpaque())" }
 
     // mark: Init methods
 
-    init(dataManager: PageDataManagerInterface = PageDataManager()) {
-        self.dataManager = dataManager
+    init(pageService: PageServiceInterface = PageService(),
+         cachedPageService: CachedPageServiceInterface = CachedPageService(),
+         coordinatesService: OCRCoordinatesServiceInterface = OCRCoordinatesService()) {
+        self.pageService = pageService
+        self.cachedPageService = cachedPageService
+        self.coordinatesService = coordinatesService
     }
 
     // mark: PageInteractorInterface methods
 
-    func startDownloadWithRemoteURL(_ remoteURL: URL) {
-        dataManager.downloadPage(remoteURL, completionHandler: { remoteURL, fileURL, error in
-            self.delegate?.download(remoteURL, didFinishWithFileURL: fileURL, error: error)
-        })
-    }
-
-    func cancelDownloadWithRemoteURL(_ remoteURL: URL) {
-        dataManager.cancelDownload(remoteURL)
-    }
-
-    func isDownloadWithRemoteURLInProgress(_ remoteURL: URL) -> Bool {
-        return dataManager.isDownloadInProgress(remoteURL)
-    }
-
-    func startOCRCoordinatesRequestWithID(_ id: String) {
-        dataManager.startOCRCoordinatesRequest(id) { coordinates, error in
-            self.delegate?.requestDidFinishWithOCRCoordinates(coordinates, error: error)
+    func startDownload(withRemoteURL remoteURL: URL) {
+        if let fileURL = cachedPageService.fileURLForRemoteURL(remoteURL) {
+            delegate?.downloadDidFinish(forRemoteURL: remoteURL, withFileURL: fileURL, error: nil)
+            return
         }
+
+        pageService.downloadPage(withRemoteURL: remoteURL, contextID: contextID) { [weak self] fileURL, error in
+            if let fileURL = fileURL, error == nil {
+                self?.cachedPageService.cacheFileURL(fileURL, forRemoteURL: remoteURL)
+            }
+            self?.delegate?.downloadDidFinish(forRemoteURL: remoteURL, withFileURL: fileURL, error: error as? NSError)
+        }
+    }
+
+    func cancelDownload(withRemoteURL remoteURL: URL) {
+        pageService.cancelDownload(withRemoteURL: remoteURL, contextID: contextID)
+    }
+
+    func isDownloadInProgress(withRemoteURL remoteURL: URL) -> Bool {
+        return pageService.isDownloadInProgress(withRemoteURL: remoteURL)
+    }
+
+    func startOCRCoordinatesRequest(withID id: String) {
+        coordinatesService.startRequest(id, contextID: contextID, completionHandler: {
+            [weak self] coordinates, err in
+            self?.delegate?.requestDidFinish(withOCRCoordinates: coordinates, error: err as? NSError)
+        })
     }
 }

@@ -1,8 +1,9 @@
+// mark: -
+// mark: PageWireframeInterface protocol
+
 protocol PageWireframeInterface: class {
 
-    init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface)
-
-    func present(fromViewController presentingViewController: UIViewController?,
+    func present(from presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,
                  id: String)
@@ -28,31 +29,24 @@ final class PageWireframe: PageWireframeInterface {
     fileprivate var presentedViewController: UIViewController?
     fileprivate weak var delegate: PageWireframeDelegate?
 
-    // mark: Init methods
-
     init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface = PagePresenter()) {
         self.delegate = delegate
         self.presenter = presenter
         presenter.wireframe = self
     }
 
-    // mark: Internal methods
+    // mark: PageWireframeInterface conformance
 
-    func present(fromViewController presentingViewController: UIViewController?,
+    func present(from presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,
                  id: String) {
         let sb = UIStoryboard(name: "Page", bundle: nil)
         let vc = sb.instantiateInitialViewController() as! PageViewController
         vc.delegate = presenter
-        presenter.configureUserInterfaceForPresentation(vc,
-                                                        withSearchTerm: searchTerm,
-                                                        remoteDownloadURL: remoteURL,
-                                                        id: id)
+        presenter.configure(userInterface: vc, withSearchTerm: searchTerm, remoteDownloadURL: remoteURL, id: id)
         presentingViewController?.present(vc, animated: true, completion: nil)
-
         presentedViewController = vc
-
     }
 
     func showShareScreen(withImage image: UIImage?) {

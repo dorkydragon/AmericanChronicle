@@ -3,9 +3,7 @@
 
 protocol USStatePickerPresenterInterface: USStatePickerUserInterfaceDelegate {
     var wireframe: USStatePickerWireframeInterface? { get set }
-
-    func configureUserInterfaceForPresentation(_ userInterface: USStatePickerUserInterface,
-                                               withSelectedStateNames selectedStateNames: [String])
+    func configure(userInterface: USStatePickerUserInterface, withSelectedStateNames: [String])
 }
 
 // mark: -
@@ -27,8 +25,8 @@ final class USStatePickerPresenter: USStatePickerPresenterInterface {
 
     // mark: USStatePickerPresenterInterface methods
 
-    func configureUserInterfaceForPresentation(_ userInterface: USStatePickerUserInterface,
-                                               withSelectedStateNames selectedStateNames: [String]) {
+    func configure(userInterface: USStatePickerUserInterface,
+                   withSelectedStateNames selectedStateNames: [String]) {
         self.userInterface = userInterface
         interactor.loadStateNames { [weak self] names, error in
             if let names = names {

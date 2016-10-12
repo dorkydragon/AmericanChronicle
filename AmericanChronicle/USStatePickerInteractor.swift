@@ -3,13 +3,13 @@ protocol USStatePickerInteractorInterface {
 }
 
 final class USStatePickerInteractor: NSObject, USStatePickerInteractorInterface {
-    fileprivate let dataManager: USStatePickerDataManagerInterface
+    fileprivate let service: USStatesServiceInterface
 
-    init(dataManager: USStatePickerDataManagerInterface = USStatePickerDataManager()) {
-        self.dataManager = dataManager
+    init(service: USStatesServiceInterface = USStatesService()) {
+        self.service = service
     }
 
     func loadStateNames(_ completionHandler: (([String]?, Error?) -> Void)) {
-        dataManager.loadStateNames(completionHandler)
+        service.loadStateNames(completionHandler)
     }
 }

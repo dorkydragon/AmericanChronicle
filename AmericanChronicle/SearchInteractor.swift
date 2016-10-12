@@ -13,7 +13,7 @@ protocol SearchInteractorInterface {
 // mark: SearchInteractorDelegate
 
 protocol SearchInteractorDelegate: class {
-    func search(_ parameters: SearchParameters, didFinishWithResults: SearchResults?, error: NSError?)
+    func searchFor(_ parameters: SearchParameters, didFinishWithResults: SearchResults?, error: NSError?)
 }
 
 // mark: -
@@ -45,7 +45,7 @@ final class SearchInteractor: SearchInteractorInterface {
                 let msg = "Tried to start a search that is already ongoing. Taking no action."
                 let error = NSError(code: .duplicateRequest,
                                     message: msg)
-                self.delegate?.search(parameters, didFinishWithResults: nil, error: error)
+                self.delegate?.searchFor(parameters, didFinishWithResults: nil, error: error)
                 return
             }
         }
@@ -56,9 +56,9 @@ final class SearchInteractor: SearchInteractorInterface {
         let oldActiveSearch = activeSearch
 
         activeSearch = searchFactory.fetchMoreResults(parameters) { (results, error) in
-            self.delegate?.search(parameters,
-                                  didFinishWithResults: results,
-                                  error: error as? NSError)
+            self.delegate?.searchFor(parameters,
+                                     didFinishWithResults: results,
+                                     error: error as? NSError)
         }
         oldActiveSearch?.cancel()
     }

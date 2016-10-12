@@ -2,22 +2,27 @@
 
 class FakePageInteractor: NSObject, PageInteractorInterface {
 
-    var delegate: PageInteractorDelegate?
+    // mark: Test stuff
 
     var startDownload_wasCalled = false
-    func startDownloadWithRemoteURL(_ remoteURL: URL) {
+    var cancelDownload_wasCalled = false
+
+    // mark: PageInteractorInterface conformance
+
+    var delegate: PageInteractorDelegate?
+
+    func startDownload(withRemoteURL: URL) {
         startDownload_wasCalled = true
     }
 
-    var cancelDownload_wasCalled = false
-    func cancelDownloadWithRemoteURL(_ remoteURL: URL) {
+
+    func cancelDownload(withRemoteURL: URL) {
         cancelDownload_wasCalled = true
     }
 
-    func isDownloadWithRemoteURLInProgress(_ remoteURL: URL) -> Bool {
+    func isDownloadInProgress(withRemoteURL: URL) -> Bool {
         return false
     }
 
-    func startOCRCoordinatesRequestWithID(_ id: String) {
-    }
+    func startOCRCoordinatesRequest(withID: String) {}
 }

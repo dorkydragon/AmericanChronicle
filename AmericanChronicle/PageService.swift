@@ -1,11 +1,9 @@
 import Alamofire
 
 protocol PageServiceInterface {
-    func downloadPage(_ remoteURL: URL,
-                      contextID: String,
-                      completionHandler: @escaping (URL?, Error?) -> Void)
-    func cancelDownload(_ remoteURL: URL, contextID: String)
-    func isDownloadInProgress(_ remoteURL: URL) -> Bool
+    func downloadPage(withRemoteURL: URL, contextID: String, completionHandler: @escaping (URL?, Error?) -> Void)
+    func cancelDownload(withRemoteURL: URL, contextID: String)
+    func isDownloadInProgress(withRemoteURL: URL) -> Bool
 }
 
 typealias ContextID = String
@@ -33,28 +31,17 @@ final class PageService: PageServiceInterface {
     fileprivate let queue = DispatchQueue(label: "com.ryanipete.AmericanChronicle.PageService",
                                           attributes: [])
 
-    fileprivate func finishRequestWithRemoteURL(_ remoteURL: URL, fileURL: URL?, error: NSError?) {
-        queue.async(group: group) {
-            if let activeDownload = self.activeDownloads[remoteURL] {
-                DispatchQueue.main.async {
-                    for (_, requester) in activeDownload.requesters {
-                        requester.completionHandler(fileURL, nil)
-                    }
-                    self.activeDownloads[remoteURL] = nil
-                }
-            }
-        }
-    }
-
     // mark: Init methods
 
     init(manager: ManagerProtocol = SessionManager()) {
         self.manager = manager
     }
 
-    // mark: PageServiceInterface methods
+    // mark: PageServiceInterface conformance
 
-    internal func downloadPage(_ remoteURL: URL, contextID: String, completionHandler: @escaping (URL?, Error?) -> Void) {
+    func downloadPage(withRemoteURL remoteURL: URL,
+                      contextID: String,
+                      completionHandler: @escaping (URL?, Error?) -> Void) {
         // Note: Resumes are not currently supported by chroniclingamerica.loc.gov.
         // Note: Estimated filesize isn't currently supported by chroniclingamerica.loc.gov
 
@@ -100,10 +87,10 @@ final class PageService: PageServiceInterface {
                         if let error = response.error as? NSError {
                             if error.code == NSFileWriteFileExistsError {
                                 // Not a real error, the file was found on disk.
-                                self?.finishRequestWithRemoteURL(remoteURL, fileURL: fileURL, error: nil)
+                                self?.finishRequest(withRemoteURL: remoteURL, fileURL: fileURL, error: nil)
 
                             } else {
-                                self?.finishRequestWithRemoteURL(remoteURL, fileURL: fileURL, error: error)
+                                self?.finishRequest(withRemoteURL: remoteURL, fileURL: fileURL, error: error)
                             }
                         }
                     }
@@ -116,7 +103,7 @@ final class PageService: PageServiceInterface {
         }
     }
 
-    func isDownloadInProgress(_ remoteURL: URL) -> Bool {
+    func isDownloadInProgress(withRemoteURL remoteURL: URL) -> Bool {
         var isInProgress = false
         queue.sync {
             isInProgress = self.activeDownloads[remoteURL] != nil
@@ -124,7 +111,7 @@ final class PageService: PageServiceInterface {
         return isInProgress
     }
 
-    func cancelDownload(_ remoteURL: URL, contextID: String) {
+    func cancelDownload(withRemoteURL remoteURL: URL, contextID: String) {
         queue.async(group: group) {
             var activeDownload = self.activeDownloads[remoteURL]
             let requester = activeDownload?.requesters[contextID]
@@ -138,4 +125,18 @@ final class PageService: PageServiceInterface {
         }
     }
 
+    // mark: Private methods
+
+    fileprivate func finishRequest(withRemoteURL remoteURL: URL, fileURL: URL?, error: NSError?) {
+        queue.async(group: group) {
+            if let activeDownload = self.activeDownloads[remoteURL] {
+                DispatchQueue.main.async {
+                    for (_, requester) in activeDownload.requesters {
+                        requester.completionHandler(fileURL, nil)
+                    }
+                    self.activeDownloads[remoteURL] = nil
+                }
+            }
+        }
+    }
 }

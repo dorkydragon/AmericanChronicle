@@ -22,9 +22,6 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
 
     // mark: Properties
 
-    weak var delegate: DatePickerUserInterfaceDelegate?
-    var selectedDayMonthYear: DayMonthYear
-
     fileprivate let foregroundPanel: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor.white
@@ -82,7 +79,12 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         delegate?.userDidCancel()
     }
 
-    // mark: DateTextFieldDelegate methods
+    // mark: DatePickerUserInterface conformance
+
+    weak var delegate: DatePickerUserInterfaceDelegate?
+    var selectedDayMonthYear: DayMonthYear
+
+    // mark: DateTextFieldDelegate conformance
 
     func selectedDayMonthYearDidChange(_ dayMonthYear: DayMonthYear?) {
         if let dayMonthYear = dayMonthYear {
