@@ -2,11 +2,8 @@
 // mark: DatePickerWireframeInterface class
 
 protocol DatePickerWireframeInterface: class {
-    func present(from presentingViewController: UIViewController?,
-                 withDayMonthYear dayMonthYear: DayMonthYear?,
-                 title: String?)
-    func userDidTapSave(_ dayMonthYear: DayMonthYear)
-    func userDidTapCancel()
+    func present(from: UIViewController?, withDayMonthYear: DayMonthYear?, title: String?)
+    func dismiss(withSelectedDayMonthYear: DayMonthYear?)
 }
 
 // mark: -
@@ -52,14 +49,10 @@ final class DatePickerWireframe: NSObject, DatePickerWireframeInterface, UIViewC
         presentedViewController = vc
     }
 
-    func userDidTapSave(_ dayMonthYear: DayMonthYear) {
-        delegate?.datePickerWireframe(self, didSaveWithDayMonthYear: dayMonthYear)
-        presentedViewController?.dismiss(animated: true, completion: {
-            self.delegate?.datePickerWireframeDidFinish(self)
-        })
-    }
-
-    func userDidTapCancel() {
+    func dismiss(withSelectedDayMonthYear dayMonthYear: DayMonthYear?) {
+        if let dayMonthYear = dayMonthYear {
+            delegate?.datePickerWireframe(self, didSaveWithDayMonthYear: dayMonthYear)
+        }
         presentedViewController?.dismiss(animated: true, completion: {
             self.delegate?.datePickerWireframeDidFinish(self)
         })

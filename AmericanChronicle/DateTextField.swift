@@ -26,17 +26,17 @@ final class DateTextField: UIView, UITextFieldDelegate {
     fileprivate let dayKeyboard = DayKeyboard()
     fileprivate let yearPicker = ByDecadeYearPicker()
 
-    fileprivate let monthField = RestrictedInputField(title: "Month")
-    fileprivate let dayField = RestrictedInputField(title: "Day")
-    fileprivate let yearField = RestrictedInputField(title: "Year")
+    fileprivate let monthField = RestrictedInputField(title: NSLocalizedString("Month", comment: "Month"))
+    fileprivate let dayField = RestrictedInputField(title: NSLocalizedString("Day", comment: "Day of month"))
+    fileprivate let yearField = RestrictedInputField(title: NSLocalizedString("Year", comment: "Year"))
 
     fileprivate let normalUnderline: UIImageView = {
-        let view = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightBlueBrightTransparent))
+        let view = UIImageView(image: UIImage.imageWithFillColor(AMCColor.robinBlue))
         return view
     }()
 
     fileprivate let highlightUnderline: UIImageView = {
-        let view = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightBlueBright))
+        let view = UIImageView(image: UIImage.imageWithFillColor(AMCColor.brightBlue))
         return view
     }()
 
@@ -48,8 +48,9 @@ final class DateTextField: UIView, UITextFieldDelegate {
         monthKeyboard.monthTapHandler = monthValueChanged
 
         monthField.inputView = pagedKeyboard
-        monthField.didBecomeActiveHandler = {
-            self.highlightField(self.monthField)
+        monthField.didBecomeActiveHandler = { [weak self] in
+            guard let monthField = self?.monthField else { return }
+            self?.highlightField(monthField)
         }
         addSubview(monthField)
         monthField.snp.makeConstraints { make in
@@ -61,15 +62,16 @@ final class DateTextField: UIView, UITextFieldDelegate {
         dayKeyboard.dayTapHandler = dayValueChanged
 
         dayField.inputView = pagedKeyboard
-        dayField.didBecomeActiveHandler = {
-            self.highlightField(self.dayField)
+        dayField.didBecomeActiveHandler = { [weak self] in
+            guard let dayField = self?.dayField else { return }
+            self?.highlightField(dayField)
         }
         addSubview(dayField)
         dayField.snp.makeConstraints { make in
             make.leading.equalTo(monthField.snp.trailing)
                 .offset(Dimension.horizontalSiblingSpacing)
             make.top.equalTo(0)
-            make.width.equalTo(self.monthField.snp.width)
+            make.width.equalTo(monthField.snp.width)
         }
 
         yearPicker.earliestYear = Search.earliestPossibleDayMonthYear.year
@@ -78,8 +80,9 @@ final class DateTextField: UIView, UITextFieldDelegate {
         yearPicker.yearTapHandler = yearValueChanged
 
         yearField.inputView = pagedKeyboard
-        yearField.didBecomeActiveHandler = {
-            self.highlightField(self.yearField)
+        yearField.didBecomeActiveHandler = { [weak self] in
+            guard let yearField = self?.yearField else { return }
+            self?.highlightField(yearField)
         }
         addSubview(yearField)
         yearField.snp.makeConstraints { make in
@@ -109,13 +112,13 @@ final class DateTextField: UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         pagedKeyboard = PagedKeyboard(pages: [monthKeyboard, dayKeyboard, yearPicker])
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 
     required init?(coder: NSCoder) {
         pagedKeyboard = PagedKeyboard(pages: [monthKeyboard, dayKeyboard, yearPicker])
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 
     // mark: Internal methods
@@ -144,7 +147,7 @@ final class DateTextField: UIView, UITextFieldDelegate {
             make.leading.equalTo(field.snp.leading)
             make.width.equalTo(field.snp.width)
         }
-        let pageIndex = [self.monthField, self.dayField, self.yearField].index(of: field)!
+        let pageIndex = [monthField, dayField, yearField].index(of: field)!
         UIView.animate(withDuration: 0.1, animations: {
             self.layoutIfNeeded()
             self.pagedKeyboard.setVisiblePage(pageIndex, animated: false)

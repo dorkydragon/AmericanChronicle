@@ -2,13 +2,9 @@
 // mark: PageWireframeInterface protocol
 
 protocol PageWireframeInterface: class {
-
-    func present(from presentingViewController: UIViewController?,
-                 withSearchTerm searchTerm: String?,
-                 remoteURL: URL,
-                 id: String)
+    func present(from: UIViewController?, withSearchTerm: String?, remoteURL: URL, id: String)
+    func dismiss()
     func showShareScreen(withImage image: UIImage?)
-    func dismissPageScreen()
 }
 
 // mark: -
@@ -49,16 +45,16 @@ final class PageWireframe: PageWireframeInterface {
         presentedViewController = vc
     }
 
+    func dismiss() {
+        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: {
+            self.delegate?.pageWireframeDidFinish(self)
+        })
+    }
+
     func showShareScreen(withImage image: UIImage?) {
         if let image = image {
             let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
             presentedViewController?.present(vc, animated: true, completion: nil)
         }
-    }
-
-    func dismissPageScreen() {
-        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: {
-            self.delegate?.pageWireframeDidFinish(self)
-        })
     }
 }

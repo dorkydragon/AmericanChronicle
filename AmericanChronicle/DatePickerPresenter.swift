@@ -37,11 +37,11 @@ final class DatePickerPresenter: DatePickerPresenterInterface {
 
     // mark: DatePickerUserInterfaceDelegate conformance
 
-    func userDidSave(_ dayMonthYear: DayMonthYear) {
-        wireframe?.userDidTapSave(dayMonthYear)
+    func userDidSave(with dayMonthYear: DayMonthYear) {
+        wireframe?.dismiss(withSelectedDayMonthYear: dayMonthYear)
     }
 
     func userDidCancel() {
-        wireframe?.userDidTapCancel()
+        wireframe?.dismiss(withSelectedDayMonthYear: nil)
     }
 }

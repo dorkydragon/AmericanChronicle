@@ -3,7 +3,6 @@
 
 protocol SearchPresenterInterface: SearchUserInterfaceDelegate, SearchInteractorDelegate {
     var wireframe: SearchWireframeInterface? { get set }
-
     func configure(userInterface: SearchUserInterface)
     func userDidSaveFilteredUSStateNames(_ stateNames: [String])
     func userDidSaveDayMonthYear(_ dayMonthYear: DayMonthYear)
@@ -64,11 +63,13 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         usStateNames = stateNames.sorted()
         let str: String
         if usStateNames.isEmpty {
-            str = "All US states"
+            str = NSLocalizedString("All US states", comment: "All US states")
         } else if usStateNames.count <= 3 {
             str = usStateNames.joined(separator: ", ")
         } else {
-            str = "\(usStateNames[0..<3].joined(separator: ", ")) (and \(usStateNames.count - 3) more)"
+            let andLocalized = NSLocalizedString("and", comment: "Usage: 'Arkansas ({{ and }} 3 more states) selected'")
+            let moreLocalized = NSLocalizedString("more", comment: "Usage: 'Arkansas (and 3 {{ more }} states) selected'")
+            str = "\(usStateNames[0..<3].joined(separator: ", ")) (\(andLocalized) \(usStateNames.count - 3) \(moreLocalized))"
         }
         userInterface?.usStateNames = str
         searchIfReady()
@@ -102,13 +103,13 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
     func userDidTapEarliestDateButton() {
         typeBeingEdited = .earliest
         wireframe?.showDayMonthYearPicker(withCurrentDayMonthYear: earliestDayMonthYear,
-                                          title: "Earliest Date")
+                                          title: NSLocalizedString("Earliest Date", comment: "Earliest Date"))
     }
 
     func userDidTapLatestDateButton() {
         typeBeingEdited = .latest
         wireframe?.showDayMonthYearPicker(withCurrentDayMonthYear: latestDayMonthYear,
-                                          title: "Latest Date")
+                                          title: NSLocalizedString("Latest Date", comment: "Latest Date"))
     }
 
     func userDidChangeSearch(to term: String?) {
@@ -136,7 +137,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
 
     // mark: SearchInteractorDelegate conformance
 
-    func searchFor(_ parameters: SearchParameters,
+    func search(for parameters: SearchParameters,
                 didFinishWithResults results: SearchResults?,
                 error: NSError?) {
         if let results = results, let items = results.items {

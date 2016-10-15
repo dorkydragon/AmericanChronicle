@@ -3,7 +3,7 @@ import Alamofire
 
 class FakeDownloadRequest: DownloadRequestProtocol {
 
-    func response(queue: DispatchQueue?, completionHandler: @escaping (DefaultDownloadResponse) -> Void) -> Self {
+    func response(queue: DispatchQueue?, completion: @escaping (DefaultDownloadResponse) -> Void) -> Self {
         return self
     }
 

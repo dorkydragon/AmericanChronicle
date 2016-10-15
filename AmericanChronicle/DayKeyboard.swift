@@ -15,12 +15,12 @@ final class DayKeyboard: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 
     // mark: Internal methods
@@ -37,7 +37,7 @@ final class DayKeyboard: UIView {
         subviews.forEach { $0.removeFromSuperview() }
 
         guard let selectedDayMonthYear = selectedDayMonthYear else { return }
-        Reporter.sharedInstance.logMessage("selectedDayMonthYear: %@",
+        CrashReporter.sharedInstance.logMessage("selectedDayMonthYear: %@",
                                            arguments: [selectedDayMonthYear.description])
         guard let rangeOfDaysThisMonth = selectedDayMonthYear.rangeOfDaysInMonth() else { return }
         var weeks: [[Int?]] = []
@@ -71,7 +71,7 @@ final class DayKeyboard: UIView {
     }
 
     fileprivate func addRowWithTitles(_ titles: [String], prevRow: UIButton? = nil) -> UIButton? {
-        let selectedBgColor = AMCColor.lightBlueBright
+        let selectedBgColor = AMCColor.brightBlue
         let normalImage = UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0)
         let highlightedImage = UIImage.imageWithFillColor(selectedBgColor, cornerRadius: 1.0)
 
@@ -90,7 +90,7 @@ final class DayKeyboard: UIView {
             button.setBackgroundImage(highlightedImage, for: .selected)
             button.setBackgroundImage(highlightedImage, for: .highlighted)
 
-            button.setTitleColor(AMCColor.blueGray, for: .normal)
+            button.setTitleColor(AMCColor.darkGray, for: .normal)
             button.setTitleColor(UIColor.white, for: .highlighted)
             button.setTitleColor(UIColor.white, for: .selected)
 

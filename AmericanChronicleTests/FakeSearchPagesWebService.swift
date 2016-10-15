@@ -1,17 +1,17 @@
 @testable import AmericanChronicle
 
-class FakeSearchPagesService: SearchPagesServiceInterface {
+class FakeSearchPagesWebService: SearchPagesWebServiceInterface {
 
     var startSearch_wasCalled_withParameters: SearchParameters?
     var startSearch_wasCalled_withPage: Int?
     var startSearch_wasCalled_withContextID: String?
     var startSearch_wasCalled_withCompletionHandler: ((SearchResults?, Error?) -> Void)?
-    func startSearch(_ parameters: SearchParameters, page: Int, contextID: String, completionHandler: @escaping ((SearchResults?, Error?) -> Void)) {
+    func startSearch(with parameters: SearchParameters, page: Int, contextID: String, completion: @escaping ((SearchResults?, Error?) -> Void)) {
         startSearch_wasCalled_withParameters = parameters
         startSearch_wasCalled_withPage = page
         startSearch_wasCalled_withContextID = contextID
-        startSearch_wasCalled_withCompletionHandler = completionHandler
-        completionHandler(nil, nil)
+        startSearch_wasCalled_withCompletionHandler = completion
+        completion(nil, nil)
     }
 
     var isSearchInProgress_wasCalled_withParameters: SearchParameters?

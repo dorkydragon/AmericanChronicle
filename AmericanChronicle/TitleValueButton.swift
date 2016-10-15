@@ -21,7 +21,7 @@ final class TitleValueButton: UIControl {
     }()
     fileprivate let valueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = AMCColor.lightBlueBright
+        label.textColor = AMCColor.brightBlue
         label.highlightedTextColor = UIColor.white
         label.font = AMCFont.mediumRegular
         label.textAlignment = .center
@@ -30,7 +30,7 @@ final class TitleValueButton: UIControl {
     fileprivate let button: UIButton = {
         let b = UIButton()
         b.setBackgroundImage(UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0), for: UIControlState())
-        b.setBackgroundImage(UIImage.imageWithFillColor(AMCColor.lightBlueBright, cornerRadius: 1.0), for: .highlighted)
+        b.setBackgroundImage(UIImage.imageWithFillColor(AMCColor.brightBlue, cornerRadius: 1.0), for: .highlighted)
         return b
     }()
 

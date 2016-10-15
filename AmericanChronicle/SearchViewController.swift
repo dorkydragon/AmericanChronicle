@@ -79,8 +79,10 @@ final class SearchViewController: UIViewController,
     // mark: Init methods
 
     func commonInit() {
-        navigationItem.title = "Search"
-        navigationItem.setLeftButtonTitle("Info", target: self, action: #selector(didTapInfoButton(_:)))
+        navigationItem.title = NSLocalizedString("Search", comment: "Search")
+        navigationItem.setLeftButtonTitle(NSLocalizedString("Info", comment: "General information about the app"),
+                                          target: self,
+                                          action: #selector(didTapInfoButton(_:)))
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -119,7 +121,7 @@ final class SearchViewController: UIViewController,
         case .emptyResults:
             setLoadingIndicatorsVisible(false)
             emptyResultsView.alpha = 1.0
-            emptyResultsView.title = "No results"
+            emptyResultsView.title = NSLocalizedString("No results", comment: "No results found for search")
             errorView.alpha = 0
             totalRowCount = 0
             rows = []
@@ -192,7 +194,7 @@ final class SearchViewController: UIViewController,
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TableSectionHeaderView.self))
                                         as? TableSectionHeaderView
         headerView?.boldText = "\(totalRowCount)"
-        headerView?.regularText = "results"
+        headerView?.regularText = NSLocalizedString("results", comment: "Usage: '14 {{ results }} found'")
         return headerView
     }
 
@@ -240,7 +242,7 @@ final class SearchViewController: UIViewController,
 
     override func loadView() {
         view = UIView()
-        view.backgroundColor = AMCColor.lightBackground
+        view.backgroundColor = AMCColor.offWhite
 
         loadTableView()
         loadTableHeaderView()
@@ -346,7 +348,9 @@ final class SearchViewController: UIViewController,
     fileprivate func loadErrorView() {
         view.addSubview(errorView)
         errorView.snp.makeConstraints { make in
-            make.center.equalTo(self.view.snp.center)
+            make.centerY.equalTo(self.view.snp.centerY)
+            make.leading.equalTo(self.view.snp.leading)
+            make.trailing.equalTo(self.view.snp.trailing)
         }
     }
 

@@ -1,4 +1,4 @@
-final class SearchResultsRow: CustomStringConvertible {
+struct SearchResultsRow: CustomStringConvertible {
 
     // mark: Properties
 

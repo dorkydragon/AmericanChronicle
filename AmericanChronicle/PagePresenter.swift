@@ -56,7 +56,7 @@ final class PagePresenter: PagePresenterInterface {
         cancelDownloadAndFinish()
     }
 
-    func userDidTapShare(_ image: UIImage) {
+    func userDidTapShare(with image: UIImage) {
         wireframe?.showShareScreen(withImage: image)
     }
 
@@ -64,7 +64,8 @@ final class PagePresenter: PagePresenterInterface {
 
     func downloadDidFinish(forRemoteURL: URL, withFileURL fileURL: URL?, error: NSError?) {
         if let error = error {
-            userInterface?.showErrorWithTitle("Trouble Downloading PDF", message: error.localizedDescription)
+            userInterface?.showErrorWithTitle(NSLocalizedString("Trouble Downloading PDF", comment: "Trouble Downloading PDF"),
+                                              message: error.localizedDescription)
         } else {
             if let fileURL = fileURL {
                 userInterface?.pdfPage = CGPDFDocument(fileURL as CFURL)?.page(at: 1)
@@ -99,6 +100,6 @@ final class PagePresenter: PagePresenterInterface {
         if let url = remoteDownloadURL {
             interactor.cancelDownload(withRemoteURL: url)
         }
-        wireframe?.dismissPageScreen()
+        wireframe?.dismiss()
     }
 }

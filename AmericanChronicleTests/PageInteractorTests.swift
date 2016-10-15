@@ -5,21 +5,25 @@ import ObjectMapper
 class PageInteractorTests: XCTestCase {
     var subject: PageInteractor!
     var subjectDelegate: FakePageInteractorDelegate!
-    var pageService: FakePageService!
-    var cacheService: FakeCachedPageService!
-    var coordinatesService: FakeOCRCoordinatesService!
+    var pageService: FakePageWebService!
+    var cacheService: FakePageCacheService!
+    var coordinatesService: FakeOCRCoordinatesWebService!
+
+    // mark: Setup and Teardown
 
     override func setUp() {
         super.setUp()
-        pageService = FakePageService()
-        cacheService = FakeCachedPageService()
-        coordinatesService = FakeOCRCoordinatesService()
+        pageService = FakePageWebService()
+        cacheService = FakePageCacheService()
+        coordinatesService = FakeOCRCoordinatesWebService()
         subject = PageInteractor(pageService: pageService,
                                  cachedPageService: cacheService,
                                  coordinatesService: coordinatesService)
         subjectDelegate = FakePageInteractorDelegate()
         subject.delegate = subjectDelegate
     }
+
+    // mark: Tests
 
     func testThat_ifThePageIsNotCached_startDownload_startsAPageServiceRequest() {
 

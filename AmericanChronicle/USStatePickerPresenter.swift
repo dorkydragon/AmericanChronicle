@@ -28,7 +28,7 @@ final class USStatePickerPresenter: USStatePickerPresenterInterface {
     func configure(userInterface: USStatePickerUserInterface,
                    withSelectedStateNames selectedStateNames: [String]) {
         self.userInterface = userInterface
-        interactor.loadStateNames { [weak self] names, error in
+        interactor.fetchStateNames { [weak self] names, error in
             if let names = names {
                 self?.userInterface?.stateNames = names
                 self?.userInterface?.setSelectedStateNames(selectedStateNames)
@@ -38,11 +38,11 @@ final class USStatePickerPresenter: USStatePickerPresenterInterface {
 
     // mark: USStatePickerUserInterfaceDelegate methods
 
-    func userDidTapSave(_ selectedStateNames: [String]) {
-        self.wireframe?.userDidTapSave(selectedStateNames)
+    func userDidTapSave(with selectedStateNames: [String]) {
+        wireframe?.dismiss(withSelectedStateNames: selectedStateNames)
     }
 
     func userDidTapCancel() {
-        self.wireframe?.userDidTapCancel()
+        wireframe?.dismiss(withSelectedStateNames: nil)
     }
 }

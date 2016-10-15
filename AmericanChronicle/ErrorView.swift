@@ -45,7 +45,7 @@ final class ErrorView: UIView {
         }
         addSubview(messageLabel)
         messageLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(Dimension.horizontalMargin)
+            make.top.equalTo(titleLabel.snp.bottom).offset(Dimension.horizontalMargin)
             make.leading.equalTo(Dimension.horizontalMargin)
             make.bottom.equalTo(-Dimension.verticalMargin)
             make.trailing.equalTo(-Dimension.horizontalMargin)
@@ -54,11 +54,11 @@ final class ErrorView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 }

@@ -7,15 +7,15 @@ class FakeDataRequest: DataRequestProtocol {
 
     var task: URLSessionTask? = URLSessionTask()
 
-    fileprivate var responseObjectWasCalled_withCompletionHandler: Any?
-    fileprivate var responseWasCalled_withCompletionHandler: ((NSURLRequest?, HTTPURLResponse?, NSData?, Error?) -> Void)?
+    fileprivate var responseObjectWasCalled_withCallback: Any?
+    fileprivate var responseWasCalled_withCallback: ((NSURLRequest?, HTTPURLResponse?, NSData?, Error?) -> Void)?
 
-    func responseObj<T: BaseMappable>(completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        responseObjectWasCalled_withCompletionHandler = completionHandler
+    func responseObj<T: BaseMappable>(completion: @escaping (DataResponse<T>) -> Void) -> Self {
+        responseObjectWasCalled_withCallback = completion
         return self
     }
 
-    func response(queue: DispatchQueue?, completionHandler: @escaping (DefaultDataResponse) -> Void) -> Self {
+    func response(queue: DispatchQueue?, completion: @escaping (DefaultDataResponse) -> Void) -> Self {
         return self
     }
 
@@ -25,11 +25,11 @@ class FakeDataRequest: DataRequestProtocol {
     }
 
     func finishWithResponseObject<T: Mappable>(_ responseObject: DataResponse<T>) {
-        let handler = responseObjectWasCalled_withCompletionHandler as? ((DataResponse<T>) -> Void)
+        let handler = responseObjectWasCalled_withCallback as? ((DataResponse<T>) -> Void)
         handler?(responseObject)
     }
 
     func finishWithRequest(_ request: NSURLRequest?, response: HTTPURLResponse?, data: NSData?, error: NSError?) {
-        responseWasCalled_withCompletionHandler?(request, response, data, error)
+        responseWasCalled_withCallback?(request, response, data, error)
     }
 }

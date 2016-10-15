@@ -5,22 +5,28 @@ extension NSError {
 
     enum Code: Int {
         case invalidParameter
+        case invalidRequestURL
         case duplicateRequest
         case missingBundleFile
         case allItemsLoaded
+        case cancelled = -999
     }
 
     convenience init(code: Code, message: String?) {
         var userInfo: [String: AnyObject] = [:]
         switch code {
         case .invalidParameter:
-            userInfo[NSLocalizedDescriptionKey] = "InvalidParameter" as AnyObject?
+            userInfo[NSLocalizedDescriptionKey] = "invalidParameter" as AnyObject?
+        case .invalidRequestURL:
+            userInfo[NSLocalizedDescriptionKey] = "invalidRequestURL" as AnyObject?
         case .duplicateRequest:
-            userInfo[NSLocalizedDescriptionKey] = "DuplicateRequest" as AnyObject?
+            userInfo[NSLocalizedDescriptionKey] = "duplicateRequest" as AnyObject?
         case .missingBundleFile:
-            userInfo[NSLocalizedDescriptionKey] = "MissingBundleFile" as AnyObject?
+            userInfo[NSLocalizedDescriptionKey] = "missingBundleFile" as AnyObject?
         case .allItemsLoaded:
-            userInfo[NSLocalizedDescriptionKey] = "AllItemsLoaded" as AnyObject?
+            userInfo[NSLocalizedDescriptionKey] = "allItemsLoaded" as AnyObject?
+        case .cancelled:
+            userInfo[NSLocalizedDescriptionKey] = "cancelled" as AnyObject?
         }
         userInfo[NSLocalizedRecoverySuggestionErrorKey] = message as AnyObject?
         self.init(domain: NSError.appDomain, code: code.rawValue, userInfo: userInfo)
@@ -44,6 +50,6 @@ extension NSError {
     }
 
     func isCancelledRequestError() -> Bool {
-        return (code == -999)
+        return (code == Code.cancelled.rawValue)
     }
 }

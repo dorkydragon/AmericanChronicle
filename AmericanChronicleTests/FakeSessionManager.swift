@@ -1,16 +1,15 @@
 @testable import AmericanChronicle
 import Alamofire
 
-class FakeManager: ManagerProtocol {
+class FakeSessionManager: SessionManagerProtocol {
 
-    var request_wasCalled_withURL: URLConvertible?
-    var request_wasCalled_withParameters: Parameters?
+    var beginRequest_wasCalled_withRequest: Router?
     var stubbedReturnDataRequest = FakeDataRequest()
-    func request(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?) -> DataRequestProtocol {
-            request_wasCalled_withURL = url
-            request_wasCalled_withParameters = parameters
+    func beginRequest(_ request: URLRequestConvertible) -> DataRequestProtocol {
+            beginRequest_wasCalled_withRequest = request as? Router
             return stubbedReturnDataRequest
     }
+
     var download_wasCalled_withURL: URLConvertible?
     var download_wasCalled_withParameters: [String: AnyObject]?
     var download_wasCalled_handler: (() -> Void)?

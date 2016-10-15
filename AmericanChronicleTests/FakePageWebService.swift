@@ -3,7 +3,7 @@ import ObjectMapper
 import Alamofire
 import AlamofireObjectMapper
 
-class FakePageService: PageServiceInterface {
+class FakePageWebService: PageWebServiceInterface {
 
     // mark: Test stuff
 
@@ -20,13 +20,13 @@ class FakePageService: PageServiceInterface {
         downloadPage_arguments_completionHandler?(nil, error)
     }
 
-    // mark: PageServiceInterface conformance
+    // mark: PageWebServiceInterface conformance
 
     func downloadPage(withRemoteURL remoteURL: URL,
                       contextID: String,
-                      completionHandler: @escaping (URL?, Error?) -> Void) {
+                      completion: @escaping (URL?, Error?) -> Void) {
         downloadPage_arguments_URL = remoteURL
-        downloadPage_arguments_completionHandler = completionHandler
+        downloadPage_arguments_completionHandler = completion
     }
 
     func cancelDownload(withRemoteURL remoteURL: URL, contextID: String) {

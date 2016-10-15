@@ -42,7 +42,6 @@ extension FileManager {
         let tempDirURL = NSTemporaryDirectory()
         do {
             let contents = try FileManager.default.contentsOfDirectory(atPath: tempDirURL)
-            print("contents: \(contents)")
             return contents
         } catch let error {
             print("error: \(error)")

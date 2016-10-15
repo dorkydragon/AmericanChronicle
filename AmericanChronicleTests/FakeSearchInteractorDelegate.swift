@@ -11,7 +11,7 @@ class FakeSearchInteractorDelegate: SearchInteractorDelegate {
 
     // mark: SearchInteractorDelegate conformance
 
-    func searchFor(_ parameters: SearchParameters, didFinishWithResults results: SearchResults?, error: NSError?) {
+    func search(for parameters: SearchParameters, didFinishWithResults results: SearchResults?, error: NSError?) {
         searchForTerm_didFinish_wasCalled = true
         searchForTerm_didFinish_wasCalled_withParameters = parameters
         searchForTerm_didFinish_wasCalled_withResults = results

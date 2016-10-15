@@ -4,7 +4,7 @@ class FakeSearchDataManager: SearchDataManagerInterface {
 
     var fetchMoreResults_wasCalled_withParameters: SearchParameters?
     func fetchMoreResults(_ parameters: SearchParameters,
-                          completionHandler: @escaping ((SearchResults?, NSError?) -> Void)) {
+                          completion: @escaping ((SearchResults?, NSError?) -> Void)) {
         fetchMoreResults_wasCalled_withParameters = parameters
     }
 

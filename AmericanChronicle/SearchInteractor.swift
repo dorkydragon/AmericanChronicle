@@ -13,7 +13,7 @@ protocol SearchInteractorInterface {
 // mark: SearchInteractorDelegate
 
 protocol SearchInteractorDelegate: class {
-    func searchFor(_ parameters: SearchParameters, didFinishWithResults: SearchResults?, error: NSError?)
+    func search(for parameters: SearchParameters, didFinishWithResults: SearchResults?, error: NSError?)
 }
 
 // mark: -
@@ -42,23 +42,23 @@ final class SearchInteractor: SearchInteractorInterface {
         if parameters == activeSearch?.parameters {
             if isSearchInProgress() {
                 // There is already a search in progress for these parameters.
-                let msg = "Tried to start a search that is already ongoing. Taking no action."
-                let error = NSError(code: .duplicateRequest,
-                                    message: msg)
-                self.delegate?.searchFor(parameters, didFinishWithResults: nil, error: error)
+                let msg = NSLocalizedString("Tried to start a search that is already ongoing. Taking no action.",
+                                            comment: "Tried to start a search that is already ongoing. Taking no action.")
+                let error = NSError(code: .duplicateRequest, message: msg)
+                delegate?.search(for: parameters, didFinishWithResults: nil, error: error)
                 return
             }
         }
-        // Calling cancel() on delayedSearch can sometimes trigger the completionHandler
+        // Calling cancel() on delayedSearch can sometimes trigger the completion
         // synchronously, and the delegate might then call isSearchInProgress to see if
         // it can hide the progress indicator. Wait to start this chain of events until
         // the new delayedSearch has been created.
         let oldActiveSearch = activeSearch
 
-        activeSearch = searchFactory.fetchMoreResults(parameters) { (results, error) in
-            self.delegate?.searchFor(parameters,
-                                     didFinishWithResults: results,
-                                     error: error as? NSError)
+        activeSearch = searchFactory.fetchMoreResults(parameters) { [weak self] (results, error) in
+            self?.delegate?.search(for: parameters,
+                                   didFinishWithResults: results,
+                                   error: error as? NSError)
         }
         oldActiveSearch?.cancel()
     }

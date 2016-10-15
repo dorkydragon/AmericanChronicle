@@ -9,12 +9,14 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SnapKit (3.0.1)
+  - SwiftyBeaver (1.0.3)
 
 DEPENDENCIES:
   - AlamofireObjectMapper
   - DynamicColor
   - SDWebImage
   - SnapKit
+  - SwiftyBeaver
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
@@ -23,7 +25,8 @@ SPEC CHECKSUMS:
   ObjectMapper: aed2570edabbd3c9b26c939e1cabdb6558f933e0
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SnapKit: f818b8326d45b4e1c777d0ab27b5c0a3624bfdeb
+  SwiftyBeaver: e42a664ffbdb5ec68ce968ffd3c54f619c92e0d7
 
-PODFILE CHECKSUM: d140a89fac6261a19d35ee1c070a9e0c99f4e0e5
+PODFILE CHECKSUM: ad27966aa062e880741492867e80692dc34a638b
 
 COCOAPODS: 1.0.0

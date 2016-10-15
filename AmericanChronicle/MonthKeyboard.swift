@@ -45,12 +45,12 @@ final class MonthKeyboard: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 
     func didTapButton(_ button: UIButton) {
@@ -61,7 +61,7 @@ final class MonthKeyboard: UIView {
 
     class func newButtonWithTitle(_ title: String) -> UIButton {
 
-        let selectedBgColor = AMCColor.lightBlueBright
+        let selectedBgColor = AMCColor.brightBlue
         let normalBgColor = UIColor.white
 
         let button = UIButton()
@@ -72,7 +72,7 @@ final class MonthKeyboard: UIView {
         button.layer.shadowRadius = 0.5
         button.layer.shadowOpacity = 0.4
 
-        button.setTitleColor(AMCColor.darkBlue, for: .normal)
+        button.setTitleColor(AMCColor.darkGray, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
         button.setTitleColor(UIColor.white, for: .selected)
         if title == "" {

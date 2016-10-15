@@ -3,8 +3,7 @@
 
 protocol USStatePickerWireframeInterface: class {
     func present(from: UIViewController?, withSelectedStateNames: [String])
-    func userDidTapSave(_ selectedItems: [String])
-    func userDidTapCancel()
+    func dismiss(withSelectedStateNames: [String]?)
 }
 
 // mark: -
@@ -59,16 +58,13 @@ final class USStatePickerWireframe: NSObject,
 
     }
 
-    func userDidTapSave(_ selectedItems: [String]) {
-        delegate?.usStatePickerWireframe(self, didSaveFilteredUSStateNames: selectedItems)
-        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: {
-            self.delegate?.usStatePickerWireframeDidFinish(self)
-        })
-    }
-
-    func userDidTapCancel() {
-        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: {
-            self.delegate?.usStatePickerWireframeDidFinish(self)
+    func dismiss(withSelectedStateNames selectedStateNames: [String]?) {
+        if let selectedItems = selectedStateNames {
+            delegate?.usStatePickerWireframe(self, didSaveFilteredUSStateNames: selectedItems)
+        }
+        presentedViewController?.presentingViewController?.dismiss(animated: true, completion: { [weak self] in
+            guard let weakSelf = self else { return }
+            weakSelf.delegate?.usStatePickerWireframeDidFinish(weakSelf)
         })
     }
 

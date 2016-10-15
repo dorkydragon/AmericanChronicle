@@ -14,12 +14,11 @@ final class FakePageWireframe: PageWireframeInterface {
                  withSearchTerm searchTerm: String?,
                  remoteURL: URL,
                  id: String) {
-
     }
 
     func showShareScreen(withImage image: UIImage?) {}
 
-    func dismissPageScreen() {
+    func dismiss() {
         dismissPageScreen_wasCalled = true
     }
 }

@@ -5,16 +5,16 @@ class FakeDelayedSearch: DelayedSearchInterface {
     // mark: Properties
 
     var parameters: SearchParameters
-    fileprivate let completionHandler: ((SearchResults?, Error?) -> ())
+    fileprivate let completion: ((SearchResults?, Error?) -> ())
 
     // mark: DelayedSearchInterface methods
 
     required init(parameters: SearchParameters,
                   dataManager: SearchDataManagerInterface,
                   runLoop: RunLoopInterface,
-                  completionHandler: @escaping ((SearchResults?, Error?) -> ())) {
+                  completion: @escaping ((SearchResults?, Error?) -> ())) {
         self.parameters = parameters
-        self.completionHandler = completionHandler
+        self.completion = completion
     }
 
     var cancel_wasCalled = false
@@ -30,6 +30,6 @@ class FakeDelayedSearch: DelayedSearchInterface {
     }
 
     func finishRequestWithSearchResults(_ results: SearchResults?, error: Error?) {
-        completionHandler(results, error)
+        completion(results, error)
     }
 }

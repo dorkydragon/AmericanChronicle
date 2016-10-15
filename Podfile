@@ -11,6 +11,7 @@ target 'AmericanChronicle' do
 	pod 'AlamofireObjectMapper'
 	pod 'SDWebImage'
 	pod 'DynamicColor'
+	pod 'SwiftyBeaver'
 
 	target 'AmericanChronicleTests' do
 		inherit! :search_paths

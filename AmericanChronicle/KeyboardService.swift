@@ -11,7 +11,7 @@
 /// keyboard frame changes), provide a handler w/ a unique ID. For
 /// example:
 ///
-///     fileprivate let uniqueID = "abcd"
+///     private let uniqueID = "abcd"
 ///     override init(...) {
 ///         super.init(...)
 ///         KeyboardService.sharedInstance.addFrameChangeHandler(id: uniqueID) { frame in

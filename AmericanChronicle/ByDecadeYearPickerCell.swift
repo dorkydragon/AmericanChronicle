@@ -55,19 +55,19 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
         self.commonInit()
     }
 
-    fileprivate func updateFormat() {
-        if self.isHighlighted {
-            insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.lightBlueBright,
+    private func updateFormat() {
+        if isHighlighted {
+            insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.brightBlue,
                                                                    cornerRadius: 1.0)
-            self.label.textColor = UIColor.white
-        } else if self.isSelected {
-            insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.lightBlueBright,
+           label.textColor = UIColor.white
+        } else if isSelected {
+            insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.brightBlue,
                                                                    cornerRadius: 1.0)
-            self.label.textColor = UIColor.white
+            label.textColor = UIColor.white
         } else {
             insetBackgroundView.image = UIImage.imageWithFillColor(UIColor.white,
                                                                    cornerRadius: 1.0)
-            self.label.textColor = AMCColor.darkBlue
+            label.textColor = AMCColor.darkGray
         }
     }
 }

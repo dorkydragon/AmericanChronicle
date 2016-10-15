@@ -1,6 +1,6 @@
 @testable import AmericanChronicle
 
-class FakeCachedPageService: CachedPageServiceInterface {
+class FakePageCacheService: PageCacheServiceInterface {
     var stubbed_fileURL: URL?
     func fileURLForRemoteURL(_ remoteURL: URL) -> URL? {
         return stubbed_fileURL
