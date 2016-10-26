@@ -5,6 +5,8 @@ final class PagedKeyboard: UIView {
     fileprivate let scrollView = UIScrollView()
     fileprivate let contentView = UIView()
 
+    // mark: Init methods
+
     init(pages: [UIView]) {
         self.pages = pages
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 240))
@@ -17,6 +19,7 @@ final class PagedKeyboard: UIView {
             make.trailing.equalTo(0)
             make.height.equalTo(1.0/UIScreen.main.nativeScale)
         }
+
         scrollView.isScrollEnabled = false
         addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
@@ -63,8 +66,16 @@ final class PagedKeyboard: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setVisiblePage(_ pageIndex: Int, animated: Bool) {
+    // mark: Internal methods
+
+    func show(pageIndex: Int, animated: Bool) {
         let x = CGFloat(pageIndex) * (frame.size.width - 24)
         scrollView.setContentOffset(CGPoint(x: x, y: 0), animated: animated)
     }
+
+    func show(page: UIView, animated: Bool) {
+        guard let pageIndex = pages.index(of: page) else { return }
+        show(pageIndex: pageIndex, animated: animated)
+    }
+
 }

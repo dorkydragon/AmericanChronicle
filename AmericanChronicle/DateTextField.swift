@@ -1,5 +1,11 @@
+enum DateTextFieldSegment {
+    case day
+    case month
+    case year
+}
+
 protocol DateTextFieldDelegate: class {
-    func selectedDayMonthYearDidChange(_ selectedDayMonthYear: DayMonthYear?)
+    func selectedSegmentDidChange(to: DateTextFieldSegment)
 }
 
 final class DateTextField: UIView, UITextFieldDelegate {
@@ -10,21 +16,11 @@ final class DateTextField: UIView, UITextFieldDelegate {
     var selectedDayMonthYear: DayMonthYear? {
         didSet {
             // components month is 1-based.
-            monthKeyboard.selectedMonth = selectedDayMonthYear?.month
             monthField.value = selectedDayMonthYear?.monthSymbol
-
-            dayKeyboard.selectedDayMonthYear = selectedDayMonthYear
             dayField.value = (selectedDayMonthYear != nil) ? "\(selectedDayMonthYear!.day)" : ""
-
-            yearPicker.selectedYear = selectedDayMonthYear?.year
             yearField.value = (selectedDayMonthYear != nil) ? "\(selectedDayMonthYear!.year)" : ""
         }
     }
-
-    fileprivate let pagedKeyboard: PagedKeyboard
-    fileprivate let monthKeyboard = MonthKeyboard()
-    fileprivate let dayKeyboard = DayKeyboard()
-    fileprivate let yearPicker = ByDecadeYearPicker()
 
     fileprivate let monthField = RestrictedInputField(title: NSLocalizedString("Month", comment: "Month"))
     fileprivate let dayField = RestrictedInputField(title: NSLocalizedString("Day", comment: "Day of month"))
@@ -44,13 +40,10 @@ final class DateTextField: UIView, UITextFieldDelegate {
 
     func commonInit() {
 
-        monthKeyboard.autoresizingMask = .flexibleHeight
-        monthKeyboard.monthTapHandler = monthValueChanged
-
-        monthField.inputView = pagedKeyboard
         monthField.didBecomeActiveHandler = { [weak self] in
             guard let monthField = self?.monthField else { return }
             self?.highlightField(monthField)
+            self?.delegate?.selectedSegmentDidChange(to: .month)
         }
         addSubview(monthField)
         monthField.snp.makeConstraints { make in
@@ -58,31 +51,22 @@ final class DateTextField: UIView, UITextFieldDelegate {
             make.top.equalTo(0)
         }
 
-        dayKeyboard.autoresizingMask = .flexibleHeight
-        dayKeyboard.dayTapHandler = dayValueChanged
-
-        dayField.inputView = pagedKeyboard
         dayField.didBecomeActiveHandler = { [weak self] in
             guard let dayField = self?.dayField else { return }
             self?.highlightField(dayField)
+            self?.delegate?.selectedSegmentDidChange(to: .day)
         }
         addSubview(dayField)
         dayField.snp.makeConstraints { make in
-            make.leading.equalTo(monthField.snp.trailing)
-                .offset(Dimension.horizontalSiblingSpacing)
+            make.leading.equalTo(monthField.snp.trailing).offset(Dimension.horizontalSiblingSpacing)
             make.top.equalTo(0)
             make.width.equalTo(monthField.snp.width)
         }
 
-        yearPicker.earliestYear = Search.earliestPossibleDayMonthYear.year
-        yearPicker.latestYear = Search.latestPossibleDayMonthYear.year
-        yearPicker.autoresizingMask = .flexibleHeight
-        yearPicker.yearTapHandler = yearValueChanged
-
-        yearField.inputView = pagedKeyboard
         yearField.didBecomeActiveHandler = { [weak self] in
             guard let yearField = self?.yearField else { return }
             self?.highlightField(yearField)
+            self?.delegate?.selectedSegmentDidChange(to: .year)
         }
         addSubview(yearField)
         yearField.snp.makeConstraints { make in
@@ -110,32 +94,13 @@ final class DateTextField: UIView, UITextFieldDelegate {
     }
 
     override init(frame: CGRect) {
-        pagedKeyboard = PagedKeyboard(pages: [monthKeyboard, dayKeyboard, yearPicker])
         super.init(frame: frame)
         commonInit()
     }
 
     required init?(coder: NSCoder) {
-        pagedKeyboard = PagedKeyboard(pages: [monthKeyboard, dayKeyboard, yearPicker])
         super.init(coder: coder)
         commonInit()
-    }
-
-    // mark: Internal methods
-
-    func monthValueChanged(_ value: Int) {
-        selectedDayMonthYear = selectedDayMonthYear?.copyWithMonth(value)
-        delegate?.selectedDayMonthYearDidChange(selectedDayMonthYear)
-    }
-
-    func dayValueChanged(_ value: String) {
-        selectedDayMonthYear = selectedDayMonthYear?.copyWithDay(Int(value) ?? 0)
-        delegate?.selectedDayMonthYearDidChange(selectedDayMonthYear)
-    }
-
-    func yearValueChanged(_ value: String) {
-        selectedDayMonthYear = selectedDayMonthYear?.copyWithYear(Int(value) ?? 0)
-        delegate?.selectedDayMonthYearDidChange(selectedDayMonthYear)
     }
 
     // mark: Private methods
@@ -147,10 +112,8 @@ final class DateTextField: UIView, UITextFieldDelegate {
             make.leading.equalTo(field.snp.leading)
             make.width.equalTo(field.snp.width)
         }
-        let pageIndex = [monthField, dayField, yearField].index(of: field)!
         UIView.animate(withDuration: 0.1, animations: {
             self.layoutIfNeeded()
-            self.pagedKeyboard.setVisiblePage(pageIndex, animated: false)
         })
     }
 
