@@ -3,33 +3,45 @@ import XCTest
 import Alamofire
 import ObjectMapper
 
-class PageServiceTests: XCTestCase {
+class PageWebServiceTests: XCTestCase {
 
-    var subject: PageService!
+    var subject: PageWebService!
     var manager: FakeManager!
+
+    // mark: Setup and Teardown
 
     override func setUp() {
 
         super.setUp()
         manager = FakeManager()
-        subject = PageService(manager: manager)
+        subject = PageWebService(manager: manager)
     }
 
     override func tearDown() {
         super.tearDown()
     }
 
+    // mark: Tests
+
     func testThat_whenNewDownloadIsRequested_itStartsTheDownload() {
+
+        // when
+
         let expectation = expectationWithDescription("download_was_called")
         manager.download_wasCalled_handler = {
             expectation.fulfill()
         }
         subject.downloadPage(URL(string: "http://notarealurl.com")!, contextID: "") { _, _ in }
         waitForExpectationsWithTimeout(0.2, handler: nil)
+
+        // then
+
         XCTAssertEqual(manager.download_wasCalled_withURLString?.URLString, "http://notarealurl.com")
     }
 
     func testThat_whenAnOngoingDownloadIsRequested_itDoesNotStartTheDownload() {
+
+        // given
 
         let URL = URL(string: "http://notarealurl.com")!
 
@@ -42,6 +54,8 @@ class PageServiceTests: XCTestCase {
         }
         subject.downloadPage(URL, contextID: contextA) { _, _ in }
         waitForExpectationsWithTimeout(0.2, handler: nil)
+
+        // when
 
         // Make the second request, which doesn't start a download.
         let contextB = "contextB"
@@ -58,15 +72,24 @@ class PageServiceTests: XCTestCase {
 
         subject.downloadPage(URL, contextID: contextB) { _, _ in }
         waitForExpectationsWithTimeout(0.2, handler: nil)
+
+        // then
+
         XCTAssertFalse(downloadWasCalled)
     }
 
     func testThat_whenAnOngoingDownloadIsRequested_andTheProvidedContextIDIsAlreadyRecorded_itReturnsAnError() {
+
+        // given
+
         let URL = URL(string: "http://notarealurl.com")!
 
         // Make the first request.
+
         let contextA = "contextA"
         subject.downloadPage(URL, contextID: contextA) { _, _ in }
+
+        // when
 
         // Make the second request, which returns an error.
 
@@ -80,13 +103,21 @@ class PageServiceTests: XCTestCase {
             returnedError = err as? NSError
         }
         waitForExpectationsWithTimeout(0.2, handler: nil)
+
+        // then
+
         XCTAssertNotNil(returnedError)
     }
 
     func testThat_whenAnOngoingDownloadIsRequested_andTheProvidedContextIDIsNotAlreadyRecorded_itDoesNotReturnAnError() {
+
+        // given
+
         let URLString = "http://notarealurl.com"
         let contextID = "abcd-efgh"
         subject.downloadPage(URL(string: URLString)!, contextID: contextID) { _, _ in }
+
+        // when
 
         let expectation = expectationWithDescription("completionHandler_wasCalled")
         var error: NSError? = nil
@@ -95,10 +126,16 @@ class PageServiceTests: XCTestCase {
             expectation.fulfill()
         }
         waitForExpectationsWithTimeout(0.1, handler: nil)
+
+        // then
+
         XCTAssertNotNil(error)
     }
 
     func testThat_whenADownloadSucceeds_itTriggersTheHandlersThatRequestedTheDownload() {
+
+        // given
+
         let URLString = "http://notarealurl.com"
 
         var URLOne: URL?
@@ -116,6 +153,8 @@ class PageServiceTests: XCTestCase {
             URLThree = results
         }
 
+        // when
+
         let expectSubjectGroupToEmpty = expectationWithDescription("empty_subject_group")
         dispatch_group_notify(subject.group, dispatch_get_main_queue()) {
             expectSubjectGroupToEmpty.fulfill()
@@ -124,11 +163,16 @@ class PageServiceTests: XCTestCase {
 
         manager.stubbedReturnValue.finishWithRequest(nil, response: nil, data: nil, error: nil)
 
+        // then
+
         XCTAssertEqual(URLOne, URLTwo)
         XCTAssertEqual(URLTwo, URLThree)
     }
 
     func testThat_whenADownloadFails_itTriggersTheHandlersThatRequestedTheDownload() {
+
+        // given
+
         let URLString = "http://notarealurl.com"
 
         var errorOne: NSError?
@@ -146,12 +190,16 @@ class PageServiceTests: XCTestCase {
             errorThree = err as? NSError
         }
 
+        // when
+
         let expectSubjectGroupToEmpty = expectationWithDescription("empty_subject_group")
         dispatch_group_notify(subject.group, dispatch_get_main_queue()) {
             expectSubjectGroupToEmpty.fulfill()
         }
         waitForExpectationsWithTimeout(0.1, handler: nil)
         manager.stubbedReturnValue.finishWithRequest(nil, response: nil, data: nil, error: NSError(code: .InvalidParameter, message: ""))
+
+        // then
 
         XCTAssertEqual(errorOne, errorTwo)
         XCTAssertEqual(errorTwo, errorThree)

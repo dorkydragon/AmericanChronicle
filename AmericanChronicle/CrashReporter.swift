@@ -1,8 +1,8 @@
 import Fabric
 import Crashlytics
 
-struct Reporter {
-    static let sharedInstance = Reporter()
+struct CrashReporter {
+    static let sharedInstance = CrashReporter()
     func applicationDidFinishLaunching() {
         Fabric.with([Crashlytics.self])
     }

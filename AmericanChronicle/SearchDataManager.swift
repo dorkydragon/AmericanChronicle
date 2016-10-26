@@ -3,7 +3,7 @@
 
 protocol SearchDataManagerInterface {
     func fetchMoreResults(_ parameters: SearchParameters,
-                          completionHandler: @escaping ((SearchResults?, NSError?) -> Void))
+                          completion: @escaping ((SearchResults?, NSError?) -> Void))
     func cancelFetch(_ parameters: SearchParameters)
     func isFetchInProgress(_ parameters: SearchParameters) -> Bool
 }
@@ -15,26 +15,26 @@ final class SearchDataManager: SearchDataManagerInterface {
 
     // mark: Properties
 
-    let webService: SearchPagesServiceInterface
-    let cacheService: CachedSearchResultsServiceInterface
+    let webService: SearchPagesWebServiceInterface
+    let cacheService: SearchPagesCacheServiceInterface
 
     fileprivate var contextID: String { return "\(Unmanaged.passUnretained(self).toOpaque())" }
 
     // mark: Init methods
 
-    init(webService: SearchPagesServiceInterface = SearchPagesService(),
-         cacheService: CachedSearchResultsServiceInterface = CachedSearchResultsService()) {
+    init(webService: SearchPagesWebServiceInterface = SearchPagesWebService(),
+         cacheService: SearchPagesCacheServiceInterface = SearchPagesCacheService()) {
         self.webService = webService
         self.cacheService = cacheService
     }
 
     // mark: SearchDataManagerInterface methods
 
-    internal func fetchMoreResults(_ parameters: SearchParameters, completionHandler: @escaping ((SearchResults?, NSError?) -> Void)) {
+    internal func fetchMoreResults(_ parameters: SearchParameters, completion: @escaping ((SearchResults?, NSError?) -> Void)) {
         let page: Int
         if let cachedResults = cacheService.resultsForParameters(parameters) {
             guard !cachedResults.allItemsLoaded else {
-                completionHandler(nil, NSError(code: .allItemsLoaded, message: nil))
+                completion(nil, NSError(code: .allItemsLoaded, message: nil))
                 return
             }
             page = cachedResults.numLoadedPages + 1
@@ -42,10 +42,10 @@ final class SearchDataManager: SearchDataManagerInterface {
             page = 1
         }
 
-        webService.startSearch(parameters,
+        webService.startSearch(with: parameters,
                                page: page,
                                contextID: contextID,
-                               completionHandler: { results, error in
+                               completion: { results, error in
             let allResults: SearchResults?
             if let results = results {
                 if let cachedResults = self.cacheService.resultsForParameters(parameters) {
@@ -58,7 +58,7 @@ final class SearchDataManager: SearchDataManagerInterface {
             } else {
                 allResults = nil
             }
-            completionHandler(allResults, error as? NSError)
+            completion(allResults, error as? NSError)
         })
     }
 

@@ -87,7 +87,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
     // mark: UITextFieldDelegate methods
 
     @objc func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.didBecomeActiveHandler?()
+        didBecomeActiveHandler?()
         return true
     }
 

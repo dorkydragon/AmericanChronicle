@@ -18,6 +18,6 @@ class FakeUSStatePickerPresenter: USStatePickerPresenterInterface {
 
     // mark: USStatePickerUserInterfaceDelegate conformance
 
-    func userDidTapSave(_ selectedStateNames: [String]) {}
+    func userDidTapSave(with selectedStateNames: [String]) {}
     func userDidTapCancel() {}
 }

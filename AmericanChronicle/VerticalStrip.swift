@@ -40,8 +40,8 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
     }
 
     fileprivate let upButton: UIButton = {
-        let arrowImage = UIImage.upArrowWithFillColor(AMCColor.lightBlueBright)
-        let button = VerticalStrip.newButtonWithImage(arrowImage, accessibilityLabel: "Up one page")
+        let arrowImage = UIImage.upArrowWithFillColor(AMCColor.brightBlue)
+        let button = VerticalStrip.newButtonWithImage(arrowImage, accessibilityLabel: NSLocalizedString("Up one page", comment: "Up one page"))
         return button
     }()
 
@@ -53,8 +53,8 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
     }()
 
     fileprivate let downButton: UIButton = {
-        let arrowImage = UIImage.downArrowWithFillColor(AMCColor.lightBlueBright)
-        let button = VerticalStrip.newButtonWithImage(arrowImage, accessibilityLabel: "Down one page")
+        let arrowImage = UIImage.downArrowWithFillColor(AMCColor.brightBlue)
+        let button = VerticalStrip.newButtonWithImage(arrowImage, accessibilityLabel: NSLocalizedString("Down one page", comment: "Down one page"))
         return button
     }()
 
@@ -117,12 +117,12 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 
     // mark: Internal methods

@@ -31,11 +31,11 @@ final class EmptyResultsView: UIView {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 }

@@ -2,7 +2,7 @@
 // mark: DatePickerUserInterface
 
 protocol DatePickerUserInterface {
-    var delegate: DatePickerUserInterfaceDelegate? { get set }
+    weak var delegate: DatePickerUserInterfaceDelegate? { get set }
     var selectedDayMonthYear: DayMonthYear { get set }
     var title: String? { get set }
 }
@@ -11,7 +11,7 @@ protocol DatePickerUserInterface {
 // mark: DatePickerUserInterfaceDelegate
 
 protocol DatePickerUserInterfaceDelegate: class {
-    func userDidSave(_ dayMonthYear: DayMonthYear)
+    func userDidSave(with dayMonthYear: DayMonthYear)
     func userDidCancel()
 }
 
@@ -42,10 +42,10 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
 
         super.init(nibName: nil, bundle: nil)
 
-        navigationItem.setLeftButtonTitle("Cancel",
+        navigationItem.setLeftButtonTitle(NSLocalizedString("Cancel", comment: "Cancel input"),
                                           target: self,
                                           action: #selector(didTapCancelButton(_:)))
-        navigationItem.setRightButtonTitle("Save",
+        navigationItem.setRightButtonTitle(NSLocalizedString("Save", comment: "Save input"),
                                            target: self,
                                            action: #selector(didTapSaveButton(_:)))
     }
@@ -68,7 +68,7 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
     // mark: Internal methods
 
     func didTapSaveButton(_ sender: UIBarButtonItem) {
-        delegate?.userDidSave(selectedDayMonthYear)
+        delegate?.userDidSave(with: selectedDayMonthYear)
     }
 
     func didTapCancelButton(_ sender: UIBarButtonItem) {

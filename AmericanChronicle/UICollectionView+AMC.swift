@@ -1,5 +1,3 @@
-import Foundation
-
 extension UICollectionView {
 
     var headerPaths: [IndexPath] {
@@ -13,7 +11,7 @@ extension UICollectionView {
     var minVisibleHeaderY: CGFloat? {
         guard let path = lastVisibleHeaderPath else { return nil }
         let header = headerAtIndexPath(path)
-        return header.frame.origin.y - self.contentOffset.y
+        return header.frame.origin.y - contentOffset.y
     }
 
     func headerAtIndexPath(_ indexPath: IndexPath) -> UICollectionReusableView {

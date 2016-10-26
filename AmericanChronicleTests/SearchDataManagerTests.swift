@@ -3,29 +3,42 @@ import XCTest
 
 class SearchDataManagerTests: XCTestCase {
 
-    var webService: FakeSearchPagesService!
-    var cacheService: FakeCachedSearchResultsService!
+    var webService: FakeSearchPagesWebService!
+    var cacheService: FakeSearchPagesCacheService!
     var subject: SearchDataManager!
+
+    // mark: Setup and Teardown
 
     override func setUp() {
         super.setUp()
-        webService = FakeSearchPagesService()
-        cacheService = FakeCachedSearchResultsService()
+        webService = FakeSearchPagesWebService()
+        cacheService = FakeSearchPagesCacheService()
         subject = SearchDataManager(webService: webService, cacheService: cacheService)
     }
 
+    // mark: Tests
+
     func testThat_whenFetchMoreResultsIsCalled_itStartsAServiceSearch_withTheSameParameters() {
+
+        // when
+
         let params = SearchParameters(
             term: "Jibberish",
             states: ["Alabama", "Colorado"],
             earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
-        subject.fetchMoreResults(params, completionHandler: { _, _ in })
+        subject.fetchMoreResults(params, completion: { _, _ in })
+
+        // then
+
         XCTAssertEqual(webService.startSearch_wasCalled_withParameters, params)
     }
 
     func testThat_whenFetchMoreResultsIsCalled_andNoResultsHaveBeenCached_itStartsAServiceSearch_forTheFirstPage() {
+
+        // given
+
         let params = SearchParameters(
             term: "Jibberish",
             states: ["Alabama", "Colorado"],
@@ -33,11 +46,20 @@ class SearchDataManagerTests: XCTestCase {
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
         cacheService.resultsForParameters_stubbedReturnValue = nil
-        subject.fetchMoreResults(params, completionHandler: { _, _ in })
+
+        // when
+
+        subject.fetchMoreResults(params, completion: { _, _ in })
+
+        // then
+
         XCTAssertEqual(webService.startSearch_wasCalled_withPage, 1)
     }
 
     func testThat_whenFetchMoreResultsIsCalled_andResultsHaveBeenCached_andMorePagesAreAvailable_itStartsAServiceSearch_forTheNextPage() {
+
+        // given
+
         let params = SearchParameters(
             term: "Jibberish",
             states: ["Alabama", "Colorado"],
@@ -45,11 +67,20 @@ class SearchDataManagerTests: XCTestCase {
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
         cacheService.resultsForParameters_stubbedReturnValue = searchResultsWithItemCount(40, totalItemCount: 50)
-        subject.fetchMoreResults(params, completionHandler: { _, _ in })
+
+        // when
+
+        subject.fetchMoreResults(params, completion: { _, _ in })
+
+        // then
+
         XCTAssertEqual(webService.startSearch_wasCalled_withPage, 3)
     }
 
     func testThat_whenFetchMoreResultsIsCalled_andResultsHaveBeenCached_andNoMorePagesAreAvailable_itFailsImmediately_withAnInvalidParameterError() {
+
+        // given
+
         let params = SearchParameters(
             term: "Jibberish",
             states: ["Alabama", "Colorado"],
@@ -57,10 +88,16 @@ class SearchDataManagerTests: XCTestCase {
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
         cacheService.resultsForParameters_stubbedReturnValue = searchResultsWithItemCount(50, totalItemCount: 50)
+
+        // when
+
         var returnedError: NSError?
-        subject.fetchMoreResults(params, completionHandler: { _, error in
+        subject.fetchMoreResults(params, completion: { _, error in
             returnedError = error
         })
+
+        // then
+
         XCTAssert(returnedError!.isAllItemsLoadedError())
     }
 
@@ -74,7 +111,7 @@ class SearchDataManagerTests: XCTestCase {
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
         cacheService.resultsForParameters_stubbedReturnValue = searchResultsWithItemCount(50, totalItemCount: 50)
-        subject.fetchMoreResults(params, completionHandler: { _, _ in })
+        subject.fetchMoreResults(params, completion: { _, _ in })
         XCTAssertNil(webService.startSearch_wasCalled_withParameters)
     }
 
@@ -168,7 +205,7 @@ class SearchDataManagerTests: XCTestCase {
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
         var searchResults: SearchResults?
-        subject.fetchMoreResults(params, completionHandler: { results, _ in
+        subject.fetchMoreResults(params, completion: { results, _ in
             searchResults = results
         })
         let mockResults = SearchResults()
@@ -184,7 +221,7 @@ class SearchDataManagerTests: XCTestCase {
             latestDayMonthYear: Search.latestPossibleDayMonthYear
         )
         var searchError: NSError?
-        subject.fetchMoreResults(params, completionHandler: { _, error in
+        subject.fetchMoreResults(params, completion: { _, error in
             searchError = error
         })
         let mockError = NSError(domain: "", code: 0, userInfo: nil)

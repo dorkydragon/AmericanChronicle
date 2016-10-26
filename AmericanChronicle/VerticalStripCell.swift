@@ -8,7 +8,7 @@ final class VerticalStripCell: UICollectionViewCell {
     fileprivate let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = AMCColor.darkBlue
+        label.textColor = AMCColor.darkGray
         label.font = AMCFont.largeRegular
         return label
     }()
@@ -22,11 +22,11 @@ final class VerticalStripCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 }

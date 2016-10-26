@@ -15,11 +15,11 @@ extension UINavigationBar {
 extension UIBarButtonItem {
     class func applyAppearance() {
         var attributes: [String: AnyObject] = [:]
-        attributes[NSForegroundColorAttributeName] = AMCColor.lightBlueBright
+        attributes[NSForegroundColorAttributeName] = AMCColor.brightBlue
         attributes[NSFontAttributeName] = AMCFont.mediumRegular
         appearance().setTitleTextAttributes(attributes, for: UIControlState())
 
-        attributes[NSForegroundColorAttributeName] = AMCColor.lightBlueDull
+        attributes[NSForegroundColorAttributeName] = AMCColor.robinBlue
         attributes[NSFontAttributeName] = AMCFont.mediumRegular
         appearance().setTitleTextAttributes(attributes, for: .highlighted)
     }
@@ -27,7 +27,7 @@ extension UIBarButtonItem {
 
 extension UIActivityIndicatorView {
     class func applyAppearance() {
-        appearance().color = AMCColor.lightBlueBright
+        appearance().color = AMCColor.brightBlue
     }
 }
 

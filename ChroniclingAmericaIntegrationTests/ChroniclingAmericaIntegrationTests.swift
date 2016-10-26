@@ -19,20 +19,20 @@ class ChroniclingAmericaIntegrationTests: XCTestCase {
     }
 
     func testThat_searchPages_returnsExpectedResults() {
-        let expectation = self.expectationWithDescription("Search finished")
+        let expectation = expectationWithDescription("Search finished")
         var searchResults: SearchResults?
-        let service = SearchPagesService()
+        let service = SearchPagesWebService()
         let earliestDayMonthYear = DayMonthYear(day: 1, month: 1, year: 1836)
         let latestDayMonthYear = DayMonthYear(day: 31, month: 12, year: 1846)
         let params = SearchParameters(term: "peterson",
                                       states: ["South Carolina", "Missouri"],
                                       earliestDayMonthYear: earliestDayMonthYear,
                                       latestDayMonthYear: latestDayMonthYear)
-        service.startSearch(params, page: 1, contextID: "", completionHandler: { results, error in
+        service.startSearch(params, page: 1, contextID: "", completion: { results, error in
             searchResults = results
             expectation.fulfill()
         })
-        self.waitForExpectationsWithTimeout(10.0, handler: nil)
+        waitForExpectationsWithTimeout(10.0, handler: nil)
 
         XCTAssertNotNil(searchResults)
 

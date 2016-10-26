@@ -1,6 +1,6 @@
 @testable import AmericanChronicle
 
-class FakeCachedSearchResultsService: CachedSearchResultsServiceInterface {
+class FakeSearchPagesCacheService: SearchPagesCacheServiceInterface {
     var resultsForParameters_stubbedReturnValue: SearchResults?
     func resultsForParameters(_ parameters: SearchParameters) -> SearchResults? {
         return resultsForParameters_stubbedReturnValue

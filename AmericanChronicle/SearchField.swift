@@ -33,13 +33,14 @@ final class SearchField: UIView, UITextFieldDelegate {
         searchIcon.contentMode = .center
         textField.leftView = searchIcon
         textField.leftViewMode = .always
-        textField.placeholder = "Search all Newspapers"
+        textField.placeholder = NSLocalizedString("Search all Newspapers",
+                                                  comment: "Search all Newspapers")
         textField.font = AMCFont.largeRegular
         textField.autocapitalizationType = .none
         textField.clearButtonMode = .whileEditing
         textField.autocorrectionType = .no
         textField.returnKeyType = .search
-        textField.tintColor = AMCColor.lightBlueBright
+        textField.tintColor = AMCColor.brightBlue
         textField.textColor = AMCColor.darkGray
         textField.snp.makeConstraints { make in
             make.leading.equalTo(12.0)
@@ -49,7 +50,7 @@ final class SearchField: UIView, UITextFieldDelegate {
         }
 
         let bottomBorder = UIView()
-        bottomBorder.backgroundColor = AMCColor.offWhite
+        bottomBorder.backgroundColor = AMCColor.lightGray
         addSubview(bottomBorder)
         bottomBorder.snp.makeConstraints { make in
             make.bottom.equalTo(0)
@@ -62,13 +63,13 @@ final class SearchField: UIView, UITextFieldDelegate {
     required init?(coder: NSCoder) {
         textField = UITextField()
         super.init(coder: coder)
-        self.commonInit()
+        commonInit()
     }
 
     override init(frame: CGRect) {
         textField = UITextField()
         super.init(frame: frame)
-        self.commonInit()
+        commonInit()
     }
 
     // mark: UIView overrides

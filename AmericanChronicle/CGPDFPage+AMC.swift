@@ -1,6 +1,6 @@
 extension CGPDFPage {
     var mediaBoxRect: CGRect {
-        return self.getBoxRect(.mediaBox)
+        return getBoxRect(.mediaBox)
     }
 
     func drawInContext(_ ctx: CGContext,
@@ -14,7 +14,7 @@ extension CGPDFPage {
         ctx.scaleBy(x: 1.0, y: -1.0)
 
         // Scale the context so that the PDF page is drawn to fill the view exactly.
-        let pdfSize = self.getBoxRect(.mediaBox).size
+        let pdfSize = getBoxRect(.mediaBox).size
         let widthScale = boundingRect.size.width/pdfSize.width
         let heightScale = boundingRect.size.height/pdfSize.height
         let smallerScale = fmin(widthScale, heightScale)

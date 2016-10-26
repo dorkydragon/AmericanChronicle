@@ -11,7 +11,7 @@ protocol USStatePickerUserInterface {
 // mark: USStatePickerUserInterfaceDelegate protocol
 
 protocol USStatePickerUserInterfaceDelegate: class {
-    func userDidTapSave(_ selectedStateNames: [String])
+    func userDidTapSave(with selectedStateNames: [String])
     func userDidTapCancel()
 }
 
@@ -28,9 +28,13 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
     // mark: Init methods
 
     func commonInit() {
-        navigationItem.title = "U.S. States"
-        navigationItem.setLeftButtonTitle("Cancel", target: self, action: #selector(didTapCancelButton(_:)))
-        navigationItem.setRightButtonTitle("Save", target: self, action: #selector(didTapSaveButton(_:)))
+        navigationItem.title = NSLocalizedString("U.S. States", comment: "U.S. States")
+        navigationItem.setLeftButtonTitle(NSLocalizedString("Cancel", comment: "Cancel input"),
+                                          target: self,
+                                          action: #selector(didTapCancelButton(_:)))
+        navigationItem.setRightButtonTitle(NSLocalizedString("Save", comment: "Save input"),
+                                           target: self,
+                                           action: #selector(didTapSaveButton(_:)))
     }
 
     convenience init() {
@@ -68,7 +72,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
     func didTapSaveButton(_ sender: UIButton) {
         let selectedIndexPaths = collectionView?.indexPathsForSelectedItems ?? []
         let selectedStateNames = selectedIndexPaths.map { self.stateNames[($0 as NSIndexPath).item] }
-        delegate?.userDidTapSave(selectedStateNames)
+        delegate?.userDidTapSave(with: selectedStateNames)
     }
 
     // mark: UICollectionViewDelegateFlowLayout methods
@@ -110,7 +114,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         collectionView?.register(USStateCell.self,
                                       forCellWithReuseIdentifier: NSStringFromClass(USStateCell.self))
         collectionView?.allowsMultipleSelection = true
-        collectionView?.backgroundColor = AMCColor.lightBackground.withAlphaComponent(0.8)
+        collectionView?.backgroundColor = AMCColor.offWhite.withAlphaComponent(0.8)
         let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionInset = UIEdgeInsets(top: Dimension.verticalMargin,
                                             left: Dimension.horizontalMargin,

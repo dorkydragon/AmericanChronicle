@@ -6,7 +6,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Reporter.sharedInstance.applicationDidFinishLaunching()
+        CrashReporter.sharedInstance.applicationDidFinishLaunching()
         KeyboardService.sharedInstance.applicationDidFinishLaunching()
         AMCAppearance.apply()
 
@@ -18,6 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        Reporter.sharedInstance.applicationDidBecomeActive()
+        CrashReporter.sharedInstance.applicationDidBecomeActive()
     }
 }

@@ -4,7 +4,7 @@
 protocol PageUserInterfaceDelegate: class {
     func userDidTapDone()
     func userDidTapCancel()
-    func userDidTapShare(_ image: UIImage)
+    func userDidTapShare(with image: UIImage)
 }
 
 // mark: -
@@ -61,7 +61,7 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        delegate?.userDidTapShare(image!)
+        delegate?.userDidTapShare(with: image!)
     }
 
     @IBAction func doneButtonTapped(_ sender: AnyObject) {

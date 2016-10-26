@@ -1,9 +1,9 @@
-protocol CachedPageServiceInterface {
+protocol PageCacheServiceInterface {
     func fileURLForRemoteURL(_ remoteURL: URL) -> URL?
     func cacheFileURL(_ fileURL: URL, forRemoteURL remoteURL: URL)
 }
 
-final class CachedPageService: CachedPageServiceInterface {
+final class PageCacheService: PageCacheServiceInterface {
     fileprivate var completedDownloads: [URL: URL] = [:]
     func fileURLForRemoteURL(_ remoteURL: URL) -> URL? {
         return completedDownloads[remoteURL]

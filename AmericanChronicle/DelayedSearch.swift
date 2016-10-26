@@ -6,7 +6,7 @@ protocol DelayedSearchInterface {
     init(parameters: SearchParameters,
          dataManager: SearchDataManagerInterface,
          runLoop: RunLoopInterface,
-         completionHandler: @escaping ((SearchResults?, Error?) -> ()))
+         completion: @escaping ((SearchResults?, Error?) -> ()))
     func cancel()
     func isSearchInProgress() -> Bool
 }
@@ -20,7 +20,7 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
 
     let parameters: SearchParameters
     fileprivate let dataManager: SearchDataManagerInterface
-    fileprivate let completionHandler: (SearchResults?, Error?) -> ()
+    fileprivate let completion: (SearchResults?, Error?) -> ()
     fileprivate var timer: Timer!
 
     // mark: Init methods
@@ -28,10 +28,10 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
     internal init(parameters: SearchParameters,
                   dataManager: SearchDataManagerInterface,
                   runLoop: RunLoopInterface,
-                  completionHandler: @escaping ((SearchResults?, Error?) -> ())) {
+                  completion: @escaping ((SearchResults?, Error?) -> ())) {
         self.parameters = parameters
         self.dataManager = dataManager
-        self.completionHandler = completionHandler
+        self.completion = completion
 
         super.init()
 
@@ -46,7 +46,7 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
     // mark: Internal methods
 
     func timerDidFire(_ sender: Timer) {
-        dataManager.fetchMoreResults(parameters, completionHandler: completionHandler)
+        dataManager.fetchMoreResults(parameters, completion: completion)
     }
 
     // mark: DelayedSearchInterface methods
@@ -55,15 +55,14 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
         if timer.isValid { // Request hasn't started yet
             timer.invalidate()
             let error = NSError(domain: "", code: -999, userInfo: nil)
-            completionHandler(nil, error)
+            completion(nil, error)
         } else { // Request has started already.
-            dataManager.cancelFetch(parameters) // Cancelling will trigger the completionHandler.
+            dataManager.cancelFetch(parameters) // Cancelling will trigger the completion.
         }
     }
 
-    /**
-        Returns the correct value by the time the completion handler is called.
-    */
+
+    /// Returns the correct value by the time the completion handler is called.
     func isSearchInProgress() -> Bool {
         if timer.isValid {
             return true

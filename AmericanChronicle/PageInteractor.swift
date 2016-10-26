@@ -26,16 +26,16 @@ final class PageInteractor: PageInteractorInterface {
     // mark: Properties
 
     weak var delegate: PageInteractorDelegate?
-    fileprivate let pageService: PageServiceInterface
-    fileprivate let cachedPageService: CachedPageServiceInterface
-    fileprivate let coordinatesService: OCRCoordinatesServiceInterface
+    fileprivate let pageService: PageWebServiceInterface
+    fileprivate let cachedPageService: PageCacheServiceInterface
+    fileprivate let coordinatesService: OCRCoordinatesWebServiceInterface
     fileprivate var contextID: String { return "\(Unmanaged.passUnretained(self).toOpaque())" }
 
     // mark: Init methods
 
-    init(pageService: PageServiceInterface = PageService(),
-         cachedPageService: CachedPageServiceInterface = CachedPageService(),
-         coordinatesService: OCRCoordinatesServiceInterface = OCRCoordinatesService()) {
+    init(pageService: PageWebServiceInterface = PageWebService(),
+         cachedPageService: PageCacheServiceInterface = PageCacheService(),
+         coordinatesService: OCRCoordinatesWebServiceInterface = OCRCoordinatesWebService()) {
         self.pageService = pageService
         self.cachedPageService = cachedPageService
         self.coordinatesService = coordinatesService
@@ -66,7 +66,7 @@ final class PageInteractor: PageInteractorInterface {
     }
 
     func startOCRCoordinatesRequest(withID id: String) {
-        coordinatesService.startRequest(id, contextID: contextID, completionHandler: {
+        coordinatesService.startRequest(id, contextID: contextID, completion: {
             [weak self] coordinates, err in
             self?.delegate?.requestDidFinish(withOCRCoordinates: coordinates, error: err as? NSError)
         })

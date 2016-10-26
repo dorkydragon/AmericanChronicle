@@ -10,7 +10,9 @@ final class ChroniclingAmericaWebsiteViewController: UIViewController {
     // mark: Init methods
 
     func commonInit() {
-        navigationItem.setLeftButtonTitle("Dismiss", target: self, action: #selector(didTapDismissButton(_:)))
+        navigationItem.setLeftButtonTitle(NSLocalizedString("Dismiss", comment: "Dismiss the screen"),
+                                          target: self,
+                                          action: #selector(didTapDismissButton(_:)))
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

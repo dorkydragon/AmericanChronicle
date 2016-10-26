@@ -20,8 +20,8 @@ class TestURLProtocol: URLProtocol {
     }
 
     override func startLoading() {
-        if let callback = TestURLProtocol.didStartLoadingCallbacks[request.url?.absoluteString ?? ""] {
-            callback()
+        if let completion = TestURLProtocol.didStartLoadingCallbacks[request.url?.absoluteString ?? ""] {
+            completion()
         }
         TestURLProtocol.instancesLoading[request.url?.absoluteString ?? ""] = self
     }

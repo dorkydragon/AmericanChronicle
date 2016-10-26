@@ -12,30 +12,37 @@ final class InfoViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = AMCFont.mediumRegular
-        var text = "American Chronicle gets its data from the 'Chronicling America' website.\n"
-        text += "\n'Chronicling America' is a project funded by the National Endowment"
-        text += " for the Humanities and maintained by the Library of Congress."
+        var text = NSLocalizedString("Chronicling America Blurb",
+                                     comment: "Description of the Chronicling America service")
+        //"American Chronicle gets its data from the 'Chronicling America' website.\n"
+        //text += "\n'Chronicling America' is a project funded by the National Endowment"
+        //text += " for the Humanities and maintained by the Library of Congress."
         label.text = text
         return label
     }()
-    fileprivate let websiteButton = TitleButton(title: "Visit chroniclingamerica.gov.loc")
-    fileprivate let separator = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightBlueBright))
+    fileprivate let websiteButton = TitleButton(title: NSLocalizedString("Visit chroniclingamerica.gov.loc",
+                                                                         comment: "Visit the Chronicling America website"))
+    fileprivate let separator = UIImageView(image: UIImage.imageWithFillColor(AMCColor.brightBlue))
     fileprivate let suggestionsLabel: UILabel = {
         let label = UILabel()
         label.textColor = AMCColor.darkGray
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = AMCFont.mediumRegular
-        label.text = "Do you have a question, suggestion or complaint about the app?"
+        label.text = NSLocalizedString("Do you have a question, suggestion or complaint about the app?",
+                                       comment: "Do you have any feedback?")
         return label
     }()
-    fileprivate let suggestionsButton = TitleButton(title: "Send us a message")
+    fileprivate let suggestionsButton = TitleButton(title: NSLocalizedString("Send us a message",
+                                                                             comment: "Send an email"))
 
     // mark: Init methods
 
     func commonInit() {
-        navigationItem.title = "About this app"
-        navigationItem.setLeftButtonTitle("Dismiss", target: self, action: #selector(didTapDismissButton(_:)))
+        navigationItem.title = NSLocalizedString("About this app", comment: "About this app")
+        navigationItem.setLeftButtonTitle(NSLocalizedString("Dismiss", comment: "Dismiss the screen"),
+                                          target: self,
+                                          action: #selector(didTapDismissButton(_:)))
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -56,7 +63,7 @@ final class InfoViewController: UIViewController {
 
     func didTapSuggestionsButton(_ sender: UIButton) {
         let vc = MFMailComposeViewController()
-        vc.setSubject("American Chronicle")
+        vc.setSubject("AmericanChronicle")
         guard let supportEmail = ProcessInfo.processInfo.environment["SUPPORT_EMAIL"] else { return }
         vc.setToRecipients([supportEmail])
         let body = "Version \(Bundle.main.versionNumber), Build \(Bundle.main.buildNumber)"
@@ -78,7 +85,7 @@ final class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = AMCColor.lightBackground
+        view.backgroundColor = AMCColor.offWhite
 
         view.addSubview(bodyLabel)
         bodyLabel.snp.makeConstraints { make in

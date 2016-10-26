@@ -37,16 +37,17 @@ final class SearchTableHeaderView: UIView {
     var usStatesButtonTapHandler: ((Void) -> Void)?
 
     fileprivate let searchField = SearchField()
-    fileprivate let earliestDateButton = TitleValueButton(title: "Earliest Date")
-    fileprivate let latestDateButton = TitleValueButton(title: "Latest Date")
-    fileprivate let usStatesButton = TitleValueButton(title: "U.S. States", initialValue: "(all states)")
+    fileprivate let earliestDateButton = TitleValueButton(title: NSLocalizedString("Earliest Date", comment: "Earliest Date"))
+    fileprivate let latestDateButton = TitleValueButton(title: NSLocalizedString("Latest Date", comment: "Latest Date"))
+    fileprivate let usStatesButton = TitleValueButton(title: NSLocalizedString("U.S. States", comment: "U.S. States"),
+                                                      initialValue: NSLocalizedString("(all states)", comment: "(all states)"))
     fileprivate let bottomBorder = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightGray))
 
     // mark: Init methods
 
     func commonInit() {
 
-        backgroundColor = AMCColor.lightBackground
+        backgroundColor = AMCColor.offWhite
 
         addSubview(searchField)
         searchField.snp.makeConstraints { make in

@@ -29,8 +29,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
 
     func commonInit() {
 
-        backgroundColor = UIColor.clear
-        contentView.backgroundColor = AMCColor.lightBackground
+        contentView.backgroundColor = AMCColor.offWhite
         contentView.clipsToBounds = false
         contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
         contentView.layer.shadowColor = AMCColor.darkGray.cgColor
@@ -49,7 +48,7 @@ final class TableSectionHeaderView: UITableViewHeaderFooterView {
         }
 
         contentView.addSubview(textContainer)
-        textContainer.backgroundColor = AMCColor.lightBackground
+        textContainer.backgroundColor = AMCColor.offWhite
         textContainer.clipsToBounds = true
         textContainer.layer.cornerRadius = 4
         textContainer.snp.makeConstraints { make in
