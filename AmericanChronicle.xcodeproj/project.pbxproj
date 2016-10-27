@@ -32,6 +32,7 @@
 		97369DCE1BD45B5A0090EC38 /* SearchDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97369DCD1BD45B5A0090EC38 /* SearchDataManagerTests.swift */; };
 		9736A80B1D092975001E2F4C /* VerticalStripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9736A80A1D092975001E2F4C /* VerticalStripCell.swift */; };
 		9739354B1DA2E40500787613 /* FakeDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9739354A1DA2E40500787613 /* FakeDownloadRequest.swift */; };
+		973BDEDE1DC184C2000A875E /* DatePickerTransitionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973BDEDD1DC184C2000A875E /* DatePickerTransitionConstants.swift */; };
 		974D1C271CBECA93005FDBCE /* DayMonthYearTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D1C261CBECA93005FDBCE /* DayMonthYearTests.swift */; };
 		974EFBF21C1E00BB00E7D4CB /* USStatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974EFBF11C1E00BB00E7D4CB /* USStatePickerPresenter.swift */; };
 		974EFBF71C1E26AA00E7D4CB /* USStatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974EFBF51C1E26AA00E7D4CB /* USStatePickerViewController.swift */; };
@@ -199,6 +200,7 @@
 		97369DCD1BD45B5A0090EC38 /* SearchDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataManagerTests.swift; sourceTree = "<group>"; };
 		9736A80A1D092975001E2F4C /* VerticalStripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStripCell.swift; sourceTree = "<group>"; };
 		9739354A1DA2E40500787613 /* FakeDownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDownloadRequest.swift; sourceTree = "<group>"; };
+		973BDEDD1DC184C2000A875E /* DatePickerTransitionConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerTransitionConstants.swift; sourceTree = "<group>"; };
 		974D1C261CBECA93005FDBCE /* DayMonthYearTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayMonthYearTests.swift; sourceTree = "<group>"; };
 		974EFBF11C1E00BB00E7D4CB /* USStatePickerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USStatePickerPresenter.swift; sourceTree = "<group>"; };
 		974EFBF51C1E26AA00E7D4CB /* USStatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USStatePickerViewController.swift; sourceTree = "<group>"; };
@@ -688,6 +690,7 @@
 		977267701D0FF31200DD7CF1 /* TransitionControllers */ = {
 			isa = PBXGroup;
 			children = (
+				973BDEDD1DC184C2000A875E /* DatePickerTransitionConstants.swift */,
 				9772676B1D0FF2C100DD7CF1 /* ShowDatePickerTransitionController.swift */,
 				9772676D1D0FF2EB00DD7CF1 /* HideDatePickerTransitionController.swift */,
 			);
@@ -1392,6 +1395,7 @@
 				97ED42CC1BDD879300884B3E /* NSError+AMC.swift in Sources */,
 				97963F8E1BCC792400248942 /* SessionManager+AMC.swift in Sources */,
 				97DE1C911C4BF50400AD12F0 /* EmptyResultsView.swift in Sources */,
+				973BDEDE1DC184C2000A875E /* DatePickerTransitionConstants.swift in Sources */,
 				974EFBF21C1E00BB00E7D4CB /* USStatePickerPresenter.swift in Sources */,
 				978E95D81BEF2E9E00A4E71E /* SearchPagesCacheService.swift in Sources */,
 				978E9B171BAFA5400001690C /* SearchResult.swift in Sources */,

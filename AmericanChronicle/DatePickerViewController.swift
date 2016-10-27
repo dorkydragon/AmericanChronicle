@@ -47,7 +47,6 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
 
     fileprivate let backdropView: UIView = {
         let v = UIView()
-        v.backgroundColor = UIColor(white: 0, alpha: 0.2)
         return v
     }()
     fileprivate let foregroundPanel: UIView = {
