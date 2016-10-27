@@ -4,15 +4,18 @@ final class ShowDatePickerTransitionController: NSObject, UIViewControllerAnimat
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        if let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) {
-            toView.alpha = 0
-            transitionContext.containerView.addSubview(toView)
-            UIView.animate(withDuration: duration, animations: {
-                toView.alpha = 1.0
-                }, completion: { _ in
-                    transitionContext.completeTransition(true)
-            })
-        }
+        guard let toVC = transitionContext.viewController(forKey: .to) as? DatePickerViewController else { return }
+
+        transitionContext.containerView.addSubview(toVC.view)
+        toVC.view.layoutIfNeeded()
+        toVC.view.backgroundColor = UIColor(white: 0, alpha: 0)
+        toVC.showKeyboard()
+        UIView.animate(withDuration: duration, animations: {
+            toVC.view.layoutIfNeeded()
+            toVC.view.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        }, completion: { _ in
+            transitionContext.completeTransition(true)
+        })
     }
 
     func transitionDuration(

@@ -22,6 +22,34 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
 
     // mark: Properties
 
+    var backdropAlpha: CGFloat {
+        get { return backdropView.alpha }
+        set { backdropView.alpha = newValue }
+    }
+
+    func showKeyboard() {
+        foregroundPanel.snp.remakeConstraints { make in
+            make.bottom.equalTo(0)
+            make.leading.equalTo(0)
+            make.trailing.equalTo(0)
+            make.height.equalTo(360)
+        }
+    }
+
+    func hideKeyboard() {
+        foregroundPanel.snp.remakeConstraints { make in
+            make.bottom.equalTo(360)
+            make.leading.equalTo(0)
+            make.trailing.equalTo(0)
+            make.height.equalTo(360)
+        }
+    }
+
+    fileprivate let backdropView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(white: 0, alpha: 0.2)
+        return v
+    }()
     fileprivate let foregroundPanel: UIView = {
         let v = UIView()
         v.backgroundColor = UIColor.white
@@ -133,27 +161,20 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-
-
-        let backdropDismissView = UIView()
         let tapAction = #selector(didRecognizeTap(_:))
         let tap = UITapGestureRecognizer(target: self, action: tapAction)
-        backdropDismissView.addGestureRecognizer(tap)
-        view.addSubview(backdropDismissView)
-        backdropDismissView.snp.makeConstraints { make in
-            make.top.equalTo(0)
-            make.leading.equalTo(0)
-            make.trailing.equalTo(0)
+        backdropView.addGestureRecognizer(tap)
+        view.addSubview(backdropView)
+        backdropView.snp.makeConstraints { make in
+            make.edges.equalTo(0)
         }
 
         view.addSubview(foregroundPanel)
         foregroundPanel.snp.makeConstraints { make in
-            make.bottom.equalTo(0)
+            make.bottom.equalTo(360)
             make.leading.equalTo(0)
             make.trailing.equalTo(0)
             make.height.equalTo(360)
-            make.top.equalTo(backdropDismissView.snp.bottom)
         }
 
         foregroundPanel.addSubview(navigationBar)
@@ -175,12 +196,12 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         }
 
         pagedKeyboard = PagedKeyboard(pages: [monthKeyboard, dayKeyboard, yearPicker])
-        view.addSubview(pagedKeyboard!)
+        foregroundPanel.addSubview(pagedKeyboard!)
         pagedKeyboard?.snp.makeConstraints { make in
             make.top.equalTo(dateField.snp.bottom)
-            make.bottom.equalTo(0)
             make.leading.equalTo(0)
             make.trailing.equalTo(0)
+            make.bottom.equalTo(0)
         }
 
         monthKeyboard.autoresizingMask = .flexibleHeight
