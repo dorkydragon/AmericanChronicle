@@ -3,8 +3,7 @@
 [![](https://travis-ci.org/ryanipete/AmericanChronicle.svg?branch=master)]()
 [![](http://img.shields.io/badge/xcode-8.0-blue.svg)]()
 [![](http://img.shields.io/badge/iOS-9.0%2B-blue.svg)]() 
-[![](http://img.shields.io/badge/Swift-3.0-blue.svg)]() 
-[![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-4BC51D.svg)](https://github.com/cocoapods/cocoapods)
+[![](http://img.shields.io/badge/Swift-3.0-blue.svg)]()
 
 ## The App ##
 
