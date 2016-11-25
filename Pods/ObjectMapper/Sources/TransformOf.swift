@@ -2,11 +2,11 @@
 //  TransformOf.swift
 //  ObjectMapper
 //
-//  Created by Tristan Himmelman on 8/22/16.
+//  Created by Syo Ikeda on 1/23/15.
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2015 Hearst
+//  Copyright (c) 2014-2016 Hearst
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,26 +26,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
+open class TransformOf<ObjectType, JSONType>: TransformType {
+	public typealias Object = ObjectType
+	public typealias JSON = JSONType
 
-open class NSDecimalNumberTransform: TransformType {
-    public typealias Object = NSDecimalNumber
-    public typealias JSON = String
+	private let fromJSON: (JSONType?) -> ObjectType?
+	private let toJSON: (ObjectType?) -> JSONType?
 
-    public init() {}
+	public init(fromJSON: @escaping(JSONType?) -> ObjectType?, toJSON: @escaping(ObjectType?) -> JSONType?) {
+		self.fromJSON = fromJSON
+		self.toJSON = toJSON
+	}
 
-    public func transformFromJSON(_ value: Any?) -> NSDecimalNumber? {
-        if let string = value as? String {
-            return NSDecimalNumber(string: string)
-        }
-        if let double = value as? Double {
-            return NSDecimalNumber(value: double)
-        }
-        return nil
-    }
+	open func transformFromJSON(_ value: Any?) -> ObjectType? {
+		return fromJSON(value as? JSONType)
+	}
 
-    public func transformToJSON(_ value: NSDecimalNumber?) -> String? {
-        guard let value = value else { return nil }
-        return value.description
-    }
+	open func transformToJSON(_ value: ObjectType?) -> JSONType? {
+		return toJSON(value)
+	}
 }
