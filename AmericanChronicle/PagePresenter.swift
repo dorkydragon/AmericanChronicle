@@ -74,7 +74,6 @@ final class PagePresenter: PagePresenterInterface {
         userInterface?.hideLoadingIndicator()
     }
 
-
     func requestDidFinish(withOCRCoordinates coordinates: OCRCoordinates?, error: NSError?) {
         guard let searchTerm = searchTerm else { return }
         var terms = [searchTerm]

@@ -19,7 +19,6 @@ fileprivate func >= <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 final class SearchResults: NSObject, Mappable {
 
     // MARK: Properties

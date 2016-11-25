@@ -8,8 +8,6 @@ protocol PageWebServiceInterface {
 
 typealias ContextID = String
 
-
-
 struct ActivePageDownload {
     let request: DownloadRequestProtocol
     var requesters: [ContextID: PageDownloadRequester]
@@ -96,7 +94,6 @@ final class PageWebService: PageWebServiceInterface {
                             }
                         }
                     }
-
 
                 let download = ActivePageDownload(request: request,
                                                   requesters: [contextID: requester])

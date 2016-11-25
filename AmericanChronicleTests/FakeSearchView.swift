@@ -20,6 +20,4 @@ class FakeSearchView: SearchUserInterface {
     func resignFirstResponder() -> Bool {
         return true
     }
-
-
 }

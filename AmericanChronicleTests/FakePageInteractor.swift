@@ -15,7 +15,6 @@ class FakePageInteractor: NSObject, PageInteractorInterface {
         startDownload_wasCalled = true
     }
 
-
     func cancelDownload(withRemoteURL: URL) {
         cancelDownload_wasCalled = true
     }

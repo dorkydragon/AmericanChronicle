@@ -151,14 +151,11 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
 
         let topHeaderY = yearCollectionView.minVisibleHeaderY
 
-
         let visibleHalfwayY = yearCollectionView.frame.size.height / 2.0
         let typicalDecadeTransitionMinY = visibleHalfwayY -
                                             (ByDecadeYearPicker.decadeTransitionScrollArea / 2.0)
         let typicalDecadeTransitionMaxY = visibleHalfwayY +
                                             (ByDecadeYearPicker.decadeTransitionScrollArea / 2.0)
-
-
 
         // if the year collectionView is resting at a point where transition
         // between decades should happen, then treat this as the decade's "full"

@@ -101,8 +101,6 @@ class SearchDataManagerTests: XCTestCase {
         XCTAssert(returnedError!.isAllItemsLoadedError())
     }
 
-
-
     func testThat_whenFetchMoreResultsIsCalled_andResultsHaveBeenCached_andNoMorePagesAreAvailable_itDoesNotMakeARequest() {
         let params = SearchParameters(
             term: "Jibberish",

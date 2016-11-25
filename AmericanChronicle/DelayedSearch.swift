@@ -61,7 +61,6 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
         }
     }
 
-
     /// Returns the correct value by the time the completion handler is called.
     func isSearchInProgress() -> Bool {
         if timer.isValid {

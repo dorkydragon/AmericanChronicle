@@ -1,7 +1,6 @@
 import XCTest
 @testable import AmericanChronicle
 
-
 class KeyboardServiceTests: XCTestCase {
     var subject: KeyboardService!
     var notificationCenter: NotificationCenter!

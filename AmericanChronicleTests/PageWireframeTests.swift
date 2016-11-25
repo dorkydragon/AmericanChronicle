@@ -3,6 +3,4 @@ import XCTest
 
 class PageWireframeTests: XCTestCase {
 
-
-
 }
