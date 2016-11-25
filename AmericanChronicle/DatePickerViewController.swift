@@ -1,5 +1,5 @@
-// mark: -
-// mark: DatePickerUserInterface
+// MARK: -
+// MARK: DatePickerUserInterface
 
 protocol DatePickerUserInterface {
     weak var delegate: DatePickerUserInterfaceDelegate? { get set }
@@ -7,20 +7,20 @@ protocol DatePickerUserInterface {
     var title: String? { get set }
 }
 
-// mark: -
-// mark: DatePickerUserInterfaceDelegate
+// MARK: -
+// MARK: DatePickerUserInterfaceDelegate
 
 protocol DatePickerUserInterfaceDelegate: class {
     func userDidSave(with dayMonthYear: DayMonthYear)
     func userDidCancel()
 }
 
-// mark: -
-// mark: DatePickerViewController
+// MARK: -
+// MARK: DatePickerViewController
 
 final class DatePickerViewController: UIViewController, DatePickerUserInterface, DateTextFieldDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     var backdropAlpha: CGFloat {
         get { return backdropView.alpha }
@@ -64,7 +64,7 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
     fileprivate let dayKeyboard = DayKeyboard()
     fileprivate let yearPicker = ByDecadeYearPicker()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(earliestPossibleDayMonthYear: DayMonthYear = Search.earliestPossibleDayMonthYear,
          latestPossibleDayMonthYear: DayMonthYear = Search.latestPossibleDayMonthYear) {
@@ -121,7 +121,7 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         fatalError("init not supported. Use designated initializer instead")
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapSaveButton(_ sender: UIBarButtonItem) {
         delegate?.userDidSave(with: selectedDayMonthYear)
@@ -135,12 +135,12 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         delegate?.userDidCancel()
     }
 
-    // mark: DatePickerUserInterface conformance
+    // MARK: DatePickerUserInterface conformance
 
     weak var delegate: DatePickerUserInterfaceDelegate?
     var selectedDayMonthYear: DayMonthYear
 
-    // mark: DateTextFieldDelegate conformance
+    // MARK: DateTextFieldDelegate conformance
 
     func selectedSegmentDidChange(to segment: DateTextFieldSegment) {
         let activePage: UIView
@@ -155,7 +155,7 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         self.pagedKeyboard?.show(page: activePage, animated: true)
     }
 
-    // mark: UIViewController overrides
+    // MARK: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()

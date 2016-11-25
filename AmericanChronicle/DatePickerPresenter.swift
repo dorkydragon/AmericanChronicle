@@ -1,5 +1,5 @@
-// mark: -
-// mark: DatePickerPresenterInterface protocol
+// MARK: -
+// MARK: DatePickerPresenterInterface protocol
 
 protocol DatePickerPresenterInterface: DatePickerUserInterfaceDelegate {
     var wireframe: DatePickerWireframeInterface? { get set }
@@ -8,20 +8,20 @@ protocol DatePickerPresenterInterface: DatePickerUserInterfaceDelegate {
                    title: String?)
 }
 
-// mark: -
-// mark: DatePickerPresenter class
+// MARK: -
+// MARK: DatePickerPresenter class
 
 final class DatePickerPresenter: DatePickerPresenterInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     fileprivate var userInterface: DatePickerUserInterface?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init() {}
 
-    // mark: DatePickerPresenterInterface conformance
+    // MARK: DatePickerPresenterInterface conformance
 
     weak var wireframe: DatePickerWireframeInterface?
 
@@ -35,7 +35,7 @@ final class DatePickerPresenter: DatePickerPresenterInterface {
         }
     }
 
-    // mark: DatePickerUserInterfaceDelegate conformance
+    // MARK: DatePickerUserInterfaceDelegate conformance
 
     func userDidSave(with dayMonthYear: DayMonthYear) {
         wireframe?.dismiss(withSelectedDayMonthYear: dayMonthYear)

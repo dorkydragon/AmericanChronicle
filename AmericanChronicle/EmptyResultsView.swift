@@ -16,7 +16,7 @@ final class EmptyResultsView: UIView {
         return label
     }()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         addSubview(titleLabel)

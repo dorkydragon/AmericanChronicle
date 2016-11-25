@@ -34,7 +34,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
         return button
     }()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(title: String) {
         super.init(frame: .zero)
@@ -78,13 +78,13 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapButton(_ sender: UIButton) {
         textField.becomeFirstResponder()
     }
 
-    // mark: UITextFieldDelegate methods
+    // MARK: UITextFieldDelegate methods
 
     @objc func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         didBecomeActiveHandler?()

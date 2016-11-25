@@ -1,6 +1,6 @@
 final class TitleValueButton: UIControl {
 
-    // mark: Properties
+    // MARK: Properties
 
     var title: String? {
         get { return titleLabel.text }
@@ -34,7 +34,7 @@ final class TitleValueButton: UIControl {
         return b
     }()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(title: String, initialValue: String = "--") {
         super.init(frame: .zero)
@@ -83,13 +83,13 @@ final class TitleValueButton: UIControl {
         fatalError("init() has not been implemented")
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapButton(_ sender: UIButton) {
         sendActions(for: .touchUpInside)
     }
 
-    // mark: NSKeyValueObserving methods
+    // MARK: NSKeyValueObserving methods
 
     override func observeValue(forKeyPath keyPath: String?,
                                          of object: Any?,
@@ -98,7 +98,7 @@ final class TitleValueButton: UIControl {
         isHighlighted = button.isHighlighted
     }
 
-    // mark: UIControl overrides
+    // MARK: UIControl overrides
 
     override var isHighlighted: Bool {
         didSet {
@@ -107,7 +107,7 @@ final class TitleValueButton: UIControl {
         }
     }
 
-    // mark: UIView overrides
+    // MARK: UIView overrides
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: Dimension.buttonHeight)

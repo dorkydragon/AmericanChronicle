@@ -2,13 +2,13 @@ import ObjectMapper
 
 final class OCRCoordinates: NSObject, Mappable {
 
-    // mark: Properties
+    // MARK: Properties
 
     var width: CGFloat?
     var height: CGFloat?
     var wordCoordinates: [String: [CGRect]]?
 
-    // mark: Mappable conformance
+    // MARK: Mappable conformance
 
     required init?(map: Map) {
         super.init()
@@ -48,7 +48,7 @@ final class OCRCoordinates: NSObject, Mappable {
         wordCoordinates <- (map["coords"], transform)
     }
 
-    // mark: NSObject overrides
+    // MARK: NSObject overrides
 
     override var description: String {
         let empty = "(nil)"

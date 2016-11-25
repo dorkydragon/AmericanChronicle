@@ -5,7 +5,7 @@ import AlamofireObjectMapper
 
 class FakePageWebService: PageWebServiceInterface {
 
-    // mark: Test stuff
+    // MARK: Test stuff
 
     var downloadPage_arguments_URL: URL?
     var cancelDownload_arguments_URL: URL?
@@ -20,7 +20,7 @@ class FakePageWebService: PageWebServiceInterface {
         downloadPage_arguments_completionHandler?(nil, error)
     }
 
-    // mark: PageWebServiceInterface conformance
+    // MARK: PageWebServiceInterface conformance
 
     func downloadPage(withRemoteURL remoteURL: URL,
                       contextID: String,

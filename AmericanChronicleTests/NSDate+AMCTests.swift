@@ -9,14 +9,14 @@ class NSDateAMCTests: XCTestCase {
         return formatter
     }()
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
 
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThatIt_returnsTheCorrectYear_onFirstDayOfYear() {
         let date = dateFormatter.date(from: "1903-01-01")

@@ -1,5 +1,5 @@
-// mark: -
-// mark: USStatePickerUserInterface protocol
+// MARK: -
+// MARK: USStatePickerUserInterface protocol
 
 protocol USStatePickerUserInterface {
     var delegate: USStatePickerUserInterfaceDelegate? { get set }
@@ -7,25 +7,25 @@ protocol USStatePickerUserInterface {
     func setSelectedStateNames(_ selectedStates: [String])
 }
 
-// mark: -
-// mark: USStatePickerUserInterfaceDelegate protocol
+// MARK: -
+// MARK: USStatePickerUserInterfaceDelegate protocol
 
 protocol USStatePickerUserInterfaceDelegate: class {
     func userDidTapSave(with selectedStateNames: [String])
     func userDidTapCancel()
 }
 
-// mark: -
-// mark: USStatePickerViewController class
+// MARK: -
+// MARK: USStatePickerViewController class
 
 final class USStatePickerViewController: UICollectionViewController, USStatePickerUserInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var delegate: USStatePickerUserInterfaceDelegate?
     var stateNames: [String] = []
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         navigationItem.title = NSLocalizedString("U.S. States", comment: "U.S. States")
@@ -51,7 +51,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         commonInit()
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func setSelectedStateNames(_ selectedStates: [String]) {
         for selectedState in selectedStates {
@@ -75,7 +75,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         delegate?.userDidTapSave(with: selectedStateNames)
     }
 
-    // mark: UICollectionViewDelegateFlowLayout methods
+    // MARK: UICollectionViewDelegateFlowLayout methods
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -92,7 +92,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         return CGSize(width: columnWidth, height: Dimension.buttonHeight)
     }
 
-    // mark: UICollectionViewController overrides
+    // MARK: UICollectionViewController overrides
 
     override func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
@@ -106,7 +106,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         return cell
     }
 
-    // mark: UIViewController overrides
+    // MARK: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()

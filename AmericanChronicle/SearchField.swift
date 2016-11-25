@@ -1,6 +1,6 @@
 final class SearchField: UIView, UITextFieldDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     var shouldBeginEditingHandler: ((Void) -> Bool)?
     var shouldChangeCharactersHandler: ((_ text: String,
@@ -72,13 +72,13 @@ final class SearchField: UIView, UITextFieldDelegate {
         commonInit()
     }
 
-    // mark: UIView overrides
+    // MARK: UIView overrides
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 64)
     }
 
-    // mark: UIResponder overrides
+    // MARK: UIResponder overrides
 
     override func becomeFirstResponder() -> Bool {
         return textField.becomeFirstResponder()
@@ -88,7 +88,7 @@ final class SearchField: UIView, UITextFieldDelegate {
         return textField.resignFirstResponder()
     }
 
-    // mark: UITextFieldDelegate methods
+    // MARK: UITextFieldDelegate methods
 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return shouldClearHandler?() ?? true

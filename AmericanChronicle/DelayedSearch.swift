@@ -1,5 +1,5 @@
-// mark: -
-// mark: DelayedSearchInterface protocol
+// MARK: -
+// MARK: DelayedSearchInterface protocol
 
 protocol DelayedSearchInterface {
     var parameters: SearchParameters { get }
@@ -11,19 +11,19 @@ protocol DelayedSearchInterface {
     func isSearchInProgress() -> Bool
 }
 
-// mark: -
-// mark: DelayedSearch class
+// MARK: -
+// MARK: DelayedSearch class
 
 final class DelayedSearch: NSObject, DelayedSearchInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     let parameters: SearchParameters
     fileprivate let dataManager: SearchDataManagerInterface
     fileprivate let completion: (SearchResults?, Error?) -> ()
     fileprivate var timer: Timer!
 
-    // mark: Init methods
+    // MARK: Init methods
 
     internal init(parameters: SearchParameters,
                   dataManager: SearchDataManagerInterface,
@@ -43,13 +43,13 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
         runLoop.add(timer!, forMode: RunLoopMode.defaultRunLoopMode)
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func timerDidFire(_ sender: Timer) {
         dataManager.fetchMoreResults(parameters, completion: completion)
     }
 
-    // mark: DelayedSearchInterface methods
+    // MARK: DelayedSearchInterface methods
 
     func cancel() {
         if timer.isValid { // Request hasn't started yet

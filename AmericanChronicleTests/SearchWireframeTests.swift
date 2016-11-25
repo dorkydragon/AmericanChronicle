@@ -5,14 +5,14 @@ class SearchWireframeTests: XCTestCase {
 
     var subject: SearchWireframe!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
         subject = SearchWireframe()
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenAskedToPresentSearch_itPresentsItsView_wrappedInANavigationController() {
 

@@ -8,7 +8,7 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
     var subject: OCRCoordinatesWebService!
     var manager: FakeSessionManager!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -16,7 +16,7 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
         subject = OCRCoordinatesWebService(manager: manager)
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenStartRequestIsCalled_withAnEmptyLCCN_itImmediatelyReturnsAnInvalidParameterError() {
 

@@ -2,7 +2,7 @@
 
 class FakePageUserInterface: NSObject, PageUserInterface {
 
-    // mark: Test stuff
+    // MARK: Test stuff
 
     var doneCallback: ((Void) -> ())?
     var shareCallback: ((Void) -> ())?
@@ -13,7 +13,7 @@ class FakePageUserInterface: NSObject, PageUserInterface {
     var showLoadingIndicator_wasCalled = false
     var hideLoadingIndicator_wasCalled = false
 
-    // mark: PageUserInterface conformance
+    // MARK: PageUserInterface conformance
 
     var pdfPage: CGPDFPage?
     var highlights: OCRCoordinates?

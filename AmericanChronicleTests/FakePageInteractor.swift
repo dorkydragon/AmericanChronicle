@@ -2,12 +2,12 @@
 
 class FakePageInteractor: NSObject, PageInteractorInterface {
 
-    // mark: Test stuff
+    // MARK: Test stuff
 
     var startDownload_wasCalled = false
     var cancelDownload_wasCalled = false
 
-    // mark: PageInteractorInterface conformance
+    // MARK: PageInteractorInterface conformance
 
     var delegate: PageInteractorDelegate?
 

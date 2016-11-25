@@ -1,5 +1,5 @@
-// mark: -
-// mark: PageUserInterfaceDelegate protocol
+// MARK: -
+// MARK: PageUserInterfaceDelegate protocol
 
 protocol PageUserInterfaceDelegate: class {
     func userDidTapDone()
@@ -7,8 +7,8 @@ protocol PageUserInterfaceDelegate: class {
     func userDidTapShare(with image: UIImage)
 }
 
-// mark: -
-// mark: PageUserInterface protocol
+// MARK: -
+// MARK: PageUserInterface protocol
 
 protocol PageUserInterface {
     var pdfPage: CGPDFPage? { get set }
@@ -21,12 +21,12 @@ protocol PageUserInterface {
     func showErrorWithTitle(_ title: String?, message: String?)
 }
 
-// mark: -
-// mark: PageViewController class
+// MARK: -
+// MARK: PageViewController class
 
 final class PageViewController: UIViewController, PageUserInterface, UIScrollViewDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var doneButton: UIButton!
@@ -47,7 +47,7 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
     fileprivate var presentingView: UIView?
     fileprivate var hidesStatusBar: Bool = true
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     @IBAction func shareButtonTapped(_ sender: AnyObject) {
 
@@ -80,7 +80,7 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         delegate?.userDidTapDone()
     }
 
-    // mark: PageUserInterface conformance
+    // MARK: PageUserInterface conformance
 
     weak var delegate: PageUserInterfaceDelegate?
 
@@ -127,13 +127,13 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         errorView.isHidden = false
     }
 
-    // mark: UIScrollViewDelegate conformance
+    // MARK: UIScrollViewDelegate conformance
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return pageView
     }
 
-    // mark: UIViewController overrides
+    // MARK: UIViewController overrides
 
     override var modalPresentationStyle: UIModalPresentationStyle {
         get { return .overCurrentContext }
@@ -193,7 +193,7 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
         return true
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func hideError() {
         errorView.isHidden = true

@@ -1,6 +1,6 @@
 final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     fileprivate static let decadeTransitionScrollArea: CGFloat = 100.0
     fileprivate static let headerReuseIdentifier = "Header"
@@ -51,7 +51,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
     fileprivate var currentDecadeTransitionMinY: CGFloat?
     fileprivate var currentDecadeTransitionMaxY: CGFloat?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(decadeStrip: VerticalStrip = VerticalStrip()) {
         self.decadeStrip = decadeStrip
@@ -109,7 +109,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         fatalError("init() has not been implemented")
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func updateYearsAndDecades() {
         yearsByDecade = [:]
@@ -176,7 +176,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         }
     }
 
-    // mark: UICollectionViewDataSource methods
+    // MARK: UICollectionViewDataSource methods
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return decades.count
@@ -206,7 +206,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
 
     static let lineSpacing: CGFloat = 1.0
 
-    // mark: UICollectionViewDelegate methods
+    // MARK: UICollectionViewDelegate methods
 
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
@@ -217,7 +217,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         }
     }
 
-    // mark: UICollectionViewDelegateFlowLayout methods
+    // MARK: UICollectionViewDelegateFlowLayout methods
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -246,7 +246,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         return CGSize(width: 320.0, height: ByDecadeYearPicker.lineSpacing)
     }
 
-    // mark: UIScrollViewDelegate methods
+    // MARK: UIScrollViewDelegate methods
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView.isDecelerating {

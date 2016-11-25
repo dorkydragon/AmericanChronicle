@@ -1,5 +1,5 @@
-// mark: -
-// mark: PagePresenterInterface protocol
+// MARK: -
+// MARK: PagePresenterInterface protocol
 
 protocol PagePresenterInterface: PageUserInterfaceDelegate, PageInteractorDelegate {
     var wireframe: PageWireframeInterface? { get set }
@@ -9,12 +9,12 @@ protocol PagePresenterInterface: PageUserInterfaceDelegate, PageInteractorDelega
                    id: String)
 }
 
-// mark: -
-// mark: PagePresenter class
+// MARK: -
+// MARK: PagePresenter class
 
 final class PagePresenter: PagePresenterInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var wireframe: PageWireframeInterface?
 
@@ -23,14 +23,14 @@ final class PagePresenter: PagePresenterInterface {
     fileprivate var remoteDownloadURL: URL?
     fileprivate var userInterface: PageUserInterface?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(interactor: PageInteractorInterface = PageInteractor()) {
         self.interactor = interactor
         interactor.delegate = self
     }
 
-    // mark: PagePresenterInterface methods
+    // MARK: PagePresenterInterface methods
 
     func configure(userInterface: PageUserInterface,
                    withSearchTerm searchTerm: String?,
@@ -46,7 +46,7 @@ final class PagePresenter: PagePresenterInterface {
         interactor.startOCRCoordinatesRequest(withID: id)
     }
 
-    // mark: PageUserInterfaceDelegate methods
+    // MARK: PageUserInterfaceDelegate methods
 
     func userDidTapDone() {
         cancelDownloadAndFinish()
@@ -60,7 +60,7 @@ final class PagePresenter: PagePresenterInterface {
         wireframe?.showShareScreen(withImage: image)
     }
 
-    // mark: PageInteractorDelegate methods
+    // MARK: PageInteractorDelegate methods
 
     func downloadDidFinish(forRemoteURL: URL, withFileURL fileURL: URL?, error: NSError?) {
         if let error = error {
@@ -94,7 +94,7 @@ final class PagePresenter: PagePresenterInterface {
         userInterface?.highlights = coordinates
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func cancelDownloadAndFinish() {
         if let url = remoteDownloadURL {

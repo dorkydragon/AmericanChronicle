@@ -2,7 +2,7 @@ import ObjectMapper
 
 final class SearchResult: NSObject, Mappable {
 
-    // mark: Properties
+    // MARK: Properties
 
     var sequence: Int?
     var county: [String]?
@@ -38,7 +38,7 @@ final class SearchResult: NSObject, Mappable {
         return (ocrEng?.characters.count ?? 0) * 30
     }
 
-    // mark: Init methods
+    // MARK: Init methods
 
     static func newInstance(_ map: Map) -> Mappable? {
         return SearchResult(map: map)
@@ -52,7 +52,7 @@ final class SearchResult: NSObject, Mappable {
         super.init()
     }
 
-    // mark: Mapping methods
+    // MARK: Mapping methods
 
     func mapping(map: Map) {
         sequence <- map["sequence"]
@@ -99,7 +99,7 @@ final class SearchResult: NSObject, Mappable {
         pdfURL = URL(string: url ?? "")?.deletingPathExtension().appendingPathExtension("pdf")
     }
 
-    // mark: NSObject overrides
+    // MARK: NSObject overrides
 
     override var description: String {
         let empty = ""

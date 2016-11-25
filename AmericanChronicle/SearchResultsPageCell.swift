@@ -1,6 +1,6 @@
 final class SearchResultsPageCell: UITableViewCell {
 
-    // mark: Properties
+    // MARK: Properties
 
     var thumbnailURL: URL? {
         get { return thumbnailImageView.sd_imageURL() }
@@ -48,7 +48,7 @@ final class SearchResultsPageCell: UITableViewCell {
         return label
     }()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
 

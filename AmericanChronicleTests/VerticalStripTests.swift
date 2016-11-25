@@ -5,7 +5,7 @@ class VerticalStripTests: XCTestCase {
 
     private var subject: VerticalStrip!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -18,7 +18,7 @@ class VerticalStripTests: XCTestCase {
         super.tearDown()
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_showItemAtIndex_setsSelectedIndexToTopVisibleIndex_whenFractionHiddenIsLessThanHalf() {
 

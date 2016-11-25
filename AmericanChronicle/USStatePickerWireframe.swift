@@ -1,13 +1,13 @@
-// mark: -
-// mark: USStatePickerWireframeInterface protocol
+// MARK: -
+// MARK: USStatePickerWireframeInterface protocol
 
 protocol USStatePickerWireframeInterface: class {
     func present(from: UIViewController?, withSelectedStateNames: [String])
     func dismiss(withSelectedStateNames: [String]?)
 }
 
-// mark: -
-// mark: USStatePickerWireframeDelegate protocol
+// MARK: -
+// MARK: USStatePickerWireframeDelegate protocol
 
 protocol USStatePickerWireframeDelegate: class {
     func usStatePickerWireframe(_ wireframe: USStatePickerWireframe,
@@ -15,20 +15,20 @@ protocol USStatePickerWireframeDelegate: class {
     func usStatePickerWireframeDidFinish(_ wireframe: USStatePickerWireframe)
 }
 
-// mark: -
-// mark: USStatePickerWireframe class
+// MARK: -
+// MARK: USStatePickerWireframe class
 
 final class USStatePickerWireframe: NSObject,
     USStatePickerWireframeInterface,
     UIViewControllerTransitioningDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     fileprivate let presenter: USStatePickerPresenterInterface
     fileprivate(set) var presentedViewController: UIViewController?
     fileprivate weak var delegate: USStatePickerWireframeDelegate?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(delegate: USStatePickerWireframeDelegate,
          presenter: USStatePickerPresenterInterface = USStatePickerPresenter()) {
@@ -40,7 +40,7 @@ final class USStatePickerWireframe: NSObject,
         self.presenter.wireframe = self
     }
 
-    // mark: USStatePickerWireframeInterface conformance
+    // MARK: USStatePickerWireframeInterface conformance
 
     func present(from presentingViewController: UIViewController?,
                  withSelectedStateNames selectedStateNames: [String]) {
@@ -68,7 +68,7 @@ final class USStatePickerWireframe: NSObject,
         })
     }
 
-    // mark: UIViewControllerTransitioningDelegate methods
+    // MARK: UIViewControllerTransitioningDelegate methods
 
     func animationController(forPresented: UIViewController,
                              presenting: UIViewController,

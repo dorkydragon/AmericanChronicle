@@ -7,7 +7,7 @@ class PagePresenterTests: XCTestCase {
     var view: FakePageUserInterface!
     var wireframe: FakePageWireframe!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -18,7 +18,7 @@ class PagePresenterTests: XCTestCase {
         subject.wireframe = wireframe
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenConfigureIsCalled_itTellsTheViewToShowItsLoadingIndicator() {
 

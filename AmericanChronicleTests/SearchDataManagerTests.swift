@@ -7,7 +7,7 @@ class SearchDataManagerTests: XCTestCase {
     var cacheService: FakeSearchPagesCacheService!
     var subject: SearchDataManager!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -16,7 +16,7 @@ class SearchDataManagerTests: XCTestCase {
         subject = SearchDataManager(webService: webService, cacheService: cacheService)
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenFetchMoreResultsIsCalled_itStartsAServiceSearch_withTheSameParameters() {
 

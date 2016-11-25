@@ -6,7 +6,7 @@ class USStatePickerWireframeTests: XCTestCase {
     var delegate: FakeUSStatePickerWireframeDelegate!
     var presenter: FakeUSStatePickerPresenter!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -19,7 +19,7 @@ class USStatePickerWireframeTests: XCTestCase {
         super.tearDown()
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_onInit_itSetsThePresenterWireframe() {
         XCTAssertEqual(presenter.wireframe as? USStatePickerWireframe, subject)

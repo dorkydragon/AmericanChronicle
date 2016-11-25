@@ -9,7 +9,7 @@ class DelayedSearchTests: XCTestCase {
     var results: SearchResults?
     var error: NSError?
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -27,7 +27,7 @@ class DelayedSearchTests: XCTestCase {
         })
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_itStartsItsTimerImmediately() {
         XCTAssert(runLoop.addTimer_wasCalled_withTimer?.isValid ?? false)

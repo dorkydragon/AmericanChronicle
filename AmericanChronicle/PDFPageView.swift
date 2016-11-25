@@ -1,6 +1,6 @@
 final class PDFPageView: UIView {
 
-    // mark: Properties
+    // MARK: Properties
 
     var pdfPage: CGPDFPage? {
         didSet { layer.setNeedsDisplay() }
@@ -9,7 +9,7 @@ final class PDFPageView: UIView {
         didSet { layer.setNeedsDisplay() }
     }
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         layer.borderColor = UIColor.black.cgColor
@@ -27,7 +27,7 @@ final class PDFPageView: UIView {
         commonInit()
     }
 
-    // mark: UIView overrides
+    // MARK: UIView overrides
 
     override func draw(_ layer: CALayer, in ctx: CGContext) {
 

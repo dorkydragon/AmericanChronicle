@@ -2,7 +2,7 @@
 
 class FakePageWireframeDelegate: PageWireframeDelegate {
 
-    // mark: PageWireframeDelegate conformance
+    // MARK: PageWireframeDelegate conformance
 
     func pageWireframeDidFinish(_ wireframe: PageWireframeInterface) {}
 }

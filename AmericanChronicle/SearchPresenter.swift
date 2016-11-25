@@ -1,5 +1,5 @@
-// mark: -
-// mark: SearchPresenterInterface protocol
+// MARK: -
+// MARK: SearchPresenterInterface protocol
 
 protocol SearchPresenterInterface: SearchUserInterfaceDelegate, SearchInteractorDelegate {
     var wireframe: SearchWireframeInterface? { get set }
@@ -8,12 +8,12 @@ protocol SearchPresenterInterface: SearchUserInterfaceDelegate, SearchInteractor
     func userDidSaveDayMonthYear(_ dayMonthYear: DayMonthYear)
 }
 
-// mark: -
-// mark: SearchPresenter class
+// MARK: -
+// MARK: SearchPresenter class
 
 final class SearchPresenter: NSObject, SearchPresenterInterface {
 
-    // mark: Types
+    // MARK: Types
 
     fileprivate enum DateType {
         case earliest
@@ -21,7 +21,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         case none
     }
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var wireframe: SearchWireframeInterface?
 
@@ -38,7 +38,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
     fileprivate var latestDayMonthYear = Search.latestPossibleDayMonthYear
     fileprivate var typeBeingEdited = DateType.none
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(interactor: SearchInteractorInterface = SearchInteractor()) {
         self.interactor = interactor
@@ -50,7 +50,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         }
     }
 
-    // mark: SearchPresenterInterface conformance
+    // MARK: SearchPresenterInterface conformance
 
     func configure(userInterface: SearchUserInterface) {
         self.userInterface = userInterface
@@ -90,7 +90,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         }
     }
 
-    // mark: SearchUserInterfaceDelegate conformance
+    // MARK: SearchUserInterfaceDelegate conformance
 
     func userDidTapReturn() {
         _ = userInterface?.resignFirstResponder()
@@ -135,7 +135,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         updateViewForKeyboardFrame(KeyboardService.sharedInstance.keyboardFrame)
     }
 
-    // mark: SearchInteractorDelegate conformance
+    // MARK: SearchInteractorDelegate conformance
 
     func search(for parameters: SearchParameters,
                 didFinishWithResults results: SearchResults?,
@@ -159,7 +159,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         }
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func updateViewForKeyboardFrame(_ rect: CGRect?) {
         userInterface?.setBottomContentInset(rect?.size.height ?? 0)
@@ -209,7 +209,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         }
     }
 
-    // mark: Deinit method
+    // MARK: Deinit method
 
     deinit {
         KeyboardService.sharedInstance.removeFrameChangeHandler(id: "\(Unmanaged.passUnretained(self).toOpaque())")

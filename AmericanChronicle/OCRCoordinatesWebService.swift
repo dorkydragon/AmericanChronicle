@@ -1,7 +1,7 @@
 import Alamofire
 
-// mark: -
-// mark: OCRCoordinatesServiceInterface
+// MARK: -
+// MARK: OCRCoordinatesServiceInterface
 
 protocol OCRCoordinatesWebServiceInterface {
     func startRequest(_ id: String,
@@ -15,16 +15,16 @@ struct OCRCoordinatesRequester {
     let completion: (OCRCoordinates?, Error?) -> Void
 }
 
-// mark: -
-// mark: ActiveOCRCoordinatesRequest
+// MARK: -
+// MARK: ActiveOCRCoordinatesRequest
 
 struct ActiveOCRCoordinatesRequest {
     let request: DownloadRequestProtocol
     var requesters: [ContextID: PageDownloadRequester]
 }
 
-// mark: -
-// mark: OCRCoordinatesWebService class
+// MARK: -
+// MARK: OCRCoordinatesWebService class
 
 final class OCRCoordinatesWebService: OCRCoordinatesWebServiceInterface {
 

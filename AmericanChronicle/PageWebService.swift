@@ -24,7 +24,7 @@ struct PageDownloadRequester {
 /// when there are duplicates.
 final class PageWebService: PageWebServiceInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     let group = DispatchGroup()
     var activeDownloads: [URL: ActivePageDownload] = [:]
@@ -32,13 +32,13 @@ final class PageWebService: PageWebServiceInterface {
     fileprivate let queue = DispatchQueue(label: "com.ryanipete.AmericanChronicle.PageWebService",
                                           attributes: [])
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(manager: SessionManagerProtocol = SessionManager()) {
         self.manager = manager
     }
 
-    // mark: PageWebServiceInterface conformance
+    // MARK: PageWebServiceInterface conformance
 
     func downloadPage(withRemoteURL remoteURL: URL,
                       contextID: String,
@@ -127,7 +127,7 @@ final class PageWebService: PageWebServiceInterface {
         }
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func finishRequest(withRemoteURL remoteURL: URL, fileURL: URL?, error: NSError?) {
         queue.async(group: group) {

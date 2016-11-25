@@ -2,7 +2,7 @@ import MessageUI
 
 final class InfoViewController: UIViewController {
 
-    // mark: Properties
+    // MARK: Properties
 
     var dismissHandler: ((Void) -> Void)?
 
@@ -36,7 +36,7 @@ final class InfoViewController: UIViewController {
     fileprivate let suggestionsButton = TitleButton(title: NSLocalizedString("Send us a message",
                                                                              comment: "Send an email"))
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         navigationItem.title = NSLocalizedString("About this app", comment: "About this app")
@@ -55,7 +55,7 @@ final class InfoViewController: UIViewController {
         commonInit()
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapDismissButton(_ sender: UIBarButtonItem) {
         dismissHandler?()
@@ -80,7 +80,7 @@ final class InfoViewController: UIViewController {
         present(nvc, animated: true, completion: nil)
     }
 
-    // mark: UIViewController overrides
+    // MARK: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()

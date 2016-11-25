@@ -7,7 +7,7 @@ final class DayKeyboard: UIView {
         didSet { updateCalendar() }
     }
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         backgroundColor = UIColor.white
@@ -23,7 +23,7 @@ final class DayKeyboard: UIView {
         commonInit()
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapButton(_ button: UIButton) {
         if let title = button.title(for: UIControlState()) {
@@ -31,7 +31,7 @@ final class DayKeyboard: UIView {
         }
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func updateCalendar() {
         subviews.forEach { $0.removeFromSuperview() }

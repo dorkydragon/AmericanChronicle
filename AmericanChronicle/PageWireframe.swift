@@ -1,5 +1,5 @@
-// mark: -
-// mark: PageWireframeInterface protocol
+// MARK: -
+// MARK: PageWireframeInterface protocol
 
 protocol PageWireframeInterface: class {
     func present(from: UIViewController?, withSearchTerm: String?, remoteURL: URL, id: String)
@@ -7,19 +7,19 @@ protocol PageWireframeInterface: class {
     func showShareScreen(withImage image: UIImage?)
 }
 
-// mark: -
-// mark: PageWireframeDelegate protocol
+// MARK: -
+// MARK: PageWireframeDelegate protocol
 
 protocol PageWireframeDelegate: class {
     func pageWireframeDidFinish(_ wireframe: PageWireframeInterface)
 }
 
-// mark: -
-// mark: PageWireframe class
+// MARK: -
+// MARK: PageWireframe class
 
 final class PageWireframe: PageWireframeInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     fileprivate let presenter: PagePresenterInterface
     fileprivate var presentedViewController: UIViewController?
@@ -31,7 +31,7 @@ final class PageWireframe: PageWireframeInterface {
         presenter.wireframe = self
     }
 
-    // mark: PageWireframeInterface conformance
+    // MARK: PageWireframeInterface conformance
 
     func present(from presentingViewController: UIViewController?,
                  withSearchTerm searchTerm: String?,

@@ -2,11 +2,11 @@
 
 final class FakePageWireframe: PageWireframeInterface {
 
-    // mark: Test stuff
+    // MARK: Test stuff
 
     var dismissPageScreen_wasCalled = false
 
-    // mark: PageWireframeInterface conformance
+    // MARK: PageWireframeInterface conformance
 
     init(delegate: PageWireframeDelegate, presenter: PagePresenterInterface = PagePresenter()) {}
 

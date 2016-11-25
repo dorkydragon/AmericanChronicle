@@ -9,7 +9,7 @@ class PageInteractorTests: XCTestCase {
     var cacheService: FakePageCacheService!
     var coordinatesService: FakeOCRCoordinatesWebService!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -23,7 +23,7 @@ class PageInteractorTests: XCTestCase {
         subject.delegate = subjectDelegate
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_ifThePageIsNotCached_startDownload_startsAPageServiceRequest() {
 

@@ -22,7 +22,7 @@ fileprivate func >= <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 final class SearchResults: NSObject, Mappable {
 
-    // mark: Properties
+    // MARK: Properties
 
     var totalItems: Int?
     var endIndex: Int?
@@ -36,7 +36,7 @@ final class SearchResults: NSObject, Mappable {
         return Int(ceilf(Float(items?.count ?? 0)/Float(itemsPerPage)))
     }
 
-    // mark: Init methods
+    // MARK: Init methods
 
     static func newInstance(_ map: Map) -> Mappable? {
         return SearchResults(map: map)
@@ -50,7 +50,7 @@ final class SearchResults: NSObject, Mappable {
         super.init()
     }
 
-    // mark: Mappable methods
+    // MARK: Mappable methods
 
     func mapping(map: Map) {
         totalItems <- map["totalItems"]
@@ -60,7 +60,7 @@ final class SearchResults: NSObject, Mappable {
         items <- map["items"]
     }
 
-    // mark: NSObject overrides
+    // MARK: NSObject overrides
 
     override var description: String {
         let empty = "(nil)"

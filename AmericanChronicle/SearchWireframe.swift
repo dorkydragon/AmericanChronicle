@@ -1,5 +1,5 @@
-// mark: -
-// mark: SearchWireframeInterface protocol
+// MARK: -
+// MARK: SearchWireframeInterface protocol
 
 protocol SearchWireframeInterface: class {
     func showSearchResult(atRow: SearchResultsRow, forTerm: String)
@@ -7,15 +7,15 @@ protocol SearchWireframeInterface: class {
     func showDayMonthYearPicker(withCurrentDayMonthYear: DayMonthYear?, title: String?)
 }
 
-// mark: -
-// mark: SearchWireframe class
+// MARK: -
+// MARK: SearchWireframe class
 
 final class SearchWireframe: SearchWireframeInterface,
     DatePickerWireframeDelegate,
     USStatePickerWireframeDelegate,
     PageWireframeDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     fileprivate let presenter: SearchPresenterInterface
     fileprivate var presentedViewController: UIViewController?
@@ -23,14 +23,14 @@ final class SearchWireframe: SearchWireframeInterface,
     fileprivate var datePickerWireframe: DatePickerWireframe?
     fileprivate var pageWireframe: PageWireframeInterface?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(presenter: SearchPresenterInterface = SearchPresenter()) {
         self.presenter = presenter
         self.presenter.wireframe = self
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func beginAsRootFromWindow(_ window: UIWindow?) {
         let vc = SearchViewController()
@@ -43,7 +43,7 @@ final class SearchWireframe: SearchWireframeInterface,
         presentedViewController = nvc
     }
 
-    // mark: SearchWireframeInterface conformance
+    // MARK: SearchWireframeInterface conformance
 
     func showSearchResult(atRow row: SearchResultsRow, forTerm term: String) {
         if let remoteURL = row.pdfURL, let id = row.id {
@@ -68,7 +68,7 @@ final class SearchWireframe: SearchWireframeInterface,
                                      title: title)
     }
 
-    // mark: DatePickerWireframeDelegate conformance
+    // MARK: DatePickerWireframeDelegate conformance
 
     func datePickerWireframe(_ wireframe: DatePickerWireframe,
                              didSaveWithDayMonthYear dayMonthYear: DayMonthYear) {
@@ -79,7 +79,7 @@ final class SearchWireframe: SearchWireframeInterface,
         datePickerWireframe = nil
     }
 
-    // mark: USStatePickerWireframeDelegate conformance
+    // MARK: USStatePickerWireframeDelegate conformance
 
     func usStatePickerWireframe(_ wireframe: USStatePickerWireframe,
                                 didSaveFilteredUSStateNames stateNames: [String]) {
@@ -90,7 +90,7 @@ final class SearchWireframe: SearchWireframeInterface,
         statePickerWireframe = nil
     }
 
-    // mark: PageWireframeDelegate conformance
+    // MARK: PageWireframeDelegate conformance
 
     func pageWireframeDidFinish(_ wireframe: PageWireframeInterface) {
         pageWireframe = nil

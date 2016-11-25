@@ -10,7 +10,7 @@ protocol DateTextFieldDelegate: class {
 
 final class DateTextField: UIView, UITextFieldDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var delegate: DateTextFieldDelegate?
     var selectedDayMonthYear: DayMonthYear? {
@@ -36,7 +36,7 @@ final class DateTextField: UIView, UITextFieldDelegate {
         return view
     }()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
 
@@ -103,7 +103,7 @@ final class DateTextField: UIView, UITextFieldDelegate {
         commonInit()
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func highlightField(_ field: RestrictedInputField) {
         highlightUnderline.snp.remakeConstraints { make in
@@ -117,7 +117,7 @@ final class DateTextField: UIView, UITextFieldDelegate {
         })
     }
 
-    // mark: UIResponder overrides
+    // MARK: UIResponder overrides
 
     override func becomeFirstResponder() -> Bool {
         return monthField.becomeFirstResponder()

@@ -8,7 +8,7 @@ class PageWebServiceTests: XCTestCase {
     var subject: PageWebService!
     var manager: FakeManager!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
 
@@ -21,7 +21,7 @@ class PageWebServiceTests: XCTestCase {
         super.tearDown()
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenNewDownloadIsRequested_itStartsTheDownload() {
 

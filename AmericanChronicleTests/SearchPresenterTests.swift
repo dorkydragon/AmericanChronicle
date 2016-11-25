@@ -9,7 +9,7 @@ class SearchPresenterTests: XCTestCase {
     var userInterface: FakeSearchView!
     var interactor: FakeSearchInteractor!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -22,7 +22,7 @@ class SearchPresenterTests: XCTestCase {
         subject.configure(userInterface: userInterface)
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenTheSearchTermChanges_andTheNewTermIsNotEmpty_itAsksTheViewToShowItsLoadingIndicator() {
 

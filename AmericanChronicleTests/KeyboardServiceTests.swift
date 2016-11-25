@@ -6,7 +6,7 @@ class KeyboardServiceTests: XCTestCase {
     var subject: KeyboardService!
     var notificationCenter: NotificationCenter!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -15,7 +15,7 @@ class KeyboardServiceTests: XCTestCase {
         subject.applicationDidFinishLaunching()
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenAKeyboardShows_itUpdatesTheKeyboardFrame() {
 

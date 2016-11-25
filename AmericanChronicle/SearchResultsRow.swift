@@ -1,6 +1,6 @@
 struct SearchResultsRow: CustomStringConvertible {
 
-    // mark: Properties
+    // MARK: Properties
 
     let id: String?
     let date: Date?
@@ -12,7 +12,7 @@ struct SearchResultsRow: CustomStringConvertible {
     let edition: Int?
     let sequence: Int?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(id: String?,
          date: Date?,
@@ -34,7 +34,7 @@ struct SearchResultsRow: CustomStringConvertible {
         self.sequence = sequence
     }
 
-    // mark: CustomStringConvertible methods
+    // MARK: CustomStringConvertible methods
 
     var description: String {
         var desc = "<SearchResultsRow: "

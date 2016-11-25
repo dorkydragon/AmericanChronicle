@@ -5,7 +5,7 @@ final class PagedKeyboard: UIView {
     fileprivate let scrollView = UIScrollView()
     fileprivate let contentView = UIView()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(pages: [UIView]) {
         self.pages = pages
@@ -66,7 +66,7 @@ final class PagedKeyboard: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func show(pageIndex: Int, animated: Bool) {
         let x = CGFloat(pageIndex) * (frame.size.width - 24)

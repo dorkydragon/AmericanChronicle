@@ -1,5 +1,5 @@
-// mark: -
-// mark: PageInteractorInterface protocol
+// MARK: -
+// MARK: PageInteractorInterface protocol
 
 protocol PageInteractorInterface: class {
     var delegate: PageInteractorDelegate? { get set }
@@ -10,20 +10,20 @@ protocol PageInteractorInterface: class {
     func startOCRCoordinatesRequest(withID: String)
 }
 
-// mark: -
-// mark: PageInteractorDelegate protocol
+// MARK: -
+// MARK: PageInteractorDelegate protocol
 
 protocol PageInteractorDelegate: class {
     func downloadDidFinish(forRemoteURL: URL, withFileURL: URL?, error: NSError?)
     func requestDidFinish(withOCRCoordinates: OCRCoordinates?, error: NSError?)
 }
 
-// mark: -
-// mark: PageInteractor class
+// MARK: -
+// MARK: PageInteractor class
 
 final class PageInteractor: PageInteractorInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var delegate: PageInteractorDelegate?
     fileprivate let pageService: PageWebServiceInterface
@@ -31,7 +31,7 @@ final class PageInteractor: PageInteractorInterface {
     fileprivate let coordinatesService: OCRCoordinatesWebServiceInterface
     fileprivate var contextID: String { return "\(Unmanaged.passUnretained(self).toOpaque())" }
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(pageService: PageWebServiceInterface = PageWebService(),
          cachedPageService: PageCacheServiceInterface = PageCacheService(),
@@ -41,7 +41,7 @@ final class PageInteractor: PageInteractorInterface {
         self.coordinatesService = coordinatesService
     }
 
-    // mark: PageInteractorInterface methods
+    // MARK: PageInteractorInterface methods
 
     func startDownload(withRemoteURL remoteURL: URL) {
         if let fileURL = cachedPageService.fileURLForRemoteURL(remoteURL) {

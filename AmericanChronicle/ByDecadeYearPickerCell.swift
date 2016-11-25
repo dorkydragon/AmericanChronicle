@@ -1,6 +1,6 @@
 final class ByDecadeYearPickerCell: UICollectionViewCell {
 
-    // mark: Properties
+    // MARK: Properties
 
     var text: String? {
         get { return label.text }

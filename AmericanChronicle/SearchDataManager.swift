@@ -1,5 +1,5 @@
-// mark: -
-// mark: SearchDataManagerInterface
+// MARK: -
+// MARK: SearchDataManagerInterface
 
 protocol SearchDataManagerInterface {
     func fetchMoreResults(_ parameters: SearchParameters,
@@ -8,19 +8,19 @@ protocol SearchDataManagerInterface {
     func isFetchInProgress(_ parameters: SearchParameters) -> Bool
 }
 
-// mark: -
-// mark: SearchDataManager
+// MARK: -
+// MARK: SearchDataManager
 
 final class SearchDataManager: SearchDataManagerInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     let webService: SearchPagesWebServiceInterface
     let cacheService: SearchPagesCacheServiceInterface
 
     fileprivate var contextID: String { return "\(Unmanaged.passUnretained(self).toOpaque())" }
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(webService: SearchPagesWebServiceInterface = SearchPagesWebService(),
          cacheService: SearchPagesCacheServiceInterface = SearchPagesCacheService()) {
@@ -28,7 +28,7 @@ final class SearchDataManager: SearchDataManagerInterface {
         self.cacheService = cacheService
     }
 
-    // mark: SearchDataManagerInterface methods
+    // MARK: SearchDataManagerInterface methods
 
     internal func fetchMoreResults(_ parameters: SearchParameters, completion: @escaping ((SearchResults?, NSError?) -> Void)) {
         let page: Int

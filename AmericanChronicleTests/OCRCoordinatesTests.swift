@@ -5,7 +5,7 @@ import ObjectMapper
 class OCRCoordinatesTests: XCTestCase {
     var subject: OCRCoordinates!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -16,7 +16,7 @@ class OCRCoordinatesTests: XCTestCase {
         subject = Mapper<OCRCoordinates>().map(JSONString: str as! String)
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_pageWidthIsSetCorrectly() {
         XCTAssertEqual(subject.width, 5418.0)

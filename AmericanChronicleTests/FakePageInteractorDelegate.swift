@@ -2,7 +2,7 @@
 
 class FakePageInteractorDelegate: PageInteractorDelegate {
 
-    // mark: Test stuff
+    // MARK: Test stuff
 
     var downloadDidFinish_invokedWith_remoteURL: URL? = nil
     var downloadDidFinish_invokedWith_fileURL: URL? = nil
@@ -11,7 +11,7 @@ class FakePageInteractorDelegate: PageInteractorDelegate {
     var requestDidFinish_invokedWith_coordinates: OCRCoordinates? = nil
     var requestDidFinish_invokedWith_error: NSError? = nil
 
-    // mark: PageInteractorDelegate conformance
+    // MARK: PageInteractorDelegate conformance
 
     func downloadDidFinish(forRemoteURL remoteURL: URL, withFileURL fileURL: URL?, error: NSError?) {
         downloadDidFinish_invokedWith_remoteURL = remoteURL

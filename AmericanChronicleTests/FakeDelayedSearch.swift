@@ -2,12 +2,12 @@
 
 class FakeDelayedSearch: DelayedSearchInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     var parameters: SearchParameters
     fileprivate let completion: ((SearchResults?, Error?) -> ())
 
-    // mark: DelayedSearchInterface methods
+    // MARK: DelayedSearchInterface methods
 
     required init(parameters: SearchParameters,
                   dataManager: SearchDataManagerInterface,

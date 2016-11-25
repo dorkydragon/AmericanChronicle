@@ -1,5 +1,5 @@
-// mark: -
-// mark: SearchInteractorInterface
+// MARK: -
+// MARK: SearchInteractorInterface
 
 protocol SearchInteractorInterface {
     var delegate: SearchInteractorDelegate? { get set }
@@ -9,34 +9,34 @@ protocol SearchInteractorInterface {
     func cancelLastSearch()
 }
 
-// mark: -
-// mark: SearchInteractorDelegate
+// MARK: -
+// MARK: SearchInteractorDelegate
 
 protocol SearchInteractorDelegate: class {
     func search(for parameters: SearchParameters, didFinishWithResults: SearchResults?, error: NSError?)
 }
 
-// mark: -
-// mark: SearchInteractor class
+// MARK: -
+// MARK: SearchInteractor class
 
 /// Responsibilities:
 ///  * Ensures that only one request is ongoing at a time.
 final class SearchInteractor: SearchInteractorInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var delegate: SearchInteractorDelegate?
 
     fileprivate let searchFactory: DelayedSearchFactoryInterface
     fileprivate var activeSearch: DelayedSearchInterface?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(searchFactory: DelayedSearchFactoryInterface = DelayedSearchFactory()) {
         self.searchFactory = searchFactory
     }
 
-    // mark: SearchInteractorInterface methods
+    // MARK: SearchInteractorInterface methods
 
     func fetchNextPageOfResults(_ parameters: SearchParameters) {
         if parameters == activeSearch?.parameters {

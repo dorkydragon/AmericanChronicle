@@ -7,7 +7,7 @@ class SearchInteractorTests: XCTestCase {
     var searchFactory: FakeDelayedSearchFactory!
     var delegate: FakeSearchInteractorDelegate!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -17,7 +17,7 @@ class SearchInteractorTests: XCTestCase {
         subject.delegate = delegate
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     // --- fetchNextPageOfResults(_:) --- //
 

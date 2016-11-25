@@ -1,31 +1,31 @@
-// mark: -
-// mark: DatePickerWireframeInterface class
+// MARK: -
+// MARK: DatePickerWireframeInterface class
 
 protocol DatePickerWireframeInterface: class {
     func present(from: UIViewController?, withDayMonthYear: DayMonthYear?, title: String?)
     func dismiss(withSelectedDayMonthYear: DayMonthYear?)
 }
 
-// mark: -
-// mark: DatePickerWireframeDelegate protocol
+// MARK: -
+// MARK: DatePickerWireframeDelegate protocol
 
 protocol DatePickerWireframeDelegate: class {
     func datePickerWireframe(_ wireframe: DatePickerWireframe, didSaveWithDayMonthYear: DayMonthYear)
     func datePickerWireframeDidFinish(_ wireframe: DatePickerWireframe)
 }
 
-// mark: -
-// mark: DatePickerWireframe class
+// MARK: -
+// MARK: DatePickerWireframe class
 
 final class DatePickerWireframe: NSObject, DatePickerWireframeInterface, UIViewControllerTransitioningDelegate {
 
-    // mark: Properties
+    // MARK: Properties
 
     fileprivate let presenter: DatePickerPresenterInterface
     fileprivate var presentedViewController: UIViewController?
     fileprivate weak var delegate: DatePickerWireframeDelegate?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(delegate: DatePickerWireframeDelegate,
          presenter: DatePickerPresenterInterface = DatePickerPresenter()) {
@@ -35,7 +35,7 @@ final class DatePickerWireframe: NSObject, DatePickerWireframeInterface, UIViewC
         self.presenter.wireframe = self
     }
 
-    // mark: DatePickerWireframeInterface conformance
+    // MARK: DatePickerWireframeInterface conformance
 
     func present(from presentingViewController: UIViewController?,
                  withDayMonthYear dayMonthYear: DayMonthYear?,
@@ -58,7 +58,7 @@ final class DatePickerWireframe: NSObject, DatePickerWireframeInterface, UIViewC
         })
     }
 
-    // mark: UIViewControllerTransitioningDelegate conformance
+    // MARK: UIViewControllerTransitioningDelegate conformance
 
     func animationController(forPresented: UIViewController,
                              presenting: UIViewController,

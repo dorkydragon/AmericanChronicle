@@ -7,7 +7,7 @@ class SearchPagesWebServiceTests: XCTestCase {
     private var subject: SearchPagesWebService!
     private var manager: FakeSessionManager!
 
-    // mark: Setup and Teardown
+    // MARK: Setup and Teardown
 
     override func setUp() {
         super.setUp()
@@ -15,7 +15,7 @@ class SearchPagesWebServiceTests: XCTestCase {
         subject = SearchPagesWebService(manager: manager)
     }
 
-    // mark: Tests
+    // MARK: Tests
 
     func testThat_whenStartSearchIsCalled_withAnEmptyTerm_itImmediatelyReturnsAnInvalidParameterError() {
 

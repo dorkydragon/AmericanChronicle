@@ -2,12 +2,12 @@ import WebKit
 
 final class ChroniclingAmericaWebsiteViewController: UIViewController {
 
-    // mark: Properties
+    // MARK: Properties
 
     var dismissHandler: ((Void) -> Void)?
     fileprivate let webView = WKWebView()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         navigationItem.setLeftButtonTitle(NSLocalizedString("Dismiss", comment: "Dismiss the screen"),
@@ -25,13 +25,13 @@ final class ChroniclingAmericaWebsiteViewController: UIViewController {
         commonInit()
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapDismissButton(_ sender: UIBarButtonItem) {
         dismissHandler?()
     }
 
-    // mark: UIViewController overrides
+    // MARK: UIViewController overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()

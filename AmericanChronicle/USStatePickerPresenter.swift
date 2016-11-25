@@ -1,29 +1,29 @@
-// mark: -
-// mark: USStatePickerPresenterInterface protocol
+// MARK: -
+// MARK: USStatePickerPresenterInterface protocol
 
 protocol USStatePickerPresenterInterface: USStatePickerUserInterfaceDelegate {
     var wireframe: USStatePickerWireframeInterface? { get set }
     func configure(userInterface: USStatePickerUserInterface, withSelectedStateNames: [String])
 }
 
-// mark: -
-// mark: USStatePickerPresenter class
+// MARK: -
+// MARK: USStatePickerPresenter class
 
 final class USStatePickerPresenter: USStatePickerPresenterInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var wireframe: USStatePickerWireframeInterface?
     fileprivate let interactor: USStatePickerInteractorInterface
     fileprivate var userInterface: USStatePickerUserInterface?
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(interactor: USStatePickerInteractorInterface = USStatePickerInteractor()) {
         self.interactor = interactor
     }
 
-    // mark: USStatePickerPresenterInterface methods
+    // MARK: USStatePickerPresenterInterface methods
 
     func configure(userInterface: USStatePickerUserInterface,
                    withSelectedStateNames selectedStateNames: [String]) {
@@ -36,7 +36,7 @@ final class USStatePickerPresenter: USStatePickerPresenterInterface {
         }
     }
 
-    // mark: USStatePickerUserInterfaceDelegate methods
+    // MARK: USStatePickerUserInterfaceDelegate methods
 
     func userDidTapSave(with selectedStateNames: [String]) {
         wireframe?.dismiss(withSelectedStateNames: selectedStateNames)

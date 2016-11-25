@@ -2,12 +2,12 @@
 
 class FakeUSStatePickerPresenter: USStatePickerPresenterInterface {
 
-    // mark: Test stuff
+    // MARK: Test stuff
 
     var didCallConfigureWithUserInterface: USStatePickerUserInterface?
     var didCallConfigureWithSelectedStateNames: [String]?
 
-    // mark: USStatePickerPresenterInterface conformance
+    // MARK: USStatePickerPresenterInterface conformance
 
     var wireframe: USStatePickerWireframeInterface?
     func configure(userInterface: USStatePickerUserInterface,
@@ -16,7 +16,7 @@ class FakeUSStatePickerPresenter: USStatePickerPresenterInterface {
         didCallConfigureWithSelectedStateNames = selectedStateNames
     }
 
-    // mark: USStatePickerUserInterfaceDelegate conformance
+    // MARK: USStatePickerUserInterfaceDelegate conformance
 
     func userDidTapSave(with selectedStateNames: [String]) {}
     func userDidTapCancel() {}

@@ -1,6 +1,6 @@
 final class ErrorView: UIView {
 
-    // mark: Properties
+    // MARK: Properties
 
     var title: String? {
         get {
@@ -34,7 +34,7 @@ final class ErrorView: UIView {
         return label
     }()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         addSubview(titleLabel)

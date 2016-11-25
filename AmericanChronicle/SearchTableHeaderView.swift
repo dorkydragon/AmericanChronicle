@@ -1,6 +1,6 @@
 final class SearchTableHeaderView: UIView {
 
-    // mark: Properties
+    // MARK: Properties
 
     var searchTerm: String? {
         get { return searchField.text }
@@ -43,7 +43,7 @@ final class SearchTableHeaderView: UIView {
                                                       initialValue: NSLocalizedString("(all states)", comment: "(all states)"))
     fileprivate let bottomBorder = UIImageView(image: UIImage.imageWithFillColor(AMCColor.lightGray))
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
 
@@ -109,7 +109,7 @@ final class SearchTableHeaderView: UIView {
         self.commonInit()
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapEarliestDateButton(_ sender: TitleValueButton) {
         earliestDateButtonTapHandler?()
@@ -123,7 +123,7 @@ final class SearchTableHeaderView: UIView {
         usStatesButtonTapHandler?()
     }
 
-    // mark: UIView overrides
+    // MARK: UIView overrides
 
     override var intrinsicContentSize: CGSize {
         var size = CGSize(width: UIViewNoIntrinsicMetric, height: 0)
@@ -136,7 +136,7 @@ final class SearchTableHeaderView: UIView {
         return size
     }
 
-    // mark: UIResponder overrides
+    // MARK: UIResponder overrides
 
     override func resignFirstResponder() -> Bool {
         return searchField.resignFirstResponder()

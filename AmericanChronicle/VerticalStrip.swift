@@ -63,7 +63,7 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
         return v
     }()
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
 
@@ -125,7 +125,7 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
         commonInit()
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func showItemAtIndex(_ index: Int, withFractionScrolled fractionScrolled: CGFloat, animated: Bool = false) {
         let fullyVisibleY = CGFloat(index) * collectionView.frame.height
@@ -165,13 +165,13 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
         }
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func reportUserInitiatedChangeToIndex(_ index: Int) {
         userDidChangeValueHandler?(index)
     }
 
-    // mark: UICollectionViewDataSource methods
+    // MARK: UICollectionViewDataSource methods
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
@@ -183,7 +183,7 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
         return cell
     }
 
-    // mark: UICollectionViewDelegateFlowLayout methods
+    // MARK: UICollectionViewDelegateFlowLayout methods
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -206,7 +206,7 @@ final class VerticalStrip: UIView, UICollectionViewDataSource, UICollectionViewD
             return 0
     }
 
-    // mark: UIScrollViewDelegate methods
+    // MARK: UIScrollViewDelegate methods
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard !decelerate else { return } // Only act if the scrollViewDidEndDecelerating method won't be called.

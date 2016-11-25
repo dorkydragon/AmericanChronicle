@@ -1,7 +1,7 @@
 import Alamofire
 
-// mark: -
-// mark: SearchPagesWebServiceProtocol
+// MARK: -
+// MARK: SearchPagesWebServiceProtocol
 
 protocol SearchPagesWebServiceInterface {
     func startSearch(with parameters: SearchParameters,
@@ -12,25 +12,25 @@ protocol SearchPagesWebServiceInterface {
     func cancelSearch(_ parameters: SearchParameters, page: Int, contextID: String)
 }
 
-// mark: -
-// mark: SearchPagesWebService
+// MARK: -
+// MARK: SearchPagesWebService
 
 final class SearchPagesWebService: SearchPagesWebServiceInterface {
 
-    // mark: Properties
+    // MARK: Properties
 
     fileprivate let manager: SessionManagerProtocol
     fileprivate var activeRequests: [String: DataRequestProtocol] = [:]
     fileprivate let queue = DispatchQueue(label: "com.ryanipete.AmericanChronicle.SearchPagesWebService",
                               attributes: [])
 
-    // mark: Init methods
+    // MARK: Init methods
 
     init(manager: SessionManagerProtocol = SessionManager()) {
         self.manager = manager
     }
 
-    // mark: SearchPagesWebServiceInterface methods
+    // MARK: SearchPagesWebServiceInterface methods
 
     /// contextID allows cancels without worrying about cancelling another object's outstanding
     /// request for the same info.
@@ -100,7 +100,7 @@ final class SearchPagesWebService: SearchPagesWebServiceInterface {
         return isInProgress
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func key(forParameters parameters: SearchParameters, page: Int) -> String {
         var key = parameters.term

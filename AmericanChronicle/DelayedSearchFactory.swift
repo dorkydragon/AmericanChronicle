@@ -1,13 +1,13 @@
-// mark: -
-// mark: DelayedSearchFactoryInterface protocol
+// MARK: -
+// MARK: DelayedSearchFactoryInterface protocol
 
 protocol DelayedSearchFactoryInterface {
     func fetchMoreResults(_ parameters: SearchParameters,
                           completion: @escaping ((SearchResults?, Error?) -> ())) -> DelayedSearchInterface?
 }
 
-// mark: -
-// mark: DelayedSearchFactory class
+// MARK: -
+// MARK: DelayedSearchFactory class
 
 struct DelayedSearchFactory: DelayedSearchFactoryInterface {
 

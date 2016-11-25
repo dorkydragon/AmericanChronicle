@@ -1,5 +1,5 @@
-// mark: -
-// mark: SearchUserInterface protocol
+// MARK: -
+// MARK: SearchUserInterface protocol
 
 protocol SearchUserInterface: class {
     weak var delegate: SearchUserInterfaceDelegate? { get set }
@@ -13,8 +13,8 @@ protocol SearchUserInterface: class {
     func resignFirstResponder() -> Bool
 }
 
-// mark: -
-// mark: SearchUserInterfaceDelegate protocol
+// MARK: -
+// MARK: SearchUserInterfaceDelegate protocol
 
 protocol SearchUserInterfaceDelegate: class {
     func userDidTapReturn()
@@ -27,15 +27,15 @@ protocol SearchUserInterfaceDelegate: class {
     func viewDidLoad()
 }
 
-// mark: -
-// mark: SearchViewController class
+// MARK: -
+// MARK: SearchViewController class
 
 final class SearchViewController: UIViewController,
         SearchUserInterface,
         UITableViewDelegate,
         UITableViewDataSource {
 
-    // mark: Properties
+    // MARK: Properties
 
     weak var delegate: SearchUserInterfaceDelegate?
 
@@ -76,7 +76,7 @@ final class SearchViewController: UIViewController,
     fileprivate var totalRowCount = 0
     fileprivate var rows: [SearchResultsRow] = []
 
-    // mark: Init methods
+    // MARK: Init methods
 
     func commonInit() {
         navigationItem.title = NSLocalizedString("Search", comment: "Search")
@@ -95,7 +95,7 @@ final class SearchViewController: UIViewController,
         commonInit()
     }
 
-    // mark: Internal methods
+    // MARK: Internal methods
 
     func didTapInfoButton(_ sender: UIBarButtonItem) {
         let vc = InfoViewController()
@@ -106,7 +106,7 @@ final class SearchViewController: UIViewController,
         present(nvc, animated: true, completion: nil)
     }
 
-    // mark: SearchUserInterface conformance
+    // MARK: SearchUserInterface conformance
 
     func setViewState(_ state: SearchViewState) {
         switch state {
@@ -186,7 +186,7 @@ final class SearchViewController: UIViewController,
         tableView.scrollIndicatorInsets = indicatorInsets
     }
 
-    // mark: UITableViewDelegate & -DataSource conformance
+    // MARK: UITableViewDelegate & -DataSource conformance
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if rows.count == 0 { return nil }
@@ -238,7 +238,7 @@ final class SearchViewController: UIViewController,
         delegate?.userIsApproachingLastRow(for: tableHeaderView.searchTerm, inCollection: rows)
     }
 
-    // mark: UIViewController overrides
+    // MARK: UIViewController overrides
 
     override func loadView() {
         view = UIView()
@@ -267,7 +267,7 @@ final class SearchViewController: UIViewController,
         tableView.tableFooterView = tableFooterView
     }
 
-    // mark: UIResponder overrides
+    // MARK: UIResponder overrides
 
     override func becomeFirstResponder() -> Bool {
         return tableHeaderView.becomeFirstResponder()
@@ -277,7 +277,7 @@ final class SearchViewController: UIViewController,
         return tableHeaderView.resignFirstResponder()
     }
 
-    // mark: Private methods
+    // MARK: Private methods
 
     fileprivate func loadTableView() {
         tableView.backgroundColor = UIColor.white
