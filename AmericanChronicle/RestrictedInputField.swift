@@ -48,8 +48,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
             make.width.equalTo(self.snp.width)
         }
 
-        textField.inputView = inputView
-        textField.inputAccessoryView = inputAccessoryView
+        textField.inputView = UIView()
         textField.delegate = self
         addSubview(textField)
         textField.snp.makeConstraints { make in

@@ -13,7 +13,7 @@ final class ShowDatePickerTransitionController: NSObject, UIViewControllerAnimat
             make.edges.equalTo(0)
         }
 
-        guard let snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) else { return }
+        guard let snapshot = fromVC.view.snapshotView() else { return }
         snapshot.tag = DatePickerTransitionConstants.snapshotTag
         transitionContext.containerView.addSubview(snapshot)
 
