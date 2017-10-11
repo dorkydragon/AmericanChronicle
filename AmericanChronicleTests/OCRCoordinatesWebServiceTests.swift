@@ -24,7 +24,7 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
 
         var error: NSError? = nil
         subject.startRequest("", contextID: "") { _, err in
-            error = err as? NSError
+            error = err! as NSError
         }
 
         // then
@@ -58,13 +58,13 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
 
         let id = "lccn/sn83045487/1913-02-20/ed-1/seq-18/"
         let contextID = "fake-context"
-        subject.startRequest(id, contextID: contextID) { _, err in }
+        subject.startRequest(id, contextID: contextID) { _, _ in }
 
         // when
 
         var error: NSError? = nil
         subject.startRequest(id, contextID: contextID) { _, err in
-            error = err as? NSError
+            error = err! as NSError
         }
 
         // then
@@ -99,7 +99,7 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
 
         var returnedError: NSError?
         subject.startRequest("lccn/sn83045487/1913-02-20/ed-1/seq-18/", contextID: "fake-context") { _, err in
-            returnedError = err as? NSError
+            returnedError = err! as NSError
         }
         let expectedError = NSError(code: .invalidParameter, message: nil)
         let result: Result<OCRCoordinates> = .failure(expectedError)

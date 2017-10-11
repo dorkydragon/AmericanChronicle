@@ -1,5 +1,5 @@
 disabled_rules:
-  - force_cast # UITableView and UICollectionView dequeue generic cell types
+  # - force_cast # UITableView and UICollectionView dequeue generic cell types
   - function_parameter_count
   - variable_name # Tests violate this rule
 

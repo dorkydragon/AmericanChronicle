@@ -65,11 +65,11 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
         }
     }
 
-    func didTapCancelButton(_ sender: UIButton) {
+    @objc func didTapCancelButton(_ sender: UIButton) {
         delegate?.userDidTapCancel()
     }
 
-    func didTapSaveButton(_ sender: UIButton) {
+    @objc func didTapSaveButton(_ sender: UIButton) {
         let selectedIndexPaths = collectionView?.indexPathsForSelectedItems ?? []
         let selectedStateNames = selectedIndexPaths.map { self.stateNames[($0 as NSIndexPath).item] }
         delegate?.userDidTapSave(with: selectedStateNames)
@@ -79,7 +79,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                               sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+                        sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
 
         let columnCount = 1
 

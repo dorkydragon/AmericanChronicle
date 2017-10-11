@@ -32,8 +32,8 @@ final class MonthKeyboard: UIView {
         var prevRow: UIButton?
         while !buttonsToAdd.isEmpty {
             var row: [UIButton] = []
-            while row.count < 4 && !buttonsToAdd.isEmpty {
-                row.append(buttonsToAdd.first!)
+            while let buttonToAdd = buttonsToAdd.first, row.count < 4 {
+                row.append(buttonToAdd)
                 buttonsToAdd.removeFirst()
             }
             prevRow = addRowWithButtons(row, prevRow: prevRow)
@@ -53,7 +53,7 @@ final class MonthKeyboard: UIView {
         commonInit()
     }
 
-    func didTapButton(_ button: UIButton) {
+    @objc func didTapButton(_ button: UIButton) {
         if let index = allMonthButtons.index(of: button) {
             monthTapHandler?(index + 1)
         }

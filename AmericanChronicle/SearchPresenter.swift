@@ -44,8 +44,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
         self.interactor = interactor
         super.init()
         self.interactor.delegate = self
-        KeyboardService.sharedInstance.addFrameChangeHandler(id: "\(Unmanaged.passUnretained(self).toOpaque())") {
-            [weak self] rect in
+        KeyboardService.sharedInstance.addFrameChangeHandler(id: "\(Unmanaged.passUnretained(self).toOpaque())") { [weak self] rect in
             self?.updateViewForKeyboardFrame(rect)
         }
     }
@@ -123,7 +122,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
     }
 
     func userIsApproachingLastRow(for term: String?, inCollection collection: [SearchResultsRow]) {
-        guard (term?.characters.count)! > 0 else { return }
+        guard (term?.characters.count ?? 0) > 0 else { return }
         searchIfReady(.loadingMoreRows)
     }
 

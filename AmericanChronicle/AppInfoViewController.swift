@@ -1,5 +1,12 @@
 import UIKit
 
+struct AppInfo {
+    let text: String
+    let detailText: String?
+    let accessoryType: UITableViewCellAccessoryType
+    let item: AnyObject
+}
+
 @objc(AppInfoViewController)
 class AppInfoViewController: UITableViewController {
     var collections: [String: AnyObject] = [:]
@@ -8,10 +15,7 @@ class AppInfoViewController: UITableViewController {
         return Array(collections.keys).sort(<)
     }
 
-    func infoForItemAtIndexPath(indexPath: NSIndexPath) -> (text: String,
-            detailText: String?,
-            accessoryType: UITableViewCellAccessoryType,
-            item: AnyObject)? {
+    func infoForItemAtIndexPath(indexPath: NSIndexPath) -> AppInfo? {
 
         func detailTextForItem(item: AnyObject?) -> String? {
             if let dict = item as? [String: AnyObject] {
@@ -25,9 +29,9 @@ class AppInfoViewController: UITableViewController {
         }
 
         func accessoryTypeForItem(item: AnyObject?) -> UITableViewCellAccessoryType {
-            if let _ = item as? [String: AnyObject] {
+            if item is [String: AnyObject] {
                 return .DisclosureIndicator
-            } else if let _ = item as? [AnyObject] {
+            } else if item is [AnyObject] {
                 return .DisclosureIndicator
             }
             return .None
@@ -91,17 +95,21 @@ class AppInfoViewController: UITableViewController {
 
     override func tableView(tableView: UITableView,
                             cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! AppInfoCell
-        if let (text, detailText, accessoryType, _) = infoForItemAtIndexPath(indexPath) {
-            cell.textLabel?.text = text
-            cell.detailTextLabel?.text = detailText
-            cell.accessoryType = accessoryType
-        } else {
-            cell.textLabel?.text = nil
-            cell.detailTextLabel?.text = nil
-            cell.accessoryType = .None
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        guard let infoCell = cell as? AppInfoCell else {
+            assert(false)
+            return cell
         }
-        return cell
+        if let (text, detailText, accessoryType, _) = infoForItemAtIndexPath(indexPath) {
+            infoCell.textLabel?.text = text
+            infoCell.detailTextLabel?.text = detailText
+            infoCell.accessoryType = accessoryType
+        } else {
+            infoCell.textLabel?.text = nil
+            infoCell.detailTextLabel?.text = nil
+            infoCell.accessoryType = .None
+        }
+        return infoCell
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

@@ -31,7 +31,6 @@
 		97327D8F1D0EC08C00251D2E /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975355671BF5A8550028B7FD /* KeyboardService.swift */; };
 		97327D901D0ECB7800251D2E /* PageWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97963F891BCC784000248942 /* PageWebService.swift */; };
 		97369DCE1BD45B5A0090EC38 /* SearchDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97369DCD1BD45B5A0090EC38 /* SearchDataManagerTests.swift */; };
-		9736A80B1D092975001E2F4C /* VerticalStripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9736A80A1D092975001E2F4C /* VerticalStripCell.swift */; };
 		9739354B1DA2E40500787613 /* FakeDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9739354A1DA2E40500787613 /* FakeDownloadRequest.swift */; };
 		973BDEDE1DC184C2000A875E /* DatePickerTransitionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973BDEDD1DC184C2000A875E /* DatePickerTransitionConstants.swift */; };
 		974D1C271CBECA93005FDBCE /* DayMonthYearTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D1C261CBECA93005FDBCE /* DayMonthYearTests.swift */; };
@@ -74,7 +73,6 @@
 		977F10A01BA54C14003BEF11 /* FakeSearchPagesWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977F109F1BA54C14003BEF11 /* FakeSearchPagesWebService.swift */; };
 		977F10A21BA54C62003BEF11 /* FakeSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977F10A11BA54C62003BEF11 /* FakeSearchInteractor.swift */; };
 		978236191B7FD0D00056FDF6 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978236181B7FD0D00056FDF6 /* Router.swift */; };
-		9782E8D61D068CFA00040A90 /* VerticalStripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9782E8D51D068CFA00040A90 /* VerticalStripTests.swift */; };
 		978D11581B956F2D003B98C5 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978D11571B956F2D003B98C5 /* SearchField.swift */; };
 		978E45C61C9482EB00316435 /* RestrictedInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E45C51C9482EB00316435 /* RestrictedInputField.swift */; };
 		978E95D81BEF2E9E00A4E71E /* SearchPagesCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E95D71BEF2E9E00A4E71E /* SearchPagesCacheService.swift */; };
@@ -134,7 +132,6 @@
 		97E501BB1C7A27F2005DC18F /* MonthKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E501BA1C7A27F2005DC18F /* MonthKeyboard.swift */; };
 		97E501BD1C7A3D22005DC18F /* DayKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E501BC1C7A3D22005DC18F /* DayKeyboard.swift */; };
 		97E501BF1C7A3ECF005DC18F /* ByDecadeYearPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E501BE1C7A3ECF005DC18F /* ByDecadeYearPicker.swift */; };
-		97E501C11C7A5221005DC18F /* VerticalStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E501C01C7A5221005DC18F /* VerticalStrip.swift */; };
 		97EAC1DB1B9D2DB600956EBC /* SearchWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EAC1DA1B9D2DB600956EBC /* SearchWireframe.swift */; };
 		97EAC1DD1B9D2F0C00956EBC /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EAC1DC1B9D2F0C00956EBC /* SearchPresenter.swift */; };
 		97EAC1E31B9D434800956EBC /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EAC1E21B9D434800956EBC /* SearchInteractor.swift */; };
@@ -200,7 +197,6 @@
 		972613DE1C024F1700EDF550 /* OCRCoordinatesWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OCRCoordinatesWebService.swift; sourceTree = "<group>"; };
 		973196DD1DEEACCE009FF65D /* UIView+AMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AMC.swift"; sourceTree = "<group>"; };
 		97369DCD1BD45B5A0090EC38 /* SearchDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataManagerTests.swift; sourceTree = "<group>"; };
-		9736A80A1D092975001E2F4C /* VerticalStripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStripCell.swift; sourceTree = "<group>"; };
 		9739354A1DA2E40500787613 /* FakeDownloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDownloadRequest.swift; sourceTree = "<group>"; };
 		973BDEDD1DC184C2000A875E /* DatePickerTransitionConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerTransitionConstants.swift; sourceTree = "<group>"; };
 		974D1C261CBECA93005FDBCE /* DayMonthYearTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayMonthYearTests.swift; sourceTree = "<group>"; };
@@ -248,7 +244,6 @@
 		977F109F1BA54C14003BEF11 /* FakeSearchPagesWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeSearchPagesWebService.swift; sourceTree = "<group>"; };
 		977F10A11BA54C62003BEF11 /* FakeSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeSearchInteractor.swift; sourceTree = "<group>"; };
 		978236181B7FD0D00056FDF6 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		9782E8D51D068CFA00040A90 /* VerticalStripTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStripTests.swift; sourceTree = "<group>"; };
 		978D11571B956F2D003B98C5 /* SearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		978E45C51C9482EB00316435 /* RestrictedInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictedInputField.swift; sourceTree = "<group>"; };
 		978E95D71BEF2E9E00A4E71E /* SearchPagesCacheService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPagesCacheService.swift; sourceTree = "<group>"; };
@@ -316,7 +311,6 @@
 		97E501BA1C7A27F2005DC18F /* MonthKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthKeyboard.swift; sourceTree = "<group>"; };
 		97E501BC1C7A3D22005DC18F /* DayKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayKeyboard.swift; sourceTree = "<group>"; };
 		97E501BE1C7A3ECF005DC18F /* ByDecadeYearPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByDecadeYearPicker.swift; sourceTree = "<group>"; };
-		97E501C01C7A5221005DC18F /* VerticalStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStrip.swift; sourceTree = "<group>"; };
 		97E744171BD750D700963C62 /* PageWebServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageWebServiceTests.swift; sourceTree = "<group>"; };
 		97EAC1DA1B9D2DB600956EBC /* SearchWireframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWireframe.swift; sourceTree = "<group>"; };
 		97EAC1DC1B9D2F0C00956EBC /* SearchPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
@@ -585,7 +579,6 @@
 		975A0F0C1DBFE6A300D3F8B2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9782E8D51D068CFA00040A90 /* VerticalStripTests.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -662,7 +655,6 @@
 			isa = PBXGroup;
 			children = (
 				97DDC32E1CF9F5DC002C7C2C /* ByDecadeYearPicker */,
-				97B23B541CFF081200A42D55 /* VerticalStrip */,
 				97E501BA1C7A27F2005DC18F /* MonthKeyboard.swift */,
 				97E501BC1C7A3D22005DC18F /* DayKeyboard.swift */,
 				970F3D821C957E9300D50106 /* PagedKeyboard.swift */,
@@ -862,15 +854,6 @@
 			name = Page;
 			sourceTree = "<group>";
 		};
-		97B23B541CFF081200A42D55 /* VerticalStrip */ = {
-			isa = PBXGroup;
-			children = (
-				97E501C01C7A5221005DC18F /* VerticalStrip.swift */,
-				9736A80A1D092975001E2F4C /* VerticalStripCell.swift */,
-			);
-			name = VerticalStrip;
-			sourceTree = "<group>";
-		};
 		97B29A461DADCB5E00A13E2F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1031,7 +1014,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97757CC01C961A9E006422FC /* Build configuration list for PBXNativeTarget "AmericanChronicleUITests" */;
 			buildPhases = (
-				7E1742095E55A1DC7D9B6379 /* 📦 Check Pods Manifest.lock */,
+				7E1742095E55A1DC7D9B6379 /* [CP] Check Pods Manifest.lock */,
 				46EF6CA0744B790957405749 /* [CP] Check Pods Manifest.lock */,
 				97757CB31C961A9D006422FC /* Sources */,
 				97757CB41C961A9D006422FC /* Frameworks */,
@@ -1054,14 +1037,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97BDE1301B76ED6B00A3E57F /* Build configuration list for PBXNativeTarget "AmericanChronicle" */;
 			buildPhases = (
-				C0B605A0F09DE30862B7A894 /* 📦 Check Pods Manifest.lock */,
+				C0B605A0F09DE30862B7A894 /* [CP] Check Pods Manifest.lock */,
 				E4C164EC9D349BF25D5E0BD8 /* [CP] Check Pods Manifest.lock */,
 				97BDE10B1B76ED6B00A3E57F /* Sources */,
 				97BDE10C1B76ED6B00A3E57F /* Frameworks */,
 				97BDE10D1B76ED6B00A3E57F /* Resources */,
 				97FF385E1C95D3FF009625F4 /* Fabric - Run Script */,
 				97327D8E1D0EAB1C00251D2E /* Run SwiftLint */,
-				975E59111D12DCA4006E19CF /* ShellScript */,
 				A4BBE09BAEB19F5223F5951E /* [CP] Embed Pods Frameworks */,
 				C16E557ADE55CD9E0E50ABC4 /* [CP] Copy Pods Resources */,
 				2302C6B091EFD2521F841C60 /* 📦 Embed Pods Frameworks */,
@@ -1080,7 +1062,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97BDE1331B76ED6B00A3E57F /* Build configuration list for PBXNativeTarget "AmericanChronicleTests" */;
 			buildPhases = (
-				F0FF5019708736C4DDDBE6A9 /* 📦 Check Pods Manifest.lock */,
+				F0FF5019708736C4DDDBE6A9 /* [CP] Check Pods Manifest.lock */,
 				23DC72215BD48773D9D172E5 /* [CP] Check Pods Manifest.lock */,
 				97BDE1221B76ED6B00A3E57F /* Sources */,
 				97BDE1231B76ED6B00A3E57F /* Frameworks */,
@@ -1126,7 +1108,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = ryanipete;
 				TargetAttributes = {
 					97757CB61C961A9D006422FC = {
@@ -1136,11 +1118,11 @@
 					97BDE10E1B76ED6B00A3E57F = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = NZMN2ALEXL;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 					97BDE1251B76ED6B00A3E57F = {
 						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						TestTargetID = 97BDE10E1B76ED6B00A3E57F;
 					};
 					97E4C23F1CF8681500A0E8A3 = {
@@ -1317,19 +1299,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AmericanChronicleUITests/Pods-AmericanChronicleUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7E1742095E55A1DC7D9B6379 /* 📦 Check Pods Manifest.lock */ = {
+		7E1742095E55A1DC7D9B6379 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AmericanChronicleUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8DB9AFD8E24E7C9B00102910 /* [CP] Embed Pods Frameworks */ = {
@@ -1361,19 +1346,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
-		975E59111D12DCA4006E19CF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-		};
 		97FF385E1C95D3FF009625F4 /* Fabric - Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1394,9 +1366,22 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AmericanChronicle/Pods-AmericanChronicle-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1418,19 +1403,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AmericanChronicleTests/Pods-AmericanChronicleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C0B605A0F09DE30862B7A894 /* 📦 Check Pods Manifest.lock */ = {
+		C0B605A0F09DE30862B7A894 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AmericanChronicle-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C16E557ADE55CD9E0E50ABC4 /* [CP] Copy Pods Resources */ = {
@@ -1478,19 +1466,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AmericanChronicleUITests/Pods-AmericanChronicleUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F0FF5019708736C4DDDBE6A9 /* 📦 Check Pods Manifest.lock */ = {
+		F0FF5019708736C4DDDBE6A9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AmericanChronicleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FFD3202D353D40A3B22AED05 /* 📦 Embed Pods Frameworks */ = {
@@ -1556,11 +1547,9 @@
 				97E501BF1C7A3ECF005DC18F /* ByDecadeYearPicker.swift in Sources */,
 				9772676E1D0FF2EB00DD7CF1 /* HideDatePickerTransitionController.swift in Sources */,
 				978E9B1A1BAFA6360001690C /* SearchResults.swift in Sources */,
-				9736A80B1D092975001E2F4C /* VerticalStripCell.swift in Sources */,
 				97728BB31C30EB0D00ADEFE2 /* Date+AMC.swift in Sources */,
 				9764976D1B7DA0270035A388 /* Month.swift in Sources */,
 				97EAC1E31B9D434800956EBC /* SearchInteractor.swift in Sources */,
-				97E501C11C7A5221005DC18F /* VerticalStrip.swift in Sources */,
 				97C3ABB11C39CA2B00165FEA /* SearchParameters.swift in Sources */,
 				97E501BD1C7A3D22005DC18F /* DayKeyboard.swift in Sources */,
 				97DA462B1D12A79300D65DA9 /* Constants.swift in Sources */,
@@ -1621,7 +1610,6 @@
 				97DD1C581BEFFEAC00A67538 /* FakeSearchDataManager.swift in Sources */,
 				97F622031BE9E94000F0DB63 /* DelayedSearchTests.swift in Sources */,
 				97DB4FAD1C02E2990091F33D /* OCRCoordinatesWebServiceTests.swift in Sources */,
-				9782E8D61D068CFA00040A90 /* VerticalStripTests.swift in Sources */,
 				97728BB51C30ECD600ADEFE2 /* FakeSessionManager.swift in Sources */,
 				977F109B1BA54A98003BEF11 /* FakeViewController.swift in Sources */,
 				979E207A1BD30E40007C7F5F /* FakePageWebService.swift in Sources */,
@@ -1742,14 +1730,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1790,14 +1784,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1826,7 +1826,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 65B33DACD888DAB239786906 /* Pods-AmericanChronicle.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
@@ -1868,7 +1867,8 @@
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "AmericanChronicle/AmericanChronicle-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -1881,7 +1881,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8E8CD295E59D8D0CB8B60B75 /* Pods-AmericanChronicle.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
@@ -1922,7 +1921,8 @@
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "AmericanChronicle/AmericanChronicle-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -1945,7 +1945,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryanipete.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AmericanChronicle.app/AmericanChronicle";
 			};
 			name = Debug;
@@ -1960,7 +1961,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ryanipete.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AmericanChronicle.app/AmericanChronicle";
 			};
 			name = Release;

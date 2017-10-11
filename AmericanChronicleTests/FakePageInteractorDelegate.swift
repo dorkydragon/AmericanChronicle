@@ -4,12 +4,12 @@ class FakePageInteractorDelegate: PageInteractorDelegate {
 
     // MARK: Test stuff
 
-    var downloadDidFinish_invokedWith_remoteURL: URL? = nil
-    var downloadDidFinish_invokedWith_fileURL: URL? = nil
-    var downloadDidFinish_invokedWith_error: NSError? = nil
+    var downloadDidFinish_invokedWith_remoteURL: URL?
+    var downloadDidFinish_invokedWith_fileURL: URL?
+    var downloadDidFinish_invokedWith_error: NSError?
 
-    var requestDidFinish_invokedWith_coordinates: OCRCoordinates? = nil
-    var requestDidFinish_invokedWith_error: NSError? = nil
+    var requestDidFinish_invokedWith_coordinates: OCRCoordinates?
+    var requestDidFinish_invokedWith_error: NSError?
 
     // MARK: PageInteractorDelegate conformance
 

@@ -22,7 +22,7 @@ class DelayedSearchTests: XCTestCase {
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         subject = DelayedSearch(parameters: params, dataManager: dataManager, runLoop: runLoop, completion: { results, error in
             self.results = results
-            self.error = error as? NSError
+            self.error = error! as NSError
             self.completionHandlerExpectation?.fulfill()
         })
     }

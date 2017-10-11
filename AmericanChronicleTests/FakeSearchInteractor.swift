@@ -2,7 +2,7 @@
 
 class FakeSearchInteractor: SearchInteractorInterface {
 
-    var delegate: SearchInteractorDelegate?
+    weak var delegate: SearchInteractorDelegate?
 
     var fetchNextPageOfResults_wasCalled_withParameters: SearchParameters?
     func fetchNextPageOfResults(_ parameters: SearchParameters) {

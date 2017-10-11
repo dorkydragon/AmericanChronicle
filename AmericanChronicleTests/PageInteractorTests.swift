@@ -67,7 +67,9 @@ class PageInteractorTests: XCTestCase {
 
         // then
 
-        XCTAssertEqual(subjectDelegate.downloadDidFinish_invokedWith_fileURL, cacheService.stubbed_fileURL)
+        let startedUrl = subjectDelegate.downloadDidFinish_invokedWith_fileURL
+        let expectedUrl = cacheService.stubbed_fileURL
+        XCTAssertEqual(startedUrl, expectedUrl)
     }
 
     func testThat_onPageServiceRequestSuccess_theDelegateIsCalledWithTheFileURL() {

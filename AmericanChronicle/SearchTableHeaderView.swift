@@ -24,17 +24,17 @@ final class SearchTableHeaderView: UIView {
         get { return searchField.shouldChangeCharactersHandler }
         set { searchField.shouldChangeCharactersHandler = newValue }
     }
-    var shouldReturnHandler: ((Void) -> Bool)? {
+    var shouldReturnHandler: (() -> Bool)? {
         get { return searchField.shouldReturnHandler }
         set { searchField.shouldReturnHandler = newValue }
     }
-    var shouldClearHandler: ((Void) -> Bool)? {
+    var shouldClearHandler: (() -> Bool)? {
         get { return searchField.shouldClearHandler }
         set { searchField.shouldClearHandler = newValue }
     }
-    var earliestDateButtonTapHandler: ((Void) -> Void)?
-    var latestDateButtonTapHandler: ((Void) -> Void)?
-    var usStatesButtonTapHandler: ((Void) -> Void)?
+    var earliestDateButtonTapHandler: (() -> Void)?
+    var latestDateButtonTapHandler: (() -> Void)?
+    var usStatesButtonTapHandler: (() -> Void)?
 
     fileprivate let searchField = SearchField()
     fileprivate let earliestDateButton = TitleValueButton(title: NSLocalizedString("Earliest Date", comment: "Earliest Date"))
@@ -111,15 +111,15 @@ final class SearchTableHeaderView: UIView {
 
     // MARK: Internal methods
 
-    func didTapEarliestDateButton(_ sender: TitleValueButton) {
+    @objc func didTapEarliestDateButton(_ sender: TitleValueButton) {
         earliestDateButtonTapHandler?()
     }
 
-    func didTapLatestDateButton(_ sender: TitleValueButton) {
+    @objc func didTapLatestDateButton(_ sender: TitleValueButton) {
         latestDateButtonTapHandler?()
     }
 
-    func didTapUSStatesButton(_ sender: TitleValueButton) {
+    @objc func didTapUSStatesButton(_ sender: TitleValueButton) {
         usStatesButtonTapHandler?()
     }
 

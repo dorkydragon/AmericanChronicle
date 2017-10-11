@@ -84,7 +84,7 @@ final class PageWebService: PageWebServiceInterface {
                 let request = self.manager
                     .download(remoteURL.absoluteString, to: destination)
                     .response(queue: nil) { [weak self] (response: DefaultDownloadResponse) in
-                        if let error = response.error as? NSError {
+                        if let error = response.error as NSError? {
                             if error.code == NSFileWriteFileExistsError {
                                 // Not a real error, the file was found on disk.
                                 self?.finishRequest(withRemoteURL: remoteURL, fileURL: fileURL, error: nil)

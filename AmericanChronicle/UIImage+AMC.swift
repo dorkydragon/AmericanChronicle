@@ -21,7 +21,12 @@ extension UIImage {
 
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return img!.resizableImage(withCapInsets: UIEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius))
+        guard let image = img else {
+            assert(false)
+            return UIImage()
+        }
+        let insets = UIEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
+        return image.resizableImage(withCapInsets: insets)
     }
 
     class func upArrowWithFillColor(_ fillColor: UIColor) -> UIImage {
@@ -36,9 +41,13 @@ extension UIImage {
         bezierPath.addLine(to: CGPoint(x: 8, y: 0))
         fillColor.setFill()
         bezierPath.fill()
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image!
+        guard let image = img else {
+            assert(false)
+            return UIImage()
+        }
+        return image
     }
 
     class func downArrowWithFillColor(_ fillColor: UIColor) -> UIImage {
@@ -53,9 +62,13 @@ extension UIImage {
         bezierPath.addLine(to: CGPoint(x: 8, y: 4))
         fillColor.setFill()
         bezierPath.fill()
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image!
+        guard let image = img else {
+            assert(false)
+            return UIImage()
+        }
+        return image
     }
 
     class func forwardArrowWithFillColor(_ fillColor: UIColor) -> UIImage {
@@ -75,9 +88,13 @@ extension UIImage {
         bezierPath.close()
         fillColor.setFill()
         bezierPath.fill()
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image!
+        guard let image = img else {
+            assert(false)
+            return UIImage()
+        }
+        return image
     }
 
     class func backArrowWithFillColor(_ fillColor: UIColor) -> UIImage {
@@ -97,8 +114,12 @@ extension UIImage {
         bezierPath.close()
         fillColor.setFill()
         bezierPath.fill()
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image!
+        guard let image = img else {
+            assert(false)
+            return UIImage()
+        }
+        return image
     }
 }

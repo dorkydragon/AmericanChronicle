@@ -1,23 +1,4 @@
 import ObjectMapper
-fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func >= <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l >= r
-  default:
-    return !(lhs < rhs)
-  }
-}
 
 final class SearchResults: NSObject, Mappable {
 
@@ -29,7 +10,7 @@ final class SearchResults: NSObject, Mappable {
     var itemsPerPage: Int = 20
     var items: [SearchResult]?
     var allItemsLoaded: Bool {
-        return items?.count >= totalItems
+        return (items?.count ?? 0) >= (totalItems ?? 0)
     }
     var numLoadedPages: Int {
         return Int(ceilf(Float(items?.count ?? 0)/Float(itemsPerPage)))

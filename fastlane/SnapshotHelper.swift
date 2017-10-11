@@ -80,7 +80,7 @@ class Snapshot: NSObject {
         do {
             let launchArguments = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding) as String
             let regex = try NSRegularExpression(pattern: "(\\\".+?\\\"|\\S+)", options: [])
-            let matches = regex.matchesInString(launchArguments, options: [], range: NSRange(location:0, length:launchArguments.characters.count))
+            let matches = regex.matchesInString(launchArguments, options: [], range: NSRange(location: 0, length: launchArguments.characters.count))
             let results = matches.map { result -> String in
                 (launchArguments as NSString).substringWithRange(result.range)
             }

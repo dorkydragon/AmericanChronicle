@@ -9,7 +9,7 @@ class FakePageInteractor: NSObject, PageInteractorInterface {
 
     // MARK: PageInteractorInterface conformance
 
-    var delegate: PageInteractorDelegate?
+    weak var delegate: PageInteractorDelegate?
 
     func startDownload(withRemoteURL: URL) {
         startDownload_wasCalled = true

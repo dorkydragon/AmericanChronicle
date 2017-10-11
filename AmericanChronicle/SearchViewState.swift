@@ -24,7 +24,7 @@ enum SearchViewState: Equatable, CustomStringConvertible {
             desc += rows.map({"\($0.description)" }).joined(separator: ", ")
             desc += "]"
         case let .error(title, message):
-            desc += "Error, title=\(title), message=\(message)"
+            desc += "Error, title=\(title ?? ""), message=\(message ?? "")"
         }
         desc += ">"
         return desc

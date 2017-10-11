@@ -79,7 +79,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
 
     // MARK: Internal methods
 
-    func didTapButton(_ sender: UIButton) {
+    @objc func didTapButton(_ sender: UIButton) {
         textField.becomeFirstResponder()
     }
 

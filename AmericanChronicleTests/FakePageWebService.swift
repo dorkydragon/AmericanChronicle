@@ -10,7 +10,7 @@ class FakePageWebService: PageWebServiceInterface {
     var downloadPage_arguments_URL: URL?
     var cancelDownload_arguments_URL: URL?
     var stubbed_isDownloadInProgress = false
-    fileprivate var downloadPage_arguments_completionHandler: ((URL?, Error?) -> ())?
+    fileprivate var downloadPage_arguments_completionHandler: ((URL?, Error?) -> Void)?
 
     func fakeSuccess(withURL url: URL) {
         downloadPage_arguments_completionHandler?(url, nil)

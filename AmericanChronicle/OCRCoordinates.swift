@@ -21,7 +21,7 @@ final class OCRCoordinates: NSObject, Mappable {
     func mapping(map: Map) {
         let floatTransform = TransformOf<CGFloat, String>(fromJSON: { (val: String?) in
             return CGFloat(Float(val ?? "") ?? 0.0)
-        }, toJSON: { (val: CGFloat?) in
+        }, toJSON: { _ in
             return nil
         })
         width <- (map["width"], floatTransform)
@@ -41,7 +41,7 @@ final class OCRCoordinates: NSObject, Mappable {
                 returnVal[item.0] = rects
             }
             return returnVal
-        }, toJSON: { (val: [String: [CGRect]]?) in
+        }, toJSON: { _ in
             return nil
         })
 
