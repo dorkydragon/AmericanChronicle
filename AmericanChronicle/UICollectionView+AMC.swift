@@ -15,14 +15,18 @@ extension UICollectionView {
     }
 
     func headerAtIndexPath(_ indexPath: IndexPath) -> UICollectionReusableView {
-        return supplementaryView(forElementKind: UICollectionElementKindSectionHeader,
-                                               at: indexPath)!
+        guard let header = supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: indexPath) else {
+            fatalError("Missing header")
+        }
+        return header
     }
 
     func dequeueCellForItemAtIndexPath<T: UICollectionViewCell>(_ indexPath: IndexPath) -> T {
         let identifier = NSStringFromClass(T.self)
-        let cell = dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        return cell as! T
+        guard let cell = dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? T else {
+            fatalError("Unexpected cell type")
+        }
+        return cell
     }
 
     func dequeueHeaderForIndexPath(_ indexPath: IndexPath) -> UICollectionReusableView {

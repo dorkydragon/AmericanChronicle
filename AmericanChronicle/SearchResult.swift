@@ -103,7 +103,7 @@ final class SearchResult: NSObject, Mappable {
 
     override var description: String {
         let empty = ""
-        var str = "<\(type(of: self)) \(Unmanaged.passUnretained(self).toOpaque()):"
+        var str = "<\(Swift.type(of: self)) \(Unmanaged.passUnretained(self).toOpaque()):"
         str += " sequence=\(sequence?.description ?? empty)"
         str += ", county=\(county?.description ?? empty)"
         str += ", edition=\(edition?.description ?? empty)"
@@ -131,7 +131,7 @@ final class SearchResult: NSObject, Mappable {
         str += ", titleNormal=\(titleNormal?.description ?? empty)"
         str += ", url=\(url?.description ?? empty)"
         str += ", place=\(place?.description ?? empty)"
-        str += ", page=\(page?.description ?? nil)"
+        str += ", page=\(page?.description ?? empty)"
         str += ", thumbnailURL=\(thumbnailURL?.absoluteString ?? empty)"
         str += ", pdfURL=\(pdfURL?.absoluteString ?? empty)"
         str += ">"

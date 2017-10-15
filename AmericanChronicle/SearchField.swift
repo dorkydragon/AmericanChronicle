@@ -2,18 +2,18 @@ final class SearchField: UIView, UITextFieldDelegate {
 
     // MARK: Properties
 
-    var shouldBeginEditingHandler: ((Void) -> Bool)?
+    var shouldBeginEditingHandler: (() -> Bool)?
     var shouldChangeCharactersHandler: ((_ text: String,
                                          _ range: NSRange,
                                          _ replacementString: String) -> Bool)?
-    var shouldClearHandler: ((Void) -> Bool)?
-    var shouldReturnHandler: ((Void) -> Bool)?
+    var shouldClearHandler: (() -> Bool)?
+    var shouldReturnHandler: (() -> Bool)?
     var placeholder: String? {
         get { return textField.placeholder }
         set { textField.placeholder = newValue }
     }
     var text: String {
-        get { return textField.text! }
+        get { return textField.text ?? "" }
         set { textField.text = newValue }
     }
 
@@ -101,7 +101,7 @@ final class SearchField: UIView, UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        return shouldChangeCharactersHandler?(textField.text!,
+        return shouldChangeCharactersHandler?(textField.text ?? "",
                                               range,
                                               string) ?? true
     }

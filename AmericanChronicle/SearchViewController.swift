@@ -97,7 +97,7 @@ final class SearchViewController: UIViewController,
 
     // MARK: Internal methods
 
-    func didTapInfoButton(_ sender: UIBarButtonItem) {
+    @objc func didTapInfoButton(_ sender: UIBarButtonItem) {
         let vc = InfoViewController()
         vc.dismissHandler = { [weak self] in
             self?.dismiss(animated: true, completion: nil)
@@ -209,8 +209,12 @@ final class SearchViewController: UIViewController,
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let pageCell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchResultsPageCell.self))
-                                    as! SearchResultsPageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchResultsPageCell.self),
+                                                 for: indexPath)
+        guard let pageCell = cell as? SearchResultsPageCell else {
+            assert(false)
+            return cell
+        }
         let result = rows[(indexPath as NSIndexPath).row]
         if let date = result.date {
             pageCell.date = dateFormatter.string(from: date as Date)
@@ -231,7 +235,7 @@ final class SearchViewController: UIViewController,
 
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
-                                   forRowAt indexPath: IndexPath) {
+                   forRowAt indexPath: IndexPath) {
         guard rows.count > 0 else { return }
         guard (rows.count - (indexPath as NSIndexPath).row) < SearchViewController.approachingCount else { return }
 
@@ -323,13 +327,13 @@ final class SearchViewController: UIViewController,
             self?.delegate?.userDidChangeSearch(to: "")
             return true
         }
-        tableHeaderView.earliestDateButtonTapHandler = { [weak self] _ in
+        tableHeaderView.earliestDateButtonTapHandler = { [weak self] in
             self?.delegate?.userDidTapEarliestDateButton()
         }
-        tableHeaderView.latestDateButtonTapHandler = { [weak self] _ in
+        tableHeaderView.latestDateButtonTapHandler = { [weak self] in
             self?.delegate?.userDidTapLatestDateButton()
         }
-        tableHeaderView.usStatesButtonTapHandler = { [weak self] _ in
+        tableHeaderView.usStatesButtonTapHandler = { [weak self] in
             self?.delegate?.userDidTapUSStates()
         }
     }

@@ -3,7 +3,7 @@ import UIKit
 class TestURLProtocol: URLProtocol {
 
     static var instancesLoading: [String: TestURLProtocol] = [:]
-    static var didStartLoadingCallbacks: [String: ((Void) -> ())] = [:]
+    static var didStartLoadingCallbacks: [String: (() -> Void)] = [:]
 
     override init(request: URLRequest, cachedResponse: CachedURLResponse?, client: URLProtocolClient?) {
         super.init(request: request, cachedResponse: cachedResponse, client: client)

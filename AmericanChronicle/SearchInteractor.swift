@@ -1,7 +1,7 @@
 // MARK: -
 // MARK: SearchInteractorInterface
 
-protocol SearchInteractorInterface {
+protocol SearchInteractorInterface: class {
     var delegate: SearchInteractorDelegate? { get set }
 
     func fetchNextPageOfResults(_ parameters: SearchParameters)
@@ -58,7 +58,7 @@ final class SearchInteractor: SearchInteractorInterface {
         activeSearch = searchFactory.fetchMoreResults(parameters) { [weak self] (results, error) in
             self?.delegate?.search(for: parameters,
                                    didFinishWithResults: results,
-                                   error: error as? NSError)
+                                   error: error as NSError?)
         }
         oldActiveSearch?.cancel()
     }

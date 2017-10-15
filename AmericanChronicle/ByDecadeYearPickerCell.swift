@@ -12,12 +12,16 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet { updateFormat() }
     }
+    var isEnabled: Bool = true {
+        didSet { updateFormat() }
+    }
 
     fileprivate let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = AMCFont.largeRegular
         label.textColor = AMCColor.darkGray
+        label.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
         return label
     }()
     fileprivate let insetBackgroundView: UIImageView = {
@@ -56,10 +60,14 @@ final class ByDecadeYearPickerCell: UICollectionViewCell {
     }
 
     private func updateFormat() {
-        if isHighlighted {
+        if !isEnabled {
+            insetBackgroundView.image = UIImage.imageWithFillColor(UIColor.white,
+                                                                   cornerRadius: 1.0)
+            label.textColor = UIColor.lightGray
+        } else if isHighlighted {
             insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.brightBlue,
                                                                    cornerRadius: 1.0)
-           label.textColor = UIColor.white
+            label.textColor = UIColor.white
         } else if isSelected {
             insetBackgroundView.image = UIImage.imageWithFillColor(AMCColor.brightBlue,
                                                                    cornerRadius: 1.0)

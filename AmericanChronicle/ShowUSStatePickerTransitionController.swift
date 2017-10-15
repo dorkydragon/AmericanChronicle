@@ -6,7 +6,7 @@ final class ShowUSStatePickerTransitionController: NSObject, UIViewControllerAni
 
         let fromNVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? UINavigationController
 
-        if let _ = fromNVC?.topViewController as? SearchViewController {
+        if fromNVC?.topViewController is SearchViewController {
             if let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) {
                 toView.alpha = 0
                 transitionContext.containerView.addSubview(toView)

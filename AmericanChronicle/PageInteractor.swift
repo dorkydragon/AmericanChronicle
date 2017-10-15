@@ -53,7 +53,7 @@ final class PageInteractor: PageInteractorInterface {
             if let fileURL = fileURL, error == nil {
                 self?.cachedPageService.cacheFileURL(fileURL, forRemoteURL: remoteURL)
             }
-            self?.delegate?.downloadDidFinish(forRemoteURL: remoteURL, withFileURL: fileURL, error: error as? NSError)
+            self?.delegate?.downloadDidFinish(forRemoteURL: remoteURL, withFileURL: fileURL, error: error as NSError?)
         }
     }
 
@@ -66,9 +66,8 @@ final class PageInteractor: PageInteractorInterface {
     }
 
     func startOCRCoordinatesRequest(withID id: String) {
-        coordinatesService.startRequest(id, contextID: contextID, completion: {
-            [weak self] coordinates, err in
-            self?.delegate?.requestDidFinish(withOCRCoordinates: coordinates, error: err as? NSError)
+        coordinatesService.startRequest(id, contextID: contextID, completion: { [weak self] coordinates, err in
+            self?.delegate?.requestDidFinish(withOCRCoordinates: coordinates, error: err as NSError?)
         })
     }
 }

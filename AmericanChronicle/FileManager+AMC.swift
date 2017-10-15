@@ -30,12 +30,12 @@ extension FileManager {
     }
 
     class func printAllDirectoryURLs() {
-        print("defaultDocumentDirectoryURL: \(defaultDocumentDirectoryURL)")
-        print("defaultApplicationDirectoryURL: \(defaultApplicationDirectoryURL)")
-        print("defaultLibraryDirectoryURL: \(defaultLibraryDirectoryURL)")
-        print("defaultCachesDirectoryURL: \(defaultCachesDirectoryURL)")
-        print("defaultDownloadsDirectoryURL: \(defaultDownloadsDirectoryURL)")
-        print("defaultItemReplacementDirectoryURL: \(defaultItemReplacementDirectoryURL)")
+        print("[RP] defaultDocumentDirectoryURL: \(String(describing: defaultDocumentDirectoryURL))")
+        print("[RP] defaultApplicationDirectoryURL: \(String(describing: defaultApplicationDirectoryURL))")
+        print("[RP] defaultLibraryDirectoryURL: \(String(describing: defaultLibraryDirectoryURL))")
+        print("[RP] defaultCachesDirectoryURL: \(String(describing: defaultCachesDirectoryURL))")
+        print("[RP] defaultDownloadsDirectoryURL: \(String(describing: defaultDownloadsDirectoryURL))")
+        print("[RP] defaultItemReplacementDirectoryURL: \(String(describing: defaultItemReplacementDirectoryURL))")
     }
 
     class var contentsOfTemporaryDirectory: [String] {

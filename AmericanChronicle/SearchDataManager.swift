@@ -47,18 +47,20 @@ final class SearchDataManager: SearchDataManagerInterface {
                                contextID: contextID,
                                completion: { results, error in
             let allResults: SearchResults?
-            if let results = results {
+            if let freshResults = results {
+                let resultsToCache: SearchResults
                 if let cachedResults = self.cacheService.resultsForParameters(parameters) {
-                    cachedResults.items?.append(contentsOf: results.items ?? [])
-                    allResults = cachedResults
+                    cachedResults.items?.append(contentsOf: freshResults.items ?? [])
+                    resultsToCache = cachedResults
                 } else {
-                    allResults = results
+                    resultsToCache = freshResults
                 }
-                self.cacheService.cacheResults(allResults!, forParameters: parameters)
+                allResults = resultsToCache
+                self.cacheService.cacheResults(resultsToCache, forParameters: parameters)
             } else {
                 allResults = nil
             }
-            completion(allResults, error as? NSError)
+            completion(allResults, error as NSError?)
         })
     }
 

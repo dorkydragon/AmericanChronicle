@@ -43,7 +43,7 @@ class PageWebServiceTests: XCTestCase {
 
         // given
 
-        let URL = URL(string: "http://notarealurl.com")!
+        let url = URL(string: "http://notarealurl.com")!
 
         // Make the first request, which *does* start a download.
         let contextA = "contextA"
@@ -52,7 +52,7 @@ class PageWebServiceTests: XCTestCase {
         manager.download_wasCalled_handler = {
             expectDownloadToBeCalled.fulfill()
         }
-        subject.downloadPage(URL, contextID: contextA) { _, _ in }
+        subject.downloadPage(url, contextID: contextA) { _, _ in }
         waitForExpectationsWithTimeout(0.2, handler: nil)
 
         // when
@@ -82,12 +82,12 @@ class PageWebServiceTests: XCTestCase {
 
         // given
 
-        let URL = URL(string: "http://notarealurl.com")!
+        let url = URL(string: "http://notarealurl.com")!
 
         // Make the first request.
 
         let contextA = "contextA"
-        subject.downloadPage(URL, contextID: contextA) { _, _ in }
+        subject.downloadPage(url, contextID: contextA) { _, _ in }
 
         // when
 
@@ -99,7 +99,7 @@ class PageWebServiceTests: XCTestCase {
         }
 
         var returnedError: NSError? = nil
-        subject.downloadPage(URL, contextID: contextA) { _, err in
+        subject.downloadPage(url, contextID: contextA) { _, err in
             returnedError = err as? NSError
         }
         waitForExpectationsWithTimeout(0.2, handler: nil)
@@ -113,15 +113,15 @@ class PageWebServiceTests: XCTestCase {
 
         // given
 
-        let URLString = "http://notarealurl.com"
+        let urlString = "http://notarealurl.com"
         let contextID = "abcd-efgh"
-        subject.downloadPage(URL(string: URLString)!, contextID: contextID) { _, _ in }
+        subject.downloadPage(URL(string: urlString)!, contextID: contextID) { _, _ in }
 
         // when
 
         let expectation = expectationWithDescription("completionHandler_wasCalled")
         var error: NSError? = nil
-        subject.downloadPage(URL(string: URLString)!, contextID: contextID) { _, err in
+        subject.downloadPage(URL(string: urlString)!, contextID: contextID) { _, err in
             error = err as? NSError
             expectation.fulfill()
         }
@@ -136,20 +136,20 @@ class PageWebServiceTests: XCTestCase {
 
         // given
 
-        let URLString = "http://notarealurl.com"
+        let urlString = "http://notarealurl.com"
 
         var URLOne: URL?
-        subject.downloadPage(URL(string: URLString)!, contextID: "abcd-efgh") { results, _ in
+        subject.downloadPage(URL(string: urlString)!, contextID: "abcd-efgh") { results, _ in
             URLOne = results
         }
 
         var URLTwo: URL?
-        subject.downloadPage(URL(string: URLString)!, contextID: "efgh-ijkl") { results, _ in
+        subject.downloadPage(URL(string: urlString)!, contextID: "efgh-ijkl") { results, _ in
             URLTwo = results
         }
 
         var URLThree: URL?
-        subject.downloadPage(URL(string: URLString)!, contextID: "ijkl-mnop") { results, _ in
+        subject.downloadPage(URL(string: urlString)!, contextID: "ijkl-mnop") { results, _ in
             URLThree = results
         }
 
@@ -173,20 +173,20 @@ class PageWebServiceTests: XCTestCase {
 
         // given
 
-        let URLString = "http://notarealurl.com"
+        let urlString = "http://notarealurl.com"
 
         var errorOne: NSError?
-        subject.downloadPage(URL(string: URLString)!, contextID: "abcd-efgh") { _, err in
+        subject.downloadPage(URL(string: urlString)!, contextID: "abcd-efgh") { _, err in
             errorOne = err as? NSError
         }
 
         var errorTwo: NSError?
-        subject.downloadPage(URL(string: URLString)!, contextID: "efgh-ijkl") { _, err in
+        subject.downloadPage(URL(string: urlString)!, contextID: "efgh-ijkl") { _, err in
             errorTwo = err as? NSError
         }
 
         var errorThree: NSError?
-        subject.downloadPage(URL(string: URLString)!, contextID: "ijkl-mnop") { _, err in
+        subject.downloadPage(URL(string: urlString)!, contextID: "ijkl-mnop") { _, err in
             errorThree = err as? NSError
         }
 

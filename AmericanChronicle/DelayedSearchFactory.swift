@@ -3,7 +3,7 @@
 
 protocol DelayedSearchFactoryInterface {
     func fetchMoreResults(_ parameters: SearchParameters,
-                          completion: @escaping ((SearchResults?, Error?) -> ())) -> DelayedSearchInterface?
+                          completion: @escaping ((SearchResults?, Error?) -> Void)) -> DelayedSearchInterface?
 }
 
 // MARK: -
@@ -17,7 +17,7 @@ struct DelayedSearchFactory: DelayedSearchFactoryInterface {
     }
 
     func fetchMoreResults(_ parameters: SearchParameters,
-                          completion: @escaping ((SearchResults?, Error?) -> ()))
+                          completion: @escaping ((SearchResults?, Error?) -> Void))
         -> DelayedSearchInterface? {
             return DelayedSearch(parameters: parameters,
                                  dataManager: dataManager,

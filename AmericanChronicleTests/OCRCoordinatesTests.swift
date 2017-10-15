@@ -13,7 +13,7 @@ class OCRCoordinatesTests: XCTestCase {
         let path = Bundle(for: OCRCoordinatesTests.self).path(forResource: "ocr_coordinates-response", ofType: "json")
         let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         let str = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-        subject = Mapper<OCRCoordinates>().map(JSONString: str as! String)
+        subject = Mapper<OCRCoordinates>().map(JSONString: str! as String)
     }
 
     // MARK: Tests

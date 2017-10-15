@@ -94,8 +94,8 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
         updateKeyboards()
     }
 
-    func yearValueChanged(_ value: String) {
-        selectedDayMonthYear = selectedDayMonthYear.copyWithYear(Int(value) ?? 0)
+    func yearValueChanged(_ value: Int) {
+        selectedDayMonthYear = selectedDayMonthYear.copyWithYear(value)
         dateField.selectedDayMonthYear = selectedDayMonthYear
         updateKeyboards()
     }
@@ -123,15 +123,15 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
 
     // MARK: Internal methods
 
-    func didTapSaveButton(_ sender: UIBarButtonItem) {
+    @objc func didTapSaveButton(_ sender: UIBarButtonItem) {
         delegate?.userDidSave(with: selectedDayMonthYear)
     }
 
-    func didTapCancelButton(_ sender: UIBarButtonItem) {
+    @objc func didTapCancelButton(_ sender: UIBarButtonItem) {
         delegate?.userDidCancel()
     }
 
-    func didRecognizeTap(_ sender: UITapGestureRecognizer) {
+    @objc func didRecognizeTap(_ sender: UITapGestureRecognizer) {
         delegate?.userDidCancel()
     }
 
@@ -194,8 +194,9 @@ final class DatePickerViewController: UIViewController, DatePickerUserInterface,
             make.height.equalTo(66)
         }
 
-        pagedKeyboard = PagedKeyboard(pages: [monthKeyboard, dayKeyboard, yearPicker])
-        foregroundPanel.addSubview(pagedKeyboard!)
+        let keyboard = PagedKeyboard(pages: [monthKeyboard, dayKeyboard, yearPicker])
+        foregroundPanel.addSubview(keyboard)
+        pagedKeyboard = keyboard
         pagedKeyboard?.snp.makeConstraints { make in
             make.top.equalTo(dateField.snp.bottom)
             make.leading.equalTo(0)

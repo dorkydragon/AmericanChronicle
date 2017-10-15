@@ -70,12 +70,12 @@ final class KeyboardService: NSObject {
         frameChangeHandlers[id] = nil
     }
 
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         let keyboardFrameEnd = (notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
         keyboardFrame = keyboardFrameEnd?.cgRectValue
     }
 
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         keyboardFrame = nil
     }
 

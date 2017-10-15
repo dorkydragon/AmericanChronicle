@@ -28,7 +28,7 @@ class ChroniclingAmericaIntegrationTests: XCTestCase {
                                       states: ["South Carolina", "Missouri"],
                                       earliestDayMonthYear: earliestDayMonthYear,
                                       latestDayMonthYear: latestDayMonthYear)
-        service.startSearch(params, page: 1, contextID: "", completion: { results, error in
+        service.startSearch(params, page: 1, contextID: "", completion: { results, _ in
             searchResults = results
             expectation.fulfill()
         })

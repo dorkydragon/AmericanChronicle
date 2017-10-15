@@ -3,7 +3,9 @@ struct DayMonthYear: CustomStringConvertible {
     fileprivate static let timeZone = TimeZone(secondsFromGMT: 0)
     fileprivate static let calendar: Calendar = {
         var calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-        calendar.timeZone = DayMonthYear.timeZone!
+        if let timeZone = DayMonthYear.timeZone {
+            calendar.timeZone = timeZone
+        }
         return calendar
     }()
 

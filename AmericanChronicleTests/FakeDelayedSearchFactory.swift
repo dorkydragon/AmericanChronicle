@@ -7,7 +7,7 @@ class FakeDelayedSearchFactory: DelayedSearchFactoryInterface {
     fileprivate(set) var newSearchForTerm_lastReturnedSearch: FakeDelayedSearch?
 
     func fetchMoreResults(_ parameters: SearchParameters,
-                          completion: @escaping ((SearchResults?, Error?) -> ())) -> DelayedSearchInterface? {
+                          completion: @escaping ((SearchResults?, Error?) -> Void)) -> DelayedSearchInterface? {
         newSearch_wasCalled_withParameters = parameters
         newSearchForTerm_lastReturnedSearch = FakeDelayedSearch(parameters: parameters,
                                                                 dataManager: FakeSearchDataManager(),

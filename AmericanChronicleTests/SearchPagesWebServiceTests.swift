@@ -27,7 +27,7 @@ class SearchPagesWebServiceTests: XCTestCase {
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         var error: NSError? = nil
         subject.startSearch(with: params, page: 3, contextID: "context") { _, err in
-            error = err as? NSError
+            error = err! as NSError
         }
 
         // then
@@ -45,7 +45,7 @@ class SearchPagesWebServiceTests: XCTestCase {
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         var error: NSError? = nil
         subject.startSearch(with: params, page: 0, contextID: "context") { _, err in
-            error = err as? NSError
+            error = err! as NSError
         }
 
         // then
@@ -61,13 +61,13 @@ class SearchPagesWebServiceTests: XCTestCase {
                                       states: ["Alabama", "Colorado"],
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
-        subject.startSearch(with: params, page: 2, contextID: "context") { _, err in }
+        subject.startSearch(with: params, page: 2, contextID: "context") { _, _ in }
 
         // when
 
         var error: NSError? = nil
         subject.startSearch(with: params, page: 2, contextID: "context") { _, err in
-            error = err as? NSError
+            error = err! as NSError
         }
 
         // then
@@ -132,10 +132,8 @@ class SearchPagesWebServiceTests: XCTestCase {
         switch manager.beginRequest_wasCalled_withRequest! {
         case .pagesSearch(_, let page):
             XCTAssertEqual(page, 4)
-            break
         default:
-            XCTFail()
-            break
+            XCTFail("Unexpected request type: \(manager.beginRequest_wasCalled_withRequest).")
         }
     }
 
@@ -176,7 +174,7 @@ class SearchPagesWebServiceTests: XCTestCase {
         let request = FakeDataRequest()
         manager.stubbedReturnDataRequest = request
         subject.startSearch(with: params, page: 2, contextID: "context") { _, error in
-            returnedError = error as? NSError
+            returnedError = error! as NSError
         }
         let expectedError = NSError(code: .invalidParameter, message: nil)
         let result: Result<SearchResults> = .failure(expectedError)
@@ -202,7 +200,7 @@ class SearchPagesWebServiceTests: XCTestCase {
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
         manager.stubbedReturnDataRequest = request
-        subject.startSearch(with: params, page: 2, contextID: "context") { _, error in
+        subject.startSearch(with: params, page: 2, contextID: "context") { _, _ in
             isInProgress = self.subject.isSearchInProgress(params, page: 2, contextID: "context")
         }
         let result: Result<SearchResults> = .failure(NSError(code: .duplicateRequest, message: nil))

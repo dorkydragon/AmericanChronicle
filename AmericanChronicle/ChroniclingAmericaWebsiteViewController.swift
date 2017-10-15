@@ -4,7 +4,7 @@ final class ChroniclingAmericaWebsiteViewController: UIViewController {
 
     // MARK: Properties
 
-    var dismissHandler: ((Void) -> Void)?
+    var dismissHandler: (() -> Void)?
     fileprivate let webView = WKWebView()
 
     // MARK: Init methods
@@ -27,7 +27,7 @@ final class ChroniclingAmericaWebsiteViewController: UIViewController {
 
     // MARK: Internal methods
 
-    func didTapDismissButton(_ sender: UIBarButtonItem) {
+    @objc func didTapDismissButton(_ sender: UIBarButtonItem) {
         dismissHandler?()
     }
 
@@ -43,7 +43,11 @@ final class ChroniclingAmericaWebsiteViewController: UIViewController {
             make.edges.equalTo(0)
         }
 
-        let request = URLRequest(url: URL(string: "http://chroniclingamerica.loc.gov/")!)
-        webView.load(request)
+        guard let url = URL(string: "http://chroniclingamerica.loc.gov/") else {
+            assert(false)
+            return
+        }
+
+        webView.load(URLRequest(url: url))
     }
 }

@@ -38,7 +38,7 @@ final class PageWireframe: PageWireframeInterface {
                  remoteURL: URL,
                  id: String) {
         let sb = UIStoryboard(name: "Page", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! PageViewController
+        guard let vc = sb.instantiateInitialViewController() as? PageViewController else { return }
         vc.delegate = presenter
         presenter.configure(userInterface: vc, withSearchTerm: searchTerm, remoteDownloadURL: remoteURL, id: id)
         presentingViewController?.present(vc, animated: true, completion: nil)

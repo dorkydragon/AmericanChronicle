@@ -34,6 +34,8 @@ final class TitleValueButton: UIControl {
         return b
     }()
 
+    private var observingToken: NSKeyValueObservation?
+
     // MARK: Init methods
 
     init(title: String, initialValue: String = "--") {
@@ -45,8 +47,11 @@ final class TitleValueButton: UIControl {
         layer.shadowOpacity = 0.4
 
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
-        button.addObserver(self, forKeyPath: "highlighted", options: NSKeyValueObservingOptions.initial, context: nil)
+        observingToken = button.observe(\UIButton.highlighted) { [weak self] _, _ in
+            self?.isHighlighted = (self?.button.isHighlighted ?? false)
+        }
         addSubview(button)
+
         button.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }
@@ -85,17 +90,8 @@ final class TitleValueButton: UIControl {
 
     // MARK: Internal methods
 
-    func didTapButton(_ sender: UIButton) {
+    @objc func didTapButton(_ sender: UIButton) {
         sendActions(for: .touchUpInside)
-    }
-
-    // MARK: NSKeyValueObserving methods
-
-    override func observeValue(forKeyPath keyPath: String?,
-                                         of object: Any?,
-                                                  change: [NSKeyValueChangeKey : Any]?,
-                                                  context: UnsafeMutableRawPointer?) {
-        isHighlighted = button.isHighlighted
     }
 
     // MARK: UIControl overrides

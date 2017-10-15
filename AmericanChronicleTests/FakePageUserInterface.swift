@@ -4,9 +4,9 @@ class FakePageUserInterface: NSObject, PageUserInterface {
 
     // MARK: Test stuff
 
-    var doneCallback: ((Void) -> ())?
-    var shareCallback: ((Void) -> ())?
-    var cancelCallback: ((Void) -> ())?
+    var doneCallback: (() -> Void)?
+    var shareCallback: (() -> Void)?
+    var cancelCallback: (() -> Void)?
 
     var showError_wasCalled_withTitle: String?
     var showError_wasCalled_withMessage: String?
@@ -17,7 +17,7 @@ class FakePageUserInterface: NSObject, PageUserInterface {
 
     var pdfPage: CGPDFPage?
     var highlights: OCRCoordinates?
-    var delegate: PageUserInterfaceDelegate?
+    weak var delegate: PageUserInterfaceDelegate?
 
     func showErrorWithTitle(_ title: String?, message: String?) {
         showError_wasCalled_withTitle = title

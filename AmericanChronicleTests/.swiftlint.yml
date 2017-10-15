@@ -1,0 +1,4 @@
+disabled_rules:
+  - force_cast
+  - variable_name
+  - weak_delegate

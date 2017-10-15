@@ -4,7 +4,7 @@ final class InfoViewController: UIViewController {
 
     // MARK: Properties
 
-    var dismissHandler: ((Void) -> Void)?
+    var dismissHandler: (() -> Void)?
 
     fileprivate let bodyLabel: UILabel = {
         let label = UILabel()
@@ -57,11 +57,11 @@ final class InfoViewController: UIViewController {
 
     // MARK: Internal methods
 
-    func didTapDismissButton(_ sender: UIBarButtonItem) {
+    @objc func didTapDismissButton(_ sender: UIBarButtonItem) {
         dismissHandler?()
     }
 
-    func didTapSuggestionsButton(_ sender: UIButton) {
+    @objc func didTapSuggestionsButton(_ sender: UIButton) {
         let vc = MFMailComposeViewController()
         vc.setSubject("AmericanChronicle")
         guard let supportEmail = ProcessInfo.processInfo.environment["SUPPORT_EMAIL"] else { return }
@@ -71,11 +71,11 @@ final class InfoViewController: UIViewController {
         present(vc, animated: true, completion: nil)
     }
 
-    func didTapWebsiteButton(_ sender: UIBarButtonItem) {
+    @objc func didTapWebsiteButton(_ sender: UIBarButtonItem) {
         let vc = ChroniclingAmericaWebsiteViewController()
         vc.dismissHandler = {
             self.dismiss(animated: true, completion: nil)
-        }
+        } as (() -> Void)
         let nvc = UINavigationController(rootViewController: vc)
         present(nvc, animated: true, completion: nil)
     }

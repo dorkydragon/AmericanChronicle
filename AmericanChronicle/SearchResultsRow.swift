@@ -38,14 +38,14 @@ struct SearchResultsRow: CustomStringConvertible {
 
     var description: String {
         var desc = "<SearchResultsRow: "
-        desc += "id=\(id)"
-        desc += ", date=\(date)"
+        desc += "id=\(id ?? "")"
+        desc += ", date=\(String(describing: date))"
         desc += ", cityState=\(cityState)"
         desc += ", publicationTitle=\(publicationTitle)"
-        desc += ", thumbnailURL=\(thumbnailURL)"
-        desc += ", lccn=\(lccn)"
-        desc += ", edition=\(edition)"
-        desc += ", sequence=\(sequence)"
+        desc += ", thumbnailURL=\(String(describing: thumbnailURL))"
+        desc += ", lccn=\(String(describing: lccn))"
+        desc += ", edition=\(String(describing: edition))"
+        desc += ", sequence=\(String(describing: sequence))"
         desc += ">"
         return desc
     }

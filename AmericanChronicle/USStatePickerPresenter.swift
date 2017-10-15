@@ -28,7 +28,7 @@ final class USStatePickerPresenter: USStatePickerPresenterInterface {
     func configure(userInterface: USStatePickerUserInterface,
                    withSelectedStateNames selectedStateNames: [String]) {
         self.userInterface = userInterface
-        interactor.fetchStateNames { [weak self] names, error in
+        interactor.fetchStateNames { [weak self] names, _ in
             if let names = names {
                 self?.userInterface?.stateNames = names
                 self?.userInterface?.setSelectedStateNames(selectedStateNames)

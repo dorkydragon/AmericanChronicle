@@ -67,8 +67,7 @@ final class SearchPagesWebService: SearchPagesWebServiceInterface {
         }
 
         let routerRequest = Router.pagesSearch(params: parameters, page: page)
-        let request = manager.beginRequest(routerRequest).responseObj {
-            [weak self] (response: DataResponse<SearchResults>) in
+        let request = manager.beginRequest(routerRequest).responseObj { [weak self] (response: DataResponse<SearchResults>) in
             self?.queue.sync {
                 guard let key = self?.key(forParameters: parameters, page: page) else { return }
                 self?.activeRequests[key] = nil

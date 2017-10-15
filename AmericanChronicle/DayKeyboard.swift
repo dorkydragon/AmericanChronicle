@@ -25,7 +25,7 @@ final class DayKeyboard: UIView {
 
     // MARK: Internal methods
 
-    func didTapButton(_ button: UIButton) {
+    @objc func didTapButton(_ button: UIButton) {
         if let title = button.title(for: UIControlState()) {
             dayTapHandler?(title)
         }

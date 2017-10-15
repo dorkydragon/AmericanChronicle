@@ -6,7 +6,7 @@ protocol DelayedSearchInterface {
     init(parameters: SearchParameters,
          dataManager: SearchDataManagerInterface,
          runLoop: RunLoopInterface,
-         completion: @escaping ((SearchResults?, Error?) -> ()))
+         completion: @escaping ((SearchResults?, Error?) -> Void))
     func cancel()
     func isSearchInProgress() -> Bool
 }
@@ -20,7 +20,7 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
 
     let parameters: SearchParameters
     fileprivate let dataManager: SearchDataManagerInterface
-    fileprivate let completion: (SearchResults?, Error?) -> ()
+    fileprivate let completion: (SearchResults?, Error?) -> Void
     fileprivate var timer: Timer!
 
     // MARK: Init methods
@@ -28,7 +28,7 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
     internal init(parameters: SearchParameters,
                   dataManager: SearchDataManagerInterface,
                   runLoop: RunLoopInterface,
-                  completion: @escaping ((SearchResults?, Error?) -> ())) {
+                  completion: @escaping ((SearchResults?, Error?) -> Void)) {
         self.parameters = parameters
         self.dataManager = dataManager
         self.completion = completion
@@ -45,7 +45,7 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
 
     // MARK: Internal methods
 
-    func timerDidFire(_ sender: Timer) {
+    @objc func timerDidFire(_ sender: Timer) {
         dataManager.fetchMoreResults(parameters, completion: completion)
     }
 

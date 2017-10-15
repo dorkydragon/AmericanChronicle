@@ -5,14 +5,14 @@ class FakeDelayedSearch: DelayedSearchInterface {
     // MARK: Properties
 
     var parameters: SearchParameters
-    fileprivate let completion: ((SearchResults?, Error?) -> ())
+    fileprivate let completion: ((SearchResults?, Error?) -> Void)
 
     // MARK: DelayedSearchInterface methods
 
     required init(parameters: SearchParameters,
                   dataManager: SearchDataManagerInterface,
                   runLoop: RunLoopInterface,
-                  completion: @escaping ((SearchResults?, Error?) -> ())) {
+                  completion: @escaping ((SearchResults?, Error?) -> Void)) {
         self.parameters = parameters
         self.completion = completion
     }

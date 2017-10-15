@@ -44,7 +44,7 @@ final class OCRCoordinatesWebService: OCRCoordinatesWebServiceInterface {
         if pageID.characters.isEmpty {
             let error = NSError(code: .invalidParameter,
                                 message: NSLocalizedString("Tried to fetch highlights info using an empty lccn.",
-                                                           comment:"Tried to fetch highlights info using an empty lccn."))
+                                                           comment: "Tried to fetch highlights info using an empty lccn."))
             completion(nil, error)
             return
         }
@@ -59,9 +59,8 @@ final class OCRCoordinatesWebService: OCRCoordinatesWebServiceInterface {
 
         let signature = requestSignature(pageID: pageID, contextID: contextID)
         let routerRequest = Router.ocrCoordinates(pageID: pageID)
-        let request = manager.beginRequest(routerRequest).responseObj {
-            [weak self] (response: Alamofire.DataResponse<OCRCoordinates>) in
-            self?.queue.sync() {
+        let request = manager.beginRequest(routerRequest).responseObj { [weak self] (response: Alamofire.DataResponse<OCRCoordinates>) in
+            self?.queue.sync {
                 self?.activeRequests[signature] = nil
             }
             completion(response.result.value, response.result.error)
