@@ -54,14 +54,16 @@ final class SearchResultsPageCell: UITableViewCell {
 
         contentView.backgroundColor = UIColor.white
 
+        let cornerRadius: CGFloat = 2
+
         let thumbnailShadowView = UIView()
         thumbnailShadowView.layer.shadowOpacity = 1.0
         thumbnailShadowView.layer.shadowColor = AMCColor.darkGray.cgColor
-        thumbnailShadowView.layer.shadowRadius = 2
+        thumbnailShadowView.layer.shadowRadius = 1.0
         thumbnailShadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        thumbnailShadowView.layer.cornerRadius = cornerRadius
         thumbnailShadowView.backgroundColor = UIColor.white
         contentView.addSubview(thumbnailShadowView)
-
         thumbnailShadowView.snp.makeConstraints { make in
             make.top.equalTo(12)
             make.bottom.equalTo(-12)
@@ -69,6 +71,8 @@ final class SearchResultsPageCell: UITableViewCell {
             make.width.equalTo(snp.height).multipliedBy(0.6)
         }
 
+        thumbnailImageView.layer.cornerRadius = cornerRadius
+        thumbnailImageView.clipsToBounds = true
         contentView.addSubview(thumbnailImageView)
         thumbnailImageView.snp.makeConstraints { make in
             make.top.equalTo(thumbnailShadowView.snp.top)

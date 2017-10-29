@@ -817,12 +817,12 @@
 		97AB2A4C1B84278400666E95 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				97EAC1DA1B9D2DB600956EBC /* SearchWireframe.swift */,
-				97EAC1DC1B9D2F0C00956EBC /* SearchPresenter.swift */,
-				978E9B1D1BAFB5340001690C /* View */,
-				97EAC1E21B9D434800956EBC /* SearchInteractor.swift */,
 				97963F951BCC84D700248942 /* SearchDataManager.swift */,
+				97EAC1E21B9D434800956EBC /* SearchInteractor.swift */,
+				97EAC1DC1B9D2F0C00956EBC /* SearchPresenter.swift */,
+				97EAC1DA1B9D2DB600956EBC /* SearchWireframe.swift */,
 				978E9B181BAFA6120001690C /* Entities */,
+				978E9B1D1BAFB5340001690C /* View */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -857,9 +857,9 @@
 		97B29A461DADCB5E00A13E2F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				97DE1C961C4C0DCC00AD12F0 /* SearchTableHeaderView.swift */,
 				978D11571B956F2D003B98C5 /* SearchField.swift */,
 				975914A91B7A47C40031BD13 /* SearchResultsPageCell.swift */,
+				97DE1C961C4C0DCC00AD12F0 /* SearchTableHeaderView.swift */,
 			);
 			name = Subviews;
 			sourceTree = "<group>";
