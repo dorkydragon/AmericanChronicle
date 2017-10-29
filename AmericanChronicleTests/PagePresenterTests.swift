@@ -59,7 +59,11 @@ class PagePresenterTests: XCTestCase {
 
         // when
 
-        subject.downloadDidFinish(forRemoteURL: URL(string: "http://google.com")!, withFileURL: nil, error: nil)
+        let didCallHideLoadingIndicator = view.newHideLoadingIndicatorExpectation()
+        subject.downloadDidFinish(forRemoteURL: URL(string: "http://google.com")!,
+                                  withFileURL: URL(string: "http://not.real/url"),
+                                  error: nil)
+        wait(for: [didCallHideLoadingIndicator], timeout: 5)
 
         // then
 
@@ -83,7 +87,9 @@ class PagePresenterTests: XCTestCase {
 
         // when
 
+        let didSetPDFPage = view.newSetPDFPageExpectation()
         subject.downloadDidFinish(forRemoteURL: requestURL, withFileURL: returnedFileURL, error: nil)
+        wait(for: [didSetPDFPage], timeout: 5)
 
         // then
 
@@ -103,11 +109,13 @@ class PagePresenterTests: XCTestCase {
 
         // when
 
+        let didCallShowError = view.newShowErrorExpectation()
         subject.downloadDidFinish(forRemoteURL: requestURL, withFileURL: nil, error: returnedError)
+        wait(for: [didCallShowError], timeout: 5)
 
         // then
 
-        XCTAssertNotNil(view.showError_wasCalled_withTitle)
+        XCTAssertEqual(view.showError_callLog.count, 1)
     }
 
     func testThat_whenTheUserTapsCancel_itTellsTheInteractorToCancel() {

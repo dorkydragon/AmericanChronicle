@@ -1,4 +1,5 @@
 @testable import AmericanChronicle
+import XCTest
 
 class FakePageUserInterface: NSObject, PageUserInterface {
 
@@ -8,20 +9,43 @@ class FakePageUserInterface: NSObject, PageUserInterface {
     var shareCallback: (() -> Void)?
     var cancelCallback: (() -> Void)?
 
-    var showError_wasCalled_withTitle: String?
-    var showError_wasCalled_withMessage: String?
+    var showError_callLog: [(title: String?, message: String?)] = []
+    private var showError_expectation: XCTestExpectation?
+    func newShowErrorExpectation() -> XCTestExpectation {
+        showError_expectation = XCTestExpectation(description: "Did call showErrorWithTitle(_:message:)")
+        return showError_expectation!
+    }
+
     var showLoadingIndicator_wasCalled = false
+
     var hideLoadingIndicator_wasCalled = false
+    private var hideLoadingIndicator_expectation: XCTestExpectation?
+    func newHideLoadingIndicatorExpectation() -> XCTestExpectation {
+        hideLoadingIndicator_expectation = XCTestExpectation(description: "Did call hideLoadingIndicator()")
+        return hideLoadingIndicator_expectation!
+    }
+
+    private var setPDFPage_expectation: XCTestExpectation?
+    func newSetPDFPageExpectation() -> XCTestExpectation {
+        setPDFPage_expectation = XCTestExpectation(description: "Did set pdfPage")
+        return setPDFPage_expectation!
+    }
 
     // MARK: PageUserInterface conformance
 
-    var pdfPage: CGPDFPage?
+    var pdfPage: CGPDFPage? {
+        didSet {
+            setPDFPage_expectation?.fulfill()
+            setPDFPage_expectation = nil
+        }
+    }
     var highlights: OCRCoordinates?
     weak var delegate: PageUserInterfaceDelegate?
 
     func showErrorWithTitle(_ title: String?, message: String?) {
-        showError_wasCalled_withTitle = title
-        showError_wasCalled_withMessage = message
+        showError_callLog.append((title, message))
+        showError_expectation?.fulfill()
+        showError_expectation = nil
     }
 
     func showLoadingIndicator() {
@@ -34,5 +58,7 @@ class FakePageUserInterface: NSObject, PageUserInterface {
 
     func hideLoadingIndicator() {
         hideLoadingIndicator_wasCalled = true
+        hideLoadingIndicator_expectation?.fulfill()
+        hideLoadingIndicator_expectation = nil
     }
 }
