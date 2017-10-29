@@ -342,11 +342,12 @@ final class SearchViewController: UIViewController,
         tableFooterView.frame = CGRect(x: 0, y: 0, width: 300, height: 48)
 
         let spinner = UIActivityIndicatorView()
-        spinner.startAnimating()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         tableFooterView.addSubview(spinner)
-        spinner.snp.makeConstraints { make in
-            make.center.equalTo(0)
-        }
+        spinner.startAnimating()
+        spinner.centerXAnchor.constraint(equalTo: tableFooterView.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: tableFooterView.centerYAnchor).isActive = true
+        tableFooterView.setNeedsLayout()
     }
 
     fileprivate func loadErrorView() {
