@@ -148,12 +148,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        print("[RP] \(String(describing: type(of: self))) | \(#function) | line \(#line)")
         return true
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        print("[RP] \(String(describing: type(of: self))) | \(#function) | line \(#line)")
     }
 
     // MARK: UICollectionViewDelegateFlowLayout methods
@@ -188,11 +183,5 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         layout collectionViewLayout: UICollectionViewLayout,
         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-
-    override func resignFirstResponder() -> Bool {
-        let val = super.resignFirstResponder()
-        print("[RP] val: \(val)")
-        return val
     }
 }
