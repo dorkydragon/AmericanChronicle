@@ -63,15 +63,21 @@ final class PagePresenter: PagePresenterInterface {
     // MARK: PageInteractorDelegate methods
 
     func downloadDidFinish(forRemoteURL: URL, withFileURL fileURL: URL?, error: NSError?) {
-        if let error = error {
-            userInterface?.showErrorWithTitle(NSLocalizedString("Trouble Downloading PDF", comment: "Trouble Downloading PDF"),
-                                              message: error.localizedDescription)
-        } else {
-            if let fileURL = fileURL {
-                userInterface?.pdfPage = CGPDFDocument(fileURL as CFURL)?.page(at: 1)
+        DispatchQueue.main.async {
+            if let error = error, !error.isCancelledRequestError() {
+                self.userInterface?.showErrorWithTitle(NSLocalizedString("Trouble Downloading PDF", comment: "Trouble Downloading PDF"),
+
+                                                       message: error.localizedDescription)
+                self.userInterface?.hideLoadingIndicator()
+            } else {
+                if let fileURL = fileURL {
+                    self.userInterface?.pdfPage = CGPDFDocument(fileURL as CFURL)?.page(at: 1)
+                    self.userInterface?.hideLoadingIndicator()
+                }
             }
+            // NOTE: Only hiding loading indicator if content is being updated.
+            // Prevents the page from flashing black if loading is cancelled.
         }
-        userInterface?.hideLoadingIndicator()
     }
 
     func requestDidFinish(withOCRCoordinates coordinates: OCRCoordinates?, error: NSError?) {
