@@ -18,7 +18,9 @@ protocol USStatePickerUserInterfaceDelegate: class {
 // MARK: -
 // MARK: USStatePickerViewController class
 
-final class USStatePickerViewController: UICollectionViewController, USStatePickerUserInterface {
+final class USStatePickerViewController: UICollectionViewController,
+                                         USStatePickerUserInterface,
+                                         UICollectionViewDelegateFlowLayout {
 
     // MARK: Properties
 
@@ -79,7 +81,7 @@ final class USStatePickerViewController: UICollectionViewController, USStatePick
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let columnCount = 1
 

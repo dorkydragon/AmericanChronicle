@@ -594,11 +594,11 @@
 		975DA6C51C1928FD00D7211A /* USStatePicker */ = {
 			isa = PBXGroup;
 			children = (
-				977267731D0FF41200DD7CF1 /* Wireframe */,
-				974EFBF11C1E00BB00E7D4CB /* USStatePickerPresenter.swift */,
-				97D542C11C1B4DAD00402D9A /* View */,
 				975DA6C61C19292700D7211A /* USStatePickerInteractor.swift */,
+				974EFBF11C1E00BB00E7D4CB /* USStatePickerPresenter.swift */,
 				975A0F0D1DBFE74200D3F8B2 /* BundledFiles */,
+				97D542C11C1B4DAD00402D9A /* View */,
+				977267731D0FF41200DD7CF1 /* Wireframe */,
 			);
 			name = USStatePicker;
 			sourceTree = "<group>";
