@@ -2,6 +2,3 @@ language: objective-c
 xcode_workspace: AmericanChronicle.xcworkspace
 xcode_scheme: AmericanChronicle
 osx_image: xcode9
-
-script:
-  xcodebuild CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= PROVISIONING_PROFILE= -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=latest,name=iPhone 8' -workspace AmericanChronicle.xcworkspace -scheme "AmericanChronicle" test
