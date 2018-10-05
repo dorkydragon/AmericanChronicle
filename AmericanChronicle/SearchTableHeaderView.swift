@@ -126,7 +126,7 @@ final class SearchTableHeaderView: UIView {
     // MARK: UIView overrides
 
     override var intrinsicContentSize: CGSize {
-        var size = CGSize(width: UIViewNoIntrinsicMetric, height: 0)
+        var size = CGSize(width: UIView.noIntrinsicMetric, height: 0)
         size.height += searchField.intrinsicContentSize.height
         size.height += Dimension.verticalMargin
         size.height += earliestDateButton.intrinsicContentSize.height

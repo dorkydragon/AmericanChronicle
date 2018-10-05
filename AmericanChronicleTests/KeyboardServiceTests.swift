@@ -61,7 +61,7 @@ class KeyboardServiceTests: XCTestCase {
 
     private func postKeyboardWillShowNotification(_ endRect: CGRect) {
         let rectVal = NSValue(cgRect: endRect)
-        let userInfo = [UIKeyboardFrameEndUserInfoKey: rectVal]
-        notificationCenter.post(name: NSNotification.Name.UIKeyboardWillShow, object: nil, userInfo: userInfo)
+        let userInfo = [UIResponder.keyboardFrameEndUserInfoKey: rectVal]
+        notificationCenter.post(name: UIResponder.keyboardWillShowNotification, object: nil, userInfo: userInfo)
     }
 }

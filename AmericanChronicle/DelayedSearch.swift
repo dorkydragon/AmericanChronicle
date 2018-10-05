@@ -40,7 +40,7 @@ final class DelayedSearch: NSObject, DelayedSearchInterface {
                         selector: #selector(timerDidFire(_:)),
                         userInfo: nil,
                         repeats: false)
-        runLoop.add(timer!, forMode: RunLoopMode.defaultRunLoopMode)
+        runLoop.add(timer!, forMode: .default)
     }
 
     // MARK: Internal methods

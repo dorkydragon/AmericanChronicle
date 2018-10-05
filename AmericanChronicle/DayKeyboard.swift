@@ -26,7 +26,7 @@ final class DayKeyboard: UIView {
     // MARK: Internal methods
 
     @objc func didTapButton(_ button: UIButton) {
-        if let title = button.title(for: UIControlState()) {
+        if let title = button.title(for: .normal) {
             dayTapHandler?(title)
         }
     }
@@ -63,7 +63,7 @@ final class DayKeyboard: UIView {
 
         for subview in subviews {
             if let button = subview as? UIButton,
-                let title = button.title(for: UIControlState()),
+                let title = button.title(for: .normal),
                 let day = Int(title) {
                 button.isSelected = (day == selectedDayMonthYear.day)
             }
@@ -75,10 +75,10 @@ final class DayKeyboard: UIView {
         let normalImage = UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0)
         let highlightedImage = UIImage.imageWithFillColor(selectedBgColor, cornerRadius: 1.0)
 
-        var prevColumn: UIButton? = nil
+        var prevColumn: UIButton?
         for title in titles {
             let button = UIButton()
-            button.setTitle(title, for: UIControlState())
+            button.setTitle(title, for: .normal)
             button.titleLabel?.font = AMCFont.largeRegular
             button.isEnabled = (title != "")
             button.layer.shadowColor = AMCColor.darkGray.cgColor
@@ -86,7 +86,7 @@ final class DayKeyboard: UIView {
             button.layer.shadowRadius = 0.5
             button.layer.shadowOpacity = 0.4
 
-            button.setBackgroundImage(normalImage, for: UIControlState())
+            button.setBackgroundImage(normalImage, for: .normal)
             button.setBackgroundImage(highlightedImage, for: .selected)
             button.setBackgroundImage(highlightedImage, for: .highlighted)
 

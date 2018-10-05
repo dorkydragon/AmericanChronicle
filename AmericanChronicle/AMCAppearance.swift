@@ -4,9 +4,9 @@ extension UINavigationBar {
     class func applyAppearance() {
         let img = UIImage.imageWithFillColor(UIColor.white)
         appearance().setBackgroundImage(img, for: .any, barMetrics: .default)
-        var attributes: [NSAttributedStringKey: Any] = [:]
-        attributes[NSAttributedStringKey.foregroundColor] = AMCColor.darkGray
-        attributes[NSAttributedStringKey.font] = AMCFont.largeBold
+        var attributes: [NSAttributedString.Key: Any] = [:]
+        attributes[.foregroundColor] = AMCColor.darkGray
+        attributes[.font] = AMCFont.largeBold
         appearance().titleTextAttributes = attributes
 
     }
@@ -14,13 +14,13 @@ extension UINavigationBar {
 
 extension UIBarButtonItem {
     class func applyAppearance() {
-        var attributes: [NSAttributedStringKey: Any] = [:]
-        attributes[NSAttributedStringKey.foregroundColor] = AMCColor.brightBlue
-        attributes[NSAttributedStringKey.font] = AMCFont.mediumRegular
-        appearance().setTitleTextAttributes(attributes, for: UIControlState())
+        var attributes: [NSAttributedString.Key: Any] = [:]
+        attributes[.foregroundColor] = AMCColor.brightBlue
+        attributes[.font] = AMCFont.mediumRegular
+        appearance().setTitleTextAttributes(attributes, for: .normal)
 
-        attributes[NSAttributedStringKey.foregroundColor] = AMCColor.robinBlue
-        attributes[NSAttributedStringKey.font] = AMCFont.mediumRegular
+        attributes[.foregroundColor] = AMCColor.robinBlue
+        attributes[.font] = AMCFont.mediumRegular
         appearance().setTitleTextAttributes(attributes, for: .highlighted)
     }
 }

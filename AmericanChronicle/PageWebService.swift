@@ -27,8 +27,7 @@ final class PageWebService: PageWebServiceInterface {
     let group = DispatchGroup()
     var activeDownloads: [URL: ActivePageDownload] = [:]
     fileprivate let manager: SessionManagerProtocol
-    fileprivate let queue = DispatchQueue(label: "com.ryanipete.AmericanChronicle.PageWebService",
-                                          attributes: [])
+    fileprivate let queue = DispatchQueue(label: "com.ryanipete.AmericanChronicle.PageWebService")
 
     // MARK: Init methods
 
@@ -45,7 +44,7 @@ final class PageWebService: PageWebServiceInterface {
         // Note: Estimated filesize isn't currently supported by chroniclingamerica.loc.gov
 
         var fileURL: URL?
-        let destination: (URL, HTTPURLResponse) -> (URL, DownloadRequest.DownloadOptions) = { (temporaryURL, response) in
+        let destination: (URL, HTTPURLResponse) -> (URL, DownloadRequest.DownloadOptions) = { temporaryURL, response in
 
             let documentsDirectoryURL = FileManager.defaultDocumentDirectoryURL
             let remotePath = remoteURL.path
@@ -64,37 +63,38 @@ final class PageWebService: PageWebServiceInterface {
             return (fileURL ?? temporaryURL, .createIntermediateDirectories)
         }
         queue.async(group: group) {
-
             if var activeDownload = self.activeDownloads[remoteURL] {
                 if activeDownload.requesters[contextID] != nil {
                     DispatchQueue.main.async {
+                        let msg = "Tried to send a duplicate request."
                         let error = NSError(code: .duplicateRequest,
-                                            message: NSLocalizedString("Tried to send a duplicate request.",
-                                                                       comment: "Tried to send a duplicate request."))
+                                            message: NSLocalizedString(msg, comment: msg))
                         completion(nil, error)
                     }
                 } else {
                     let requester = PageDownloadRequester(contextID: contextID,
                                                           completion: completion)
                     activeDownload.requesters[contextID] = requester
+                    self.activeDownloads[remoteURL] = activeDownload
                 }
             } else {
                 let requester = PageDownloadRequester(contextID: contextID,
                                                       completion: completion)
                 let request = self.manager
                     .download(remoteURL.absoluteString, to: destination)
-                    .response(queue: nil) { [weak self] (response: DefaultDownloadResponse) in
+                    .response(queue: nil) { [weak self] response in
+
                         if let error = response.error as NSError? {
                             if error.code == NSFileWriteFileExistsError {
                                 // Not a real error, the file was found on disk.
                                 self?.finishRequest(withRemoteURL: remoteURL, fileURL: fileURL, error: nil)
-
                             } else {
                                 self?.finishRequest(withRemoteURL: remoteURL, fileURL: fileURL, error: error)
                             }
+                        } else {
+                            self?.finishRequest(withRemoteURL: remoteURL, fileURL: fileURL, error: nil)
                         }
                     }
-
                 let download = ActivePageDownload(request: request,
                                                   requesters: [contextID: requester])
                 self.activeDownloads[remoteURL] = download
@@ -131,7 +131,7 @@ final class PageWebService: PageWebServiceInterface {
             if let activeDownload = self.activeDownloads[remoteURL] {
                 DispatchQueue.main.async {
                     for (_, requester) in activeDownload.requesters {
-                        requester.completion(fileURL, nil)
+                        requester.completion(fileURL, error)
                     }
                     self.activeDownloads[remoteURL] = nil
                 }

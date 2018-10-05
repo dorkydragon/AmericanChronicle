@@ -30,7 +30,7 @@ final class PagedKeyboard: UIView {
         }
 
         scrollView.addSubview(contentView)
-        var prevPage: UIView? = nil
+        var prevPage: UIView?
         for page in pages {
             contentView.addSubview(page)
             page.snp.makeConstraints { make in

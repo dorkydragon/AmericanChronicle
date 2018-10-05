@@ -2,7 +2,7 @@
 // MARK: DatePickerUserInterface
 
 protocol DatePickerUserInterface {
-    weak var delegate: DatePickerUserInterfaceDelegate? { get set }
+    var delegate: DatePickerUserInterfaceDelegate? { get set }
     var selectedDayMonthYear: DayMonthYear { get set }
     var title: String? { get set }
 }

@@ -5,7 +5,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let rootWireframe = SearchWireframe()
 
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         CrashReporter.sharedInstance.applicationDidFinishLaunching()
         KeyboardService.sharedInstance.applicationDidFinishLaunching()
         AMCAppearance.apply()

@@ -65,7 +65,7 @@ final class MonthKeyboard: UIView {
         let normalBgColor = UIColor.white
 
         let button = UIButton()
-        button.setTitle(title, for: UIControlState())
+        button.setTitle(title, for: .normal)
         button.titleLabel?.font = AMCFont.largeRegular
         button.layer.shadowColor = AMCColor.darkGray.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -81,7 +81,7 @@ final class MonthKeyboard: UIView {
 
         let normalImage = UIImage.imageWithFillColor(normalBgColor, cornerRadius: 1.0)
         let highlightedImage = UIImage.imageWithFillColor(selectedBgColor, cornerRadius: 1.0)
-        button.setBackgroundImage(normalImage, for: UIControlState())
+        button.setBackgroundImage(normalImage, for: .normal)
         button.setBackgroundImage(highlightedImage, for: .highlighted)
         button.setBackgroundImage(highlightedImage, for: .selected)
 
@@ -89,7 +89,7 @@ final class MonthKeyboard: UIView {
     }
 
     fileprivate func addRowWithButtons(_ buttons: [UIButton], prevRow: UIButton? = nil) -> UIButton? {
-        var prevColumn: UIButton? = nil
+        var prevColumn: UIButton?
         for button in buttons {
             addSubview(button)
 

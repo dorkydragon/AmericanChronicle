@@ -11,9 +11,9 @@ final class TitleButton: UIButton {
         titleLabel?.font = AMCFont.mediumRegular
         setTitleColor(AMCColor.brightBlue, for: .normal)
         setTitleColor(UIColor.white, for: .highlighted)
-        setBackgroundImage(UIImage.imageWithFillColor(UIColor.white), for: UIControlState())
+        setBackgroundImage(UIImage.imageWithFillColor(UIColor.white), for: .normal)
         setBackgroundImage(UIImage.imageWithFillColor(AMCColor.brightBlue), for: .highlighted)
-        setTitle(title, for: UIControlState())
+        setTitle(title, for: .normal)
     }
 
     override convenience init(frame: CGRect) {

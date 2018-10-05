@@ -42,7 +42,7 @@ final class SearchPagesWebService: SearchPagesWebServiceInterface {
     ///     - term: must have a non-zero character count
     ///     - page: must be 1 or greater
     func startSearch(with parameters: SearchParameters, page: Int, contextID: String, completion: @escaping ((SearchResults?, Error?) -> Void)) {
-        guard !parameters.term.characters.isEmpty else {
+        guard !parameters.term.isEmpty else {
             let error = NSError(code: .invalidParameter,
                                 message: NSLocalizedString("Tried to search for an empty term.",
                                                            comment: "Tried to search for an empty term."))
@@ -82,7 +82,7 @@ final class SearchPagesWebService: SearchPagesWebServiceInterface {
     }
 
     func cancelSearch(_ parameters: SearchParameters, page: Int, contextID: String) {
-        var request: DataRequestProtocol? = nil
+        var request: DataRequestProtocol?
         queue.sync {
             let key = self.key(forParameters: parameters, page: page)
             request = self.activeRequests[key]

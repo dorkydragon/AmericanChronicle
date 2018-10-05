@@ -113,7 +113,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
 
     func userDidChangeSearch(to term: String?) {
         self.term = term
-        if term?.characters.count == 0 {
+        if term?.count == 0 {
             userInterface?.setViewState(.emptySearchField)
             interactor.cancelLastSearch()
             return
@@ -122,7 +122,7 @@ final class SearchPresenter: NSObject, SearchPresenterInterface {
     }
 
     func userIsApproachingLastRow(for term: String?, inCollection collection: [SearchResultsRow]) {
-        guard (term?.characters.count ?? 0) > 0 else { return }
+        guard (term?.count ?? 0) > 0 else { return }
         searchIfReady(.loadingMoreRows)
     }
 

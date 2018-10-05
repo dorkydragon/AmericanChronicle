@@ -41,7 +41,7 @@ final class OCRCoordinatesWebService: OCRCoordinatesWebServiceInterface {
     internal func startRequest(_ pageID: String,
                                contextID: String,
                                completion: @escaping ((OCRCoordinates?, Error?) -> Void)) {
-        if pageID.characters.isEmpty {
+        if pageID.isEmpty {
             let error = NSError(code: .invalidParameter,
                                 message: NSLocalizedString("Tried to fetch highlights info using an empty lccn.",
                                                            comment: "Tried to fetch highlights info using an empty lccn."))

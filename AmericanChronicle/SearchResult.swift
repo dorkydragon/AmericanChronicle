@@ -35,7 +35,7 @@ final class SearchResult: NSObject, Mappable {
     var thumbnailURL: URL?
     var pdfURL: URL?
     var estimatedPDFSize: Int {
-        return (ocrEng?.characters.count ?? 0) * 30
+        return (ocrEng?.count ?? 0) * 30
     }
 
     // MARK: Init methods
@@ -126,7 +126,7 @@ final class SearchResult: NSObject, Mappable {
         str += ", altTitle=\(altTitle?.description ?? empty)"
         str += ", lccn=\(lccn?.description ?? empty)"
         str += ", country=\(country?.description ?? empty)"
-        str += ", count(ocrEng)=\((ocrEng ?? empty).characters.count.description)"
+        str += ", count(ocrEng)=\((ocrEng ?? empty).count.description)"
         str += ", batch=\(batch?.description ?? empty)"
         str += ", titleNormal=\(titleNormal?.description ?? empty)"
         str += ", url=\(url?.description ?? empty)"

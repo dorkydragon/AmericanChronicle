@@ -1,29 +1,42 @@
 PODS:
-  - Alamofire (4.5.1)
-  - AlamofireObjectMapper (5.0.0):
+  - Alamofire (4.7.3)
+  - AlamofireObjectMapper (5.1.0):
     - Alamofire (~> 4.1)
-    - ObjectMapper (~> 3.0)
-  - DynamicColor (3.3)
-  - ObjectMapper (3.0.0)
-  - SDWebImage (4.1.2):
-    - SDWebImage/Core (= 4.1.2)
-  - SDWebImage/Core (4.1.2)
-  - SnapKit (4.0.0)
+    - ObjectMapper (~> 3.3)
+  - DynamicColor (4.0.2)
+  - ObjectMapper (3.3.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - SnapKit (4.0.1)
+  - SwiftLint (0.27.0)
 
 DEPENDENCIES:
   - AlamofireObjectMapper
   - DynamicColor
   - SDWebImage
   - SnapKit (~> 4.0)
+  - SwiftLint
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireObjectMapper
+    - DynamicColor
+    - ObjectMapper
+    - SDWebImage
+    - SnapKit
+    - SwiftLint
 
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
-  DynamicColor: 3cdaa1e01c16e93ba744e0630f768373e0fc7a7d
-  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
-  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireObjectMapper: 3395e698901d8b0e6f48b7d0c43bd47875325102
+  DynamicColor: c7adcfe871781a2b39877a5774e452ba51b79eb3
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 5dc8a8d477cbdd423585c1ff6756657757b3051b
+PODFILE CHECKSUM: 75e83871dbff28937467e987141d01e965d223de
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.6.0.beta.1

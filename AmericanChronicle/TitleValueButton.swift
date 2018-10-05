@@ -29,7 +29,7 @@ final class TitleValueButton: UIControl {
     }()
     fileprivate let button: UIButton = {
         let b = UIButton()
-        b.setBackgroundImage(UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0), for: UIControlState())
+        b.setBackgroundImage(UIImage.imageWithFillColor(UIColor.white, cornerRadius: 1.0), for: .normal)
         b.setBackgroundImage(UIImage.imageWithFillColor(AMCColor.brightBlue, cornerRadius: 1.0), for: .highlighted)
         return b
     }()
@@ -47,7 +47,7 @@ final class TitleValueButton: UIControl {
         layer.shadowOpacity = 0.4
 
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
-        observingToken = button.observe(\UIButton.highlighted) { [weak self] _, _ in
+        observingToken = button.observe(\UIButton.isHighlighted) { [weak self] _, _ in
             self?.isHighlighted = (self?.button.isHighlighted ?? false)
         }
         addSubview(button)
@@ -106,6 +106,6 @@ final class TitleValueButton: UIControl {
     // MARK: UIView overrides
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: Dimension.buttonHeight)
+        return CGSize(width: UIView.noIntrinsicMetric, height: Dimension.buttonHeight)
     }
 }

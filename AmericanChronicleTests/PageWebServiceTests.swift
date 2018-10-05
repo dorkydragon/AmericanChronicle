@@ -6,14 +6,14 @@ import ObjectMapper
 class PageWebServiceTests: XCTestCase {
 
     var subject: PageWebService!
-    var manager: FakeManager!
+    var manager: FakeSessionManager!
 
     // MARK: Setup and Teardown
 
     override func setUp() {
 
         super.setUp()
-        manager = FakeManager()
+        manager = FakeSessionManager()
         subject = PageWebService(manager: manager)
     }
 
@@ -27,16 +27,16 @@ class PageWebServiceTests: XCTestCase {
 
         // when
 
-        let expectation = expectationWithDescription("download_was_called")
+        let exp = expectation(description: "download_was_called")
         manager.download_wasCalled_handler = {
-            expectation.fulfill()
+            exp.fulfill()
         }
-        subject.downloadPage(URL(string: "http://notarealurl.com")!, contextID: "") { _, _ in }
-        waitForExpectationsWithTimeout(0.2, handler: nil)
+        subject.downloadPage(withRemoteURL: URL(string: "http://notarealurl.com")!, contextID: "") { _, _ in }
+        waitForExpectations(timeout: 0.2, handler: nil)
 
         // then
 
-        XCTAssertEqual(manager.download_wasCalled_withURLString?.URLString, "http://notarealurl.com")
+        XCTAssertEqual(manager.download_callLog[0].url as! String, "http://notarealurl.com")
     }
 
     func testThat_whenAnOngoingDownloadIsRequested_itDoesNotStartTheDownload() {
@@ -48,12 +48,12 @@ class PageWebServiceTests: XCTestCase {
         // Make the first request, which *does* start a download.
         let contextA = "contextA"
 
-        let expectDownloadToBeCalled = expectationWithDescription("Expect download to be called")
+        let expectDownloadToBeCalled = expectation(description: "Expect download to be called")
         manager.download_wasCalled_handler = {
             expectDownloadToBeCalled.fulfill()
         }
-        subject.downloadPage(url, contextID: contextA) { _, _ in }
-        waitForExpectationsWithTimeout(0.2, handler: nil)
+        subject.downloadPage(withRemoteURL: url, contextID: contextA) { _, _ in }
+        waitForExpectations(timeout: 0.2, handler: nil)
 
         // when
 
@@ -65,13 +65,13 @@ class PageWebServiceTests: XCTestCase {
             downloadWasCalled = true
         }
 
-        let expectGroupToFinishWork = expectationWithDescription("Expect queue group to finish its work")
-        dispatch_group_notify(subject.group, dispatch_get_main_queue()) {
+        let expectGroupToFinishWork = expectation(description: "Expect queue group to finish its work")
+        subject.group.notify(queue: .main) {
             expectGroupToFinishWork.fulfill()
         }
 
-        subject.downloadPage(URL, contextID: contextB) { _, _ in }
-        waitForExpectationsWithTimeout(0.2, handler: nil)
+        subject.downloadPage(withRemoteURL: url, contextID: contextB) { _, _ in }
+        waitForExpectations(timeout: 0.2, handler: nil)
 
         // then
 
@@ -87,22 +87,22 @@ class PageWebServiceTests: XCTestCase {
         // Make the first request.
 
         let contextA = "contextA"
-        subject.downloadPage(url, contextID: contextA) { _, _ in }
+        subject.downloadPage(withRemoteURL: url, contextID: contextA) { _, _ in }
 
         // when
 
         // Make the second request, which returns an error.
 
-        let expectGroupToFinishWork = expectationWithDescription("Expect queue group to finish its work")
-        dispatch_group_notify(subject.group, dispatch_get_main_queue()) {
+        let expectGroupToFinishWork = expectation(description: "Expect queue group to finish its work")
+        subject.group.notify(queue: .main) {
             expectGroupToFinishWork.fulfill()
         }
 
-        var returnedError: NSError? = nil
-        subject.downloadPage(url, contextID: contextA) { _, err in
-            returnedError = err as? NSError
+        var returnedError: NSError?
+        subject.downloadPage(withRemoteURL: url, contextID: contextA) { _, err in
+            returnedError = err as NSError?
         }
-        waitForExpectationsWithTimeout(0.2, handler: nil)
+        waitForExpectations(timeout: 0.2, handler: nil)
 
         // then
 
@@ -115,17 +115,17 @@ class PageWebServiceTests: XCTestCase {
 
         let urlString = "http://notarealurl.com"
         let contextID = "abcd-efgh"
-        subject.downloadPage(URL(string: urlString)!, contextID: contextID) { _, _ in }
+        subject.downloadPage(withRemoteURL: URL(string: urlString)!, contextID: contextID) { _, _ in }
 
         // when
 
-        let expectation = expectationWithDescription("completionHandler_wasCalled")
-        var error: NSError? = nil
-        subject.downloadPage(URL(string: urlString)!, contextID: contextID) { _, err in
-            error = err as? NSError
-            expectation.fulfill()
+        let exp = expectation(description: "completionHandler_wasCalled")
+        var error: NSError?
+        subject.downloadPage(withRemoteURL: URL(string: urlString)!, contextID: contextID) { _, err in
+            error = err as NSError?
+            exp.fulfill()
         }
-        waitForExpectationsWithTimeout(0.1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
 
         // then
 
@@ -136,71 +136,107 @@ class PageWebServiceTests: XCTestCase {
 
         // given
 
-        let urlString = "http://notarealurl.com"
+        let remoteURLString = "http://notarealurl.com"
+        let remoteURL = URL(string: remoteURLString)!
 
-        var URLOne: URL?
-        subject.downloadPage(URL(string: urlString)!, contextID: "abcd-efgh") { results, _ in
-            URLOne = results
+        var urlOne: URL?
+        let downloadOneFinished = XCTestExpectation(description: "Download one finished")
+        subject.downloadPage(withRemoteURL: remoteURL, contextID: "abcd-efgh") { results, _ in
+            urlOne = results
+            downloadOneFinished.fulfill()
         }
 
-        var URLTwo: URL?
-        subject.downloadPage(URL(string: urlString)!, contextID: "efgh-ijkl") { results, _ in
-            URLTwo = results
+        var urlTwo: URL?
+        let downloadTwoFinished = XCTestExpectation(description: "Download two finished")
+        subject.downloadPage(withRemoteURL: remoteURL, contextID: "efgh-ijkl") { results, _ in
+            urlTwo = results
+            downloadTwoFinished.fulfill()
         }
 
-        var URLThree: URL?
-        subject.downloadPage(URL(string: urlString)!, contextID: "ijkl-mnop") { results, _ in
-            URLThree = results
+        var urlThree: URL?
+        let downloadThreeFinished = XCTestExpectation(description: "Download three finished")
+        subject.downloadPage(withRemoteURL: remoteURL, contextID: "ijkl-mnop") { results, _ in
+            urlThree = results
+            downloadThreeFinished.fulfill()
         }
+
+        let fileURL = URL(string: "file://my/downloads/file.pdf")!
 
         // when
 
-        let expectSubjectGroupToEmpty = expectationWithDescription("empty_subject_group")
-        dispatch_group_notify(subject.group, dispatch_get_main_queue()) {
-            expectSubjectGroupToEmpty.fulfill()
+        let expectRequestsToStart = XCTestExpectation(description: "Requests started")
+        subject.group.notify(queue: .main) {
+            print("[RP] Received group.notify")
+            expectRequestsToStart.fulfill()
         }
-        waitForExpectationsWithTimeout(0.5, handler: nil)
+        wait(for: [expectRequestsToStart], timeout: 2)
 
-        manager.stubbedReturnValue.finishWithRequest(nil, response: nil, data: nil, error: nil)
+        manager.stubbedReturnDownloadRequest.finishWithRequest(nil,
+                                                               response: nil,
+                                                               destinationURL: fileURL,
+                                                               error: nil)
 
         // then
 
-        XCTAssertEqual(URLOne, URLTwo)
-        XCTAssertEqual(URLTwo, URLThree)
+        wait(for: [downloadOneFinished, downloadTwoFinished, downloadThreeFinished], timeout: 2)
+
+        XCTAssertNotNil(urlOne)
+        XCTAssertNotNil(urlTwo)
+        XCTAssertNotNil(urlThree)
+        XCTAssertEqual(urlOne, urlTwo)
+        XCTAssertEqual(urlTwo, urlThree)
     }
 
     func testThat_whenADownloadFails_itTriggersTheHandlersThatRequestedTheDownload() {
 
         // given
 
-        let urlString = "http://notarealurl.com"
+        let remoteURLString = "http://notarealurl.com"
+        let remoteURL = URL(string: remoteURLString)!
 
         var errorOne: NSError?
-        subject.downloadPage(URL(string: urlString)!, contextID: "abcd-efgh") { _, err in
-            errorOne = err as? NSError
+        let downloadOneFinished = XCTestExpectation(description: "Download one finished")
+        subject.downloadPage(withRemoteURL: remoteURL, contextID: "abcd-efgh") { _, err in
+            errorOne = err as NSError?
+            downloadOneFinished.fulfill()
         }
 
         var errorTwo: NSError?
-        subject.downloadPage(URL(string: urlString)!, contextID: "efgh-ijkl") { _, err in
-            errorTwo = err as? NSError
+        let downloadTwoFinished = XCTestExpectation(description: "Download two finished")
+        subject.downloadPage(withRemoteURL: remoteURL, contextID: "efgh-ijkl") { _, err in
+            errorTwo = err as NSError?
+            downloadTwoFinished.fulfill()
         }
 
         var errorThree: NSError?
-        subject.downloadPage(URL(string: urlString)!, contextID: "ijkl-mnop") { _, err in
-            errorThree = err as? NSError
+        let downloadThreeFinished = XCTestExpectation(description: "Download three finished")
+        subject.downloadPage(withRemoteURL: remoteURL, contextID: "ijkl-mnop") { _, err in
+            errorThree = err as NSError?
+            downloadThreeFinished.fulfill()
         }
+
+        let fileURL = URL(string: "file://my/downloads/file.pdf")!
+        let error = NSError(code: .invalidParameter, message: "")
 
         // when
 
-        let expectSubjectGroupToEmpty = expectationWithDescription("empty_subject_group")
-        dispatch_group_notify(subject.group, dispatch_get_main_queue()) {
-            expectSubjectGroupToEmpty.fulfill()
+        let expectRequestsToStart = XCTestExpectation(description: "Requests started")
+        subject.group.notify(queue: .main) {
+            expectRequestsToStart.fulfill()
         }
-        waitForExpectationsWithTimeout(0.1, handler: nil)
-        manager.stubbedReturnValue.finishWithRequest(nil, response: nil, data: nil, error: NSError(code: .InvalidParameter, message: ""))
+        wait(for: [expectRequestsToStart], timeout: 2)
+        manager.stubbedReturnDownloadRequest.finishWithRequest(nil,
+                                                               response: nil,
+                                                               destinationURL: fileURL,
+                                                               error: error)
 
         // then
 
+        wait(for: [downloadOneFinished, downloadTwoFinished, downloadThreeFinished], timeout: 2)
+
+        XCTAssertNotNil(errorOne)
+        XCTAssertNotNil(errorTwo)
+        XCTAssertNotNil(errorThree)
         XCTAssertEqual(errorOne, errorTwo)
         XCTAssertEqual(errorTwo, errorThree)
     }

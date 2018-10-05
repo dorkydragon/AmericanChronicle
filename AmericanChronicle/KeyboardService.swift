@@ -56,10 +56,10 @@ final class KeyboardService: NSObject {
     func applicationDidFinishLaunching() {
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardWillShow(_:)),
-                                       name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+                                       name: UIResponder.keyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self,
                                        selector: #selector(keyboardWillHide(_:)),
-                                       name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+                                       name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     func addFrameChangeHandler(id: String, handler: @escaping (CGRect?) -> Void) {
@@ -71,7 +71,7 @@ final class KeyboardService: NSObject {
     }
 
     @objc func keyboardWillShow(_ notification: Notification) {
-        let keyboardFrameEnd = (notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        let keyboardFrameEnd = (notification as NSNotification).userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
         keyboardFrame = keyboardFrameEnd?.cgRectValue
     }
 

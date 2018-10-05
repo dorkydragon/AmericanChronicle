@@ -2,7 +2,7 @@
 // MARK: SearchUserInterface protocol
 
 protocol SearchUserInterface: class {
-    weak var delegate: SearchUserInterfaceDelegate? { get set }
+    var delegate: SearchUserInterfaceDelegate? { get set }
     var searchTerm: String? { get set }
     var earliestDate: String? { get set }
     var latestDate: String? { get set }
@@ -63,7 +63,7 @@ final class SearchViewController: UIViewController,
 
     fileprivate let emptyResultsView = EmptyResultsView()
     fileprivate let errorView = ErrorView()
-    fileprivate let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    fileprivate let activityIndicator = UIActivityIndicatorView(style: .gray)
     fileprivate let tableView = UITableView()
     fileprivate let tableHeaderView = SearchTableHeaderView()
     fileprivate let tableFooterView = UIView()

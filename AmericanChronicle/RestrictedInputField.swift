@@ -28,7 +28,7 @@ final class RestrictedInputField: UIView, UITextFieldDelegate {
     }()
     fileprivate let tapButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(nil, for: UIControlState())
+        button.setBackgroundImage(nil, for: .normal)
         button.setBackgroundImage(nil, for: .highlighted)
         button.setBackgroundImage(nil, for: .selected)
         return button

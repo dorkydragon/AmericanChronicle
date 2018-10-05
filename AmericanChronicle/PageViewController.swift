@@ -145,23 +145,23 @@ final class PageViewController: UIViewController, PageUserInterface, UIScrollVie
 
         scrollView.addSubview(pageView)
 
-        doneButton.setBackgroundImage(nil, for: UIControlState())
-        doneButton.setTitleColor(UIColor.lightText, for: UIControlState())
-        doneButton.setTitle(nil, for: UIControlState())
+        doneButton.setBackgroundImage(nil, for: .normal)
+        doneButton.setTitleColor(UIColor.lightText, for: .normal)
+        doneButton.setTitle(nil, for: .normal)
         doneButton.tintColor = UIColor.white
         let doneImage = UIImage(named: "UIAccessoryButtonX")
-        doneButton.setImage(doneImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        doneButton.setImage(doneImage?.withRenderingMode(.alwaysTemplate), for: .normal)
 
-        shareButton.setBackgroundImage(nil, for: UIControlState())
-        shareButton.setTitleColor(UIColor.lightText, for: UIControlState())
-        shareButton.setTitle(nil, for: UIControlState())
+        shareButton.setBackgroundImage(nil, for: .normal)
+        shareButton.setTitleColor(UIColor.lightText, for: .normal)
+        shareButton.setTitle(nil, for: .normal)
         shareButton.tintColor = UIColor.white
         let actionImage = UIImage(named: "UIButtonBarAction")
         shareButton.setImage(actionImage?.withRenderingMode(.alwaysTemplate),
-                             for: UIControlState())
+                             for: .normal)
 
         toastButton.backgroundColor = UIColor(white: 1.0, alpha: 0.8)
-        toastButton.setTitleColor(UIColor.darkGray, for: UIControlState())
+        toastButton.setTitleColor(UIColor.darkGray, for: .normal)
         toastButton.layer.shadowColor = UIColor.black.cgColor
         toastButton.layer.shadowOffset = CGSize(width: 0, height: 0)
         toastButton.layer.shadowRadius = 1.0

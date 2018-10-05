@@ -14,7 +14,7 @@ final class PDFPageView: UIView {
     func commonInit() {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1.0
-        autoresizingMask = UIViewAutoresizing()
+        autoresizingMask = .flexibleLeftMargin
     }
 
     override init(frame: CGRect) {

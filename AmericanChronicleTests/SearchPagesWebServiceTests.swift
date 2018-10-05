@@ -25,7 +25,7 @@ class SearchPagesWebServiceTests: XCTestCase {
                                       states: ["Alabama", "Colorado"],
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
-        var error: NSError? = nil
+        var error: NSError?
         subject.startSearch(with: params, page: 3, contextID: "context") { _, err in
             error = err! as NSError
         }
@@ -43,7 +43,7 @@ class SearchPagesWebServiceTests: XCTestCase {
                                       states: ["Alabama", "Colorado"],
                                       earliestDayMonthYear: Search.earliestPossibleDayMonthYear,
                                       latestDayMonthYear: Search.latestPossibleDayMonthYear)
-        var error: NSError? = nil
+        var error: NSError?
         subject.startSearch(with: params, page: 0, contextID: "context") { _, err in
             error = err! as NSError
         }
@@ -65,7 +65,7 @@ class SearchPagesWebServiceTests: XCTestCase {
 
         // when
 
-        var error: NSError? = nil
+        var error: NSError?
         subject.startSearch(with: params, page: 2, contextID: "context") { _, err in
             error = err! as NSError
         }
@@ -87,7 +87,7 @@ class SearchPagesWebServiceTests: XCTestCase {
 
         // then
 
-        var resultString: String? = nil
+        var resultString: String?
         do {
             resultString = try manager.beginRequest_wasCalled_withRequest?.asURLRequest().url?.absoluteString
         } catch {
@@ -108,7 +108,7 @@ class SearchPagesWebServiceTests: XCTestCase {
 
         // then
 
-        var resultString: String? = nil
+        var resultString: String?
         do {
             resultString = try manager.beginRequest_wasCalled_withRequest?.asURLRequest().url?.absoluteString
         } catch {
@@ -133,7 +133,7 @@ class SearchPagesWebServiceTests: XCTestCase {
         case .pagesSearch(_, let page):
             XCTAssertEqual(page, 4)
         default:
-            XCTFail("Unexpected request type: \(manager.beginRequest_wasCalled_withRequest).")
+            XCTFail("Unexpected request type: \(String(describing: manager.beginRequest_wasCalled_withRequest)).")
         }
     }
 

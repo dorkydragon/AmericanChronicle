@@ -22,7 +22,7 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
 
         // when
 
-        var error: NSError? = nil
+        var error: NSError?
         subject.startRequest("", contextID: "") { _, err in
             error = err! as NSError
         }
@@ -41,7 +41,7 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
 
         // then
 
-        var resultString: String? = nil
+        var resultString: String?
         do {
             resultString = try manager.beginRequest_wasCalled_withRequest?.asURLRequest().url?.absoluteString
         } catch {
@@ -62,7 +62,7 @@ class OCRCoordinatesWebServiceTests: XCTestCase {
 
         // when
 
-        var error: NSError? = nil
+        var error: NSError?
         subject.startRequest(id, contextID: contextID) { _, err in
             error = err! as NSError
         }

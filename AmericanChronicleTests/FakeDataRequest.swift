@@ -29,7 +29,10 @@ class FakeDataRequest: DataRequestProtocol {
         handler?(responseObject)
     }
 
-    func finishWithRequest(_ request: NSURLRequest?, response: HTTPURLResponse?, data: NSData?, error: NSError?) {
+    func finishWithRequest(_ request: NSURLRequest?,
+                           response: HTTPURLResponse?,
+                           data: NSData?,
+                           error: NSError?) {
         responseWasCalled_withCallback?(request, response, data, error)
     }
 }

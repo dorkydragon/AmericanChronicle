@@ -1,7 +1,7 @@
 extension UICollectionView {
 
     var headerPaths: [IndexPath] {
-        return indexPathsForVisibleSupplementaryElements(ofKind: UICollectionElementKindSectionHeader)
+        return indexPathsForVisibleSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader)
     }
 
     var lastVisibleHeaderPath: IndexPath? {
@@ -15,7 +15,7 @@ extension UICollectionView {
     }
 
     func headerAtIndexPath(_ indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: indexPath) else {
+        guard let header = supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath) else {
             fatalError("Missing header")
         }
         return header
@@ -30,7 +30,7 @@ extension UICollectionView {
     }
 
     func dequeueHeaderForIndexPath(_ indexPath: IndexPath) -> UICollectionReusableView {
-        return dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+        return dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                       withReuseIdentifier: "Header",
                                                       for: indexPath)
     }

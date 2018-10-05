@@ -27,7 +27,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
                 let path = IndexPath(item: yearInt, section: decadeIndex)
                 yearCollectionView.selectItem(at: path,
                                               animated: true,
-                                              scrollPosition: UICollectionViewScrollPosition())
+                                              scrollPosition: .top)
                 return
             } else {
                 yearCollectionView.selectItem(at: nil, animated: false, scrollPosition: .top)
@@ -46,7 +46,7 @@ final class ByDecadeYearPicker: UIView, UICollectionViewDataSource, UICollection
         view.register(ByDecadeYearPickerCell.self,
                           forCellWithReuseIdentifier: NSStringFromClass(ByDecadeYearPickerCell.self))
         view.register(UICollectionReusableView.self,
-                      forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                       withReuseIdentifier: "Header")
         return view
     }()

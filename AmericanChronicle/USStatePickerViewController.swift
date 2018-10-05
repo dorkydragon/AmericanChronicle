@@ -61,7 +61,7 @@ final class USStatePickerViewController: UICollectionViewController,
                 collectionView?.selectItem(
                     at: IndexPath(item: idx, section: 0),
                     animated: false,
-                    scrollPosition: UICollectionViewScrollPosition())
+                    scrollPosition: .top)
             }
 
         }
